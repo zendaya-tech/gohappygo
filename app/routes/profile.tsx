@@ -221,8 +221,12 @@ const ReservationsSection = () => {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center text-gray-500 py-8">
-          Aucune réservation dans cette catégorie
+        <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+          <img
+            src="/images/noReservations.jpeg"
+            alt="No reservations"
+            className="w-[50%] h-[50%]"
+          />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -448,7 +452,7 @@ const ReviewsSection = () => {
         </div>
       ) : reviews.length === 0 ? (
         <div className="flex items-center justify-center h-64">
-          <div className="text-center">
+          {/* <div className="text-center">
             <StarIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <p className="text-gray-500 text-lg">
               {tab === "received" ? "Aucun avis reçu" : "Aucun avis donné"}
@@ -462,6 +466,13 @@ const ReviewsSection = () => {
                   ? "Cet utilisateur n'a pas encore reçu d'avis"
                   : "Cet utilisateur n'a pas encore donné d'avis"}
             </p>
+          </div> */}
+          <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+            <img
+              src="/images/noAvis.jpeg"
+              alt="No reviews"
+              className="w-[50%] h-[50%]"
+            />
           </div>
         </div>
       ) : (
@@ -661,7 +672,7 @@ const TravelRequestsSection = () => {
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
         {demands.length === 0 ? (
           <div className="flex items-center justify-center h-64">
-            <div className="text-center">
+            {/* <div className="text-center">
               <QuestionMarkCircleIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-500 text-lg">
                 {isOwnProfile
@@ -673,6 +684,14 @@ const TravelRequestsSection = () => {
                   ? "Créez une demande pour trouver un transporteur"
                   : "Cet utilisateur n'a pas encore publié de demandes"}
               </p>
+            </div> */}
+
+            <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+              <img
+                src="/images/noTravelDemandes.jpeg"
+                alt="No reservations"
+                className="w-[50%] h-[50%]"
+              />
             </div>
           </div>
         ) : (
@@ -827,7 +846,7 @@ const TravelsSection = () => {
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
         {travels.length === 0 ? (
           <div className="flex items-center justify-center h-64">
-            <div className="text-center">
+            {/* <div className="text-center">
               <PaperAirplaneIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <p className="text-gray-500 text-lg">
                 {isOwnProfile ? "Aucun voyage" : "Aucun voyage public"}
@@ -837,6 +856,14 @@ const TravelsSection = () => {
                   ? "Publiez une annonce de voyage pour transporter des baggage"
                   : "Cet utilisateur n'a pas encore publié de voyages"}
               </p>
+            </div> */}
+
+            <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+              <img
+                src="/images/noTravelAnnounces.jpeg"
+                alt="No reservations"
+                className="w-[50%] h-[50%]"
+              />
             </div>
           </div>
         ) : (
@@ -1155,8 +1182,12 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
           </div>
 
           {transactions.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              Aucune transaction pour le moment
+            <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+              <img
+                src="/images/noPaiements.jpeg"
+                alt="No reservations"
+                className="w-[50%] h-[50%]"
+              />
             </div>
           ) : (
             <div className="space-y-4">

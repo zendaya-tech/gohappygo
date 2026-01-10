@@ -254,7 +254,9 @@ export default function Annonces() {
         <div className="flex flex-col lg:flex-row relative gap-4 md:gap-8 mt-6 md:mt-10">
           {/* Left Sidebar - Filters */}
           <div className="w-full lg:w-64 flex-shrink-0">
-            <div className="lg:sticky lg:top-24 bg-gray-100 dark:bg-gray-900 rounded-2xl p-4 md:p-6 border border-gray-200 dark:border-gray-800 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+            <div
+              className={`lg:sticky lg:top-24 bg-gray-100 dark:bg-gray-900 rounded-2xl p-4 md:p-6 border border-gray-200 dark:border-gray-800 lg:max-h-[calc(100vh-7rem)] ${results.length === 0 && "h-full"} lg:overflow-y-auto`}
+            >
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 {results.length > 0 && (
                   <button className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium">
