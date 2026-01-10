@@ -711,7 +711,7 @@ export default function AnnounceDetail() {
               </div>
 
               {/* Description */}
-              <div className="mt-6 mb-8">
+              <div className="mt-6 mb-12">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
                   {listing.description || "Description non disponible"}
                 </p>

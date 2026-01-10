@@ -76,6 +76,7 @@ export default function AvatarMenu({
             {/* Section utilisateur connecté */}
             <Link
               to="/profile"
+              onClick={onClose}
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
               role="menuitem"
             >
@@ -96,7 +97,8 @@ export default function AvatarMenu({
             </Link>
 
             <Link
-              to="/messages"
+              to="/profile?section=messages"
+              onClick={onClose}
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
               role="menuitem"
             >
@@ -116,8 +118,9 @@ export default function AvatarMenu({
               Mes Messages
             </Link>
 
-            <a
-              href="/voyages"
+            <Link
+              to="/profile?section=travels"
+              onClick={onClose}
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
               role="menuitem"
             >
@@ -135,10 +138,11 @@ export default function AvatarMenu({
                 />
               </svg>
               Mes Voyages
-            </a>
+            </Link>
 
-            <a
-              href="/demandes-voyages"
+            <Link
+              to="/profile?section=travel-requests"
+              onClick={onClose}
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
               role="menuitem"
             >
@@ -156,7 +160,7 @@ export default function AvatarMenu({
                 />
               </svg>
               Mes Demandes de Voyages
-            </a>
+            </Link>
 
             {/* Séparateur */}
             <div className="border-t border-gray-100 my-1"></div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getRequests, type RequestResponse } from '~/services/requestService';
 import { getUnreadCount } from '~/services/messageService';
+import { useAuth } from '~/hooks/useAuth';
 
 interface Conversation {
   id: number;
@@ -32,6 +33,7 @@ export default function ConversationList({ onSelectConversation, selectedConvers
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalUnreadCount, setTotalUnreadCount] = useState(0);
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadConversations = async () => {
@@ -46,15 +48,20 @@ export default function ConversationList({ onSelectConversation, selectedConvers
         const unreadCount = await getUnreadCount();
         setTotalUnreadCount(unreadCount);
         
-        // Transform requests into conversations
+        // Transform requests into conversations, excluding conversations with self
         const conversationList: Conversation[] = requests
-          .filter(request => request.requester && request.travel)
+          .filter(request => {
+            // Filter out conversations where the current user is the requester (talking to themselves)
+            return request.requester && 
+                   request.travel && 
+                   request.requester.id !== Number(user?.id);
+          })
           .map(request => ({
             id: request.id,
             requestId: request.id,
             otherUser: {
               id: request.requester!.id,
-              name: `${request.requester!.firstName} ${request.requester!.lastName}`,
+              name: `${request.requester!.fullName}`,
               avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico'
             },
             unreadCount: 0, // TODO: Get per-conversation unread count
@@ -74,7 +81,7 @@ export default function ConversationList({ onSelectConversation, selectedConvers
     };
 
     loadConversations();
-  }, []);
+  }, [user?.id]);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);

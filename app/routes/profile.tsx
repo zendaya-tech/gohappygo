@@ -1524,10 +1524,19 @@ export default function Profile() {
   const isOwnProfile =
     !userId || (currentUser && userId === currentUser.id?.toString());
 
-  // Set default section based on profile type
+  // Set default section based on profile type and URL parameters
+  const sectionParam = searchParams.get("section");
   const [activeSection, setActiveSection] = useState<string>(
-    isOwnProfile ? "reservations" : "reviews"
+    sectionParam || (isOwnProfile ? "reservations" : "reviews")
   );
+
+  // Update active section when URL parameters change
+  useEffect(() => {
+    const sectionParam = searchParams.get("section");
+    if (sectionParam) {
+      setActiveSection(sectionParam);
+    }
+  }, [searchParams]);
   const [profileDialogOpen, setProfileDialogOpen] = useState<boolean>(false);
   const [createAnnounceDialogOpen, setCreateAnnounceDialogOpen] =
     useState<boolean>(false);

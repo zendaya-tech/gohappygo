@@ -10,6 +10,7 @@ export interface CreateRequestToTravelPayload {
 export interface UserResponse {
   id: number;
   firstName: string;
+  fullName:string;
   lastName: string;
   email: string;
 }

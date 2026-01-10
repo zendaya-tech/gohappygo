@@ -52,9 +52,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         markThreadAsRead(requestId).catch(console.error);
       }
     }
-    
-    setTimeout(scrollToBottom, 100);
-  }, [requestId, currentUser?.id, scrollToBottom]);
+  }, [requestId, currentUser?.id]);
 
   const handleTyping = useCallback((userId: number, isTyping: boolean) => {
     setTypingUsers(prev => {
@@ -100,7 +98,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     };
 
     loadMessages();
-  }, [requestId, scrollToBottom]);
+  }, [requestId]);
 
   // Load more messages
   const loadMoreMessages = async () => {
