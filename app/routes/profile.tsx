@@ -229,7 +229,7 @@ const ReservationsSection = () => {
           />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
           {filtered.map((request) => {
             const travel = request.travel;
             const requester = request.requester;
@@ -695,7 +695,7 @@ const TravelRequestsSection = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
             {demands.map((demand) => (
               <ActionCard
                 key={demand.id}
@@ -867,7 +867,7 @@ const TravelsSection = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
             {travels.map((travel) => (
               <ActionCard
                 key={travel.id}
@@ -1403,7 +1403,7 @@ const FavoritesSection = () => {
               Mes Favoris ({bookmarks.length})
             </h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
             {bookmarks.map((bookmark) => {
               // Determine if it's a travel or demand
               const isTravel =

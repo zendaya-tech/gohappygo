@@ -105,7 +105,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
           </h3>
 
           <div className="flex flex-col gap-1">
-            <div className="text-blue-600 font-extrabold text-sm">
+            <div className="text-blue-600 text-sm">
               {subtitle}: <span className="ml-1">{weight} kg</span>
             </div>
             <div className="flex justify-between text-[0.7rem] text-gray-400 font-bold uppercase tracking-wider">
