@@ -107,6 +107,7 @@ export interface Review {
   rating: string;
   comment: string;
   reviewer: {
+    fullName?: string;
     id: number;
     firstName: string;
     lastName: string;

@@ -468,11 +468,35 @@ const ReviewsSection = () => {
             </p>
           </div> */}
           <div className="text-center text-gray-500 py-8 flex flex-col items-center">
-            <img
-              src="/images/noAvis.jpeg"
-              alt="No reviews"
-              className="w-[50%] h-[50%]"
-            />
+            <div className={`flex items-center justify-center p-8`}>
+              {/* Chat bubble icon */}
+              <div className="mb-6 w-[30%]">
+                <img
+                  src="/images/noAvisIcon.jpeg"
+                  alt="No reviews"
+                  className="w-full h-full"
+                />
+              </div>
+
+              <div>
+                {/* Text content */}
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Aucun avis encore..
+                </h2>
+                <p className="text-gray-600 text-center mb-1">
+                  Soyez le premier à
+                </p>
+                <p className="text-gray-600 text-center mb-2">
+                  partager votre expérience
+                </p>
+                <p className="text-blue-600 font-semibold mb-6">GoHappyGo !</p>
+
+                {/* Button */}
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+                  Laisser un avis
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
