@@ -32,7 +32,7 @@ import {
   type BookmarkItem,
   getDemandAndTravel,
   getUserDemandsAndTravels,
-  deleteDemand,
+  deleteDemand as deleteOldDemand,
   type DemandTravelItem,
 } from "~/services/announceService";
 import {
@@ -46,6 +46,7 @@ import {
   getRequests,
   acceptRequest,
   completeRequest,
+  cancelRequest,
   type RequestResponse,
 } from "~/services/requestService";
 import { getMe, type GetMeResponse } from "~/services/authService";
@@ -57,6 +58,11 @@ import {
   type Balance,
 } from "~/services/transactionService";
 import { getOnboardingLink } from "~/services/stripeService";
+import {
+  getUserDemands,
+  deleteDemand,
+  type DemandItem,
+} from "~/services/demandService";
 import ActionCard from "~/components/ActionCard";
 
 interface ProfileSection {
@@ -88,13 +94,15 @@ interface Conversation {
 }
 
 const ReservationsSection = () => {
-  const [tab, setTab] = useState<"pending" | "accepted" | "completed">(
+  const [tab, setTab] = useState<"pending" | "accepted" | "completed" | "cancelled">(
     "pending"
   );
   const [requests, setRequests] = useState<RequestResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
+  const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
+  const [requestToCancel, setRequestToCancel] = useState<RequestResponse | null>(null);
   const [selectedRequester, setSelectedRequester] = useState<{
     name: string;
     avatar: string;
@@ -140,6 +148,22 @@ const ReservationsSection = () => {
     }
   };
 
+  const handleCancelRequest = async () => {
+    if (!requestToCancel) return;
+
+    try {
+      await cancelRequest(requestToCancel.id);
+      // Refresh requests
+      const response = await getRequests();
+      setRequests(response.items || []);
+      setRequestToCancel(null);
+      setCancelConfirmOpen(false);
+    } catch (error) {
+      console.error("Error canceling request:", error);
+      setErrorMessage("Erreur lors de l'annulation de la réservation");
+    }
+  };
+
   const handleContactRequester = (
     requesterName: string,
     requesterAvatar: string,
@@ -174,6 +198,7 @@ const ReservationsSection = () => {
       return status === "NEGOTIATING" || status === "PENDING";
     if (tab === "accepted") return status === "ACCEPTED";
     if (tab === "completed") return status === "COMPLETED";
+    if (tab === "cancelled") return status === "CANCELLED";
     return false;
   });
 
@@ -217,6 +242,16 @@ const ReservationsSection = () => {
           }`}
         >
           | Archived reservations
+        </button>
+        <button
+          onClick={() => setTab("cancelled")}
+          className={`text-sm font-semibold ${
+            tab === "cancelled"
+              ? "text-gray-900 dark:text-white"
+              : "text-gray-500"
+          }`}
+        >
+          | Cancelled
         </button>
       </div>
 
@@ -294,7 +329,9 @@ const ReservationsSection = () => {
                 statusBadge={
                   request.currentStatus?.status === "COMPLETED"
                     ? "Terminé"
-                    : undefined
+                    : request.currentStatus?.status === "CANCELLED"
+                      ? "Annulé"
+                      : undefined
                 }
                 primaryAction={
                   request.currentStatus?.status === "NEGOTIATING"
@@ -311,11 +348,16 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 secondaryAction={
-                  request.currentStatus?.status === "NEGOTIATING"
+                  (request.currentStatus?.status === "NEGOTIATING" ||
+                   request.currentStatus?.status === "ACCEPTED") &&
+                  request.currentStatus?.status !== "CANCELLED" &&
+                  request.currentStatus?.status !== "COMPLETED"
                     ? {
-                        label: "Rejeter",
-                        onClick: () => {},
-                        // onClick: () => handleRejectRequest(request.id),
+                        label: "Annuler",
+                        onClick: () => {
+                          setRequestToCancel(request);
+                          setCancelConfirmOpen(true);
+                        },
                         color: "red",
                       }
                     : undefined
@@ -368,6 +410,21 @@ const ReservationsSection = () => {
           onSend={handleSendMessage}
         />
       )}
+
+      {/* Cancel Confirmation Dialog */}
+      <ConfirmCancelDialog
+        open={cancelConfirmOpen}
+        onClose={() => {
+          setCancelConfirmOpen(false);
+          setRequestToCancel(null);
+        }}
+        onConfirm={handleCancelRequest}
+        title="Annuler la réservation"
+        message={`Êtes-vous sûr de vouloir annuler cette réservation ? Le montant du voyage vous sera remboursé, mais les frais de plateforme seront conservés.`}
+        confirmText="Oui, annuler"
+        cancelText="Non, garder"
+        type="danger"
+      />
     </div>
   );
 };
@@ -611,19 +668,14 @@ const ReviewsSection = () => {
 };
 
 const TravelRequestsSection = () => {
-  const [demands, setDemands] = useState<DemandTravelItem[]>([]);
+  const [demands, setDemands] = useState<DemandItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingDemand, setEditingDemand] = useState<DemandTravelItem | null>(
-    null
-  );
+  const [editingDemand, setEditingDemand] = useState<DemandItem | null>(null);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
-  const [demandToCancel, setDemandToCancel] = useState<DemandTravelItem | null>(
-    null
-  );
+  const [demandToCancel, setDemandToCancel] = useState<DemandItem | null>(null);
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("user");
-  const type = "traveler"; // Puisqu'on récupère que les demands
 
   // Use the profile user ID or current user ID
   const targetUserId = userId || currentUser?.id;
@@ -634,14 +686,8 @@ const TravelRequestsSection = () => {
     if (!targetUserId) return;
 
     try {
-      const response = await getUserDemandsAndTravels(
-        Number(targetUserId),
-        "demand"
-      );
-      const items = Array.isArray(response)
-        ? response
-        : (response?.items ?? []);
-      setDemands(items);
+      const response = await getUserDemands(Number(targetUserId));
+      setDemands(response.items || []);
     } catch (error) {
       console.error("Error fetching demands:", error);
     } finally {
@@ -663,7 +709,6 @@ const TravelRequestsSection = () => {
       setDemandToCancel(null);
     } catch (error) {
       console.error("Error canceling demand:", error);
-      // You could show an error modal here instead of alert
     }
   };
 
@@ -696,24 +741,10 @@ const TravelRequestsSection = () => {
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
         {demands.length === 0 ? (
           <div className="flex items-center justify-center h-64">
-            {/* <div className="text-center">
-              <QuestionMarkCircleIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg">
-                {isOwnProfile
-                  ? "Aucune demande de voyage"
-                  : "Aucune demande de voyage publique"}
-              </p>
-              <p className="text-gray-400 text-sm mt-2">
-                {isOwnProfile
-                  ? "Créez une demande pour trouver un transporteur"
-                  : "Cet utilisateur n'a pas encore publié de demandes"}
-              </p>
-            </div> */}
-
             <div className="text-center text-gray-500 py-8 flex flex-col items-center">
               <img
                 src="/images/noTravelDemandes.jpeg"
-                alt="No reservations"
+                alt="No demands"
                 className="w-[50%] h-[50%]"
               />
             </div>
@@ -723,20 +754,21 @@ const TravelRequestsSection = () => {
             {demands.map((demand) => (
               <ActionCard
                 key={demand.id}
-                id={demand.id}
+                id={demand.id.toString()}
                 image={
-                  demand.images?.[0]?.fileUrl || demand.user?.profilePictureUrl
+                  demand.images?.[0]?.fileUrl || demand.user?.profilePictureUrl || "/favicon.ico"
                 }
                 title={`${demand.departureAirport?.name || "N/A"} → ${demand.arrivalAirport?.name || "N/A"}`}
                 subtitle="Poids requis"
                 dateLabel={
+                  demand.travelDate ? formatDate(demand.travelDate) : 
                   demand.deliveryDate ? formatDate(demand.deliveryDate) : "—"
                 }
                 flightNumber={demand.flightNumber}
                 weight={demand.weight || 0}
                 price={demand.pricePerKg}
-                type={type}
-                priceSubtext="€/Kg"
+                type="traveler"
+                priceSubtext={`${demand.currency?.symbol || "€"}/Kg`}
                 // Buttons for Demands
                 primaryAction={
                   isOwnProfile
@@ -769,7 +801,7 @@ const TravelRequestsSection = () => {
         <EditPackageDialog
           open={!!editingDemand}
           onClose={() => setEditingDemand(null)}
-          demand={editingDemand}
+          demand={editingDemand as any} // Type conversion for compatibility
           onSuccess={handleEditSuccess}
         />
       )}

@@ -96,3 +96,13 @@ export const completeRequest = async (requestId: number): Promise<RequestRespons
     throw error?.response?.data || error;
   }
 };
+
+export const cancelRequest = async (requestId: number): Promise<RequestResponse> => {
+  try {
+    const response = await api.delete(`/request/${requestId}/cancel`);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error canceling request:", error);
+    throw error?.response?.data || error;
+  }
+};
