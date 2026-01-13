@@ -10,13 +10,26 @@ import MessageDialog from "~/components/common/dialog/MessageDialog";
 import ShareDialog from "~/components/common/dialog/ShareDialog";
 import CreateAnnounceDialog from "~/components/common/dialog/CreateAnnounceDialog";
 import AlertDialog from "~/components/common/dialog/AlertDialog";
-import { getAnnounceByIdAndType, type DemandTravelItem } from "~/services/announceService";
+import {
+  getAnnounceByIdAndType,
+  type DemandTravelItem,
+} from "~/services/announceService";
 import { getRandomQuotes, type Quote } from "~/services/quotesService";
 import { useAuthStore, type AuthState } from "~/store/auth";
-import { createRequestToTravel, type CreateRequestToTravelPayload } from "~/services/requestService";
+import {
+  createRequestToTravel,
+  type CreateRequestToTravelPayload,
+} from "~/services/requestService";
 import type { BookingCardData } from "~/components/common/dialog/BookingDialog";
-import { calculatePricing, type PricingCalculationResponse } from "~/services/pricingService";
-import { addBookmark, removeBookmark, checkIfBookmarked } from "~/services/bookmarkService";
+import {
+  calculatePricing,
+  type PricingCalculationResponse,
+} from "~/services/pricingService";
+import {
+  addBookmark,
+  removeBookmark,
+  checkIfBookmarked,
+} from "~/services/bookmarkService";
 
 // Reviews are now fetched from the API
 
@@ -49,7 +62,8 @@ export default function AnnounceDetail() {
   const [newRating, setNewRating] = useState<number>(0);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [quotesError, setQuotesError] = useState<string | null>(null);
-  const [pricingData, setPricingData] = useState<PricingCalculationResponse | null>(null);
+  const [pricingData, setPricingData] =
+    useState<PricingCalculationResponse | null>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
   const [tooltipVisible, setTooltipVisible] = useState<{
     serviceFee: boolean;
@@ -60,7 +74,7 @@ export default function AnnounceDetail() {
     vat: false,
     insurance: false,
   });
-  
+
   // Alert dialog state
   const [alertDialog, setAlertDialog] = useState<{
     open: boolean;
@@ -73,14 +87,20 @@ export default function AnnounceDetail() {
     message: "",
     type: "success",
   });
-  
+
   // Import auth store to check if user owns this announce
   const currentUser = useAuthStore((s: AuthState) => s.user);
   const isLoggedIn = useAuthStore((s: AuthState) => s.isLoggedIn);
-  const isOwnAnnounce = Boolean(currentUser && listing && listing.user?.id === Number(currentUser.id));
-  
+  const isOwnAnnounce = Boolean(
+    currentUser && listing && listing.user?.id === Number(currentUser.id)
+  );
+
   // Helper function to show alert dialog
-  const showAlert = (title: string, message: string, type: "success" | "error" | "warning") => {
+  const showAlert = (
+    title: string,
+    message: string,
+    type: "success" | "error" | "warning"
+  ) => {
     setAlertDialog({
       open: true,
       title,
@@ -136,7 +156,7 @@ export default function AnnounceDetail() {
       setIsBookmarkLoading(false);
     }
   };
-  
+
   // Use real reviews from listing
   const reviews = useMemo(() => {
     if (!listing?.reviews) return [];
@@ -149,20 +169,22 @@ export default function AnnounceDetail() {
       createdAt: review.createdAt,
     }));
   }, [listing?.reviews]);
-  
+
   // Format user name from firstName and lastName
   const userName = useMemo(() => {
     if (!listing?.user) return "Voyageur";
-    const { firstName, lastName,fullName } = listing.user;
+    const { firstName, lastName, fullName } = listing.user;
     if (fullName) {
       return fullName;
     }
-    return firstName +" "+ lastName ;
+    return firstName + " " + lastName;
   }, [listing?.user]);
-  
-  const averageRating = reviews.length > 0
-    ? reviews.reduce((sum: number, review: any) => sum + review.rating, 0) / reviews.length
-    : 0;
+
+  const averageRating =
+    reviews.length > 0
+      ? reviews.reduce((sum: number, review: any) => sum + review.rating, 0) /
+        reviews.length
+      : 0;
   const totalReviews = reviews.length;
 
   useEffect(() => {
@@ -186,10 +208,13 @@ export default function AnnounceDetail() {
 
   // Update meta tags dynamically when listing data is loaded
   useEffect(() => {
-    if (listing && typeof document !== 'undefined') {
+    if (listing && typeof document !== "undefined") {
       const title = `${listing.departureAirport?.name || "Départ"} → ${listing.arrivalAirport?.name || "Arrivée"} - ${listing.pricePerKg} €/kg - GoHappyGo`;
       const description = `${type === "travel" ? "Voyage" : "Demande"} de ${userName} : ${listing.description || "Transport de bagages disponible"}`;
-      const imageUrl = listing.images?.[0]?.fileUrl || listing.user?.profilePictureUrl || "https://gohappygo.com/og-image.jpg";
+      const imageUrl =
+        listing.images?.[0]?.fileUrl ||
+        listing.user?.profilePictureUrl ||
+        "https://gohappygo.com/og-image.jpg";
       const url = window.location.href;
 
       // Update document title
@@ -201,11 +226,17 @@ export default function AnnounceDetail() {
         if (meta) {
           meta.content = content;
         } else {
-          meta = document.createElement('meta');
-          if (selector.includes('property=')) {
-            meta.setAttribute('property', selector.match(/property="([^"]+)"/)?.[1] || '');
+          meta = document.createElement("meta");
+          if (selector.includes("property=")) {
+            meta.setAttribute(
+              "property",
+              selector.match(/property="([^"]+)"/)?.[1] || ""
+            );
           } else {
-            meta.setAttribute('name', selector.match(/name="([^"]+)"/)?.[1] || '');
+            meta.setAttribute(
+              "name",
+              selector.match(/name="([^"]+)"/)?.[1] || ""
+            );
           }
           meta.content = content;
           document.head.appendChild(meta);
@@ -254,17 +285,17 @@ export default function AnnounceDetail() {
         // Fallback calculation if API fails
         const subtotal = kilos * (listing.pricePerKg || 0);
         const serviceFee = subtotal * 0.05; // 5% service fee
-        const vatRate = 0.20; // 20% VAT
+        const vatRate = 0.2; // 20% VAT
         const vat = subtotal * vatRate;
         const insurance = 0; // Insurance is free
         const platformTax = 0; // No platform tax
         const total = subtotal + serviceFee + vat + insurance + platformTax;
-        
+
         setPricingData({
           travelerPayment: subtotal,
           fee: serviceFee,
           tvaAmount: vat,
-          totalAmount: total
+          totalAmount: total,
         });
       } finally {
         setPricingLoading(false);
@@ -284,7 +315,10 @@ export default function AnnounceDetail() {
 
       try {
         const bookmarkType = type === "travel" ? "TRAVEL" : "DEMAND";
-        const bookmarkStatus = await checkIfBookmarked(bookmarkType, Number(id));
+        const bookmarkStatus = await checkIfBookmarked(
+          bookmarkType,
+          Number(id)
+        );
         setIsFavorite(bookmarkStatus);
       } catch (error) {
         console.error("Error checking bookmark status:", error);
@@ -298,30 +332,30 @@ export default function AnnounceDetail() {
   // Simple gallery to mirror the design - Always 3 images
   const galleryImages = useMemo(() => {
     if (!listing) return ["/logo.png", "/logo.png", "/logo.png"];
-    const images = listing.images?.map(img => img.fileUrl) || [];
-    
+    const images = listing.images?.map((img) => img.fileUrl) || [];
+
     if (type === "travel") {
       // Pour les voyages: logo de la compagnie + images
       const travelImages = [];
-      
+
       // Image principale (logo de la compagnie ou première image)
       travelImages.push(listing.airline?.logoUrl || images[0] || "/logo.png");
-      
+
       // Deuxième image
       travelImages.push(images[0] || "/logo.png");
-      
+
       // Troisième image
       travelImages.push(images[1] || "/logo.png");
-      
+
       return travelImages;
     } else {
       // Pour les demandes: toujours 3 images avec placeholders si nécessaire
       const demandImages = [];
-      
+
       demandImages.push(images[0] || "/logo.png");
       demandImages.push(images[1] || "/logo.png");
       demandImages.push(images[2] || "/logo.png");
-      
+
       return demandImages;
     }
   }, [listing, type]);
@@ -411,10 +445,10 @@ export default function AnnounceDetail() {
   const total = pricingData?.totalAmount || 0;
   const currencySymbol = listing?.currency?.symbol || "€"; // Fallback to Euro if no currency
 
-  const availableWeight = type === "travel" ? listing.weightAvailable : listing.weight;
+  const availableWeight =
+    type === "travel" ? listing.weightAvailable : listing.weight;
 
   const handleBookingConfirm = async (cardData: BookingCardData) => {
-
     if (!currentUser) {
       setBookOpen(false);
       showAlert(
@@ -459,24 +493,24 @@ export default function AnnounceDetail() {
     try {
       const payload: CreateRequestToTravelPayload = {
         travelId: Number(id),
-        requestType: 'GoAndGo',
+        requestType: "GoAndGo",
         weight: kilos,
         paymentMethodId: cardData.paymentMethodId,
       };
 
       const response = await createRequestToTravel(payload);
       setBookOpen(false);
-      
+
       // Show success message
       showAlert(
         "Réservation réussie!",
         `Votre demande #${response.id} a été créée avec succès.`,
         "success"
       );
-      
+
       // Reset kilos
       setKilos(0);
-      
+
       // Optionally refresh the listing to update available weight
       const updatedListing = await getAnnounceByIdAndType(id, type);
       if (updatedListing) {
@@ -484,13 +518,10 @@ export default function AnnounceDetail() {
       }
     } catch (error: any) {
       console.error("Booking error:", error);
-      const errorMessage = error?.message || "Une erreur est survenue lors de la réservation";
+      const errorMessage =
+        error?.message || "Une erreur est survenue lors de la réservation";
       setBookOpen(false);
-      showAlert(
-        "Erreur de réservation",
-        errorMessage,
-        "error"
-      );
+      showAlert("Erreur de réservation", errorMessage, "error");
     }
   };
 
@@ -498,8 +529,6 @@ export default function AnnounceDetail() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
-
-
         {/* Left: media + traveller + route + description */}
         <div>
           {/* top right small action */}
@@ -559,7 +588,7 @@ export default function AnnounceDetail() {
                 {isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
               </button>
             )}
-            
+
             {isOwnAnnounce && (
               <div className="inline-flex items-center gap-2 text-gray-500">
                 <span className="text-sm font-medium">Votre annonce</span>
@@ -583,15 +612,16 @@ export default function AnnounceDetail() {
                     src={galleryImages[0]}
                     alt="Image principale"
                     className={`h-full w-full transition-transform duration-300 group-hover:scale-110 ${
-                      type === "travel" && galleryImages[0] === listing.airline?.logoUrl 
-                        ? "object-contain p-8" 
+                      type === "travel" &&
+                      galleryImages[0] === listing.airline?.logoUrl
+                        ? "object-contain p-8"
                         : "object-cover"
                     }`}
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
                 </div>
               </div>
-              
+
               {/* Images secondaires - toujours 2 images */}
               <div className="w-full md:w-80 flex flex-row md:flex-col gap-3 h-[120px] md:h-full">
                 {/* Deuxième image */}
@@ -609,7 +639,7 @@ export default function AnnounceDetail() {
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
                 </div>
-                
+
                 {/* Troisième image */}
                 <div
                   className="relative flex-1 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-lg"
@@ -644,14 +674,18 @@ export default function AnnounceDetail() {
                       {userName}
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
-                      {averageRating > 0 ? `Note ${averageRating.toFixed(1)}` : "Pas encore noté"} •{" "}
-                      {listing.user?.isVerified ? "Vérifié" : "Non vérifié"}
+                      {averageRating > 0
+                        ? `Note ${averageRating.toFixed(1)}`
+                        : "Pas encore noté"}{" "}
+                      • {listing.user?.isVerified ? "Vérifié" : "Non vérifié"}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                   <button
-                    onClick={() => navigate(`/profile?user=${listing.user?.id}`)}
+                    onClick={() =>
+                      navigate(`/profile?user=${listing.user?.id}`)
+                    }
                     disabled={isOwnAnnounce}
                     className={`rounded-lg px-4 sm:px-5 py-2 text-sm font-semibold shadow-sm transition-colors duration-200 flex-1 sm:flex-none ${
                       isOwnAnnounce
@@ -680,9 +714,18 @@ export default function AnnounceDetail() {
                 <div className="md:col-span-9">
                   <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-2 text-gray-700 dark:text-gray-300">
                     <span className="font-medium">
-                      {listing.departureAirport?.name || "Départ"} → {listing.arrivalAirport?.name || "Arrivée"}
+                      {listing.departureAirport?.name || "Départ"} →{" "}
+                      {listing.arrivalAirport?.name || "Arrivée"}
                     </span>
-                    <span>Départ: {formatDate(listing.departureDatetime || listing.travelDate || listing.deliveryDate || new Date().toISOString())}</span>
+                    <span>
+                      Départ:{" "}
+                      {formatDate(
+                        listing.departureDatetime ||
+                          listing.travelDate ||
+                          listing.deliveryDate ||
+                          new Date().toISOString()
+                      )}
+                    </span>
                     {type === "travel" && (
                       <>
                         <span className="font-medium">
@@ -722,24 +765,23 @@ export default function AnnounceDetail() {
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   {/* Reservation type badge */}
                   <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-                    <img 
-                      src="/images/badges/multiple.jpeg" 
-                      alt="Type de réservation" 
+                    <img
+                      src="/images/badges/multiple.jpeg"
+                      alt="Type de réservation"
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      {listing.isSharedWeight 
-                        ? "peut prendre des kilos de plusieurs voyageurs" 
-                        : "accepte qu'une personne pour tous les kilos"
-                      }
+                      {listing.isSharedWeight
+                        ? "peut prendre des kilos de plusieurs voyageurs"
+                        : "accepte qu'une personne pour tous les kilos"}
                     </span>
                   </div>
 
                   {/* Punctuality badge */}
                   <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-                    <img 
-                      src="/images/badges/ponctuel.jpeg" 
-                      alt="Ponctualité" 
+                    <img
+                      src="/images/badges/ponctuel.jpeg"
+                      alt="Ponctualité"
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
@@ -749,28 +791,30 @@ export default function AnnounceDetail() {
 
                   {/* Extra weight badge */}
                   <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-                    <img 
-                      src="/images/badges/kilos_trop.jpeg" 
-                      alt="Poids supplémentaire" 
+                    <img
+                      src="/images/badges/kilos_trop.jpeg"
+                      alt="Poids supplémentaire"
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      {listing.isAllowExtraWeight 
-                        ? "accepte quelques grammes en trop" 
-                        : "n'accepte pas de grammes en trop"
-                      }
+                      {listing.isAllowExtraWeight
+                        ? "accepte quelques grammes en trop"
+                        : "n'accepte pas de grammes en trop"}
                     </span>
                   </div>
 
                   {/* Booking type badge */}
                   <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
-                    <img 
-                      src="/images/badges/reservation.jpeg" 
-                      alt="Type de confirmation" 
+                    <img
+                      src="/images/badges/reservation.jpeg"
+                      alt="Type de confirmation"
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      la réservation sera confirmée {listing.isInstant ? "instantanément" : "par l'HappyVoyageur"}
+                      la réservation sera confirmée{" "}
+                      {listing.isInstant
+                        ? "instantanément"
+                        : "par l'HappyVoyageur"}
                     </span>
                   </div>
                 </div>
@@ -812,7 +856,8 @@ export default function AnnounceDetail() {
                 <div className="mt-8">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
-                      {reviews.length} Commentaire{reviews.length > 1 ? 's' : ''}
+                      {reviews.length} Commentaire
+                      {reviews.length > 1 ? "s" : ""}
                     </h4>
                     <div className="flex items-center gap-2 text-sm">
                       <div className="flex items-center">
@@ -846,14 +891,17 @@ export default function AnnounceDetail() {
                       </div>
                     ) : (
                       reviews.map((review: any) => {
-                        const reviewDate = review.createdAt 
-                          ? new Date(review.createdAt).toLocaleDateString("fr-FR", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            })
+                        const reviewDate = review.createdAt
+                          ? new Date(review.createdAt).toLocaleDateString(
+                              "fr-FR",
+                              {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                              }
+                            )
                           : "";
-                        
+
                         return (
                           <div
                             key={review.id}
@@ -922,7 +970,7 @@ export default function AnnounceDetail() {
                           setKilos(0);
                         } else {
                           // Remove leading zeros and convert to number
-                          const cleanValue = value.replace(/^0+/, '') || '0';
+                          const cleanValue = value.replace(/^0+/, "") || "0";
                           const numValue = Number(cleanValue);
                           if (!isNaN(numValue) && numValue >= 0) {
                             setKilos(numValue);
@@ -943,19 +991,37 @@ export default function AnnounceDetail() {
                           <div className="flex items-center justify-between text-gray-700 dark:text-gray-300">
                             <span>Frais de service</span>
                             <div className="flex items-center gap-2">
-                              <span>{pricingData.fee.toFixed(2)} {currencySymbol}</span>
+                              <span>
+                                {pricingData.fee.toFixed(2)} {currencySymbol}
+                              </span>
                               <div className="relative">
-                                <button 
+                                <button
                                   className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover:bg-gray-100"
-                                  onMouseEnter={() => setTooltipVisible(prev => ({ ...prev, serviceFee: true }))}
-                                  onMouseLeave={() => setTooltipVisible(prev => ({ ...prev, serviceFee: false }))}
+                                  onMouseEnter={() =>
+                                    setTooltipVisible((prev) => ({
+                                      ...prev,
+                                      serviceFee: true,
+                                    }))
+                                  }
+                                  onMouseLeave={() =>
+                                    setTooltipVisible((prev) => ({
+                                      ...prev,
+                                      serviceFee: false,
+                                    }))
+                                  }
                                 >
                                   ?
                                 </button>
                                 {tooltipVisible.serviceFee && (
                                   <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
-                                    <div className="font-semibold mb-1">Frais de service GoHappyGo</div>
-                                    <div>Ces frais couvrent le traitement sécurisé de votre paiement, le support client 24/7, et la garantie de transaction.</div>
+                                    <div className="font-semibold mb-1">
+                                      Frais de service GoHappyGo
+                                    </div>
+                                    <div>
+                                      Ces frais couvrent le traitement sécurisé
+                                      de votre paiement, le support client 24/7,
+                                      et la garantie de transaction.
+                                    </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
                                 )}
@@ -965,19 +1031,38 @@ export default function AnnounceDetail() {
                           <div className="flex items-center justify-between text-gray-700 dark:text-gray-300">
                             <span>TVA 20%</span>
                             <div className="flex items-center gap-2">
-                              <span>{pricingData.tvaAmount.toFixed(2)} {currencySymbol}</span>
+                              <span>
+                                {pricingData.tvaAmount.toFixed(2)}{" "}
+                                {currencySymbol}
+                              </span>
                               <div className="relative">
-                                <button 
+                                <button
                                   className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover:bg-gray-100"
-                                  onMouseEnter={() => setTooltipVisible(prev => ({ ...prev, vat: true }))}
-                                  onMouseLeave={() => setTooltipVisible(prev => ({ ...prev, vat: false }))}
+                                  onMouseEnter={() =>
+                                    setTooltipVisible((prev) => ({
+                                      ...prev,
+                                      vat: true,
+                                    }))
+                                  }
+                                  onMouseLeave={() =>
+                                    setTooltipVisible((prev) => ({
+                                      ...prev,
+                                      vat: false,
+                                    }))
+                                  }
                                 >
                                   ?
                                 </button>
                                 {tooltipVisible.vat && (
                                   <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
-                                    <div className="font-semibold mb-1">Taxe sur la Valeur Ajoutée</div>
-                                    <div>TVA française de 20% appliquée conformément à la réglementation fiscale en vigueur sur les services numériques.</div>
+                                    <div className="font-semibold mb-1">
+                                      Taxe sur la Valeur Ajoutée
+                                    </div>
+                                    <div>
+                                      TVA française de 20% appliquée
+                                      conformément à la réglementation fiscale
+                                      en vigueur sur les services numériques.
+                                    </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
                                 )}
@@ -990,30 +1075,50 @@ export default function AnnounceDetail() {
                                 <span>Assurance Protection</span>
                                 <span>Juridique Internationale</span>
                               </div>
-                              <img 
-                                src="/images/axa-logo.svg" 
-                                alt="AXA" 
+                              <img
+                                src="/images/axa-logo.svg"
+                                alt="AXA"
                                 className="h-6 w-6 rounded object-contain"
                                 onError={(e) => {
                                   // Fallback if image doesn't exist
-                                  e.currentTarget.style.display = 'none';
+                                  e.currentTarget.style.display = "none";
                                 }}
                               />
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-green-600 font-semibold">Offert !</span>
+                              <span className="text-green-600 font-semibold">
+                                Offert !
+                              </span>
                               <div className="relative">
-                                <button 
+                                <button
                                   className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover:bg-gray-100"
-                                  onMouseEnter={() => setTooltipVisible(prev => ({ ...prev, insurance: true }))}
-                                  onMouseLeave={() => setTooltipVisible(prev => ({ ...prev, insurance: false }))}
+                                  onMouseEnter={() =>
+                                    setTooltipVisible((prev) => ({
+                                      ...prev,
+                                      insurance: true,
+                                    }))
+                                  }
+                                  onMouseLeave={() =>
+                                    setTooltipVisible((prev) => ({
+                                      ...prev,
+                                      insurance: false,
+                                    }))
+                                  }
                                 >
                                   ?
                                 </button>
                                 {tooltipVisible.insurance && (
                                   <div className="absolute bottom-full right-0 mb-2 w-72 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
-                                    <div className="font-semibold mb-1">Assurance Protection Juridique AXA</div>
-                                    <div>Protection juridique internationale offerte par AXA. Couvre les litiges liés au transport, assistance juridique 24/7, et remboursement des frais de justice jusqu'à 15 000€.</div>
+                                    <div className="font-semibold mb-1">
+                                      Assurance Protection Juridique AXA
+                                    </div>
+                                    <div>
+                                      Protection juridique internationale
+                                      offerte par AXA. Couvre les litiges liés
+                                      au transport, assistance juridique 24/7,
+                                      et remboursement des frais de justice
+                                      jusqu'à 15 000€.
+                                    </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
                                 )}
@@ -1028,7 +1133,8 @@ export default function AnnounceDetail() {
                               Total with taxes
                             </span>
                             <span className="font-bold text-lg text-gray-900 dark:text-white">
-                              {pricingData.totalAmount.toFixed(2)} {currencySymbol}
+                              {pricingData.totalAmount.toFixed(2)}{" "}
+                              {currencySymbol}
                             </span>
                           </div>
                         </div>
@@ -1046,41 +1152,57 @@ export default function AnnounceDetail() {
                         {quotesError}
                       </div>
                     )}
-                    {quotes.map((q, index) => {
-                      const fontClass = q.fontFamily
-                        ? `font-${q.fontFamily.toLowerCase()}`
-                        : "";
-                      const isEven = index % 2 === 0;
-                      const alignmentClass = isEven ? "ml-auto" : "mr-auto";
+                    <div className="mt-6 bg-gray-50 dark:bg-gray-800/50 rounded-3xl p-6 border border-gray-100 dark:border-gray-700">
+                      <div className="grid grid-cols-1 gap-6">
+                        {quotes.slice(0, 4).map((q, index) => {
+                          // Mapping des polices vers des classes CSS et ajustement des tailles
+                          const fontConfigs: Record<string, string> = {
+                            sacramento:
+                              "font-sacramento text-xl leading-relaxed",
+                            cinzel:
+                              "font-cinzel text-xs font-bold tracking-widest uppercase",
+                            playfair: "font-playfair text-base italic",
+                            montserrat:
+                              "font-montserrat text-sm font-medium tracking-tight",
+                          };
 
-                      // Adjust text size based on font family
-                      const textSizeClass =
-                        q.fontFamily === "sacramento"
-                          ? "text-base"
-                          : q.fontFamily === "cinzel"
-                          ? "text-xs font-medium"
-                          : q.fontFamily === "playfair"
-                          ? "text-sm"
-                          : "text-xs";
+                          const currentFontConfig =
+                            fontConfigs[q.fontFamily?.toLowerCase() || ""] ||
+                            "font-sans text-sm";
 
-                      return (
-                        <div
-                          key={q.id}
-                          className={`text-gray-700 my-4 w-[80%] min-w-52 text-center dark:text-gray-300 max-w-60  ${alignmentClass}`}
-                        >
-                          <p
-                            className={`text-gray-700 dark:text-gray-300 ${fontClass} ${textSizeClass} ${alignmentClass}`}
-                          >
-                            {"<< " + q.quote + " >>"}
-                          </p>
-                          <span
-                            className={`text-gray-900 text-sm dark:text-gray-300 font-semibold block mt-2 ${alignmentClass}`}
-                          >
-                            {q.author || "Anonyme"}
-                          </span>
-                        </div>
-                      );
-                    })}
+                          // Alternance visuelle : les citations paires sont légèrement décalées
+                          const isEven = index % 2 === 0;
+
+                          return (
+                            <div
+                              key={q.id}
+                              className={`flex flex-col p-4 transition-transform hover:scale-[1.02] ${
+                                isEven
+                                  ? "items-start text-left"
+                                  : "items-end text-right"
+                              }`}
+                            >
+                              <div className="relative group">
+                                {/* Guilllemet décoratif en arrière-plan */}
+                                <span className="absolute -top-4 -left-2 text-4xl text-blue-200 dark:text-blue-900/30 opacity-50 pointer-events-none">
+                                  "
+                                </span>
+
+                                <p
+                                  className={`text-gray-800 dark:text-gray-200 font-bold ${currentFontConfig}`}
+                                >
+                                  {q.quote}
+                                </p>
+
+                                <span className="mt-2 block text-[10px] uppercase tracking-tighter text-blue-600 dark:text-blue-400 opacity-80">
+                                  — {q.author || "Anonyme"}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </>
                 )}
 
@@ -1092,11 +1214,13 @@ export default function AnnounceDetail() {
                       isOwnAnnounce
                         ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                         : !pricingData
-                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
+                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
                     }`}
                   >
-                    {isOwnAnnounce ? "Votre voyage" : `Payer ${total.toFixed(2)} ${currencySymbol}`}
+                    {isOwnAnnounce
+                      ? "Votre voyage"
+                      : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
@@ -1155,14 +1279,14 @@ export default function AnnounceDetail() {
         onClose={() => setCreateOpen(false)}
         initialData={{
           departure: {
-            id: listing.departureAirportId?.toString() || "",
+            id: listing.departureAirportId,
             code: "",
             name: listing.departureAirport?.name || "",
             city: listing.departureAirport?.municipality || "",
             country: listing.departureAirport?.isoCountry || "",
           },
           arrival: {
-            id: listing.arrivalAirportId?.toString() || "",
+            id: listing.arrivalAirportId,
             code: "",
             name: listing.arrivalAirport?.name || "",
             city: listing.arrivalAirport?.municipality || "",
@@ -1173,7 +1297,10 @@ export default function AnnounceDetail() {
           pricePerKg: listing.pricePerKg,
           travelDate: (() => {
             try {
-              const dateStr = listing.departureDatetime || listing.travelDate || listing.deliveryDate;
+              const dateStr =
+                listing.departureDatetime ||
+                listing.travelDate ||
+                listing.deliveryDate;
               if (!dateStr) return "";
               const d = new Date(dateStr);
               if (Number.isNaN(d.getTime())) return "";
@@ -1268,10 +1395,10 @@ export default function AnnounceDetail() {
                 src={galleryImages[currentImageIndex]}
                 alt={`Image ${currentImageIndex + 1}`}
                 className={`max-w-full max-h-full w-full h-full ${
-                  type === "travel" && 
-                  currentImageIndex === 0 && 
-                  galleryImages[0] === listing.airline?.logoUrl 
-                    ? "object-contain p-8" 
+                  type === "travel" &&
+                  currentImageIndex === 0 &&
+                  galleryImages[0] === listing.airline?.logoUrl
+                    ? "object-contain p-8"
                     : "object-cover"
                 }`}
               />
@@ -1303,7 +1430,7 @@ export default function AnnounceDetail() {
       {/* Alert Dialog */}
       <AlertDialog
         open={alertDialog.open}
-        onClose={() => setAlertDialog(prev => ({ ...prev, open: false }))}
+        onClose={() => setAlertDialog((prev) => ({ ...prev, open: false }))}
         title={alertDialog.title}
         message={alertDialog.message}
         type={alertDialog.type}
@@ -1318,17 +1445,17 @@ export const meta: Route.MetaFunction = ({ location }) => {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id") || "unknown";
   const type = searchParams.get("type") || "travel";
-  
+
   // Create dynamic meta tags based on URL parameters
   const title = `${type === "travel" ? "Voyage" : "Demande"} #${id} - GoHappyGo`;
   const description = `Découvrez cette ${type === "travel" ? "annonce de voyage" : "demande de transport"} sur GoHappyGo. Transport de bagages entre voyageurs.`;
   const url = `https://gohappygo.com${location.pathname}${location.search}`;
   const imageUrl = "https://gohappygo.com/og-image.jpg";
-  
+
   return [
     { title },
     { name: "description", content: description },
-    
+
     // Open Graph
     { property: "og:title", content: title },
     { property: "og:description", content: description },
@@ -1337,16 +1464,19 @@ export const meta: Route.MetaFunction = ({ location }) => {
     { property: "og:type", content: "website" },
     { property: "og:site_name", content: "GoHappyGo" },
     { property: "og:locale", content: "fr_FR" },
-    
+
     // Twitter
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: imageUrl },
     { name: "twitter:creator", content: "@gohappygo" },
-    
+
     // Additional meta
-    { name: "keywords", content: `transport bagages, voyage, ${type === "travel" ? "transporteur" : "demande"}, GoHappyGo` },
+    {
+      name: "keywords",
+      content: `transport bagages, voyage, ${type === "travel" ? "transporteur" : "demande"}, GoHappyGo`,
+    },
     { name: "robots", content: "index, follow" },
     { name: "author", content: "GoHappyGo" },
   ];
