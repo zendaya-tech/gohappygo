@@ -874,7 +874,7 @@ const TravelsSection = () => {
                 id={travel.id}
                 // Image Priority: Travel Upload -> Airline Logo -> User Avatar -> Default
                 image={travel.airline?.logoUrl || "/favicon.ico"}
-                title={`${travel.departureAirport?.municipality || "N/A"} → ${travel.arrivalAirport?.municipality || "N/A"}`}
+                title={`${travel?.departureAirport?.municipality || "N/A"} → ${travel?.arrivalAirport?.municipality || "N/A"}`}
                 subtitle="Espace disponible"
                 type={type}
                 weight={travel.weightAvailable || 0}
