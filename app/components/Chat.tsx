@@ -41,12 +41,12 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
       }
       return [...prev, {
         ...message,
-        isRead: message.senderId === Number(currentUser?.id)
+        isRead: message.sender.id === Number(currentUser?.id)
       }];
     });
     
     // Mark as read if not from current user
-    if (message.senderId !== Number(currentUser?.id)) {
+    if (message.sender.id !== Number(currentUser?.id)) {
       // Use socket markAsRead first, fallback to HTTP
       if (!markAsRead()) {
         markThreadAsRead(requestId).catch(console.error);
@@ -279,10 +279,10 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
             
             {/* Messages for this date */}
             {dayMessages.map((message, index) => {
-              const isOwn = message.senderId === Number(currentUser?.id);
-              const showAvatar = !isOwn && (
+              const isOwn = message.sender.id === Number(currentUser?.id);
+              const showAvatar = (
                 index === 0 || 
-                dayMessages[index - 1]?.senderId !== message.senderId
+                dayMessages[index - 1]?.sender.id !== message.sender.id
               );
               
               return (
@@ -290,8 +290,9 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                   key={message.id}
                   className={`flex ${isOwn ? 'justify-end' : 'justify-start'} mb-2`}
                 >
+                  {/* Avatar for other user's messages */}
                   {!isOwn && (
-                    <div className="w-8 mr-2">
+                    <div className="w-8 mr-2 flex-shrink-0">
                       {showAvatar && (
                         <img
                           src={message.sender.profilePictureUrl || otherUser.avatar}
@@ -306,16 +307,44 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                     <div
                       className={`px-4 py-2 rounded-lg shadow-sm ${
                         isOwn
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-white text-gray-800'
+                          ? 'bg-blue-600 text-white rounded-br-sm'
+                          : 'bg-white text-gray-800 border border-gray-200 rounded-bl-sm'
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                     </div>
-                    <p className={`text-xs text-gray-500 mt-1 ${isOwn ? 'text-right' : 'text-left'}`}>
-                      {formatTime(message.createdAt)}
-                    </p>
+                    <div className={`flex items-center gap-2 mt-1 ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                      <p className="text-xs text-gray-500">
+                        {formatTime(message.createdAt)}
+                      </p>
+                      {isOwn && (
+                        <div className="flex items-center">
+                          {message.isRead ? (
+                            <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          ) : (
+                            <svg className="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
+
+                  {/* Avatar for own messages */}
+                  {isOwn && (
+                    <div className="w-8 ml-2 flex-shrink-0">
+                      {showAvatar && (
+                        <img
+                          src={currentUser?.profilePictureUrl || '/favicon.ico'}
+                          alt={currentUser?.fullName || 'Moi'}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}

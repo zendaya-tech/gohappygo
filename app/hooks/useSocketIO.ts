@@ -10,8 +10,6 @@ export interface SocketMessage {
 export interface ChatMessage {
   id: number;
   content: string;
-  senderId: number;
-  requestId: number;
   createdAt: string;
   sender: {
     id: number;

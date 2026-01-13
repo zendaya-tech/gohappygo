@@ -282,7 +282,7 @@ const ReservationsSection = () => {
                   name: requesterName,
                   avatar: requesterAvatar,
                 }}
-                image={request.travel.airline?.logoUrl}
+                image={request.travel?.airline?.logoUrl}
                 title={`${departureCity} → ${arrivalCity}`}
                 subtitle="Espace réservé"
                 dateLabel={travelDate}
@@ -703,7 +703,7 @@ const TravelRequestsSection = () => {
                 image={
                   demand.images?.[0]?.fileUrl || demand.user?.profilePictureUrl
                 }
-                title={`${demand.departureAirport?.name} → ${demand.arrivalAirport?.name}`}
+                title={`${demand.departureAirport?.name || "N/A"} → ${demand.arrivalAirport?.name || "N/A"}`}
                 subtitle="Poids requis"
                 dateLabel={
                   demand.deliveryDate ? formatDate(demand.deliveryDate) : "—"

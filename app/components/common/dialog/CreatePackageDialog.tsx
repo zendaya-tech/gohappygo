@@ -36,7 +36,7 @@ export default function CreatePackageDialog({
     Record<string, string>
   >({});
 
-  // Step 3: Price & Booking
+  // Price & Booking (moved from step 3 to step 2)
   const [weight, setWeight] = useState("");
   const [pricePerKilo, setPricePerKilo] = useState("");
   const [currency, setCurrency] = useState<Currency | null>(null);
@@ -114,8 +114,6 @@ export default function CreatePackageDialog({
       case 2:
         if (photos.length < 3)
           errors.photos = "Veuillez ajouter 3 images de votre baggage";
-        break;
-      case 3:
         if (!weight || parseFloat(weight) <= 0)
           errors.weight = "Veuillez saisir un poids valide";
         if (!pricePerKilo || parseFloat(pricePerKilo) <= 0)
@@ -132,7 +130,7 @@ export default function CreatePackageDialog({
     setValidationErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      if (currentStep < 3) setCurrentStep(currentStep + 1);
+      if (currentStep < 2) setCurrentStep(currentStep + 1);
     }
   };
 
@@ -160,15 +158,12 @@ export default function CreatePackageDialog({
           baggageDescription.length <= 500
         );
       case 2:
-        return photos.length === 3;
-      case 3:
-        return (
+        return photos.length === 3 &&
           !!weight &&
           parseFloat(weight) > 0 &&
           !!pricePerKilo &&
           parseFloat(pricePerKilo) > 0 &&
-          !!currency
-        );
+          !!currency;
       default:
         return false;
     }
@@ -268,7 +263,7 @@ export default function CreatePackageDialog({
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] min-h-0 flex-1">
           {/* Sidebar steps */}
           <aside className="border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 p-4 md:p-6 overflow-y-auto">
-            <StepsNavPackage step={currentStep as 1 | 2 | 3} />
+            <StepsNavPackage step={currentStep as 1 | 2} />
           </aside>
 
           {/* Content */}
@@ -281,7 +276,7 @@ export default function CreatePackageDialog({
                 </span>
                 <span className="text-sm md:text-base">
                   {" "}
-                  - {t("common.step")} {currentStep} {t("common.of")} 3
+                  - {t("common.step")} {currentStep} {t("common.of")} 2
                 </span>
               </h2>
             </header>
@@ -496,11 +491,7 @@ export default function CreatePackageDialog({
                     ))}
                   </div>
                 )}
-              </div>
-            )}
 
-            {currentStep === 3 && (
-              <div className="space-y-6">
                 <Field label={t("dialogs.createAnnounce.weight")}>
                   <input
                     type="number"
@@ -581,7 +572,7 @@ export default function CreatePackageDialog({
                   {t("common.save")} {t("common.as")} {t("common.unfinished")}
                 </button>
               </div>
-              {currentStep < 3 ? (
+              {currentStep < 2 ? (
                 <button
                   onClick={nextStep}
                   // Button is disabled if step is not complete
@@ -597,7 +588,7 @@ export default function CreatePackageDialog({
               ) : (
                 <button
                   onClick={handleSubmit}
-                  // Button is disabled if submitting OR step 3 is incomplete
+                  // Button is disabled if submitting OR step 2 is incomplete
                   disabled={submitting || !isStepComplete()}
                   className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
                     !submitting && isStepComplete()
@@ -618,13 +609,13 @@ export default function CreatePackageDialog({
   );
 }
 
-function StepsNavPackage({ step }: { step: 1 | 2 | 3 }) {
+function StepsNavPackage({ step }: { step: 1 | 2 }) {
   const Item = ({
     index,
     title,
     subtitle,
   }: {
-    index: 1 | 2 | 3;
+    index: 1 | 2;
     title: string;
     subtitle: string;
   }) => (
@@ -665,13 +656,7 @@ function StepsNavPackage({ step }: { step: 1 | 2 | 3 }) {
     <div>
       <Item index={1} title="General" subtitle="Select basic settings" />
       <div className="ml-2 h-6 w-px bg-gray-200 dark:bg-gray-800" />
-      <Item index={2} title="Pictures" subtitle="Add 3 photos" />
-      <div className="ml-2 h-6 w-px bg-gray-200 dark:bg-gray-800" />
-      <Item
-        index={3}
-        title="Price & Booking"
-        subtitle="Specify your preferences"
-      />
+      <Item index={2} title="Pictures & Price" subtitle="Add photos and set price" />
     </div>
   );
 }

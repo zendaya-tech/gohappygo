@@ -10,7 +10,7 @@ import type { Airport } from "../../../services/airportService";
 import type { Currency } from "../../../services/currencyService";
 import { useAuth } from "../../../hooks/useAuth";
 
-type StepKey = 1 | 2 | 3 | 4;
+type StepKey = 1 | 2 | 3;
 
 type InitialData = {
   departure?: Airport | null;
@@ -388,7 +388,7 @@ export default function CreateAnnounceDialog({
                 <span className="uppercase text-sm md:text-base">
                   {t("dialogs.createAnnounce.title")}
                 </span>{" "}
-                <span className="text-sm md:text-base">- Step {step} of 4</span>
+                <span className="text-sm md:text-base">- Step {step} of 3</span>
               </h2>
             </header>
 
@@ -830,7 +830,7 @@ export default function CreateAnnounceDialog({
                   Save as unfinished
                 </button>
               </div>
-              {step < 4 ? (
+              {step < 3 ? (
                 <button
                   onClick={() => {
                     const errors = validateCurrentStep();
@@ -931,8 +931,6 @@ function StepsNav({ step }: { step: StepKey }) {
         title="Price & Booking"
         subtitle="Specify your preferences"
       />
-      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200 dark:bg-gray-800" />
-      <Item index={4} title="Payments" subtitle="Setting up payments" />
     </div>
   );
 }

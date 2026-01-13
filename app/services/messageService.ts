@@ -8,8 +8,6 @@ export interface SendMessageDto {
 export interface MessageResponse {
   id: number;
   content: string;
-  senderId: number;
-  requestId: number;
   createdAt: string;
   updatedAt: string;
   sender: {
@@ -24,8 +22,6 @@ export interface MessageResponse {
 export interface ThreadMessage {
   id: number;
   content: string;
-  senderId: number;
-  requestId: number;
   createdAt: string;
   isRead: boolean;
   sender: {

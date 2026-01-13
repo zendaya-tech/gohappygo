@@ -48,29 +48,49 @@ export default function ConversationList({ onSelectConversation, selectedConvers
         const unreadCount = await getUnreadCount();
         setTotalUnreadCount(unreadCount);
         
-        // Transform requests into conversations, excluding conversations with self
+        // Transform requests into conversations
         const conversationList: Conversation[] = requests
           .filter(request => {
-            // Filter out conversations where the current user is the requester (talking to themselves)
-            return request.requester && 
-                   request.travel && 
-                   request.requester.id !== Number(user?.id);
+            // Always include conversations - we'll determine the other user in the mapping
+            return request.requester && request.travel;
           })
-          .map(request => ({
-            id: request.id,
-            requestId: request.id,
-            otherUser: {
-              id: request.requester!.id,
-              name: `${request.requester!.fullName}`,
-              avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico'
-            },
-            unreadCount: 0, // TODO: Get per-conversation unread count
-            travel: {
-              departureAirport: request.travel?.departureAirport,
-              arrivalAirport: request.travel?.arrivalAirport,
-              flightNumber: request.travel?.flightNumber
+          .map(request => {
+            // Determine who is the "other user" in the conversation
+            let otherUser;
+            
+            if (request.requester.id === Number(user?.id)) {
+              // If current user is the requester, show the travel owner as the other user
+              otherUser = {
+                id: request.travel!.owner!.id,
+                name: `${request.travel!.owner!.fullName}`,
+                avatar: (request.travel!.owner as any)?.profilePictureUrl || '/favicon.ico'
+              };
+            } else {
+              // If current user is not the requester, show the requester as the other user
+              otherUser = {
+                id: request.requester!.id,
+                name: `${request.requester!.fullName}`,
+                avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico'
+              };
             }
-          }));
+
+            return {
+              id: request.id,
+              requestId: request.id,
+              otherUser,
+              unreadCount: 0, // TODO: Get per-conversation unread count
+              travel: {
+                departureAirport: request.travel?.departureAirport,
+                arrivalAirport: request.travel?.arrivalAirport,
+                flightNumber: request.travel?.flightNumber
+              }
+            };
+          })
+          .filter(conversation => {
+            // Filter out any conversations where we couldn't determine the other user
+            // or where the other user is somehow the same as current user
+            return conversation.otherUser.id !== Number(user?.id);
+          });
         
         setConversations(conversationList);
       } catch (error) {

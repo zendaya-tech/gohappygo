@@ -12,7 +12,7 @@ import type { Currency } from "../../../services/currencyService";
 import { useAuth } from "../../../hooks/useAuth";
 import type { DemandTravelItem } from "../../../services/announceService";
 
-type StepKey = 1 | 2 | 3 | 4;
+type StepKey = 1 | 2;
 
 export default function EditAnnounceDialog({
   open,
@@ -25,24 +25,22 @@ export default function EditAnnounceDialog({
   travel: DemandTravelItem | null | TravelItem;
   onSuccess?: () => void;
 }) {
-  const [step, setStep] = useState<StepKey>(1);
   const { t } = useTranslation();
   const { user } = useAuth();
 
-  // Form state
+  // Form state - all in one step now
   const [departure, setDeparture] = useState<Airport | null>(null);
   const [arrival, setArrival] = useState<Airport | null>(null);
   const [story, setStory] = useState("");
   const [kilos, setKilos] = useState<number | "">("");
   const [pricePerKg, setPricePerKg] = useState<number | "">("");
   const [currency, setCurrency] = useState<Currency | null>(null);
-  const [lateTax, setLateTax] = useState<number | "">(0);
   const [allowExtraGrams, setAllowExtraGrams] = useState<boolean>(false);
   const [punctuality, setPunctuality] = useState<"punctual" | "very-punctual">(
     "punctual"
   );
 
-  // Supplementary info for Step 1
+  // Supplementary info
   const [flightNumber, setFlightNumber] = useState("");
   const [airline, setAirline] = useState<{ name?: string }>({});
   const [travelDate, setTravelDate] = useState("");
@@ -109,8 +107,6 @@ export default function EditAnnounceDialog({
   useEffect(() => {
     if (!open || !travel) return;
 
-    setStep(1);
-
     // Set airports - convert from backend format to frontend format
     if (travel.departureAirport) {
       setDeparture({
@@ -153,7 +149,6 @@ export default function EditAnnounceDialog({
       : null;
     setCurrency(defaultCurrency);
 
-    setLateTax(travel.feeForGloomy || 0);
     setAllowExtraGrams(Boolean(travel.isAllowExtraWeight));
     setPunctuality("punctual"); // Default value since not stored in backend yet
     setFlightNumber(travel.flightNumber || "");
@@ -174,22 +169,19 @@ export default function EditAnnounceDialog({
     setSuccess(null);
   }, [open, travel, user?.recentCurrency]);
 
-  const canNext = useMemo(() => {
-    if (step === 1) {
-      const hasValidFlightNumber =
-        !flightNumber || (flightNumber && airline.name && !flightNumberError);
-      return (
-        departure !== null &&
-        arrival !== null &&
-        story.trim().length > 0 &&
-        story.length <= 500 &&
-        hasValidFlightNumber
-      );
-    }
-    if (step === 2) return Boolean(kilos) && Boolean(pricePerKg);
-    return true;
+  const canSubmit = useMemo(() => {
+    const hasValidFlightNumber =
+      !flightNumber || (flightNumber && airline.name && !flightNumberError);
+    return (
+      departure !== null &&
+      arrival !== null &&
+      story.trim().length > 0 &&
+      story.length <= 500 &&
+      hasValidFlightNumber &&
+      Boolean(kilos) &&
+      Boolean(pricePerKg)
+    );
   }, [
-    step,
     departure,
     arrival,
     kilos,
@@ -234,13 +226,13 @@ export default function EditAnnounceDialog({
         isSharedWeight: reservationType === "shared",
         isInstant: bookingType === "instant",
         isAllowExtraWeight: allowExtraGrams,
-        feeForGloomy: typeof lateTax === "number" ? lateTax : 0,
+        feeForGloomy: 0,
         punctualityLevel: punctuality === "very-punctual",
         departureAirportId: departure.id,
         arrivalAirportId: arrival.id,
-        pricePerKg: typeof pricePerKg === "number" ? pricePerKg : 0,
+        pricePerKg: pricePerKg === "" ? 0 : Number(pricePerKg),
         currencyId: parseInt(currency.id),
-        totalWeightAllowance: typeof kilos === "number" ? kilos : 0,
+        totalWeightAllowance: kilos === "" ? 0 : Number(kilos),
       };
 
       if (departureDatetime) {
@@ -293,21 +285,15 @@ export default function EditAnnounceDialog({
       <div className="fixed inset-0 bg-black/35" onClick={onClose} />
 
       {/* Dialog container */}
-      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-6xl overflow-hidden rounded-2xl md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/10 dark:ring-white/10 h-[95vh] md:max-h-[85vh] flex flex-col">
-        <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] min-h-0 flex-1">
-          {/* Sidebar steps */}
-          <aside className="border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 p-4 md:p-6 overflow-y-auto">
-            <StepsNav step={step} />
-          </aside>
-
+      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-4xl overflow-hidden rounded-2xl md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/10 dark:ring-white/10 h-[95vh] md:max-h-[85vh] flex flex-col">
+        <div className="flex flex-col min-h-0 flex-1">
           {/* Content */}
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
               <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
                 <span className="uppercase text-sm md:text-base">
                   Modifier l'annonce de voyage
-                </span>{" "}
-                <span className="text-sm md:text-base">- Step {step} of 3</span>
+                </span>
               </h2>
             </header>
 
@@ -323,464 +309,317 @@ export default function EditAnnounceDialog({
               </div>
             )}
 
-            {step === 1 && (
-              <div className="space-y-6">
-                <div>
-                  <AirportComboBox
-                    label="Select your airport of departure"
-                    value={departure?.code}
-                    onChange={setDeparture}
-                    placeholder="Choose airport"
-                  />
-                  {!departure && (
-                    <p className="mt-1 text-sm text-red-500 font-medium">
-                      Veuillez sélectionner un aéroport de départ
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <AirportComboBox
-                    label="Select your airport of arrival"
-                    value={arrival?.code}
-                    onChange={setArrival}
-                    placeholder="Choose airport"
-                  />
-                  {!arrival && (
-                    <p className="mt-1 text-sm text-red-500 font-medium">
-                      Veuillez sélectionner un aéroport d'arrivée
-                    </p>
-                  )}
-                </div>
-
-                <Field label="Numéro de Vol">
-                  <input
-                    value={flightNumber}
-                    onChange={(e) => setFlightNumber(e.target.value)}
-                    placeholder="Add numero de vol sur votre billet d'avion"
-                    className={`w-full rounded-xl uppercase border ${
-                      flightNumberError
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
-                  />
-                  {flightNumberError && (
-                    <p className="mt-1 text-sm text-red-600 font-medium">
-                      {flightNumberError}
-                    </p>
-                  )}
-                </Field>
-                <Field label="Date de votre Voyage">
-                  <input
-                    type="date"
-                    value={travelDate}
-                    onChange={(e) => setTravelDate(e.target.value)}
-                    placeholder="Choisir une date"
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                </Field>
-                <Field label="Compagnie aérienne">
-                  <div className="relative">
-                    <input
-                      value={airline.name || ""}
-                      disabled
-                      placeholder={
-                        fetchingAirline
-                          ? "Recherche en cours..."
-                          : flightNumber
-                            ? "Détectée automatiquement"
-                            : "Entrez d'abord le numéro de vol"
-                      }
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-400 cursor-not-allowed"
-                    />
-                    {fetchingAirline && (
-                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <svg
-                          className="animate-spin h-5 w-5 text-indigo-600"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                  <p className="mt-1 text-xs text-gray-500">
-                    La compagnie aérienne est détectée automatiquement à partir
-                    du numéro de vol
+            <div className="space-y-6">
+              <div>
+                <AirportComboBox
+                  label="Select your airport of departure"
+                  value={departure?.code}
+                  onChange={setDeparture}
+                  placeholder="Choose airport"
+                />
+                {!departure && (
+                  <p className="mt-1 text-sm text-red-500 font-medium">
+                    Veuillez sélectionner un aéroport de départ
                   </p>
-                </Field>
+                )}
+              </div>
+              <div>
+                <AirportComboBox
+                  label="Select your airport of arrival"
+                  value={arrival?.code}
+                  onChange={setArrival}
+                  placeholder="Choose airport"
+                />
+                {!arrival && (
+                  <p className="mt-1 text-sm text-red-500 font-medium">
+                    Veuillez sélectionner un aéroport d'arrivée
+                  </p>
+                )}
+              </div>
 
-                <Field label="Tell a bit more about your travel">
-                  <textarea
-                    value={story}
-                    onChange={(e) => {
-                      // Allow typing beyond 500 characters but show validation
-                      setStory(e.target.value);
-                    }}
-                    rows={5}
-                    placeholder="Type here..."
-                    className={`w-full resize-none rounded-xl border ${
-                      story.length > 500
-                        ? "border-red-500 focus:ring-red-500"
-                        : story.trim().length === 0
-                          ? "border-red-300 focus:ring-red-400"
-                          : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+              <Field label="Numéro de Vol">
+                <input
+                  value={flightNumber}
+                  onChange={(e) => setFlightNumber(e.target.value)}
+                  placeholder="Add numero de vol sur votre billet d'avion"
+                  className={`w-full rounded-xl uppercase border ${
+                    flightNumberError
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
+                  } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                />
+                {flightNumberError && (
+                  <p className="mt-1 text-sm text-red-600 font-medium">
+                    {flightNumberError}
+                  </p>
+                )}
+              </Field>
+              <Field label="Date de votre Voyage">
+                <input
+                  type="date"
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
+                  placeholder="Choisir une date"
+                  className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </Field>
+              <Field label="Compagnie aérienne">
+                <div className="relative">
+                  <input
+                    value={airline.name || ""}
+                    disabled
+                    placeholder={
+                      fetchingAirline
+                        ? "Recherche en cours..."
+                        : flightNumber
+                          ? "Détectée automatiquement"
+                          : "Entrez d'abord le numéro de vol"
+                    }
+                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-400 cursor-not-allowed"
                   />
-                  <div
-                    className={`mt-1 text-xs ${
-                      story.length > 500
-                        ? "text-red-500 font-semibold"
-                        : story.length > 450
-                          ? "text-orange-500"
-                          : story.trim().length === 0
-                            ? "text-red-400"
-                            : "text-gray-400"
-                    }`}
-                  >
-                    {story.length}/500 caractères
-                    {story.trim().length === 0 && (
-                      <span className="block text-red-500 font-medium">
-                        Une description est requise
-                      </span>
-                    )}
-                    {story.length > 500 && (
-                      <span className="block text-red-500 font-medium">
-                        Dépassement de {story.length - 500} caractères
-                      </span>
-                    )}
-                  </div>
-                </Field>
-                <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
-                    What kind of reservation do you prefer?
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
-                      <input
-                        type="radio"
-                        checked={reservationType === "single"}
-                        onChange={() => setReservationType("single")}
-                      />
-                      All my kilos for one person
-                    </label>
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
-                      <input
-                        type="radio"
-                        checked={reservationType === "shared"}
-                        onChange={() => setReservationType("shared")}
-                      />
-                      Shared kilo with differents traveller
-                    </label>
-                  </div>
+                  {fetchingAirline && (
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                      <svg
+                        className="animate-spin h-5 w-5 text-indigo-600"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
-                    What kind of booking do you prefer for this travel?
-                  </div>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        checked={bookingType === "instant"}
-                        onChange={() => setBookingType("instant")}
-                      />
-                      Instant
-                    </label>
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        checked={bookingType === "non-instant"}
-                        onChange={() => setBookingType("non-instant")}
-                      />
-                      Non-instant
-                    </label>
-                  </div>
+                <p className="mt-1 text-xs text-gray-500">
+                  La compagnie aérienne est détectée automatiquement à partir
+                  du numéro de vol
+                </p>
+              </Field>
+
+              <Field label="Tell a bit more about your travel">
+                <textarea
+                  value={story}
+                  onChange={(e) => {
+                    // Allow typing beyond 500 characters but show validation
+                    setStory(e.target.value);
+                  }}
+                  rows={5}
+                  placeholder="Type here..."
+                  className={`w-full resize-none rounded-xl border ${
+                    story.length > 500
+                      ? "border-red-500 focus:ring-red-500"
+                      : story.trim().length === 0
+                        ? "border-red-300 focus:ring-red-400"
+                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
+                  } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                />
+                <div
+                  className={`mt-1 text-xs ${
+                    story.length > 500
+                      ? "text-red-500 font-semibold"
+                      : story.length > 450
+                        ? "text-orange-500"
+                        : story.trim().length === 0
+                          ? "text-red-400"
+                          : "text-gray-400"
+                  }`}
+                >
+                  {story.length}/500 caractères
+                  {story.trim().length === 0 && (
+                    <span className="block text-red-500 font-medium">
+                      Une description est requise
+                    </span>
+                  )}
+                  {story.length > 500 && (
+                    <span className="block text-red-500 font-medium">
+                      Dépassement de {story.length - 500} caractères
+                    </span>
+                  )}
+                </div>
+              </Field>
+              <div>
+                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  What kind of reservation do you prefer?
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <input
+                      type="radio"
+                      checked={reservationType === "single"}
+                      onChange={() => setReservationType("single")}
+                    />
+                    All my kilos for one person
+                  </label>
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <input
+                      type="radio"
+                      checked={reservationType === "shared"}
+                      onChange={() => setReservationType("shared")}
+                    />
+                    Shared kilo with differents traveller
+                  </label>
                 </div>
               </div>
-            )}
-
-            {step === 3 && (
-              <div className="space-y-6">
-                <Field label="How many Kilos do you propose ?">
-                  <input
-                    type="number"
-                    min={0}
-                    value={kilos}
-                    onChange={(e) =>
-                      setKilos(
-                        e.target.value === "" ? "" : Number(e.target.value)
-                      )
-                    }
-                    placeholder="Enter number of kilos"
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                </Field>
-                <div>
-                  <div className="flex gap-4">
-                    <Field label="What is your price per kilos?">
-                      <input
-                        type="number"
-                        min={0}
-                        value={pricePerKg}
-                        onChange={(e) =>
-                          setPricePerKg(
-                            e.target.value === "" ? "" : Number(e.target.value)
-                          )
-                        }
-                        placeholder="enter your price per kilos"
-                        className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                    </Field>
-                    <div className="w-32">
-                      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
-                        Currency
-                      </label>
-                      <CurrencyComboBox
-                        value={currency?.code}
-                        selectedCurrency={currency}
-                        onChange={setCurrency}
-                        placeholder="EUR"
-                        compact
-                      />
-                    </div>
-                  </div>
+              <div>
+                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  What kind of booking do you prefer for this travel?
                 </div>
-                <Field
-                  label={
-                    <span>
-                      Taxe pour les personnes en retard{" "}
-                      <span className="text-gray-400">
-                        (juste pour préciser à quel point vous êtes ponctuel)
-                      </span>
-                    </span>
+                <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={bookingType === "instant"}
+                      onChange={() => setBookingType("instant")}
+                    />
+                    Instant
+                  </label>
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={bookingType === "non-instant"}
+                      onChange={() => setBookingType("non-instant")}
+                    />
+                    Non-instant
+                  </label>
+                </div>
+              </div>
+
+              <Field label="How many Kilos do you propose ?">
+                <input
+                  type="number"
+                  min={0}
+                  value={kilos}
+                  onChange={(e) =>
+                    setKilos(
+                      e.target.value === "" ? "" : Number(e.target.value)
+                    )
                   }
-                >
-                  <div className="flex">
+                  placeholder="Enter number of kilos"
+                  className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </Field>
+              <div>
+                <div className="flex gap-4">
+                  <Field label="What is your price per kilos?">
                     <input
                       type="number"
                       min={0}
-                      value={lateTax as number}
+                      value={pricePerKg}
                       onChange={(e) =>
-                        setLateTax(
+                        setPricePerKg(
                           e.target.value === "" ? "" : Number(e.target.value)
                         )
                       }
-                      placeholder="0"
-                      className="flex-1 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="enter your price per kilos"
+                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
-                    <div className="ml-3 flex items-center px-3 text-sm text-gray-600 dark:text-gray-400">
-                      %
-                    </div>
-                  </div>
-                </Field>
-
-                <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
-                    Tolérez vous quelques grammes de trop ?
-                  </div>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        checked={allowExtraGrams}
-                        onChange={() => setAllowExtraGrams(true)}
-                      />
-                      Yes
+                  </Field>
+                  <div className="w-32">
+                    <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+                      Currency
                     </label>
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        checked={!allowExtraGrams}
-                        onChange={() => setAllowExtraGrams(false)}
-                      />
-                      No
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
-                    Quelle ponctualité attendez-vous lors de la rencontre avec
-                    votre HappyVoyageur ?
-                  </div>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="punctuality-edit"
-                        checked={punctuality === "punctual"}
-                        onChange={() => setPunctuality("punctual")}
-                        className="text-blue-600 focus:ring-blue-500"
-                      />
-                      Ponctuel
-                    </label>
-                    <label className="inline-flex items-center gap-2">
-                      <input
-                        type="radio"
-                        name="punctuality-edit"
-                        checked={punctuality === "very-punctual"}
-                        onChange={() => setPunctuality("very-punctual")}
-                        className="text-blue-600 focus:ring-blue-500"
-                      />
-                      Très Ponctuel
-                    </label>
+                    <CurrencyComboBox
+                      value={currency?.code}
+                      selectedCurrency={currency}
+                      onChange={setCurrency}
+                      placeholder="EUR"
+                      compact
+                    />
                   </div>
                 </div>
               </div>
-            )}
 
-            {step === 4 && (
-              <div className="space-y-6">
-                <p className="text-gray-700 dark:text-gray-300 font-medium">
-                  Setting up payments
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Field label="Account holder name">
-                    <input
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="John Doe"
-                    />
-                  </Field>
-                  <Field label="Payment email (Stripe)">
-                    <input
-                      type="email"
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="name@email.com"
-                    />
-                  </Field>
+              <div>
+                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  Tolérez vous quelques grammes de trop ?
                 </div>
-                <Field label="IBAN / Bank account">
-                  <input
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    placeholder="FR76...."
-                  />
-                </Field>
+                <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={allowExtraGrams}
+                      onChange={() => setAllowExtraGrams(true)}
+                    />
+                    Yes
+                  </label>
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="radio"
+                      checked={!allowExtraGrams}
+                      onChange={() => setAllowExtraGrams(false)}
+                    />
+                    No
+                  </label>
+                </div>
               </div>
-            )}
+
+              <div>
+                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  Quelle ponctualité attendez-vous lors de la rencontre avec
+                  votre HappyVoyageur ?
+                </div>
+                <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="punctuality-edit"
+                      checked={punctuality === "punctual"}
+                      onChange={() => setPunctuality("punctual")}
+                      className="text-blue-600 focus:ring-blue-500"
+                    />
+                    Ponctuel
+                  </label>
+                  <label className="inline-flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="punctuality-edit"
+                      checked={punctuality === "very-punctual"}
+                      onChange={() => setPunctuality("very-punctual")}
+                      className="text-blue-600 focus:ring-blue-500"
+                    />
+                    Très Ponctuel
+                  </label>
+                </div>
+              </div>
+            </div>
 
             {/* Footer actions */}
             <div className="mt-10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
                   className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  onClick={() =>
-                    step > 1
-                      ? setStep(
-                          (s) => Math.max(1, (s - 1) as StepKey) as StepKey
-                        )
-                      : onClose()
-                  }
+                  onClick={onClose}
                 >
                   ‹ Back
                 </button>
               </div>
-              {step < 3 ? (
-                <button
-                  disabled={!canNext}
-                  onClick={() => setStep((s) => (s + 1) as StepKey)}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
-                    canNext
-                      ? "bg-indigo-600 hover:bg-indigo-700"
-                      : "bg-gray-300 cursor-not-allowed"
-                  }`}
-                >
-                  Next ›
-                </button>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  disabled={submitting}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
-                    submitting
-                      ? "bg-gray-300 cursor-not-allowed"
-                      : "bg-indigo-600 hover:bg-indigo-700"
-                  }`}
-                >
-                  {submitting ? "Mise à jour en cours..." : "Update"}
-                </button>
-              )}
+              <button
+                onClick={handleSubmit}
+                disabled={!canSubmit || submitting}
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
+                  canSubmit && !submitting
+                    ? "bg-indigo-600 hover:bg-indigo-700"
+                    : "bg-gray-300 cursor-not-allowed"
+                }`}
+              >
+                {submitting ? "Mise à jour en cours..." : "Update"}
+              </button>
             </div>
           </section>
         </div>
       </div>
-    </div>
-  );
-}
-
-function StepsNav({ step }: { step: StepKey }) {
-  const Item = ({
-    index,
-    title,
-    subtitle,
-  }: {
-    index: StepKey;
-    title: string;
-    subtitle: string;
-  }) => (
-    <div className="flex items-start gap-2 md:gap-3 py-2 md:py-4">
-      <div
-        className={`mt-0.5 md:mt-1 inline-flex h-4 w-4 md:h-5 md:w-5 items-center justify-center rounded-full border ${
-          index <= step
-            ? "border-green-500 text-green-600"
-            : "border-gray-300 text-gray-400"
-        }`}
-      >
-        {index <= step ? (
-          <svg
-            className="h-2.5 w-2.5 md:h-3 md:w-3"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        ) : (
-          <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-gray-300"></span>
-        )}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div
-          className={`text-sm md:text-base font-semibold truncate ${
-            index <= step ? "text-gray-900 dark:text-white" : "text-gray-400"
-          }`}
-        >
-          {title}
-        </div>
-        <div className="text-xs md:text-sm text-gray-400 truncate">
-          {subtitle}
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div>
-      <Item index={1} title="General" subtitle="Select basic settings" />
-      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200 dark:bg-gray-800" />
-      <Item
-        index={2}
-        title="Price & Booking"
-        subtitle="Specify your preferences"
-      />
-      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200 dark:bg-gray-800" />
-      <Item index={3} title="Payments" subtitle="Setting up payments" />
     </div>
   );
 }
