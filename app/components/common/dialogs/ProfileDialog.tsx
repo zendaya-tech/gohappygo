@@ -17,12 +17,12 @@ interface ProfileDialogProps {
 
 export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
   const { updateProfile, changePassword, deleteAccount, user } = useAuth();
-  
+
   // Parse firstName and lastName from user.name
   const nameParts = user?.name?.split(" ") || [];
   const firstName = nameParts[0] || "";
   const lastName = nameParts.slice(1).join(" ") || "";
-  
+
   const [activeTab, setActiveTab] = useState<
     "profile" | "password" | "account"
   >("profile");
@@ -59,13 +59,13 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
       const nameParts = user.name?.split(" ") || [];
       const firstName = nameParts[0] || "";
       const lastName = nameParts.slice(1).join(" ") || "";
-      
+
       // Fetch full user data to get phone number
       const fetchUserData = async () => {
         try {
           const { getMe } = await import("~/services/authService");
           const userData = await getMe();
-          
+
           setFormData({
             firstName: userData?.firstName || firstName,
             lastName: userData?.lastName || lastName,
@@ -82,7 +82,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
           });
         }
       };
-      
+
       fetchUserData();
       setProfileImage(user.profilePictureUrl || null);
     }
@@ -271,7 +271,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       onChange={(e) =>
                         handleInputChange("firstName", e.target.value)
                       }
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                     <p className="text-xs text-gray-500 mt-1">
                       (Seul votre prénom apparaît sur la plateforme)
@@ -287,7 +287,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       onChange={(e) =>
                         handleInputChange("lastName", e.target.value)
                       }
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
@@ -324,7 +324,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                         handleInputChange("aboutMe", e.target.value)
                       }
                       rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                     />
                   </div>
                 </div>
@@ -406,7 +406,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                             e.target.value
                           )
                         }
-                        className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                       <button
                         type="button"
@@ -435,7 +435,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                         onChange={(e) =>
                           handlePasswordChange("newPassword", e.target.value)
                         }
-                        className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                       <button
                         type="button"
@@ -470,7 +470,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                             e.target.value
                           )
                         }
-                        className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                       <button
                         type="button"
