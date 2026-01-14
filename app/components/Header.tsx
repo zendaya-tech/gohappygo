@@ -36,7 +36,6 @@ export default function Header() {
   const [showAnnounceTypeDropdown, setShowAnnounceTypeDropdown] =
     useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
   const [showMobilePublishOptions, setShowMobilePublishOptions] =
     useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -47,6 +46,9 @@ export default function Header() {
       setShowCreatePackage(true);
     }
   };
+
+  // Zustand Store - Extraction des états et actions
+  const { showRegister, openRegister, closeRegister } = useAuthStore();
 
   useEffect(() => {
     const onOpenCreateAnnounce = () => setShowCreateAnnounce(true);
@@ -240,7 +242,7 @@ export default function Header() {
                   }}
                   onOpenRegister={() => {
                     setShowAvatarMenuDesktop(false);
-                    setShowRegister(true);
+                    openRegister();
                   }}
                 />
               </div>
@@ -334,7 +336,7 @@ export default function Header() {
                   }}
                   onOpenRegister={() => {
                     setShowAvatarMenuMobile(false);
-                    setShowRegister(true);
+                    openRegister();
                   }}
                 />
               </div>
@@ -542,14 +544,14 @@ export default function Header() {
         onClose={() => setShowLogin(false)}
         onSwitchToRegister={() => {
           setShowLogin(false);
-          setShowRegister(true);
+          openRegister();
         }}
       />
       <RegisterDialog
         open={showRegister}
-        onClose={() => setShowRegister(false)}
+        onClose={() => closeRegister()}
         onSwitchToLogin={() => {
-          setShowRegister(false);
+          closeRegister();
           setShowLogin(true);
         }}
       />

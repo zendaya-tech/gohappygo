@@ -42,6 +42,9 @@ export default function Annonces() {
   const navigate = useNavigate();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
+  // Zustand Store - Extraction des états et actions
+  const { showRegister, openRegister, closeRegister } = useAuthStore();
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("fr-FR", {
@@ -212,11 +215,7 @@ export default function Annonces() {
   };
 
   const handleAlertClick = () => {
-    if (!isLoggedIn) {
-      navigate("/login");
-      return;
-    }
-    setAlertDialogOpen(true);
+    openRegister();
   };
 
   const clearAllFilters = () => {

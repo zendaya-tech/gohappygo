@@ -47,7 +47,7 @@ export type AuthState = {
     createdAt?: Date;
     profileStats?: ProfileStats;
     stripeAccountId?: string | null;
-    stripeAccountStatus?: 'uninitiated' | 'pending' | 'active' | 'restricted';
+    stripeAccountStatus?: "uninitiated" | "pending" | "active" | "restricted";
   } | null;
   token?: string | null;
   login: (
@@ -57,6 +57,10 @@ export type AuthState = {
   ) => void;
   logout: () => void;
   hydrateFromCookies: () => void;
+  showRegister: boolean;
+  openRegister: () => void;
+  closeRegister: () => void;
+  toggleRegister: () => void;
 };
 
 function getCookie(name: string): string | null {
@@ -96,4 +100,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     deleteCookie("refresh_token");
     set({ isLoggedIn: false, user: null, token: null });
   },
+  showRegister: false,
+  openRegister: () => set({ showRegister: true }),
+  closeRegister: () => set({ showRegister: false }),
+  toggleRegister: () => set((state) => ({ showRegister: !state.showRegister })),
 }));
