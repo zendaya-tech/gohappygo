@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 export default function PopularRoutes() {
   const { t } = useTranslation();
   const routes = [
-    { name: "PARIS → NEW YORK", price: "15€/kg", image: "./images/paris.jpg" },
-    { name: "LYON → PEKIN", price: "18€/kg", image: "./images/pekin.jpg" },
+    { name: "PARIS → NEW YORK", price: "5€/kg", image: "./images/paris.jpg" },
+    { name: "LYON → PEKIN", price: "3€/kg", image: "./images/pekin.jpg" },
     {
       name: "MARSEILLE → LONDRES",
-      price: "8€/kg",
+      price: "4€/kg",
       image: "./images/londre.jpg",
     },
     {

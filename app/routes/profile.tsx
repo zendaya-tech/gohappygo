@@ -343,7 +343,7 @@ const ReservationsSection = () => {
                   request.currentStatus?.status === "NEGOTIATING" ||
                   request.currentStatus?.status === "ACCEPTED"
                     ? {
-                        label: "Annuler",
+                        label: "Delete",
                         onClick: () => {
                           setRequestToCancel(request);
                           setCancelConfirmOpen(true);
@@ -1797,7 +1797,7 @@ export default function Profile() {
     <div className=" bg-white">
       <Header />
 
-      <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+      <main className="min-h-screen max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">

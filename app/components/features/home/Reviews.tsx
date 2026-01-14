@@ -79,6 +79,7 @@ export default function Reviews() {
             src="/images/map.svg"
             alt="world map"
             className="w-full h-auto opacity-80"
+            style={{ filter: "brightness(0.6)" }}
           />
 
           {reviews.map((review, index) => {
