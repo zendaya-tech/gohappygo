@@ -1155,21 +1155,6 @@ export default function AnnounceDetail() {
                     <div className="mt-6 bg-gray-50 dark:bg-gray-800/50 rounded-3xl p-6 border border-gray-100 dark:border-gray-700">
                       <div className="grid grid-cols-1 gap-6">
                         {quotes.slice(0, 4).map((q, index) => {
-                          // Mapping des polices vers des classes CSS et ajustement des tailles
-                          const fontConfigs: Record<string, string> = {
-                            sacramento:
-                              "font-sacramento text-xl leading-relaxed",
-                            cinzel:
-                              "font-cinzel text-xs font-bold tracking-widest uppercase",
-                            playfair: "font-playfair text-base italic",
-                            montserrat:
-                              "font-montserrat text-sm font-medium tracking-tight",
-                          };
-
-                          const currentFontConfig =
-                            fontConfigs[q.fontFamily?.toLowerCase() || ""] ||
-                            "font-sans text-sm";
-
                           // Alternance visuelle : les citations paires sont légèrement décalées
                           const isEven = index % 2 === 0;
 
@@ -1189,7 +1174,7 @@ export default function AnnounceDetail() {
                                 </span>
 
                                 <p
-                                  className={`text-gray-800 dark:text-gray-200 font-bold ${currentFontConfig}`}
+                                  className={`text-gray-800 dark:text-gray-200 font-bold font-${q.fontFamily?.toLocaleLowerCase()} text-[${q.fontSize}px] leading-snug`}
                                 >
                                   {q.quote}
                                 </p>
