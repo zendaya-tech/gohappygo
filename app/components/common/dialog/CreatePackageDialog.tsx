@@ -158,12 +158,14 @@ export default function CreatePackageDialog({
           baggageDescription.length <= 500
         );
       case 2:
-        return photos.length === 3 &&
+        return (
+          photos.length === 3 &&
           !!weight &&
           parseFloat(weight) > 0 &&
           !!pricePerKilo &&
           parseFloat(pricePerKilo) > 0 &&
-          !!currency;
+          !!currency
+        );
       default:
         return false;
     }
@@ -369,9 +371,9 @@ export default function CreatePackageDialog({
                   <textarea
                     value={baggageDescription}
                     onChange={(e) => {
-                      if (e.target.value.length <= 500) {
-                        setBaggageDescription(e.target.value);
-                      }
+                      // Allow typing beyond 500 characters but show validation
+
+                      setBaggageDescription(e.target.value);
                     }}
                     rows={5}
                     placeholder={t("dialogs.createAnnounce.story")}
@@ -656,7 +658,11 @@ function StepsNavPackage({ step }: { step: 1 | 2 }) {
     <div>
       <Item index={1} title="General" subtitle="Select basic settings" />
       <div className="ml-2 h-6 w-px bg-gray-200 dark:bg-gray-800" />
-      <Item index={2} title="Pictures & Price" subtitle="Add photos and set price" />
+      <Item
+        index={2}
+        title="Pictures & Price"
+        subtitle="Add photos and set price"
+      />
     </div>
   );
 }
