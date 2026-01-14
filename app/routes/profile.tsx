@@ -64,6 +64,7 @@ import {
   type DemandItem,
 } from "~/services/demandService";
 import ActionCard from "~/components/ActionCard";
+import { getUnreadCount } from "~/services/messageService";
 
 interface ProfileSection {
   id: string;
@@ -94,15 +95,16 @@ interface Conversation {
 }
 
 const ReservationsSection = () => {
-  const [tab, setTab] = useState<"pending" | "accepted" | "completed" | "cancelled">(
-    "pending"
-  );
+  const [tab, setTab] = useState<
+    "pending" | "accepted" | "completed" | "cancelled"
+  >("pending");
   const [requests, setRequests] = useState<RequestResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
-  const [requestToCancel, setRequestToCancel] = useState<RequestResponse | null>(null);
+  const [requestToCancel, setRequestToCancel] =
+    useState<RequestResponse | null>(null);
   const [selectedRequester, setSelectedRequester] = useState<{
     name: string;
     avatar: string;
@@ -348,10 +350,8 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 secondaryAction={
-                  (request.currentStatus?.status === "NEGOTIATING" ||
-                   request.currentStatus?.status === "ACCEPTED") &&
-                  request.currentStatus?.status !== "CANCELLED" &&
-                  request.currentStatus?.status !== "COMPLETED"
+                  request.currentStatus?.status === "NEGOTIATING" ||
+                  request.currentStatus?.status === "ACCEPTED"
                     ? {
                         label: "Annuler",
                         onClick: () => {
@@ -756,13 +756,18 @@ const TravelRequestsSection = () => {
                 key={demand.id}
                 id={demand.id.toString()}
                 image={
-                  demand.images?.[0]?.fileUrl || demand.user?.profilePictureUrl || "/favicon.ico"
+                  demand.images?.[0]?.fileUrl ||
+                  demand.user?.profilePictureUrl ||
+                  "/favicon.ico"
                 }
                 title={`${demand.departureAirport?.name || "N/A"} → ${demand.arrivalAirport?.name || "N/A"}`}
                 subtitle="Poids requis"
                 dateLabel={
-                  demand.travelDate ? formatDate(demand.travelDate) : 
-                  demand.deliveryDate ? formatDate(demand.deliveryDate) : "—"
+                  demand.travelDate
+                    ? formatDate(demand.travelDate)
+                    : demand.deliveryDate
+                      ? formatDate(demand.deliveryDate)
+                      : "—"
                 }
                 flightNumber={demand.flightNumber}
                 weight={demand.weight || 0}
@@ -1602,11 +1607,17 @@ export default function Profile() {
   const [profileStats, setProfileStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [processingOnboarding, setProcessingOnboarding] = useState(false);
+  const [totalUnreadCount, setTotalUnreadCount] = useState(0);
 
   // Fetch profile data
   useEffect(() => {
     const fetchProfileData = async () => {
       setLoading(true);
+
+      // Get total unread messages count
+      const unreadCount = await getUnreadCount();
+      setTotalUnreadCount(unreadCount);
+
       try {
         // If userId is provided, fetch that user's data, otherwise fetch current user's data
         const userData = await getMe(userId || undefined);
@@ -1652,7 +1663,7 @@ export default function Profile() {
           />
         </svg>
       ),
-      count: 0, // Messages count not in profileStats
+      count: totalUnreadCount, // Messages count not in profileStats
     },
     {
       id: "reviews",
