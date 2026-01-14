@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { useAuth } from "../../../hooks/useAuth";
-import CountryComboBox, { type Country, STRIPE_COUNTRIES } from "../CountryComboBox";
+import CountryComboBox, {
+  type Country,
+  STRIPE_COUNTRIES,
+} from "../CountryComboBox";
 
 export default function RegisterDialog({
   open,
@@ -24,7 +27,7 @@ export default function RegisterDialog({
     phoneNumber: "",
   });
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(
-    STRIPE_COUNTRIES.find(c => c.code === "FR") || null // France par défaut
+    STRIPE_COUNTRIES.find((c) => c.code === "FR") || null // France par défaut
   );
   const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
@@ -39,7 +42,7 @@ export default function RegisterDialog({
   const handleCountryChange = (country: Country | null) => {
     setSelectedCountry(country);
     // Reset phone number when country changes
-    setForm(p => ({ ...p, phoneNumber: "" }));
+    setForm((p) => ({ ...p, phoneNumber: "" }));
   };
 
   const { register, verifyEmail } = useAuth();
@@ -48,7 +51,7 @@ export default function RegisterDialog({
   useEffect(() => {
     if (selectedCountry) {
       // Force re-render of PhoneInput with new country
-      setForm(p => ({ ...p, phoneNumber: "" }));
+      setForm((p) => ({ ...p, phoneNumber: "" }));
     }
   }, [selectedCountry]);
 
@@ -171,7 +174,10 @@ export default function RegisterDialog({
               {step === 1 ? (
                 <>
                   <div>
-                    <label htmlFor="firstName" className="mb-2 block text-sm font-semibold text-gray-900">
+                    <label
+                      htmlFor="firstName"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
+                    >
                       Prénom
                     </label>
                     <input
@@ -186,11 +192,14 @@ export default function RegisterDialog({
                       }
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      (Seul votre prénom apparaît sur la plateforme)
+                      (Uniquement votre prénom apparaît sur la plateforme)
                     </p>
                   </div>
                   <div>
-                    <label htmlFor="lastName" className="mb-2 block text-sm font-semibold text-gray-900">
+                    <label
+                      htmlFor="lastName"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
+                    >
                       Nom de famille
                     </label>
                     <input
@@ -221,7 +230,9 @@ export default function RegisterDialog({
                     </label>
                     <PhoneInput
                       key={selectedCountry?.code || "default"} // Force re-render when country changes
-                      defaultCountry={selectedCountry?.code.toLowerCase() as any || "fr"}
+                      defaultCountry={
+                        (selectedCountry?.code.toLowerCase() as any) || "fr"
+                      }
                       value={form.phoneNumber}
                       onChange={(phone) =>
                         setForm((p) => ({ ...p, phoneNumber: phone }))
@@ -239,11 +250,15 @@ export default function RegisterDialog({
                       forceDialCode
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      Le code pays est automatiquement défini selon votre pays de résidence
+                      Le code pays est automatiquement défini selon votre pays
+                      de résidence
                     </p>
                   </div>
                   <div>
-                    <label htmlFor="email" className="mb-2 block text-sm font-semibold text-gray-900">
+                    <label
+                      htmlFor="email"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
+                    >
                       Adresse email
                     </label>
                     <input
@@ -260,7 +275,10 @@ export default function RegisterDialog({
                   </div>
 
                   <div>
-                    <label htmlFor="password" className="mb-2 block text-sm font-semibold text-gray-900">
+                    <label
+                      htmlFor="password"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
+                    >
                       Mot de passe
                     </label>
                     <input
@@ -277,7 +295,10 @@ export default function RegisterDialog({
                   </div>
 
                   <div>
-                    <label htmlFor="confirmPassword" className="mb-2 block text-sm font-semibold text-gray-900">
+                    <label
+                      htmlFor="confirmPassword"
+                      className="mb-2 block text-sm font-semibold text-gray-900"
+                    >
                       Confirmer le mot de passe
                     </label>
                     <input

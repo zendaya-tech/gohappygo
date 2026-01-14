@@ -15,7 +15,6 @@ import { useAuthStore, type AuthState } from "../store/auth";
 import LanguageDropdown from "./common/popover/LanguageDropdown";
 import { notificationService } from "../services/notificationService";
 
-
 export default function Header() {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,7 +75,7 @@ export default function Header() {
           console.log("Loading notification counts...");
           const counts = await notificationService.getNotificationCounts();
           console.log("Notification counts received:", counts);
-          setUnreadCount(counts.unreadCount);
+          setUnreadCount(counts.unread);
         } catch (error) {
           console.error("Failed to load notification counts:", error);
         }
@@ -91,219 +90,74 @@ export default function Header() {
 
   return (
     <>
-        <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to={"/"} className="flex items-center space-x-3 flex-shrink-0">
-            <div className="h-10">
-              <img src="/logo.png" alt="Logo" className="h-10" />
-            </div>
-          </Link>
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link
+              to={"/"}
+              className="flex items-center space-x-3 flex-shrink-0"
+            >
+              <div className="h-10">
+                <img src="/logo.png" alt="Logo" className="h-10" />
+              </div>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center flex-1 justify-between px-6 space-x-8">
-            <div className="relative">
-              <button
-                onClick={() => setHoverDownload((v) => !v)}
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-colors duration-200"
-                ref={(el) => {
-                  (downloadBtnRef as any).current = el;
-                }}
-              >
-                Téléchargez l'appli +
-              </button>
-              <AppDownloadPopover
-                open={hoverDownload}
-                onClose={() => {
-                  setHoverDownload(false);
-                  setPinnedDownload(false);
-                }}
-                pinned={pinnedDownload}
-                onTogglePin={() => setPinnedDownload((v) => !v)}
-                triggerRef={downloadBtnRef}
-              />
-            </div>
-            <div className="relative">
-              <button
-                onClick={() => setShowAnnounceTypeDropdown((v) => !v)}
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-colors duration-200"
-              >
-                {t("header.publishAd")}
-              </button>
-              <AnnounceTypeDropdown
-                open={showAnnounceTypeDropdown}
-                onClose={() => setShowAnnounceTypeDropdown(false)}
-                onSelectType={handleAnnounceTypeSelect}
-              />
-            </div>
-          </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4 relative">
-            {/* Notifications - Only show if logged in */}
-            {isLoggedIn && (
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center flex-1 justify-between px-6 space-x-8">
               <div className="relative">
                 <button
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 relative"
-                  onClick={() => setIsMenuOpen(false)}
-                  aria-label="Notifications"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClickCapture={(e) => {
-                    e.stopPropagation();
-                    setShowNotif((v) => !v);
+                  onClick={() => setHoverDownload((v) => !v)}
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-colors duration-200"
+                  ref={(el) => {
+                    (downloadBtnRef as any).current = el;
                   }}
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
-                  {unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
-                      {unreadCount > 9 ? "9+" : unreadCount}
-                    </span>
-                  )}
+                  Téléchargez l'appli +
                 </button>
-                <NotificationPopover
-                  open={showNotif}
-                  onClose={() => setShowNotif(false)}
-                  onCountChange={setUnreadCount}
+                <AppDownloadPopover
+                  open={hoverDownload}
+                  onClose={() => {
+                    setHoverDownload(false);
+                    setPinnedDownload(false);
+                  }}
+                  pinned={pinnedDownload}
+                  onTogglePin={() => setPinnedDownload((v) => !v)}
+                  triggerRef={downloadBtnRef}
                 />
               </div>
-            )}
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
-            <div className="relative">
-              <button
-                className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
-                onClick={() => setShowAvatarMenuDesktop((v) => !v)}
-                aria-label="Ouvrir le menu du compte"
-              >
-                {isLoggedIn ? (
-                  <img
-                    src={uqer?.profilePictureUrl}
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                  </div>
-                )}
-                <svg
-                  className="h-4 w-4 text-gray-500 dark:text-gray-400"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 9l6 6 6-6"
-                  />
-                </svg>
-              </button>
-              <AvatarMenu
-                open={showAvatarMenuDesktop}
-                onClose={() => setShowAvatarMenuDesktop(false)}
-                onOpenSettings={() => {
-                  setShowAvatarMenuDesktop(false);
-                  setShowSettings(true);
-                }}
-                isLoggedIn={isLoggedIn}
-                onOpenLogin={() => {
-                  setShowAvatarMenuDesktop(false);
-                  setShowLogin(true);
-                }}
-                onOpenRegister={() => {
-                  setShowAvatarMenuDesktop(false);
-                  setShowRegister(true);
-                }}
-              />
-            </div>
-            <LanguageDropdown />
-          </div>
-
-          {/* Mobile Actions */}
-          <div className="md:hidden flex items-center space-x-1">
-            {/* Notifications for mobile - Only show if logged in */}
-            {isLoggedIn && (
               <div className="relative">
                 <button
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 relative"
-                  onClick={() => setShowNotif((v) => !v)}
-                  aria-label="Notifications"
+                  onClick={() => setShowAnnounceTypeDropdown((v) => !v)}
+                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-colors duration-200"
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
-                  {unreadCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
-                      {unreadCount > 9 ? "9+" : unreadCount}
-                    </span>
-                  )}
+                  {t("header.publishAd")}
                 </button>
-                <NotificationPopover
-                  open={showNotif}
-                  onClose={() => setShowNotif(false)}
-                  onCountChange={setUnreadCount}
+                <AnnounceTypeDropdown
+                  open={showAnnounceTypeDropdown}
+                  onClose={() => setShowAnnounceTypeDropdown(false)}
+                  onSelectType={handleAnnounceTypeSelect}
                 />
               </div>
-            )}
-            
-            {/* Language selector for mobile */}
-            <div className="relative">
-              <LanguageDropdown />
-            </div>
-            
-            {/* Avatar with dropdown for mobile */}
-            <div className="relative">
-              <button
-                className="flex items-center hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200"
-                onClick={() => setShowAvatarMenuMobile((v) => !v)}
-                aria-label="Ouvrir le menu du compte"
-              >
-                {isLoggedIn ? (
-                  <img
-                    src={uqer?.profilePictureUrl}
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+            </nav>
+
+            {/* Desktop Actions */}
+            <div className="hidden md:flex items-center space-x-4 relative">
+              {/* Notifications - Only show if logged in */}
+              {isLoggedIn && (
+                <div className="relative">
+                  <button
+                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 relative"
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-label="Notifications"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClickCapture={(e) => {
+                      e.stopPropagation();
+                      setShowNotif((v) => !v);
+                    }}
+                  >
                     <svg
-                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      className="w-6 h-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -312,133 +166,54 @@ export default function Header() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                       />
                     </svg>
-                  </div>
-                )}
-              </button>
-              <AvatarMenu
-                open={showAvatarMenuMobile}
-                onClose={() => setShowAvatarMenuMobile(false)}
-                onOpenSettings={() => {
-                  setShowAvatarMenuMobile(false);
-                  setShowSettings(true);
-                }}
-                isLoggedIn={isLoggedIn}
-                onOpenLogin={() => {
-                  setShowAvatarMenuMobile(false);
-                  setShowLogin(true);
-                }}
-                onOpenRegister={() => {
-                  setShowAvatarMenuMobile(false);
-                  setShowRegister(true);
-                }}
-              />
-            </div>
-            
-            {/* Modern Hamburger Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center group"
-              aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            >
-              <div className="w-5 h-4 flex flex-col justify-between">
-                <span
-                  className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${
-                    isMenuOpen ? "rotate-45 translate-y-[7px]" : ""
-                  }`}
-                ></span>
-                <span
-                  className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 ${
-                    isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
-                  }`}
-                ></span>
-                <span
-                  className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${
-                    isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""
-                  }`}
-                ></span>
-              </div>
-            </button>
-          </div>
-      
-        </div>
-
-        {/* Mobile Navigation - Modern Slide-in Menu */}
-        <div
-          className={`md:hidden fixed inset-0 top-16 z-40 transition-all duration-300 ${
-            isMenuOpen
-              ? "opacity-100 pointer-events-auto"
-              : "opacity-0 pointer-events-none"
-          }`}
-        >
-          {/* Backdrop */}
-          <div
-            className={`absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
-              isMenuOpen ? "opacity-100" : "opacity-0"
-            }`}
-            onClick={() => setIsMenuOpen(false)}
-          ></div>
-
-          {/* Menu Panel */}
-          <div
-            className={`absolute top-0 left-0 right-0 bg-white dark:bg-gray-900 shadow-xl transition-transform duration-300 ease-out ${
-              isMenuOpen ? "translate-y-0" : "-translate-y-full"
-            }`}
-          >
-            <div className="px-4 py-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
-              {/* Téléchargez l'appli */}
-              <button
-                onClick={() => {
-                  setPinnedDownload(true);
-                  setHoverDownload((v) => !v);
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center w-full text-left px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-xl font-medium transition-all duration-200 group"
-              >
-                <svg
-                  className="w-5 h-5 mr-3 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
+                        {unreadCount > 9 ? "9+" : unreadCount}
+                      </span>
+                    )}
+                  </button>
+                  <NotificationPopover
+                    open={showNotif}
+                    onClose={() => setShowNotif(false)}
+                    onCountChange={setUnreadCount}
                   />
-                </svg>
-                <span>Téléchargez l'appli</span>
-              </button>
-
-              {/* Publier une annonce */}
-              <div className="space-y-1">
+                </div>
+              )}
+              <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
+              <div className="relative">
                 <button
-                  onClick={() => setShowMobilePublishOptions((v) => !v)}
-                  className="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-xl font-medium transition-all duration-200 group"
+                  className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                  onClick={() => setShowAvatarMenuDesktop((v) => !v)}
+                  aria-label="Ouvrir le menu du compte"
                 >
-                  <div className="flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-3 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                    <span>{t("header.publishAd")}</span>
-                  </div>
+                  {isLoggedIn ? (
+                    <img
+                      src={uqer?.profilePictureUrl}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                    </div>
+                  )}
                   <svg
-                    className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
-                      showMobilePublishOptions ? "rotate-180" : ""
-                    }`}
+                    className="h-4 w-4 text-gray-500 dark:text-gray-400"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -447,34 +222,90 @@ export default function Header() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d="M19 9l-7 7-7-7"
+                      d="M6 9l6 6 6-6"
                     />
                   </svg>
                 </button>
+                <AvatarMenu
+                  open={showAvatarMenuDesktop}
+                  onClose={() => setShowAvatarMenuDesktop(false)}
+                  onOpenSettings={() => {
+                    setShowAvatarMenuDesktop(false);
+                    setShowSettings(true);
+                  }}
+                  isLoggedIn={isLoggedIn}
+                  onOpenLogin={() => {
+                    setShowAvatarMenuDesktop(false);
+                    setShowLogin(true);
+                  }}
+                  onOpenRegister={() => {
+                    setShowAvatarMenuDesktop(false);
+                    setShowRegister(true);
+                  }}
+                />
+              </div>
+              <LanguageDropdown />
+            </div>
 
-                {/* Submenu with smooth animation */}
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    showMobilePublishOptions
-                      ? "max-h-40 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
+            {/* Mobile Actions */}
+            <div className="md:hidden flex items-center space-x-1">
+              {/* Notifications for mobile - Only show if logged in */}
+              {isLoggedIn && (
+                <div className="relative">
+                  <button
+                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 relative"
+                    onClick={() => setShowNotif((v) => !v)}
+                    aria-label="Notifications"
+                  >
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                      />
+                    </svg>
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
+                        {unreadCount > 9 ? "9+" : unreadCount}
+                      </span>
+                    )}
+                  </button>
+                  <NotificationPopover
+                    open={showNotif}
+                    onClose={() => setShowNotif(false)}
+                    onCountChange={setUnreadCount}
+                  />
+                </div>
+              )}
+
+              {/* Language selector for mobile */}
+              <div className="relative">
+                <LanguageDropdown />
+              </div>
+
+              {/* Avatar with dropdown for mobile */}
+              <div className="relative">
+                <button
+                  className="flex items-center hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200"
+                  onClick={() => setShowAvatarMenuMobile((v) => !v)}
+                  aria-label="Ouvrir le menu du compte"
                 >
-                  <div className="pl-12 pr-4 space-y-1 py-1">
-                    <button
-                      onClick={() => {
-                        if (!isLoggedIn) {
-                          setShowLogin(true);
-                          setIsMenuOpen(false);
-                          return;
-                        }
-                        setShowCreateAnnounce(true);
-                        setIsMenuOpen(false);
-                      }}
-                      className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
-                    >
+                  {isLoggedIn ? (
+                    <img
+                      src={uqer?.profilePictureUrl}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                       <svg
-                        className="w-4 h-4 mr-2"
+                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -483,25 +314,115 @@ export default function Header() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M5 13l4 4L19 7"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                         />
                       </svg>
-                      Publier un trajet
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (!isLoggedIn) {
-                          setShowLogin(true);
-                          setIsMenuOpen(false);
-                          return;
-                        }
-                        setShowCreatePackage(true);
-                        setIsMenuOpen(false);
-                      }}
-                      className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
-                    >
+                    </div>
+                  )}
+                </button>
+                <AvatarMenu
+                  open={showAvatarMenuMobile}
+                  onClose={() => setShowAvatarMenuMobile(false)}
+                  onOpenSettings={() => {
+                    setShowAvatarMenuMobile(false);
+                    setShowSettings(true);
+                  }}
+                  isLoggedIn={isLoggedIn}
+                  onOpenLogin={() => {
+                    setShowAvatarMenuMobile(false);
+                    setShowLogin(true);
+                  }}
+                  onOpenRegister={() => {
+                    setShowAvatarMenuMobile(false);
+                    setShowRegister(true);
+                  }}
+                />
+              </div>
+
+              {/* Modern Hamburger Menu Button */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="relative w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center group"
+                aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              >
+                <div className="w-5 h-4 flex flex-col justify-between">
+                  <span
+                    className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${
+                      isMenuOpen ? "rotate-45 translate-y-[7px]" : ""
+                    }`}
+                  ></span>
+                  <span
+                    className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 ${
+                      isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+                    }`}
+                  ></span>
+                  <span
+                    className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${
+                      isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""
+                    }`}
+                  ></span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation - Modern Slide-in Menu */}
+          <div
+            className={`md:hidden fixed inset-0 top-16 z-40 transition-all duration-300 ${
+              isMenuOpen
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 pointer-events-none"
+            }`}
+          >
+            {/* Backdrop */}
+            <div
+              className={`absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+                isMenuOpen ? "opacity-100" : "opacity-0"
+              }`}
+              onClick={() => setIsMenuOpen(false)}
+            ></div>
+
+            {/* Menu Panel */}
+            <div
+              className={`absolute top-0 left-0 right-0 bg-white dark:bg-gray-900 shadow-xl transition-transform duration-300 ease-out ${
+                isMenuOpen ? "translate-y-0" : "-translate-y-full"
+              }`}
+            >
+              <div className="px-4 py-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
+                {/* Téléchargez l'appli */}
+                <button
+                  onClick={() => {
+                    setPinnedDownload(true);
+                    setHoverDownload((v) => !v);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center w-full text-left px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-xl font-medium transition-all duration-200 group"
+                >
+                  <svg
+                    className="w-5 h-5 mr-3 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span>Téléchargez l'appli</span>
+                </button>
+
+                {/* Publier une annonce */}
+                <div className="space-y-1">
+                  <button
+                    onClick={() => setShowMobilePublishOptions((v) => !v)}
+                    className="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-xl font-medium transition-all duration-200 group"
+                  >
+                    <div className="flex items-center">
                       <svg
-                        className="w-4 h-4 mr-2"
+                        className="w-5 h-5 mr-3 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -510,51 +431,128 @@ export default function Header() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                          d="M12 4v16m8-8H4"
                         />
                       </svg>
-                      Publier un baggage
-                    </button>
+                      <span>{t("header.publishAd")}</span>
+                    </div>
+                    <svg
+                      className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
+                        showMobilePublishOptions ? "rotate-180" : ""
+                      }`}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Submenu with smooth animation */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      showMobilePublishOptions
+                        ? "max-h-40 opacity-100"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="pl-12 pr-4 space-y-1 py-1">
+                      <button
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                            setShowLogin(true);
+                            setIsMenuOpen(false);
+                            return;
+                          }
+                          setShowCreateAnnounce(true);
+                          setIsMenuOpen(false);
+                        }}
+                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
+                      >
+                        <svg
+                          className="w-4 h-4 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                        Publier un trajet
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                            setShowLogin(true);
+                            setIsMenuOpen(false);
+                            return;
+                          }
+                          setShowCreatePackage(true);
+                          setIsMenuOpen(false);
+                        }}
+                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
+                      >
+                        <svg
+                          className="w-4 h-4 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                          />
+                        </svg>
+                        Publier un baggage
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
 
-        <SettingsDialog
-            open={showSettings}
-            onClose={() => setShowSettings(false)}
-          />
-          <CreatePackageDialog
-            open={showCreatePackage}
-            onClose={() => setShowCreatePackage(false)}
-          />
-          <CreateAnnounceDialog
-            open={showCreateAnnounce}
-            onClose={() => setShowCreateAnnounce(false)}
-          />
-          <LoginDialog
-            open={showLogin}
-            onClose={() => setShowLogin(false)}
-            onSwitchToRegister={() => {
-              setShowLogin(false);
-              setShowRegister(true);
-            }}
-          />
-          <RegisterDialog
-            open={showRegister}
-            onClose={() => setShowRegister(false)}
-            onSwitchToLogin={() => {
-              setShowRegister(false);
-              setShowLogin(true);
-            }}
-          />
+      <SettingsDialog
+        open={showSettings}
+        onClose={() => setShowSettings(false)}
+      />
+      <CreatePackageDialog
+        open={showCreatePackage}
+        onClose={() => setShowCreatePackage(false)}
+      />
+      <CreateAnnounceDialog
+        open={showCreateAnnounce}
+        onClose={() => setShowCreateAnnounce(false)}
+      />
+      <LoginDialog
+        open={showLogin}
+        onClose={() => setShowLogin(false)}
+        onSwitchToRegister={() => {
+          setShowLogin(false);
+          setShowRegister(true);
+        }}
+      />
+      <RegisterDialog
+        open={showRegister}
+        onClose={() => setShowRegister(false)}
+        onSwitchToLogin={() => {
+          setShowRegister(false);
+          setShowLogin(true);
+        }}
+      />
     </>
-
   );
 }

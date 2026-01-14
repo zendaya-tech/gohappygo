@@ -1,7 +1,7 @@
 {
-  "demande":{
-    "Colis":"Demandez un transport",
-    "Voyage":"Annonce de voyage"
+  "demande": {
+    "Colis": "Demandez un transport",
+    "Voyage": "Annonce de voyage"
   },
   "common": {
     "loading": "Loading...",
@@ -73,6 +73,10 @@
     },
     "recommendations": {
       "title": "Our",
+      "howItWorks": "How it works?",
+      "judiciaryProtection": "Here and there, your legal protection works",
+      "whyHappy": "Why I give happiness?",
+      "yourSecurityPriority": "Your security is our priority",
       "exploreDestinations": "Explore new destinations",
       "popularRoutes": "Popular journeys",
       "secureTransport": "Ship securely",
@@ -86,28 +90,28 @@
     "reviews": {
       "title": "User testimonials",
       "noReviews": "You don't have any reviews yet",
-      "europe": {
-        "review": "I sent a gift to my family in London. The transporter was very professional and the package arrived in perfect condition!",
+      "brazil": {
+        "review": "I helped, I traveled, I earned. Thank you GoHappyGo!",
+        "name": "James P."
+      },
+      "south_africa": {
+        "review": "I treated myself to a restaurant with GoHappyGo earnings. Yes, I gave happiness, and I received a lot in return",
+        "name": "Theresa L."
+      },
+      "australia": {
+        "review": "A simple but brilliant idea. The interface is intuitive and the concept addresses a real need.",
         "name": "Marie D."
       },
-      "southAmerica": {
-        "review": "Excellent service! I was able to profit from my trip by transporting packages. Simple interface and fast payment.",
-        "name": "Thomas L."
+      "usa_east": {
+        "review": "A very beautiful human experience. Pierre, my HappyTraveler, was ultimately like a guide during my stay. I was a bit hesitant at first, but the platform is clear and reassuring. I was informed at every step.",
+        "name": "Christian L."
       },
-      "northAmerica": {
-        "review": "Excellent service! I was able to profit from my trip by transporting packages. Simple interface and fast payment.",
-        "name": "Thomas L."
-      },
-      "asia": {
-        "review": "Very fast and efficient service. I highly recommend GoHappyGo!",
-        "name": "Thomas L."
-      },
-      "africa": {
-        "review": "I transported packages to Africa. The service was very fast and the price was very affordable.",
+      "usa_west": {
+        "review": "A smooth platform, clear exchanges and a true sense of mutual aid between travelers.",
         "name": "Thierry M."
       },
-      "oceania": {
-        "review": "Much cheaper than traditional delivery services. I highly recommend GoHappyGo!",
+      "france": {
+        "review": "I'm a mother of 4 children; I was able to bring plenty of things for the 'little' family on our trip without breaking the bank",
         "name": "Sophie M."
       }
     },

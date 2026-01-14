@@ -1,7 +1,7 @@
 {
-  "demande":{
-    "Colis":"Demande de voyage",
-    "Voyage":"Annonce de voyage"
+  "demande": {
+    "Colis": "Demande de voyage",
+    "Voyage": "Annonce de voyage"
   },
 
   "common": {
@@ -74,6 +74,10 @@
     },
     "recommendations": {
       "title": "Nos",
+      "howItWorks": "Comment ça marche ?",
+      "judiciaryProtection": " Ici et là-bas, votre protection juridique marche",
+      "whyHappy": "Pourquoi je donne du Bonheur ?",
+      "yourSecurityPriority": "Votre sécurité est notre priorité",
       "exploreDestinations": "Explorez de nouvelles destinations",
       "popularRoutes": "Trajets populaires",
       "secureTransport": "Voyagez en toute sécurité",
@@ -87,28 +91,28 @@
     "reviews": {
       "title": "Témoignages de nos utilisateurs",
       "noReviews": "Vous n'avez pas encore d'avis",
-      "europe": {
-        "review": "J'ai envoyé un cadeau à ma famille à Londres. Le HappyVoyageur était très professionnel et le colis est arrivé en parfait état !",
+      "brazil": {
+        "review": "J’ai aidé, j’ai voyagé, J’ai gagné. Merci GoHappyGo !",
+        "name": "James P."
+      },
+      "south_africa": {
+        "review": "Je me suis offert un restaurant avec les sous de GoHappyGo, Oui, j’ai donné du bonheur, et j‘en ai beaucoup reçu",
+        "name": "Theresa L."
+      },
+      "australia": {
+        "review": "Une idée simple mais brillante. L’interface est intuitive et le concept répond à un vrai besoin.",
         "name": "Marie D."
       },
-      "southAmerica": {
-        "review": "Excellent service ! J'ai pu rentabiliser mon voyage en faisant voyager des colis. Interface simple et paiement rapide.",
-        "name": "Thomas L."
+      "usa_east": {
+        "review": " Une très belle expérience humaine. Pierre, mon HappyVoyageur était finalement comme un guide lors de mon séjour. J’étais un peu hésitante au départ, mais la plateforme est claire et rassurante. J’ai été informée à chaque étape.",
+        "name": "Christian L."
       },
-      "northAmerica": {
-        "review": "Excellent service ! J'ai pu rentabiliser mon voyage en faisant voyager des colis. Interface simple et paiement rapide.",
-        "name": "Thomas L."
-      },
-      "asia": {
-        "review": "Service très rapide et efficace. Je recommande vivement GoHappyGo !",
-        "name": "Thomas L."
-      },
-      "africa": {
-        "review": "J'ai fait voyager des colis en Afrique. Le service était très rapide et le prix était très abordable.",
+      "usa_west": {
+        "review": "Une plateforme fluide, des échanges clairs et un vrai sentiment d’entraide entre voyageurs.",
         "name": "Thierry M."
       },
-      "oceania": {
-        "review": "Beaucoup moins cher que les services de livraison traditionnels. Je recommande vivement GoHappyGo !",
+      "france": {
+        "review": " Je suis maman de 4 enfants ; J’ai pu prendre plein de choses pour la « petite » famille pour notre voyage sans me ruiner",
         "name": "Sophie M."
       }
     },
