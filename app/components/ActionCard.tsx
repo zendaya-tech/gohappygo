@@ -50,24 +50,24 @@ const ActionCard: React.FC<ActionCardProps> = ({
   messageAction,
 }) => {
   return (
-    <div className="bg-white  rounded-2xl overflow-hidden px-2 py-3 shadow-lg hover:shadow-xl transition-shadow border border-gray-200">
-      {/* 1. Main Visual (Image or Logo) */}
-      <div className="relative items-center  justify-center flex overflow-hidden rounded-2xl bg-gray-100   border border-gray-200 h-64 mb-4">
+    <div className="bg-white rounded-2xl overflow-hidden p-3 md:p-4 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
+      {/* 1. Image - Hauteur adaptée (plus petite sur mobile) */}
+      <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-gray-100 border border-gray-200 h-48 sm:h-56 md:h-64 mb-4 shrink-0">
         <img
           src={image || "/favicon.ico"}
           alt={title}
           className={`${
             type === "transporter"
-              ? "max-h-full h-52 p-5 object-contain max-w-full "
-              : "object-cover min-w-100 min-h-100 "
-          } m-auto  `}
+              ? "max-h-full h-40 md:h-52 p-4 md:p-5 object-contain"
+              : "object-cover w-full h-full"
+          } m-auto transition-transform duration-300 hover:scale-105`}
           onError={(e) => (e.currentTarget.src = "/favicon.ico")}
         />
         {type && (
           <div
-            className={`absolute bottom-4 left-4 px-3 py-1 rounded-full text-xs font-medium ${
+            className={`absolute bottom-3 left-3 md:bottom-4 md:left-4 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wide ${
               type === "transporter"
-                ? "bg-blue-500/90 text-white"
+                ? "bg-blue-600/90 text-white"
                 : "bg-orange-500/90 text-white"
             }`}
           >
@@ -75,22 +75,23 @@ const ActionCard: React.FC<ActionCardProps> = ({
           </div>
         )}
       </div>
-      <div className="p-2">
-        {/* 2. User Row (If provided) */}
+
+      <div className="flex flex-col flex-grow px-1">
+        {/* 2. User Row - Adaptation de l'espace et taille texte */}
         {user && (
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between mb-4 gap-2">
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
               <img
                 src={user.avatar}
                 alt={user.name}
-                className="w-10 h-10 rounded-full object-cover bg-gray-100"
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover bg-gray-100 shrink-0"
               />
-              <span className="font-bold text-gray-800 text-sm">
+              <span className="font-bold text-gray-800 text-xs md:text-sm truncate">
                 {user.name}
               </span>
             </div>
             <button
-              className="px-5 py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-xs font-bold hover:bg-blue-50"
+              className="px-3 py-1.5 md:px-5 md:py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-[10px] md:text-xs font-bold hover:bg-blue-50 transition-colors shrink-0"
               onClick={messageAction?.onClick}
             >
               Message
@@ -98,32 +99,37 @@ const ActionCard: React.FC<ActionCardProps> = ({
           </div>
         )}
 
-        {/* 3. Text Info */}
-        <div className="space-y-4 mb-6">
-          <h3 className="text-lg font-black text-gray-900 leading-tight font-medium">
+        {/* 3. Text Info - Hiérarchie visuelle */}
+        <div className="space-y-3 mb-5">
+          <h3 className="text-sm  text-gray-500 leading-tight min-h-[2.5rem] md:min-h-[3rem]">
             {title}
           </h3>
 
-          <div className="flex flex-col gap-1">
-            <div className="text-blue-600 text-sm">
+          <div className="flex flex-col gap-1.5">
+            <div className="text-blue-600 font-medium text-xs md:text-sm">
               {subtitle}: <span className="ml-1">{weight} kg</span>
             </div>
-            <div className="flex justify-between text-[0.7rem] text-gray-400 font-bold uppercase tracking-wider">
+            <div className="flex justify-between items-center text-[0.65rem] md:text-[0.7rem] text-gray-400 font-bold uppercase tracking-wider">
               <span>{dateLabel}</span>
-              <span>Vol {flightNumber}</span>
+              <span className=" px-2 py-0.5 rounded text-gray-500">
+                Vol {flightNumber}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* 4. Footer - Price & Dynamic Actions */}
-        <div className="flex items-center justify-between mt-auto">
-          <div className="text-md font-black text-gray-900">
-            {price} {priceSubtext || "$"}
+        {/* 4. Footer - Prix & Boutons (Stack sur très petit écran si besoin) */}
+        <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-3">
+          <div className="text-md font-medium  text-gray-900">
+            {price}{" "}
+            <span className="text-md  text-gray-900">
+              {priceSubtext || "$/kg"}
+            </span>
           </div>
 
           <div className="flex gap-2">
             {statusBadge ? (
-              <span className="px-6 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-xs">
+              <span className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-[10px] md:text-xs whitespace-nowrap">
                 {statusBadge}
               </span>
             ) : (
@@ -131,10 +137,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {primaryAction && (
                   <button
                     onClick={primaryAction.onClick}
-                    className={`px-4 py-2 text-white rounded-xl font-bold text-sm shadow-lg transition-all active:scale-95 ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-xs md:text-sm shadow-md transition-all active:scale-95 whitespace-nowrap ${
                       primaryAction.color === "green"
-                        ? "bg-green-500 shadow-green-100"
-                        : "bg-blue-600 shadow-blue-100"
+                        ? "bg-green-500 hover:bg-green-600"
+                        : "bg-blue-600 hover:bg-blue-700"
                     }`}
                   >
                     {primaryAction.label}
@@ -143,10 +149,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {secondaryAction && (
                   <button
                     onClick={secondaryAction.onClick}
-                    className={`px-4 py-2 text-sm font-bold rounded-xl transition-colors border-2 border-red-500 ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md:text-xs font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
                       secondaryAction.color === "red"
-                        ? "text-red-500 hover:bg-red-50"
-                        : "text-gray-500 hover:bg-gray-50"
+                        ? "border-red-500 text-red-500 hover:bg-red-50"
+                        : "border-gray-200 text-gray-500 hover:bg-gray-50"
                     }`}
                   >
                     {secondaryAction.label}

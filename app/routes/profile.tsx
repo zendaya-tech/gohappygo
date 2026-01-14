@@ -245,16 +245,6 @@ const ReservationsSection = () => {
         >
           | Archived reservations
         </button>
-        <button
-          onClick={() => setTab("cancelled")}
-          className={`text-sm font-semibold ${
-            tab === "cancelled"
-              ? "text-gray-900 dark:text-white"
-              : "text-gray-500"
-          }`}
-        >
-          | Cancelled
-        </button>
       </div>
 
       {filtered.length === 0 ? (
@@ -266,14 +256,14 @@ const ReservationsSection = () => {
           />
         </div>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
           {filtered.map((request) => {
             const travel = request.travel;
             const requester = request.requester;
 
             // Data Preparation
-            const departureCity = travel?.departureAirport?.city || "Paris";
-            const arrivalCity = travel?.arrivalAirport?.city || "New-York";
+            const departureCity = travel?.departureAirport?.name || "Paris";
+            const arrivalCity = travel?.arrivalAirport?.name || "New-York";
             const travelDate = travel?.departureDatetime
               ? formatDate(travel.departureDatetime)
               : "";
@@ -1448,14 +1438,12 @@ const FavoritesSection = () => {
   return (
     <div className="bg-white rounded-2xl ">
       {bookmarks.length === 0 ? (
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <HeartIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">Aucun favori</p>
-            <p className="text-gray-400 text-sm mt-2">
-              Ajoutez des annonces à vos favoris pour les retrouver facilement
-            </p>
-          </div>
+        <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+          <img
+            src="/images/noFavorites.jpeg"
+            alt="No favorites"
+            className="w-[50%] h-[50%]"
+          />
         </div>
       ) : (
         <div>
@@ -1809,7 +1797,7 @@ export default function Profile() {
     <div className=" bg-white">
       <Header />
 
-      <main className="min-h-screen mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+      <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
