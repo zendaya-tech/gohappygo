@@ -9,6 +9,7 @@ import EditAnnounceDialog from "~/components/common/dialog/EditAnnounceDialog";
 import EditPackageDialog from "~/components/common/dialog/EditPackageDialog";
 import ConfirmCancelDialog from "~/components/common/dialog/ConfirmCancelDialog";
 import MessageDialog from "~/components/common/dialog/MessageDialog";
+import ReviewDialog from "~/components/common/dialog/ReviewDialog";
 import ConversationList from "~/components/ConversationList";
 import Chat from "~/components/Chat";
 import { useAuth } from "~/hooks/useAuth";
@@ -110,6 +111,8 @@ const ReservationsSection = () => {
     avatar: string;
     requestId: number;
   } | null>(null);
+  const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -183,6 +186,24 @@ const ReservationsSection = () => {
     // TODO: Implement message sending logic
     console.log("Sending message:", message, "to:", selectedRequester?.name);
     // You can add API call here to send the message
+  };
+
+  const handleOpenReview = (request: RequestResponse) => {
+    setRequestToReview(request);
+    setReviewDialogOpen(true);
+  };
+
+  const handleReviewSuccess = () => {
+    // Refresh requests
+    const fetchRequests = async () => {
+      try {
+        const response = await getRequests();
+        setRequests(response.items || []);
+      } catch (error) {
+        console.error("Error fetching requests:", error);
+      }
+    };
+    fetchRequests();
   };
 
   const formatDate = (dateString: string) => {
@@ -352,6 +373,15 @@ const ReservationsSection = () => {
                       }
                     : undefined
                 }
+                tertiaryAction={
+                  request.currentStatus?.status === "COMPLETED"
+                    ? {
+                        label: "Évaluer",
+                        onClick: () => handleOpenReview(request),
+                        color: "orange",
+                      }
+                    : undefined
+                }
                 messageAction={
                   request.currentStatus?.status === "NEGOTIATING"
                     ? {
@@ -415,6 +445,24 @@ const ReservationsSection = () => {
         cancelText="Non, garder"
         type="danger"
       />
+
+      {/* Review Dialog */}
+      {requestToReview && (
+        <ReviewDialog
+          open={reviewDialogOpen}
+          onClose={() => {
+            setReviewDialogOpen(false);
+            setRequestToReview(null);
+          }}
+          requestId={requestToReview.id}
+          requesterName={
+            requestToReview.requester
+              ? `${requestToReview.requester.firstName} ${requestToReview.requester.lastName.charAt(0)}.`
+              : "Utilisateur"
+          }
+          onSuccess={handleReviewSuccess}
+        />
+      )}
     </div>
   );
 };
@@ -925,7 +973,7 @@ const TravelsSection = () => {
                 id={travel.id}
                 // Image Priority: Travel Upload -> Airline Logo -> User Avatar -> Default
                 image={travel.airline?.logoUrl || "/favicon.ico"}
-                title={`${travel?.departureAirport?.municipality || "N/A"} → ${travel?.arrivalAirport?.municipality || "N/A"}`}
+                title={`${travel?.departureAirport?.name || "N/A"} → ${travel?.arrivalAirport?.name || "N/A"}`}
                 subtitle="Espace disponible"
                 type={type}
                 weight={travel.weightAvailable || 0}
@@ -1015,6 +1063,8 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [releasingFunds, setReleasingFunds] = useState<number | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1059,8 +1109,15 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       setBalance(balanceData);
       const transactionData = await getTransactions(1, 10);
       setTransactions(transactionData.items);
-    } catch (error) {
+      setSuccessMessage("Fonds libérés avec succès");
+      // Clear success message after 3 seconds
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch (error: any) {
       console.error("Error releasing funds:", error);
+      const errorMsg = error?.message || error?.error?.message || "Erreur lors de la libération des fonds";
+      setErrorMessage(errorMsg);
+      // Clear error message after 5 seconds
+      setTimeout(() => setErrorMessage(null), 5000);
     } finally {
       setReleasingFunds(null);
     }
@@ -1222,6 +1279,32 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       {/* Transactions Tab */}
       {tab === "transactions" && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
+              <p className="text-red-800 font-medium">{errorMessage}</p>
+              <button
+                onClick={() => setErrorMessage(null)}
+                className="text-red-600 hover:text-red-800"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          {/* Success Message */}
+          {successMessage && (
+            <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center justify-between">
+              <p className="text-green-800 font-medium">{successMessage}</p>
+              <button
+                onClick={() => setSuccessMessage(null)}
+                className="text-green-600 hover:text-green-800"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900">
               Historique des transactions

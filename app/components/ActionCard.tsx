@@ -31,6 +31,11 @@ interface ActionCardProps {
     label: string;
     onClick: () => void;
   };
+  tertiaryAction?: {
+    label: string;
+    onClick: () => void;
+    color?: "blue" | "green" | "orange";
+  };
 }
 
 const ActionCard: React.FC<ActionCardProps> = ({
@@ -48,6 +53,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
   secondaryAction,
   statusBadge,
   messageAction,
+  tertiaryAction,
 }) => {
   return (
     <div className="bg-white rounded-2xl overflow-hidden p-3 md:p-4 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
@@ -129,9 +135,19 @@ const ActionCard: React.FC<ActionCardProps> = ({
 
           <div className="flex gap-2">
             {statusBadge ? (
-              <span className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-[10px] md:text-xs whitespace-nowrap">
-                {statusBadge}
-              </span>
+              <div className="flex gap-2 items-center justify-end w-full">
+                {tertiaryAction && (
+                  <button
+                    onClick={tertiaryAction.onClick}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-lg transition-all active:scale-95 hover:bg-blue-700 shadow-blue-100"
+                  >
+                    {tertiaryAction.label}
+                  </button>
+                )}
+                <span className="px-6 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-xs">
+                  {statusBadge}
+                </span>
+              </div>
             ) : (
               <>
                 {primaryAction && (

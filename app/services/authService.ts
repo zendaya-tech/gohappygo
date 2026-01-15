@@ -4,6 +4,7 @@ export const login = async (email: string, password: string) => {
   try {
     const response = await api.post(`/auth/login`, { email, password });
     return response.data;
+
   } catch (error) {
     console.error(error);
     return null;
@@ -78,7 +79,7 @@ export const updateProfile = async (data: UpdateProfileData) => {
 
 export const changePassword = async (data: ChangePasswordData) => {
   try {
-    const response = await api.patch(`/user/change-password`, {
+    const response = await api.put(`/user/change-password`, {
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
     });

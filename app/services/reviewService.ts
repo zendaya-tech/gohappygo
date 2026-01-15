@@ -98,3 +98,20 @@ export const getReviews = async (asReviewer?: boolean, userId?: number): Promise
     };
   }
 };
+
+
+export interface CreateReviewDto {
+  requestId: number;
+  rating: number;
+  comment: string;
+}
+
+export const createReview = async (data: CreateReviewDto): Promise<Review> => {
+  try {
+    const response = await api.post('/review', data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error creating review:", error);
+    throw error?.response?.data || error;
+  }
+};

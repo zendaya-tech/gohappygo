@@ -6,8 +6,6 @@ import {
   EyeSlashIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
-import { PhoneInput } from "react-international-phone";
-import "react-international-phone/style.css";
 import { useAuth } from "../../../hooks/useAuth";
 
 interface ProfileDialogProps {
@@ -29,7 +27,6 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
   const [formData, setFormData] = useState({
     firstName: firstName,
     lastName: lastName,
-    phoneNumber: "",
     aboutMe: user?.bio || "",
   });
   const [passwordData, setPasswordData] = useState({
@@ -69,7 +66,6 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
           setFormData({
             firstName: userData?.firstName || firstName,
             lastName: userData?.lastName || lastName,
-            phoneNumber: userData?.phone || "",
             aboutMe: userData?.bio || user.bio || "",
           });
         } catch (error) {
@@ -77,7 +73,6 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
           setFormData({
             firstName: firstName,
             lastName: lastName,
-            phoneNumber: "",
             aboutMe: user.bio || "",
           });
         }
@@ -132,7 +127,6 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
         firstName: formData.firstName,
         lastName: formData.lastName,
         bio: formData.aboutMe,
-        phone: formData.phoneNumber,
         profilePicture: profileImageFile || undefined,
       });
 
@@ -289,30 +283,6 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       }
                       className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                  </div>
-
-                  {/* Phone Number with Country Code */}
-                  <div>
-                    <PhoneInput
-                      defaultCountry="fr"
-                      value={formData.phoneNumber}
-                      onChange={(phone) =>
-                        handleInputChange("phoneNumber", phone)
-                      }
-                      inputClassName="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-100 cursor-not-allowed"
-                      countrySelectorStyleProps={{
-                        className:
-                          "border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-100 cursor-not-allowed",
-                      }}
-                      inputProps={{
-                        placeholder: "Numéro de téléphone",
-                        disabled: true,
-                      }}
-                      disabled
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      (Le numéro de téléphone ne peut pas être modifié)
-                    </p>
                   </div>
 
                   {/* About Me */}
