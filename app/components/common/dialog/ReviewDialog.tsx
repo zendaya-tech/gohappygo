@@ -126,7 +126,7 @@ export default function ReviewDialog({
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 px-4 py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors disabled:opacity-50 shadow-lg"
+            className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors disabled:opacity-50 shadow-lg"
           >
             {loading ? "Envoi..." : "Envoyer l'avis"}
           </button>
