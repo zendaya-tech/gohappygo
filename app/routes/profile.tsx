@@ -112,7 +112,8 @@ const ReservationsSection = () => {
     requestId: number;
   } | null>(null);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
-  const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
+  const [requestToReview, setRequestToReview] =
+    useState<RequestResponse | null>(null);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -1114,7 +1115,10 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error: any) {
       console.error("Error releasing funds:", error);
-      const errorMsg = error?.message || error?.error?.message || "Erreur lors de la libération des fonds";
+      const errorMsg =
+        error?.message ||
+        error?.error?.message ||
+        "Erreur lors de la libération des fonds";
       setErrorMessage(errorMsg);
       // Clear error message after 5 seconds
       setTimeout(() => setErrorMessage(null), 5000);
@@ -1880,7 +1884,7 @@ export default function Profile() {
     <div className=" bg-white">
       <Header />
 
-      <main className="min-h-screen max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+      <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
