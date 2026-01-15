@@ -58,13 +58,15 @@ export default function ReviewDialog({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 md:p-8">
+      <div className="bg-white rounded-2xl max-w-md w-full p-6 md:p-8 shadow-2xl">
+
+
         {/* Header */}
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Félicitations d'être un HappyVoyageur
+            Félicitations d'être un HappyVoyageur !
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-sm">
             Partagez votre expérience avec {requesterName}
           </p>
         </div>
@@ -78,7 +80,7 @@ export default function ReviewDialog({
 
         {/* Rating Selection */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-3">
+          <label className="block text-sm font-semibold text-gray-900 mb-3 text-center">
             Votre note
           </label>
           <div className="flex justify-center gap-2">
@@ -89,9 +91,9 @@ export default function ReviewDialog({
                 className="focus:outline-none transition-transform hover:scale-110"
               >
                 {star <= rating ? (
-                  <StarIconSolid className="h-8 w-8 text-yellow-400" />
+                  <StarIconSolid className="h-10 w-10 text-yellow-400" />
                 ) : (
-                  <StarIcon className="h-8 w-8 text-gray-300 hover:text-yellow-300" />
+                  <StarIcon className="h-10 w-10 text-gray-300 hover:text-yellow-300" />
                 )}
               </button>
             ))}
@@ -107,7 +109,7 @@ export default function ReviewDialog({
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Partagez votre expérience..."
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
             rows={4}
           />
         </div>
@@ -117,14 +119,14 @@ export default function ReviewDialog({
           <button
             onClick={onClose}
             disabled={loading}
-            className="flex-1 px-4 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors disabled:opacity-50"
           >
             Annuler
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
+            className="flex-1 px-4 py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-colors disabled:opacity-50 shadow-lg"
           >
             {loading ? "Envoi..." : "Envoyer l'avis"}
           </button>

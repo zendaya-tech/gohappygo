@@ -15,7 +15,8 @@ function CheckoutForm({
     onConfirm,
     onClose,
     isSubmitting,
-    setIsSubmitting
+    setIsSubmitting,
+    onSuccess
 }: {
     amount: number;
     currencySymbol: string;
@@ -23,6 +24,7 @@ function CheckoutForm({
     onClose: () => void;
     isSubmitting: boolean;
     setIsSubmitting: (value: boolean) => void;
+    onSuccess?: () => void;
 }) {
     const stripe = useStripe();
     const elements = useElements();
@@ -66,6 +68,11 @@ function CheckoutForm({
 
             // Appeler la fonction de confirmation avec le paymentMethodId
             await onConfirm({ paymentMethodId: paymentMethod.id });
+            
+            // Call onSuccess callback if provided
+            if (onSuccess) {
+                onSuccess();
+            }
         } catch (err: any) {
             setError(err.message || "Une erreur est survenue");
             setIsSubmitting(false);
@@ -137,7 +144,8 @@ export default function BookingDialog({
     amount,
     currencySymbol = "€",
     email,
-    onConfirm
+    onConfirm,
+    onSuccess
 }: {
     open: boolean;
     onClose: () => void;
@@ -145,6 +153,7 @@ export default function BookingDialog({
     currencySymbol?: string;
     email?: string;
     onConfirm: (cardData: BookingCardData) => Promise<void>;
+    onSuccess?: () => void;
 }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -203,6 +212,7 @@ export default function BookingDialog({
                         onClose={onClose}
                         isSubmitting={isSubmitting}
                         setIsSubmitting={setIsSubmitting}
+                        onSuccess={onSuccess}
                     />
                 </Elements>
             </div>
