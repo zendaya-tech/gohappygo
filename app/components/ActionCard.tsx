@@ -56,7 +56,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
   tertiaryAction,
 }) => {
   return (
-    <div className="bg-white rounded-2xl overflow-hidden p-3 md:p-4 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
+    <div className="bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
       {/* 1. Image - Hauteur adaptée (plus petite sur mobile) */}
       <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-gray-100 border border-gray-200 h-48 sm:h-56 md:h-64 mb-4 shrink-0">
         <img

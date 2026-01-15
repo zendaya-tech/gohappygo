@@ -826,9 +826,6 @@ export default function CreateAnnounceDialog({
                 >
                   ‹ Back
                 </button>
-                <button className="text-sm text-gray-500">
-                  Save as unfinished
-                </button>
               </div>
               {step < 3 ? (
                 <button

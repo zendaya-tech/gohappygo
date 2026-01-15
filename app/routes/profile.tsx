@@ -114,6 +114,14 @@ const ReservationsSection = () => {
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [requestToReview, setRequestToReview] =
     useState<RequestResponse | null>(null);
+  const [searchParams] = useSearchParams();
+
+  const userId = searchParams.get("user");
+  const { user: currentUser } = useAuth();
+
+  const [isOwnProfile] = useState(
+    !userId || (currentUser && userId === currentUser.id?.toString())
+  );
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -278,7 +286,7 @@ const ReservationsSection = () => {
           />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
           {filtered.map((request) => {
             const travel = request.travel;
             const requester = request.requester;
@@ -307,23 +315,6 @@ const ReservationsSection = () => {
               (requester as any)?.profilePictureUrl || "/favicon.ico";
 
             return (
-              // <TravelRequestCard
-              //   key={request.id}
-              //   request={request}
-              //   travel={travel}
-              //   departureCity={departureCity}
-              //   arrivalCity={arrivalCity}
-              //   travelDate={travelDate}
-              //   flightNumber={flightNumber}
-              //   weight={weight}
-              //   price={price}
-              //   requesterName={requesterName}
-              //   requesterAvatar={requesterAvatar}
-              //   handleAcceptRequest={handleAcceptRequest}
-              //   handleCompleteRequest={handleCompleteRequest}
-              //   handleContactRequester={handleContactRequester}
-              //   // Optional: handleRejectRequest={handleRejectRequest}
-              // />
               <ActionCard
                 key={request.id}
                 id={request.id}
@@ -348,7 +339,8 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 primaryAction={
-                  request.currentStatus?.status === "NEGOTIATING"
+                  request.currentStatus?.status === "NEGOTIATING" &&
+                  requester?.id.toString() != currentUser?.id
                     ? {
                         label: "Approve",
                         onClick: () => handleAcceptRequest(request.id),
@@ -362,17 +354,37 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 secondaryAction={
-                  request.currentStatus?.status === "NEGOTIATING" ||
-                  request.currentStatus?.status === "ACCEPTED"
+                  request.currentStatus?.status === "NEGOTIATING" &&
+                  requester?.id.toString() != currentUser?.id
                     ? {
-                        label: "Delete",
+                        label: "Reject",
                         onClick: () => {
                           setRequestToCancel(request);
                           setCancelConfirmOpen(true);
                         },
                         color: "red",
                       }
-                    : undefined
+                    : request.currentStatus?.status === "NEGOTIATING" &&
+                        requester?.id.toString() === currentUser?.id
+                      ? {
+                          label: "Cancel",
+                          onClick: () => {
+                            setRequestToCancel(request);
+                            setCancelConfirmOpen(true);
+                          },
+                          color: "red",
+                        }
+                      : request.currentStatus?.status === "ACCEPTED" &&
+                          requester?.id.toString() === currentUser?.id
+                        ? {
+                            label: "Annuler",
+                            onClick: () => {
+                              setRequestToCancel(request);
+                              setCancelConfirmOpen(true);
+                            },
+                            color: "red",
+                          }
+                        : undefined
                 }
                 tertiaryAction={
                   request.currentStatus?.status === "COMPLETED"
@@ -789,7 +801,7 @@ const TravelRequestsSection = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {demands.map((demand) => (
               <ActionCard
                 key={demand.id}
@@ -967,7 +979,7 @@ const TravelsSection = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {travels.map((travel) => (
               <ActionCard
                 key={travel.id}
@@ -1860,7 +1872,7 @@ export default function Profile() {
         return <MessagesSection />;
       case "reservations":
         return (
-          <div className="bg-white rounded-2xl border border-gray-200 p-6">
+          <div className="bg-white rounded-2xl border border-gray-200 p-2">
             <div className="mb-4 text-lg font-semibold">Reservations</div>
             <ReservationsSection />
           </div>
@@ -1899,7 +1911,7 @@ export default function Profile() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-4 md:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-4">
             {/* Sidebar */}
             <aside className="space-y-4 md:space-y-6">
               {/* Profile Card */}
@@ -1999,7 +2011,7 @@ export default function Profile() {
               )}
 
               {/* Navigation */}
-              <div className="bg-white rounded-2xl border border-gray-200 p-3 md:p-4">
+              <div className="bg-white rounded-2xl border border-gray-200 p-2">
                 <nav className="space-y-1 md:space-y-2">
                   {visibleSections.map((section) => (
                     <button
@@ -2011,7 +2023,7 @@ export default function Profile() {
                           : "text-gray-700 hover:bg-gray-50"
                       }`}
                     >
-                      <div className="flex items-center gap-2 md:gap-3">
+                      <div className="flex items-center gap-1">
                         <span className="flex-shrink-0">{section.icon}</span>
                         <span className="text-xs md:text-sm font-medium truncate">
                           {section.label}
@@ -2045,7 +2057,7 @@ export default function Profile() {
             </aside>
 
             {/* Main Content */}
-            <section className="mx-15">
+            <section className="mx-5">
               {/* Section Title */}
               <div className="mb-4 md:mb-6">
                 <h1 className="text-xl md:text-2xl font-bold text-gray-900">
