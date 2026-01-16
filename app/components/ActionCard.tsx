@@ -125,10 +125,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
         </div>
 
         {/* 4. Footer - Prix & Boutons (Stack sur très petit écran si besoin) */}
-        <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-3">
+        <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-1">
           <div className="text-md font-medium  text-gray-900">
             {price}{" "}
-            <span className="text-md  text-gray-900">
+            <span className="text-sm  text-gray-900">
               {priceSubtext || "$/kg"}
             </span>
           </div>
