@@ -1974,38 +1974,56 @@ export default function Profile() {
               {(displayUser?.stripeAccountStatus === "pending" ||
                 !displayUser?.stripeAccountId) && (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0">
+                  <div className="flex flex-col justify-center items-center text-center">
+                    <div className="flex gap-2 justify-center">
                       <svg
-                        className="w-6 h-6 text-yellow-600"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
+                        className="w-6 h-6 "
+                        viewBox="0 0 100 100"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                        {/* Le cercle de fond jaune (plus clair) */}
+                        <circle cx="50" cy="50" r="45" fill="#F4D951" />
+
+                        {/* La bordure extérieure (jaune plus foncé/doré) */}
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          stroke="#E6C13E"
+                          strokeWidth="8"
+                        />
+
+                        {/* La coche verte avec des extrémités arrondies */}
+                        <path
+                          d="M30 52L43 65L72 36"
+                          stroke="#22A925"
+                          strokeWidth="10"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-semibold text-yellow-800 mb-2">
-                        Stripe Account
+
+                      <h3 className="text-sm font-semibold text-yellow-800">
+                        Stripe connect GoHappyGo Account
                       </h3>
-                      <p className="text-sm text-yellow-700 mb-4">
-                        Registering a Stripe account is necessary to start
-                        selling your services on the marketplace
-                      </p>
-                      <div className="bg-yellow-100 rounded-lg p-3 mb-4">
-                        <p className="text-sm text-yellow-800">
-                          You haven't registered for a Stripe account yet.
-                          Please do so by clicking the button.
-                        </p>
-                      </div>
-                      <button
-                        onClick={handleStripeOnboarding}
-                        disabled={processingOnboarding}
-                        className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {processingOnboarding ? "Ouverture..." : "Register"}
-                      </button>
                     </div>
+                    <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
+                      <p className="text-xs text-yellow-800">
+                        To withdraw your earnings from the platform you need to
+                        create a Stripe account.
+                      </p>
+                      <p className="text-sm text-yellow-800">
+                        Click the button below to complete your registration.
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleStripeOnboarding}
+                      disabled={processingOnboarding}
+                      className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {processingOnboarding ? "Ouverture..." : "Register"}
+                    </button>
                   </div>
                 </div>
               )}
