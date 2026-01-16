@@ -126,7 +126,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
 
         {/* 4. Footer - Prix & Boutons (Stack sur très petit écran si besoin) */}
         <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-1">
-          <div className="text-md font-medium  text-gray-900">
+          <div className="text-sm font-medium  text-gray-900">
             {price}{" "}
             <span className="text-sm  text-gray-900">
               {priceSubtext || "$/kg"}
@@ -139,12 +139,12 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {tertiaryAction && (
                   <button
                     onClick={tertiaryAction.onClick}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-lg transition-all active:scale-95 hover:bg-blue-700 shadow-blue-100"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold text-xs shadow-lg transition-all active:scale-95 hover:bg-blue-700 shadow-blue-100"
                   >
                     {tertiaryAction.label}
                   </button>
                 )}
-                <span className="px-6 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-xs">
+                <span className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-xs">
                   {statusBadge}
                 </span>
               </div>
@@ -153,7 +153,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {primaryAction && (
                   <button
                     onClick={primaryAction.onClick}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-xs md:text-sm shadow-md transition-all active:scale-95 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md:text-xs shadow-md transition-all active:scale-95 whitespace-nowrap ${
                       primaryAction.color === "green"
                         ? "bg-green-500 hover:bg-green-600"
                         : "bg-blue-600 hover:bg-blue-700"
