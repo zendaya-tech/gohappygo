@@ -1244,6 +1244,10 @@ export default function AnnounceDetail() {
         currencySymbol={currencySymbol}
         email={currentUser?.email || ""}
         onConfirm={handleBookingConfirm}
+        onSuccess={() => {
+          // Redirect to profile reservations tab after successful booking
+          navigate("/profile?section=reservations");
+        }}
       />
 
       {/* Message Dialog */}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { notificationService, type Notification } from "~/services/notificationService";
 
 function formatTimeAgo(dateString: string): string {
@@ -15,6 +15,93 @@ function formatTimeAgo(dateString: string): string {
     return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 }
 
+function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("fr-FR", { 
+        day: "2-digit", 
+        month: "2-digit", 
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
+function getNotificationStyle(notificationType: string) {
+    const styles = {
+        // Demandes
+        DEMAND_PUBLISHED: { bg: "bg-blue-50/60", dot: "bg-blue-600", hover: "hover:bg-blue-100/60" },
+        DEMAND_UPDATED: { bg: "bg-blue-50/60", dot: "bg-blue-500", hover: "hover:bg-blue-100/60" },
+        DEMAND_CANCELLED: { bg: "bg-gray-50/60", dot: "bg-gray-500", hover: "hover:bg-gray-100/60" },
+        
+        // Annonces
+        ANNOUNCE_PUBLISHED: { bg: "bg-green-50/60", dot: "bg-green-600", hover: "hover:bg-green-100/60" },
+        ANNOUNCE_UPDATED: { bg: "bg-green-50/60", dot: "bg-green-500", hover: "hover:bg-green-100/60" },
+        ANNOUNCE_CANCELLED: { bg: "bg-gray-50/60", dot: "bg-gray-500", hover: "hover:bg-gray-100/60" },
+        
+        // Réservations
+        BOOKING_CREATED: { bg: "bg-purple-50/60", dot: "bg-purple-600", hover: "hover:bg-purple-100/60" },
+        BOOKING_CONFIRMED: { bg: "bg-green-50/60", dot: "bg-green-600", hover: "hover:bg-green-100/60" },
+        BOOKING_CANCELLED: { bg: "bg-red-50/60", dot: "bg-red-500", hover: "hover:bg-red-100/60" },
+        
+        // Paiements
+        PAYMENT_RECEIVED: { bg: "bg-emerald-50/60", dot: "bg-emerald-600", hover: "hover:bg-emerald-100/60" },
+        PAYMENT_SENT: { bg: "bg-yellow-50/60", dot: "bg-yellow-600", hover: "hover:bg-yellow-100/60" },
+        PAYMENT_FAILED: { bg: "bg-red-50/60", dot: "bg-red-600", hover: "hover:bg-red-100/60" },
+        
+        // Messages
+        NEW_MESSAGE: { bg: "bg-indigo-50/60", dot: "bg-indigo-600", hover: "hover:bg-indigo-100/60" },
+        
+        // Avis
+        NEW_REVIEW: { bg: "bg-amber-50/60", dot: "bg-amber-600", hover: "hover:bg-amber-100/60" },
+        
+        // Système
+        SYSTEM: { bg: "bg-gray-50/60", dot: "bg-gray-600", hover: "hover:bg-gray-100/60" },
+        
+        // Default
+        DEFAULT: { bg: "bg-indigo-50/60", dot: "bg-indigo-600", hover: "hover:bg-indigo-100/60" }
+    };
+    
+    return styles[notificationType as keyof typeof styles] || styles.DEFAULT;
+}
+
+function getNotificationLink(notification: Notification): string | null {
+    const { notificationType, entityType, entityId } = notification;
+    
+    if (!entityId) return null;
+    
+    // Demandes - Rediriger vers la page d'annonce avec type=demand
+    if (notificationType?.includes('DEMAND') || entityType === 'DEMAND') {
+        return `/announces?id=${entityId}&type=demand`;
+    }
+    
+    // Annonces/Voyages - Rediriger vers la page d'annonce avec type=travel
+    if (notificationType?.includes('ANNOUNCE') || notificationType?.includes('TRAVEL') || entityType === 'ANNOUNCE' || entityType === 'TRAVEL') {
+        return `/announces?id=${entityId}&type=travel`;
+    }
+    
+    // Réservations - Rediriger vers le tab réservations du profil
+    if (notificationType?.includes('BOOKING') || notificationType?.includes('REQUEST') || entityType === 'BOOKING' || entityType === 'REQUEST') {
+        return `/profile?section=reservations`;
+    }
+    
+    // Messages - Rediriger vers le tab messages du profil
+    if (notificationType?.includes('MESSAGE') || entityType === 'MESSAGE') {
+        return `/profile?section=messages`;
+    }
+    
+    // Avis - Rediriger vers le tab avis du profil
+    if (notificationType?.includes('REVIEW') || entityType === 'REVIEW') {
+        return `/profile?section=reviews`;
+    }
+    
+    // Paiements - Rediriger vers le tab paiements du profil
+    if (notificationType?.includes('PAYMENT') || entityType === 'PAYMENT') {
+        return `/profile?section=payments`;
+    }
+    
+    return null;
+}
+
 export default function NotificationPopover({
     open,
     onClose,
@@ -25,6 +112,7 @@ export default function NotificationPopover({
     onCountChange?: (count: number) => void;
 }) {
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const navigate = useNavigate();
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -57,6 +145,20 @@ export default function NotificationPopover({
             });
         } catch (error) {
             console.error("Failed to mark notification as read:", error);
+        }
+    };
+
+    const handleNotificationClick = async (notification: Notification) => {
+        // Mark as read if not already
+        if (!notification.isRead) {
+            await handleMarkAsRead(notification.id);
+        }
+        
+        // Get the link and navigate
+        const link = getNotificationLink(notification);
+        if (link) {
+            onClose();
+            navigate(link);
         }
     };
 
@@ -140,26 +242,31 @@ export default function NotificationPopover({
                         Aucune notification
                     </li>
                 ) : (
-                    notifications.map((n) => (
-                        <li key={n.id}>
-                            <button
-                                onClick={() => !n.isRead && handleMarkAsRead(n.id)}
-                                className={`w-full text-left rounded-xl px-3 py-3 transition hover:bg-gray-50 ${!n.isRead ? "bg-indigo-50/60" : "bg-white"
-                                    }`}
-                            >
-                                <div className="flex items-start gap-3">
-                                    <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${!n.isRead ? "bg-indigo-600" : "bg-gray-300"}`} />
-                                    <div className="min-w-0 flex-1">
-                                        <div className="flex items-center justify-between gap-2">
-                                            <p className="truncate text-sm font-medium text-gray-900">{n.title}</p>
-                                            <span className="shrink-0 text-xs text-gray-500">{formatTimeAgo(n.createdAt)}</span>
+                    notifications.map((n) => {
+                        const style = getNotificationStyle(n.notificationType || 'DEFAULT');
+                        const hasLink = getNotificationLink(n) !== null;
+                        
+                        return (
+                            <li key={n.id}>
+                                <button
+                                    onClick={() => handleNotificationClick(n)}
+                                    className={`w-full text-left rounded-xl px-3 py-3 transition ${!n.isRead ? style.bg : "bg-white"} ${style.hover} ${hasLink ? 'cursor-pointer' : 'cursor-default'}`}
+                                >
+                                    <div className="flex items-start gap-3">
+                                        <div className={`mt-0.5 h-2.5 w-2.5 rounded-full ${!n.isRead ? style.dot : "bg-gray-300"}`} />
+                                        <div className="min-w-0 flex-1">
+                                            <div className="flex items-center justify-between gap-2">
+                                                <p className="truncate text-sm font-medium text-gray-900">{n.title}</p>
+                                                <span className="shrink-0 text-xs text-gray-500">{formatTimeAgo(n.createdAt)}</span>
+                                            </div>
+                                            <p className="mt-0.5 line-clamp-2 text-sm text-gray-600">{n.message}</p>
+                                            <p className="mt-1 text-xs text-gray-400">{formatDate(n.createdAt)}</p>
                                         </div>
-                                        <p className="mt-0.5 line-clamp-2 text-sm text-gray-600">{n.message}</p>
                                     </div>
-                                </div>
-                            </button>
-                        </li>
-                    ))
+                                </button>
+                            </li>
+                        );
+                    })
                 )}
             </ul>
 
