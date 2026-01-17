@@ -73,7 +73,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
           onError={(e) => (e.currentTarget.src = "/favicon.ico")}
         />
         {/* Unread Messages Badge */}
-        {unreadCount && unreadCount > 0 && (
+        {!!unreadCount && unreadCount > 0 && (
           <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
             {unreadCount > 9 ? "9+" : unreadCount}
           </div>

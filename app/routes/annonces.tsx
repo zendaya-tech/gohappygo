@@ -218,7 +218,11 @@ export default function Annonces() {
   };
 
   const handleAlertClick = () => {
-    openRegister();
+    if (!isLoggedIn) {
+      openRegister();
+    } else {
+      setAlertDialogOpen(true);
+    }
   };
 
   const clearAllFilters = () => {
