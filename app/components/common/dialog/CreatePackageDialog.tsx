@@ -68,7 +68,7 @@ export default function CreatePackageDialog({
     setPricePerKilo("");
     // Add country property to match Currency interface
     const defaultCurrency = user?.recentCurrency
-      ? { ...user.recentCurrency, country: "" }
+      ? { ...user.recentCurrency, id: user.recentCurrency.id.toString(), country: "" }
       : null;
     setCurrency(defaultCurrency);
     setFlightNumber("");
@@ -567,17 +567,12 @@ export default function CreatePackageDialog({
 
             {/* Footer actions */}
             <div className="mt-10 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button
-                  className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  onClick={() => (currentStep > 1 ? prevStep() : onClose())}
-                >
-                  ‹ {t("common.back")}
-                </button>
-                <button className="text-sm text-gray-500">
-                  {t("common.save")} {t("common.as")} {t("common.unfinished")}
-                </button>
-              </div>
+              <button
+                className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                onClick={() => (currentStep > 1 ? prevStep() : onClose())}
+              >
+                ‹ {t("common.back")}
+              </button>
               {currentStep < 2 ? (
                 <button
                   onClick={nextStep}

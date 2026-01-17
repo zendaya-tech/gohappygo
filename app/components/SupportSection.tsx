@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '~/hooks/useAuth';
 import { createSupportRequest } from '~/services/supportService';
+import SupportDialog from './common/dialog/SupportDialog';
 
 export default function SupportSection() {
     const { t } = useTranslation();
@@ -13,6 +14,7 @@ export default function SupportSection() {
     const [quickFormSubmitting, setQuickFormSubmitting] = useState(false);
     const [quickFormSuccess, setQuickFormSuccess] = useState(false);
     const [quickFormError, setQuickFormError] = useState<string | null>(null);
+    const [supportDialogOpen, setSupportDialogOpen] = useState(false);
 
     const handleQuickFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -149,18 +151,31 @@ export default function SupportSection() {
                                     </button>
                                 </div>
                                 
-                                <div className="mt-2">
+                                <div className="mt-2 flex flex-col sm:flex-row gap-2 sm:gap-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSupportDialogOpen(true)}
+                                        className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors text-left"
+                                    >
+                                        Besoin d'aide détaillée ?
+                                    </button>
                                     <a
                                         href="/support"
                                         className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
                                     >
-                                        Besoin d'aide détaillée ? En savoir plus sur notre support →
+                                        En savoir plus sur notre support →
                                     </a>
                                 </div>
                             </form>
                         )}
                     </div>
                 </div>
+
+            {/* Support Dialog */}
+            <SupportDialog 
+                open={supportDialogOpen} 
+                onClose={() => setSupportDialogOpen(false)} 
+            />
             </section>
     );
 } 
