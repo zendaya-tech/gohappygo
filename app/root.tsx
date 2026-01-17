@@ -42,8 +42,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="color-scheme" content="light dark" />
         
         {/* SEO Meta Tags */}
-        <title>GoHappyGo - Transport de bagages entre voyageurs</title>
-        <meta name="description" content="Faites plus qu'un voyage, faites des bagages heureux ! GoHappyGo est la plateforme de référence pour le transport de bagages entre voyageurs. Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Économique, sécurisé et écologique." />
+        <title>GoHappyGo - faites plus q'un voyage</title>
+        <meta name="description" content="Faites plus qu'un voyage, faites des bagages heureux ! GoHappyGo est la plateforme de référence pour le faites plus q'un voyage. Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Économique, sécurisé et écologique." />
         <meta name="keywords" content="transport bagages, voyage, transporteur, livraison, bagages voyage, transport collaboratif, colis voyage, transporteur bagages, livraison internationale, GoHappyGo" />
         <meta name="author" content="GoHappyGo" />
         <meta name="robots" content="index, follow" />
@@ -55,7 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gohappygo.netlify.app/" />
-        <meta property="og:title" content="GoHappyGo - Transport de bagages entre voyageurs" />
+        <meta property="og:title" content="GoHappyGo - faites plus qu'un voyage" />
         <meta property="og:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Solution économique et écologique pour vos envois internationaux. ✈️" />
         <meta property="og:image" content="https://gohappygo.netlify.app/images/og.webp" />
         <meta property="og:image:width" content="1200" />
@@ -68,7 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://gohappygo.netlify.app/" />
-        <meta property="twitter:title" content="GoHappyGo - Transport de bagages entre voyageurs" />
+        <meta property="twitter:title" content="GoHappyGo - faites plus q'un voyage" />
         <meta property="twitter:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Solution économique et écologique pour vos envois internationaux. ✈️" />
         <meta property="twitter:image" content="https://gohappygo.netlify.app/og-image.jpg" />
         <meta property="twitter:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />

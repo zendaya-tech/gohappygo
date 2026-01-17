@@ -1437,7 +1437,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
 
   // Create dynamic meta tags based on URL parameters
   const title = `${type === "travel" ? "Voyage" : "Demande"} #${id} - GoHappyGo`;
-  const description = `Découvrez cette ${type === "travel" ? "annonce de voyage" : "demande de transport"} sur GoHappyGo. Transport de bagages entre voyageurs.`;
+  const description = `Découvrez cette ${type === "travel" ? "annonce de voyage" : "demande de transport"} sur GoHappyGo. faites plus q'un voyage.`;
   const url = `https://gohappygo.com${location.pathname}${location.search}`;
   const imageUrl = "https://gohappygo.com/og-image.jpg";
 

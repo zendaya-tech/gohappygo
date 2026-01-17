@@ -85,8 +85,9 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
             ),
             action: () => {
                 // Facebook utilise les métadonnées Open Graph de la page
-                // Le texte viendra automatiquement des métadonnées og:title et og:description
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`)
+                // Le paramètre quote ajoute un texte supplémentaire au partage
+                const shareText = "Allez sur GoHappyGo pour réagir à cette annonce !";
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`)
             }
         },
         {
