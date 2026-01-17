@@ -13,6 +13,7 @@ export interface Notification {
 }
 
 export interface NotificationCounts {
+  unreadCount: SetStateAction<number>;
   unread: number;
   total: number;
 }

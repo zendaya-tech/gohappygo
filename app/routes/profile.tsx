@@ -330,6 +330,7 @@ const ReservationsSection = () => {
                 weight={weight}
                 price={price}
                 type="transporter" // For the proper airline logo styling
+                unreadCount={request.unReadMessages || 0}
                 // Logic for Status Badges vs Buttons
                 statusBadge={
                   request.currentStatus?.status === "COMPLETED"
@@ -357,7 +358,7 @@ const ReservationsSection = () => {
                   request.currentStatus?.status === "NEGOTIATING" &&
                   requester?.id.toString() != currentUser?.id
                     ? {
-                        label: "Reject",
+                        label: "Rejeter",
                         onClick: () => {
                           setRequestToCancel(request);
                           setCancelConfirmOpen(true);
@@ -367,7 +368,7 @@ const ReservationsSection = () => {
                     : request.currentStatus?.status === "NEGOTIATING" &&
                         requester?.id.toString() === currentUser?.id
                       ? {
-                          label: "Cancel",
+                          label: "Annuler",
                           onClick: () => {
                             setRequestToCancel(request);
                             setCancelConfirmOpen(true);
@@ -387,13 +388,22 @@ const ReservationsSection = () => {
                         : undefined
                 }
                 tertiaryAction={
-                  request.currentStatus?.status === "COMPLETED"
+                  request.currentStatus?.status === "COMPLETED" &&
+                  request.canReview
                     ? {
                         label: "Évaluer",
                         onClick: () => handleOpenReview(request),
                         color: "orange",
                       }
-                    : undefined
+                    : request.currentStatus?.status === "COMPLETED" &&
+                        !request.canReview
+                      ? {
+                          label: "Évalué",
+                          onClick: () => {},
+                          color: "gray",
+                          disabled: true,
+                        }
+                      : undefined
                 }
                 messageAction={
                   request.currentStatus?.status === "NEGOTIATING"
@@ -1378,7 +1388,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                         {transaction.amount.toFixed(2)}{" "}
                         {transaction.currencyCode.toUpperCase()}
                       </div>
-                      {transaction.status.toLowerCase() === "paid" && (
+                      {transaction.showReleaseFundButton && (
                         <button
                           onClick={() => handleReleaseFunds(transaction.id)}
                           disabled={releasingFunds === transaction.id}

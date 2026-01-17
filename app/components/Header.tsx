@@ -77,7 +77,7 @@ export default function Header() {
           console.log("Loading notification counts...");
           const counts = await notificationService.getNotificationCounts();
           console.log("Notification counts received:", counts);
-          setUnreadCount(counts.unread);
+          setUnreadCount(counts.unreadCount);
         } catch (error) {
           console.error("Failed to load notification counts:", error);
         }

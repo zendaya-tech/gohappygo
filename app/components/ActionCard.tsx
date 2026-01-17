@@ -15,6 +15,7 @@ interface ActionCardProps {
     name: string;
     avatar: string;
   };
+  unreadCount?: number; // Badge for unread messages
   // Action Slots
   primaryAction?: {
     label: string;
@@ -34,7 +35,8 @@ interface ActionCardProps {
   tertiaryAction?: {
     label: string;
     onClick: () => void;
-    color?: "blue" | "green" | "orange";
+    color?: "blue" | "green" | "orange" | "gray";
+    disabled?: boolean;
   };
 }
 
@@ -48,6 +50,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
   price,
   priceSubtext,
   user,
+  unreadCount,
   primaryAction,
   type,
   secondaryAction,
@@ -69,6 +72,12 @@ const ActionCard: React.FC<ActionCardProps> = ({
           } m-auto transition-transform duration-300 hover:scale-105`}
           onError={(e) => (e.currentTarget.src = "/favicon.ico")}
         />
+        {/* Unread Messages Badge */}
+        {unreadCount && unreadCount > 0 && (
+          <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+            {unreadCount > 9 ? "9+" : unreadCount}
+          </div>
+        )}
         {type && (
           <div
             className={`absolute bottom-3 left-3 md:bottom-4 md:left-4 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wide ${
@@ -139,7 +148,16 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {tertiaryAction && (
                   <button
                     onClick={tertiaryAction.onClick}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold text-xs shadow-lg transition-all active:scale-95 hover:bg-blue-700 shadow-blue-100"
+                    disabled={tertiaryAction.disabled}
+                    className={`px-4 py-2 rounded-xl font-bold text-xs shadow-lg transition-all active:scale-95 ${
+                      tertiaryAction.disabled
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed opacity-60"
+                        : tertiaryAction.color === "orange"
+                          ? "bg-orange-500 text-white hover:bg-orange-600 shadow-orange-100"
+                          : tertiaryAction.color === "gray"
+                            ? "bg-gray-400 text-white cursor-not-allowed"
+                            : "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100"
+                    }`}
                   >
                     {tertiaryAction.label}
                   </button>

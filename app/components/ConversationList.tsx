@@ -78,7 +78,7 @@ export default function ConversationList({ onSelectConversation, selectedConvers
               id: request.id,
               requestId: request.id,
               otherUser,
-              unreadCount: 0, // TODO: Get per-conversation unread count
+              unreadCount: request.unReadMessages || 0, // Use unReadMessages from request
               travel: {
                 departureAirport: request.travel?.departureAirport,
                 arrivalAirport: request.travel?.arrivalAirport,
@@ -212,15 +212,11 @@ export default function ConversationList({ onSelectConversation, selectedConvers
                 </p>
                 
                 {/* Last message */}
-                {conversation.lastMessage ? (
+                {conversation.lastMessage && (
                   <p className={`text-sm truncate ${
                     conversation.unreadCount > 0 ? 'font-medium text-gray-900' : 'text-gray-500'
                   }`}>
                     {conversation.lastMessage.content}
-                  </p>
-                ) : (
-                  <p className="text-sm text-gray-400 italic">
-                    Aucun message
                   </p>
                 )}
               </div>

@@ -43,7 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         
         {/* SEO Meta Tags */}
         <title>GoHappyGo - Transport de bagages entre voyageurs</title>
-        <meta name="description" content="GoHappyGo est la plateforme de référence pour le transport de bagages entre voyageurs. Trouvez des transporteurs fiables pour vos colis ou proposez vos services de transport lors de vos voyages. Économique, sécurisé et écologique." />
+        <meta name="description" content="Faites plus qu'un voyage, faites des bagages heureux ! GoHappyGo est la plateforme de référence pour le transport de bagages entre voyageurs. Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Économique, sécurisé et écologique." />
         <meta name="keywords" content="transport bagages, voyage, transporteur, livraison, bagages voyage, transport collaboratif, colis voyage, transporteur bagages, livraison internationale, GoHappyGo" />
         <meta name="author" content="GoHappyGo" />
         <meta name="robots" content="index, follow" />
@@ -56,8 +56,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gohappygo.com/" />
         <meta property="og:title" content="GoHappyGo - Transport de bagages entre voyageurs" />
-        <meta property="og:description" content="🧳 Transportez vos bagages en toute sécurité avec GoHappyGo ! Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Solution économique et écologique pour vos envois internationaux. ✈️" />
-        <meta property="og:image" content="https://gohappygo.com/logo.png" />
+        <meta property="og:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Solution économique et écologique pour vos envois internationaux. ✈️" />
+        <meta property="og:image" content="https://gohappygo.com/images/og.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />
@@ -69,7 +69,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://gohappygo.com/" />
         <meta property="twitter:title" content="GoHappyGo - Transport de bagages entre voyageurs" />
-        <meta property="twitter:description" content="🧳 Transportez vos bagages en toute sécurité avec GoHappyGo ! Solution économique et écologique pour vos envois internationaux. ✈️" />
+        <meta property="twitter:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Solution économique et écologique pour vos envois internationaux. ✈️" />
         <meta property="twitter:image" content="https://gohappygo.com/og-image.jpg" />
         <meta property="twitter:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />
         <meta property="twitter:creator" content="@gohappygo" />

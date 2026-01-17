@@ -33,6 +33,8 @@ export interface RequestResponse {
   currentStatus: StatusResponse;
   travel?: any;
   demand?: any;
+  unReadMessages?: number;
+  canReview?: boolean;
 }
 
 export interface PaginatedRequests {

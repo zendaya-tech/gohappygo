@@ -16,6 +16,7 @@ export interface Transaction {
   stripeTransferId: string | null;
   createdAt: string;
   updatedAt: string;
+  showReleaseFundButton?: boolean;
   payer: {
     id: number;
     email: string;
