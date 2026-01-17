@@ -54,10 +54,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://gohappygo.com/" />
+        <meta property="og:url" content="https://gohappygo.netlify.app/" />
         <meta property="og:title" content="GoHappyGo - Transport de bagages entre voyageurs" />
         <meta property="og:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Solution économique et écologique pour vos envois internationaux. ✈️" />
-        <meta property="og:image" content="https://gohappygo.com/images/og.webp" />
+        <meta property="og:image" content="https://gohappygo.netlify.app/images/og.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />
@@ -67,10 +67,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://gohappygo.com/" />
+        <meta property="twitter:url" content="https://gohappygo.netlify.app/" />
         <meta property="twitter:title" content="GoHappyGo - Transport de bagages entre voyageurs" />
         <meta property="twitter:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Solution économique et écologique pour vos envois internationaux. ✈️" />
-        <meta property="twitter:image" content="https://gohappygo.com/og-image.jpg" />
+        <meta property="twitter:image" content="https://gohappygo.netlify.app/og-image.jpg" />
         <meta property="twitter:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />
         <meta property="twitter:creator" content="@gohappygo" />
         <meta property="twitter:site" content="@gohappygo" />
@@ -85,7 +85,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="mobile-web-app-capable" content="yes" />
         
         {/* Business/Contact Information */}
-        <meta name="contact" content="contact@gohappygo.com" />
+        <meta name="contact" content="contact@gohappygo.fr" />
         <meta name="copyright" content="© 2024 GoHappyGo. Tous droits réservés." />
         
         {/* Geo Tags */}
@@ -100,7 +100,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="MobileOptimized" content="320" />
         
         {/* Canonical URL */}
-        <link rel="canonical" href="https://gohappygo.com/" />
+        <link rel="canonical" href="https://gohappygo.netlify.app/" />
         
         {/* Icons */}
         <link rel="icon" href="/favicon.ico" />
