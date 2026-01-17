@@ -13,8 +13,8 @@ import { useAuth } from "../../../hooks/useAuth";
 type StepKey = 1 | 2 | 3;
 
 type InitialData = {
-  departure?: Airport | null;
-  arrival?: Airport | null;
+  departureId?: number | null;
+  arrivalId?: number | null;
   story?: string;
   kilos?: number;
   pricePerKg?: number;
@@ -40,9 +40,9 @@ export default function CreateAnnounceDialog({
   const [step, setStep] = useState<StepKey>(1);
   const { t } = useTranslation();
   const { user } = useAuth();
-  // Form state
-  const [departure, setDeparture] = useState<Airport | null>(null);
-  const [arrival, setArrival] = useState<Airport | null>(null);
+  // Form state - Using IDs instead of full Airport objects
+  const [departureId, setDepartureId] = useState<number | null>(null);
+  const [arrivalId, setArrivalId] = useState<number | null>(null);
   const [story, setStory] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState<string[]>([]);
@@ -125,11 +125,11 @@ export default function CreateAnnounceDialog({
 
     switch (step) {
       case 1:
-        if (!departure)
+        if (!departureId)
           errors.departure = "Veuillez sélectionner un aéroport de départ";
-        if (!arrival)
+        if (!arrivalId)
           errors.arrival = "Veuillez sélectionner un aéroport d'arrivée";
-        if (departure && arrival && departure.id === arrival.id) {
+        if (departureId && arrivalId && departureId === arrivalId) {
           errors.airports =
             "L'aéroport d'arrivée doit être différent de l'aéroport de départ";
         }
@@ -160,8 +160,8 @@ export default function CreateAnnounceDialog({
     if (!open) return;
     setStep(1);
     if (initialData) {
-      setDeparture(initialData.departure ?? null);
-      setArrival(initialData.arrival ?? null);
+      setDepartureId(initialData.departureId ?? null);
+      setArrivalId(initialData.arrivalId ?? null);
       setStory(initialData.story ?? "");
       setKilos(typeof initialData.kilos === "number" ? initialData.kilos : "");
       setPricePerKg(
@@ -187,8 +187,8 @@ export default function CreateAnnounceDialog({
       setBookingType(initialData.bookingType ?? "instant");
     } else {
       // Reset all fields when no initial data
-      setDeparture(null);
-      setArrival(null);
+      setDepartureId(null);
+      setArrivalId(null);
       setStory("");
       setFiles([]);
       setFileUrls([]);
@@ -257,8 +257,8 @@ export default function CreateAnnounceDialog({
     switch (step) {
       case 1:
         return (
-          !!departure &&
-          !!arrival &&
+          !!departureId &&
+          !!arrivalId &&
           !!flightNumber.trim() &&
           !!travelDate &&
           !!story.trim() &&
@@ -286,7 +286,7 @@ export default function CreateAnnounceDialog({
       return;
     }
 
-    if (!departure || !arrival) {
+    if (!departureId || !arrivalId) {
       setError("Veuillez sélectionner les aéroports de départ et d'arrivée");
       return;
     }
@@ -319,8 +319,8 @@ export default function CreateAnnounceDialog({
         isAllowExtraWeight: allowExtraGrams,
         punctualityLevel: punctuality === "very-punctual", // false = punctual, true = very punctual
         feeForGloomy: 0,
-        departureAirportId: departure.id,
-        arrivalAirportId: arrival.id,
+        departureAirportId: departureId,
+        arrivalAirportId: arrivalId,
         departureDatetime,
         pricePerKg: typeof pricePerKg === "number" ? pricePerKg : 0,
         currencyId: parseInt(currency.id),
@@ -409,8 +409,8 @@ export default function CreateAnnounceDialog({
                 <div>
                   <AirportComboBox
                     label="Select your airport of departure"
-                    value={departure?.code}
-                    onChange={setDeparture}
+                    value={departureId ?? undefined}
+                    onChange={setDepartureId}
                     placeholder="Choose airport"
                   />
                   {validationErrors.departure && (
@@ -422,8 +422,8 @@ export default function CreateAnnounceDialog({
                 <div>
                   <AirportComboBox
                     label="Select your airport of arrival"
-                    value={arrival?.code}
-                    onChange={setArrival}
+                    value={arrivalId ?? undefined}
+                    onChange={setArrivalId}
                     placeholder="Choose airport"
                   />
                   {validationErrors.arrival && (

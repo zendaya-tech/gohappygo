@@ -24,8 +24,8 @@ export default function CreateAlertDialog({
 }: CreateAlertDialogProps) {
   const [formData, setFormData] = useState({
     alertType: "TRAVEL" as "DEMAND" | "TRAVEL" | "BOTH",
-    departureAirport: null as Airport | null,
-    arrivalAirport: null as Airport | null,
+    departureAirportId: null as number | null,
+    arrivalAirportId: null as number | null,
     travelDateTime: "",
     flightNumber: "",
   });
@@ -65,15 +65,15 @@ export default function CreateAlertDialog({
 
     try {
       // Validation: Both airports are required
-      if (!formData.departureAirport || !formData.arrivalAirport) {
+      if (!formData.departureAirportId || !formData.arrivalAirportId) {
         setError("Les aéroports de départ et d'arrivée sont obligatoires.");
         return;
       }
 
       const alertData: CreateAlertData = {
         alertType: formData.alertType,
-        departureAirportId: formData.departureAirport.id,
-        arrivalAirportId: formData.arrivalAirport.id,
+        departureAirportId: formData.departureAirportId,
+        arrivalAirportId: formData.arrivalAirportId,
         travelDateTime: formData.travelDateTime
           ? new Date(formData.travelDateTime).toISOString()
           : undefined,
@@ -91,8 +91,8 @@ export default function CreateAlertDialog({
         // Reset form
         setFormData({
           alertType: "TRAVEL",
-          departureAirport: null,
-          arrivalAirport: null,
+          departureAirportId: null,
+          arrivalAirportId: null,
           travelDateTime: "",
           flightNumber: "",
         });
@@ -169,11 +169,11 @@ export default function CreateAlertDialog({
               <div>
                 <AirportComboBox
                   label="Aéroport de départ *"
-                  value={formData.departureAirport?.code}
-                  onChange={(airport) =>
+                  value={formData.departureAirportId ?? undefined}
+                  onChange={(airportId) =>
                     setFormData((prev) => ({
                       ...prev,
-                      departureAirport: airport,
+                      departureAirportId: airportId,
                     }))
                   }
                   placeholder="Rechercher un aéroport de départ"
@@ -184,11 +184,11 @@ export default function CreateAlertDialog({
               <div>
                 <AirportComboBox
                   label="Aéroport d'arrivée *"
-                  value={formData.arrivalAirport?.code}
-                  onChange={(airport) =>
+                  value={formData.arrivalAirportId ?? undefined}
+                  onChange={(airportId) =>
                     setFormData((prev) => ({
                       ...prev,
-                      arrivalAirport: airport,
+                      arrivalAirportId: airportId,
                     }))
                   }
                   placeholder="Rechercher un aéroport d'arrivée"

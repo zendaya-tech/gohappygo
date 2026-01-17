@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef, useImperativeHandle, type Ref } from "react";
 import { useNavigate } from "react-router";
 import AirportComboBox from "./common/AirportComboBox";
 import AirlineComboBox from "./common/AirlineComboBox";
@@ -22,9 +22,13 @@ type Props = {
   }) => void;
 };
 
+export interface SearchFiltersBarRef {
+  reset: () => void;
+}
+
 // Airports are now fetched dynamically via AirportComboBox
 
-export default function SearchFiltersBar({
+function SearchFiltersBar({
   initialFrom,
   initialTo,
   initialDate,
@@ -32,7 +36,7 @@ export default function SearchFiltersBar({
   initialAirline = "",
   initialWeight = 0,
   onChange,
-}: Props) {
+}: Props, ref: Ref<SearchFiltersBarRef>) {
   const [from, setFrom] = useState(initialFrom);
   const [to, setTo] = useState(initialTo);
   const [date, setDate] = useState<string>(initialDate || "");
@@ -43,6 +47,30 @@ export default function SearchFiltersBar({
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Expose reset method to parent component
+  useImperativeHandle(ref, () => ({
+    reset: () => {
+      setFrom(undefined);
+      setTo(undefined);
+      setDate("");
+      setFlight("");
+      setAirline("");
+      setWeight(0);
+      setErrorMessage(null);
+      // Notify parent of reset
+      if (onChange) {
+        onChange({
+          from: "",
+          to: "",
+          date: "",
+          flight: "",
+          airline: "",
+          weight: 0,
+        });
+      }
+    },
+  }));
 
   const emit = (
     next?: Partial<{
@@ -106,12 +134,12 @@ export default function SearchFiltersBar({
         <div className="md:border-r md:border-gray-200 md:pr-4">
           <AirportComboBox
             label="Départ"
-            value={from !== to ? from : ""}
+            value={from !== to ? Number(from) : undefined}
             placeholder="Aéroport de départ"
-            onChange={(airport: Airport | null) => {
-              const code = airport?.id || "";
-              setFrom(code);
-              emit({ from: code });
+            onChange={(airportId: number | null) => {
+              const id = airportId ? String(airportId) : "";
+              setFrom(id);
+              emit({ from: id });
             }}
           />
         </div>
@@ -120,12 +148,12 @@ export default function SearchFiltersBar({
         <div className="md:border-r md:border-gray-200 md:pr-4">
           <AirportComboBox
             label="Arrivée"
-            value={to !== from ? to : ""}
+            value={to !== from ? Number(to) : undefined}
             placeholder="Aéroport d'arrivée"
-            onChange={(airport: Airport | null) => {
-              const code = airport?.id || "";
-              setTo(code);
-              emit({ to: code });
+            onChange={(airportId: number | null) => {
+              const id = airportId ? String(airportId) : "";
+              setTo(id);
+              emit({ to: id });
             }}
           />
         </div>
@@ -226,3 +254,8 @@ export default function SearchFiltersBar({
     </div>
   );
 }
+
+const ForwardedSearchFiltersBar = forwardRef(SearchFiltersBar);
+ForwardedSearchFiltersBar.displayName = "SearchFiltersBar";
+
+export default ForwardedSearchFiltersBar;

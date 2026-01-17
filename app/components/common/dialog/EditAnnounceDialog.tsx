@@ -29,8 +29,8 @@ export default function EditAnnounceDialog({
   const { user } = useAuth();
 
   // Form state - all in one step now
-  const [departure, setDeparture] = useState<Airport | null>(null);
-  const [arrival, setArrival] = useState<Airport | null>(null);
+  const [departureId, setDepartureId] = useState<number | null>(null);
+  const [arrivalId, setArrivalId] = useState<number | null>(null);
   const [story, setStory] = useState("");
   const [kilos, setKilos] = useState<number | "">("");
   const [pricePerKg, setPricePerKg] = useState<number | "">("");
@@ -107,27 +107,13 @@ export default function EditAnnounceDialog({
   useEffect(() => {
     if (!open || !travel) return;
 
-    // Set airports - convert from backend format to frontend format
+    // Set airport IDs
     if (travel.departureAirport) {
-      setDeparture({
-        // Use the ID from the airport object itself to satisfy both interfaces
-        id: travel.departureAirport.id,
-        code: travel.departureAirport.name.split(" ")[0] || "",
-        name: travel.departureAirport.name,
-        city: travel.departureAirport.municipality || "",
-        country: travel.departureAirport.isoCountry || "",
-      });
+      setDepartureId(travel.departureAirport.id);
     }
 
     if (travel.arrivalAirport) {
-      setArrival({
-        // Use the ID from the airport object itself to satisfy both interfaces
-        id: travel.arrivalAirport.id,
-        code: travel.arrivalAirport.name.split(" ")[0] || "",
-        name: travel.arrivalAirport.name,
-        city: travel.arrivalAirport.municipality || "",
-        country: travel.arrivalAirport.isoCountry || "",
-      });
+      setArrivalId(travel.arrivalAirport.id);
     }
 
     // Set other fields
@@ -173,8 +159,8 @@ export default function EditAnnounceDialog({
     const hasValidFlightNumber =
       !flightNumber || (flightNumber && airline.name && !flightNumberError);
     return (
-      departure !== null &&
-      arrival !== null &&
+      departureId !== null &&
+      arrivalId !== null &&
       story.trim().length > 0 &&
       story.length <= 500 &&
       hasValidFlightNumber &&
@@ -182,8 +168,8 @@ export default function EditAnnounceDialog({
       Boolean(pricePerKg)
     );
   }, [
-    departure,
-    arrival,
+    departureId,
+    arrivalId,
     kilos,
     pricePerKg,
     story.length,
@@ -195,7 +181,7 @@ export default function EditAnnounceDialog({
   const handleSubmit = async () => {
     if (!travel) return;
 
-    if (!departure || !arrival) {
+    if (!departureId || !arrivalId) {
       setError("Veuillez sélectionner les aéroports de départ et d'arrivée");
       return;
     }
@@ -228,8 +214,8 @@ export default function EditAnnounceDialog({
         isAllowExtraWeight: allowExtraGrams,
         feeForGloomy: 0,
         punctualityLevel: punctuality === "very-punctual",
-        departureAirportId: departure.id,
-        arrivalAirportId: arrival.id,
+        departureAirportId: departureId,
+        arrivalAirportId: arrivalId,
         pricePerKg: pricePerKg === "" ? 0 : Number(pricePerKg),
         currencyId: parseInt(currency.id),
         totalWeightAllowance: kilos === "" ? 0 : Number(kilos),
@@ -313,11 +299,11 @@ export default function EditAnnounceDialog({
               <div>
                 <AirportComboBox
                   label="Select your airport of departure"
-                  value={departure?.code}
-                  onChange={setDeparture}
+                  value={departureId ?? undefined}
+                  onChange={setDepartureId}
                   placeholder="Choose airport"
                 />
-                {!departure && (
+                {!departureId && (
                   <p className="mt-1 text-sm text-red-500 font-medium">
                     Veuillez sélectionner un aéroport de départ
                   </p>
@@ -326,11 +312,11 @@ export default function EditAnnounceDialog({
               <div>
                 <AirportComboBox
                   label="Select your airport of arrival"
-                  value={arrival?.code}
-                  onChange={setArrival}
+                  value={arrivalId ?? undefined}
+                  onChange={setArrivalId}
                   placeholder="Choose airport"
                 />
-                {!arrival && (
+                {!arrivalId && (
                   <p className="mt-1 text-sm text-red-500 font-medium">
                     Veuillez sélectionner un aéroport d'arrivée
                   </p>

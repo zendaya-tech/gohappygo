@@ -1,10 +1,12 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useLocation, useNavigate } from "react-router";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import FooterMinimal from "~/components/FooterMinimal";
 import AnnounceCard from "~/components/AnnounceCard";
-import SearchFiltersBar from "~/components/SearchFiltersBar";
+import SearchFiltersBar, {
+  type SearchFiltersBarRef,
+} from "~/components/SearchFiltersBar";
 import { getRandomQuotes, type Quote } from "../services/quotesService";
 import { getDemandAndTravel } from "~/services/announceService";
 import AirlineComboBox from "~/components/common/AirlineComboBox";
@@ -41,6 +43,7 @@ export default function Annonces() {
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);
   const navigate = useNavigate();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const searchFiltersRef = useRef<SearchFiltersBarRef>(null);
 
   // Zustand Store - Extraction des états et actions
   const { showRegister, openRegister, closeRegister } = useAuthStore();
@@ -223,6 +226,8 @@ export default function Annonces() {
     setPriceRange({ min: "", max: "" });
     setWeightRange({ min: "", max: "" });
     setSelectedAirline(null);
+    // Reset the SearchFiltersBar component
+    searchFiltersRef.current?.reset();
     navigate(`/annonces`);
   };
 
@@ -234,6 +239,7 @@ export default function Annonces() {
         {/* Search Bar */}
         <div className="sticky bg-white dark:bg-gray-950 z-10 top-16 md:top-20 pt-4 md:pt-10 left-0 w-full">
           <SearchFiltersBar
+            ref={searchFiltersRef}
             initialFrom={searchParams.from}
             initialTo={searchParams.to}
             initialFlight={searchParams.flight}

@@ -21,10 +21,10 @@ export default function CreatePackageDialog({
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1: General
-  const [departureAirport, setDepartureAirport] = useState<Airport | null>(
+  const [departureAirportId, setDepartureAirportId] = useState<number | null>(
     null
   );
-  const [arrivalAirport, setArrivalAirport] = useState<Airport | null>(null);
+  const [arrivalAirportId, setArrivalAirportId] = useState<number | null>(null);
   const [baggageDescription, setBaggageDescription] = useState("");
 
   // Step 2: Photos (now requires 3 images)
@@ -60,13 +60,17 @@ export default function CreatePackageDialog({
   useEffect(() => {
     if (!open) return;
     setCurrentStep(1);
-    setDepartureAirport(null);
-    setArrivalAirport(null);
+    setDepartureAirportId(null);
+    setArrivalAirportId(null);
     setBaggageDescription("");
     setPhotos([]);
     setWeight("");
     setPricePerKilo("");
-    setCurrency(user?.recentCurrency ?? null);
+    // Add country property to match Currency interface
+    const defaultCurrency = user?.recentCurrency
+      ? { ...user.recentCurrency, country: "" }
+      : null;
+    setCurrency(defaultCurrency);
     setFlightNumber("");
     setTravelDate("");
     setPackageNature("STANDARD");
@@ -97,9 +101,9 @@ export default function CreatePackageDialog({
 
     switch (currentStep) {
       case 1:
-        if (!departureAirport)
+        if (!departureAirportId)
           errors.departure = "Veuillez sélectionner un aéroport de départ";
-        if (!arrivalAirport)
+        if (!arrivalAirportId)
           errors.arrival = "Veuillez sélectionner un aéroport d'arrivée";
         if (!baggageDescription.trim())
           errors.description = "Veuillez décrire votre baggage";
@@ -150,8 +154,8 @@ export default function CreatePackageDialog({
     switch (currentStep) {
       case 1:
         return (
-          !!departureAirport &&
-          !!arrivalAirport &&
+          !!departureAirportId &&
+          !!arrivalAirportId &&
           !!flightNumber.trim() &&
           !!travelDate &&
           !!baggageDescription.trim() &&
@@ -189,7 +193,7 @@ export default function CreatePackageDialog({
     setSuccess(null);
 
     try {
-      if (!departureAirport || !arrivalAirport) {
+      if (!departureAirportId || !arrivalAirportId) {
         setError("Veuillez sélectionner les aéroports de départ et d'arrivée");
         setSubmitting(false);
         return;
@@ -204,8 +208,8 @@ export default function CreatePackageDialog({
       const demandData = {
         flightNumber,
         description: baggageDescription,
-        departureAirportId: departureAirport.id,
-        arrivalAirportId: arrivalAirport.id,
+        departureAirportId: departureAirportId,
+        arrivalAirportId: arrivalAirportId,
         travelDate,
         weight: parseFloat(weight),
         pricePerKg: parseFloat(pricePerKilo),
@@ -300,8 +304,8 @@ export default function CreatePackageDialog({
                 <div>
                   <AirportComboBox
                     label={t("dialogs.createAnnounce.departure")}
-                    value={departureAirport?.code}
-                    onChange={setDepartureAirport}
+                    value={departureAirportId ?? undefined}
+                    onChange={setDepartureAirportId}
                     placeholder={t("dialogs.createAnnounce.departure")}
                   />
                   {validationErrors.departure && (
@@ -314,8 +318,8 @@ export default function CreatePackageDialog({
                 <div>
                   <AirportComboBox
                     label={t("dialogs.createAnnounce.arrival")}
-                    value={arrivalAirport?.code}
-                    onChange={setArrivalAirport}
+                    value={arrivalAirportId ?? undefined}
+                    onChange={setArrivalAirportId}
                     placeholder={t("dialogs.createAnnounce.arrival")}
                   />
                   {validationErrors.arrival && (

@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Airport } from "~/services/airportService";
-import { searchAirports } from "~/services/airportService";
+import { searchAirports, getAirportById } from "~/services/airportService";
 
 type AirportComboBoxProps = {
     label: string;
-    value?: string; // airport code
-    onChange: (airport: Airport | null) => void;
+    value?: number; // airport ID
+    onChange: (airportId: number | null) => void;
     placeholder?: string;
 };
 
@@ -25,12 +25,28 @@ export default function AirportComboBox({ label, value, onChange, placeholder }:
     const [cursor, setCursor] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
     const listRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
     const requestIdRef = useRef(0);
     const [activeIndex, setActiveIndex] = useState<number>(-1);
 
     const debouncedQuery = useDebouncedValue(query, 300);
+
+    // Load airport by ID when value changes
+    useEffect(() => {
+        if (value && value !== selectedAirport?.id) {
+            getAirportById(value).then((airport) => {
+                if (airport) {
+                    setSelectedAirport(airport);
+                    setQuery(`${airport.name}`);
+                }
+            });
+        } else if (!value) {
+            setSelectedAirport(null);
+            setQuery("");
+        }
+    }, [value]);
 
     const load = async (reset: boolean) => {
         if (loading) return;
@@ -88,7 +104,8 @@ export default function AirportComboBox({ label, value, onChange, placeholder }:
     }, [open, sentinelRef.current, cursor, hasMore]);
 
     const onPick = (airport: Airport) => {
-        onChange(airport);
+        setSelectedAirport(airport);
+        onChange(airport.id);
         setQuery(`${airport.name}`);
         setOpen(false);
     };

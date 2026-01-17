@@ -47,6 +47,10 @@ export default function AnnounceDetail() {
   const navigate = useNavigate();
   const id = searchParams.get("id") ?? "";
   const type = (searchParams.get("type") as "demand" | "travel") ?? "travel";
+  
+  // Récupérer les paramètres from et to de l'URL (IDs d'aéroports)
+  const fromParam = searchParams.get("from");
+  const toParam = searchParams.get("to");
 
   const [listing, setListing] = useState<DemandTravelItem | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -1267,20 +1271,9 @@ export default function AnnounceDetail() {
         open={createOpen}
         onClose={() => setCreateOpen(false)}
         initialData={{
-          departure: {
-            id: listing.departureAirportId,
-            code: "",
-            name: listing.departureAirport?.name || "",
-            city: listing.departureAirport?.municipality || "",
-            country: listing.departureAirport?.isoCountry || "",
-          },
-          arrival: {
-            id: listing.arrivalAirportId,
-            code: "",
-            name: listing.arrivalAirport?.name || "",
-            city: listing.arrivalAirport?.municipality || "",
-            country: listing.arrivalAirport?.isoCountry || "",
-          },
+          // Utiliser les paramètres from/to de l'URL s'ils existent, sinon utiliser les données du listing
+          departureId: fromParam ? Number(fromParam) : listing.departureAirportId,
+          arrivalId: toParam ? Number(toParam) : listing.arrivalAirportId,
           story: "", // Ne pas pré-remplir la description car c'est un autre utilisateur
           kilos: availableWeight,
           pricePerKg: listing.pricePerKg,
