@@ -28,6 +28,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
     firstName: firstName,
     lastName: lastName,
     aboutMe: user?.bio || "",
+    phoneNumber: user?.phone || "",
   });
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -67,6 +68,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
             firstName: userData?.firstName || firstName,
             lastName: userData?.lastName || lastName,
             aboutMe: userData?.bio || user.bio || "",
+            phoneNumber: userData?.phone || user?.phone || "",
           });
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -74,6 +76,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
             firstName: firstName,
             lastName: lastName,
             aboutMe: user.bio || "",
+            phoneNumber: user?.phone || "",
           });
         }
       };
@@ -283,6 +286,20 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       }
                       className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
+                  </div>
+
+                  {/* Phone Number - Disabled */}
+                  <div>
+                    <input
+                      type="tel"
+                      placeholder="Numéro de téléphone"
+                      value={formData.phoneNumber}
+                      disabled
+                      className="text-gray-400 w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Le numéro de téléphone ne peut pas être modifié
+                    </p>
                   </div>
 
                   {/* About Me */}
