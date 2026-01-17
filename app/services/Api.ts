@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getCookie, setCookie, deleteCookie } from "~/utils/cookies";
+import { useAuthStore } from "~/store/auth";
 
 const baseURL = import.meta.env.VITE_API_URL || "https://api.gohappygo.fr/api";
 
@@ -69,6 +70,10 @@ api.interceptors.response.use(
             // No refresh token available, clear auth and reject
             deleteCookie('auth_token');
             deleteCookie('refresh_token');
+            
+            // Update auth store to logged out state
+            useAuthStore.getState().logout();
+            
             processQueue(error, null);
             isRefreshing = false;
             
@@ -91,6 +96,9 @@ api.interceptors.response.use(
             // Update cookies with new token
             setCookie('auth_token', access_token, 7);
 
+            // Update auth store with new token
+            useAuthStore.setState({ token: access_token });
+
             // Update the failed request with new token
             originalRequest.headers.Authorization = `Bearer ${access_token}`;
 
@@ -104,6 +112,10 @@ api.interceptors.response.use(
             // Refresh failed, clear auth and reject all queued requests
             deleteCookie('auth_token');
             deleteCookie('refresh_token');
+            
+            // Update auth store to logged out state
+            useAuthStore.getState().logout();
+            
             processQueue(refreshError, null);
             isRefreshing = false;
 
