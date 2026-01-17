@@ -303,10 +303,10 @@ export default function CreatePackageDialog({
               <div className="space-y-6">
                 <div>
                   <AirportComboBox
-                    label={t("dialogs.createAnnounce.departure")}
+                    label={t("dialogs.createPackage.departurePlaceholder")}
                     value={departureAirportId ?? undefined}
                     onChange={setDepartureAirportId}
-                    placeholder={t("dialogs.createAnnounce.departure")}
+                    placeholder={"Choose airport"}
                   />
                   {validationErrors.departure && (
                     <p className="mt-1 text-sm text-red-600">
@@ -317,10 +317,10 @@ export default function CreatePackageDialog({
 
                 <div>
                   <AirportComboBox
-                    label={t("dialogs.createAnnounce.arrival")}
+                    label={t("dialogs.createPackage.arrivalPlaceholder")}
                     value={arrivalAirportId ?? undefined}
                     onChange={setArrivalAirportId}
-                    placeholder={t("dialogs.createAnnounce.arrival")}
+                    placeholder={"Choose airport"}
                   />
                   {validationErrors.arrival && (
                     <p className="mt-1 text-sm text-red-600">

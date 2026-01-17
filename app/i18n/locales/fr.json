@@ -225,7 +225,9 @@
       "description": "Description",
       "weight": "Poids (kg)",
       "maxDeliveryDate": "Date max de livraison",
-      "create": "Créer"
+      "create": "Créer",
+      "departurePlaceholder": "Select your airport of departure",
+      "arrivalPlaceholder": "Select your airport of arrival"
     },
     "login": {
       "title": "Connexion",
