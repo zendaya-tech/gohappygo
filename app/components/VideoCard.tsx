@@ -24,31 +24,26 @@ export default function VideoCard({ title, subtitle, image, videoUrl, videoId }:
 
     return (
         <>
-            <div className="relative bg-gray-900 rounded-2xl overflow-hidden h-80 group cursor-pointer">
+            <div className="relative bg-black rounded-2xl overflow-hidden h-80 group cursor-pointer">
                 <img
-                    src={'https://img.youtube.com/vi/wyTfWvtGSSY/0.jpg' || `https://img.youtube.com/vi/${videoId}/0.jpg`}
+                    src={'https://img.youtube.com/vi/wyTfWvtGSSY/maxresdefault.jpg' || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                     alt={title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute inset-0 flex flex-col justify-between py-3 px-3 bg-black/40 group-hover:bg-black/30 transition-colors">
+                <div className="absolute inset-0 flex flex-col justify-between py-3 px-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/90 transition-colors">
                     <div className="text-white">
-                        <h3 className="font-light mb-2 text-3xl">{title}</h3>
-
+                        <h3 className="font-light mb-2 text-3xl drop-shadow-lg">{title}</h3>
                     </div>
 
                     <div className="flex gap-2">
-                        {/* <button className="bg-blue-600 hover:bg-blue-700 text-sm  text-white px-4 py-2 rounded-lg">
-                            Explorer
-                        </button> */}
                         <button
                             onClick={openVideoModal}
-                            className="bg-white/40 backdrop-blur-2xl text-sm w-32 relative text-white px-4 py-2 rounded-lg hover:bg-white/50 transition-colors"
+                            className="bg-white/20 backdrop-blur-md text-sm w-32 relative text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-colors border border-white/30"
                         >
-                            <PlayCircleIcon className="size-4 absolute left-1 top-1/2 -translate-y-1/2 " />  {t('home.recommendations.watchVideo')}
+                            <PlayCircleIcon className="size-4 absolute left-1 top-1/2 -translate-y-1/2" />  {t('home.recommendations.watchVideo')}
                         </button>
                     </div>
                 </div>
-
             </div>
 
             {/* Video Modal */}
@@ -65,7 +60,7 @@ export default function VideoCard({ title, subtitle, image, videoUrl, videoId }:
                                 <h3 className="text-xl font-bold text-gray-900">{title}</h3>
                                 <button
                                     onClick={closeVideoModal}
-                                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="text-gray-400 hover transition-colors"
                                 >
                                     <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

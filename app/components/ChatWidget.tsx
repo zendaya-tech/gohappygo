@@ -111,7 +111,7 @@ export default function ChatWidget() {
                 type="button"
                 aria-label="Ouvrir le chat"
                 onClick={() => setMinimized(false)}
-                className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-600/30 ring-1 ring-white/10 hover:from-indigo-500 hover:to-purple-500 active:translate-y-px transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="fixed bottom-5 right-5 z-40 h-14 w-14 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-600/30 ring-1 ring-white/10 hover hover active:translate-y-px transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
                 <svg className="mx-auto h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5" />
@@ -128,7 +128,7 @@ export default function ChatWidget() {
                 type="button"
                 aria-label="Fermer le chat"
                 onClick={() => setMinimized(true)}
-                className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                className="absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full text-gray-500 hover hover"
             >
                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M6 18L18 6" /></svg>
             </button>
@@ -148,7 +148,7 @@ export default function ChatWidget() {
                                 <button
                                     type="button"
                                     onClick={() => setSelectedId(c.id)}
-                                    className={`w-full rounded-xl px-3 py-2 text-left transition flex items-start gap-3 ${selectedId === c.id ? "bg-indigo-50" : "hover:bg-gray-50"}`}
+                                    className={`w-full rounded-xl px-3 py-2 text-left transition flex items-start gap-3 ${selectedId === c.id ? "bg-indigo-50" : "hover"}`}
                                 >
                                     <div className="mt-0.5 h-9 w-9 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-700">
                                         <span className="text-sm font-semibold">
@@ -168,7 +168,7 @@ export default function ChatWidget() {
                     </ul>
                 </div>
                 <div className="border-t border-gray-200 p-3">
-                    <button type="button" className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Nouvelle conversation</button>
+                    <button type="button" className="w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover">Nouvelle conversation</button>
                 </div>
             </aside>
 
@@ -215,7 +215,7 @@ function ConversationView({ messages, contactName, onSend }: { messages: Message
                     </div>
                     <div className="text-sm font-semibold text-gray-900">{contactName}</div>
                 </div>
-                <button className="text-xs text-gray-500 hover:text-gray-700">Infos</button>
+                <button className="text-xs text-gray-500 hover">Infos</button>
             </div>
 
             <div id="chat-scroll-container" className="flex-1 overflow-y-auto bg-gray-50 px-3 py-4">
@@ -254,7 +254,7 @@ function ConversationView({ messages, contactName, onSend }: { messages: Message
                             }
                         }}
                     />
-                    <button type="submit" className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">Envoyer</button>
+                    <button type="submit" className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover">Envoyer</button>
                 </form>
             </div>
         </div>

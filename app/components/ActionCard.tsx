@@ -72,12 +72,6 @@ const ActionCard: React.FC<ActionCardProps> = ({
           } m-auto transition-transform duration-300 hover:scale-105`}
           onError={(e) => (e.currentTarget.src = "/favicon.ico")}
         />
-        {/* Unread Messages Badge */}
-        {!!unreadCount && unreadCount > 0 && (
-          <div className="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
-            {unreadCount > 9 ? "9+" : unreadCount}
-          </div>
-        )}
         {type && (
           <div
             className={`absolute bottom-3 left-3 md:bottom-4 md:left-4 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wide ${
@@ -106,10 +100,16 @@ const ActionCard: React.FC<ActionCardProps> = ({
               </span>
             </div>
             <button
-              className="px-3 py-1.5 md:px-5 md:py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-[10px] md:text-xs font-bold hover:bg-blue-50 transition-colors shrink-0"
+              className="relative px-3 py-1.5 md:px-5 md:py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-[10px] md:text-xs font-bold hover:bg-blue-50 transition-colors shrink-0"
               onClick={messageAction?.onClick}
             >
               Message
+              {/* Badge de messages non lus sur le bouton */}
+              {!!unreadCount && unreadCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5 shadow-lg">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
             </button>
           </div>
         )}
@@ -121,7 +121,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
           </h3>
 
           <div className="flex flex-col gap-1.5">
-            <div className="text-blue-600 font-medium text-xs md:text-sm">
+            <div className="text-blue-600 font-medium text-xs md">
               {subtitle}: <span className="ml-1">{weight} kg</span>
             </div>
             <div className="flex justify-between items-center text-[0.65rem] md:text-[0.7rem] text-gray-400 font-bold uppercase tracking-wider">
@@ -153,10 +153,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
                       tertiaryAction.disabled
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed opacity-60"
                         : tertiaryAction.color === "orange"
-                          ? "bg-orange-500 text-white hover:bg-orange-600 shadow-orange-100"
+                          ? "bg-orange-500 text-white hover shadow-orange-100"
                           : tertiaryAction.color === "gray"
                             ? "bg-gray-400 text-white cursor-not-allowed"
-                            : "bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100"
+                            : "bg-blue-600 text-white hover shadow-blue-100"
                     }`}
                   >
                     {tertiaryAction.label}
@@ -171,10 +171,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {primaryAction && (
                   <button
                     onClick={primaryAction.onClick}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md:text-xs shadow-md transition-all active:scale-95 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap ${
                       primaryAction.color === "green"
-                        ? "bg-green-500 hover:bg-green-600"
-                        : "bg-blue-600 hover:bg-blue-700"
+                        ? "bg-green-500 hover"
+                        : "bg-blue-600 hover"
                     }`}
                   >
                     {primaryAction.label}
@@ -183,10 +183,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {secondaryAction && (
                   <button
                     onClick={secondaryAction.onClick}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md:text-xs font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
                       secondaryAction.color === "red"
-                        ? "border-red-500 text-red-500 hover:bg-red-50"
-                        : "border-gray-200 text-gray-500 hover:bg-gray-50"
+                        ? "border-red-500 text-red-500 hover"
+                        : "border-gray-200 text-gray-500 hover"
                     }`}
                   >
                     {secondaryAction.label}

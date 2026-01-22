@@ -123,9 +123,9 @@ export default function AnnounceCard({
     <Link
       target="_blank"
       to={`/announces?id=${id}&type=${announceType}`}
-      className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden px-2 py-3 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-800"
+      className="bg-white rounded-2xl overflow-hidden px-2 py-3 shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
     >
-      <div className="relative items-center  justify-center flex overflow-hidden rounded-2xl bg-gray-100  dark:bg-gray-800 border border-gray-200 h-64 dark:border-gray-800">
+      <div className="relative items-center  justify-center flex overflow-hidden rounded-2xl bg-gray-100  border border-gray-200 h-64">
         <img
           src={image}
           alt={fullName}
@@ -158,12 +158,12 @@ export default function AnnounceCard({
             className={`absolute top-4 right-4 backdrop-blur-sm p-2 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed ${
               isFavorite
                 ? "bg-red-500/90 text-white"
-                : "bg-white/80 dark:bg-gray-900/70 hover:bg-white dark:hover:bg-gray-800"
+                : "bg-white/80/70 hover"
             }`}
           >
             {isLoading ? (
               <svg
-                className="w-5 h-5 animate-spin text-gray-600 dark:text-gray-300"
+                className="w-5 h-5 animate-spin text-gray-600"
                 fill="none"
                 viewBox="0 0 24 24"
               >
@@ -184,7 +184,7 @@ export default function AnnounceCard({
             ) : (
               <svg
                 className={`w-5 h-5 transition-colors duration-200 ${
-                  isFavorite ? "text-white" : "text-gray-600 dark:text-gray-300"
+                  isFavorite ? "text-white" : "text-gray-600"
                 }`}
                 fill={isFavorite ? "currentColor" : "none"}
                 stroke="currentColor"
@@ -206,11 +206,11 @@ export default function AnnounceCard({
       <div className="p-6">
         <div className="flex items-center gap-2 mb-2">
           <img src={avatar} alt={fullName} className="w-10 h-10 rounded-full" />
-          <h3 className="font-semibold text-gray-900 dark:text-white ">
+          <h3 className="font-semibold text-gray-900 ">
             {fullName}
           </h3>
         </div>
-        <p className="text-gray-600 h-14 dark:text-gray-300 text-sm mb-2 ">
+        <p className="text-gray-600 h-14 text-sm mb-2 ">
           {location.length - 3 > 80 ? `${location.slice(0, 80)} ...` : location}
         </p>
         {
@@ -220,19 +220,19 @@ export default function AnnounceCard({
           </p>
         }
         {departure && (
-          <p className="text-gray-500 dark:text-gray-400 text-xs mb-2">
+          <p className="text-gray-500 text-xs mb-2">
             Date : {departure}
           </p>
         )}
         {/* {airline && (
-          <p className="text-gray-500 dark:text-gray-400 text-xs mb-4">
+          <p className="text-gray-500 text-xs mb-4">
             Compagnie: {airline}
           </p>
         )} */}
 
         {departure && (
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-gray-900 dark:text-white">
+            <span className="font-semibold text-gray-900">
               {price} {currencySymbol}/kg
             </span>
             <div className="flex items-center space-x-1">
@@ -245,13 +245,13 @@ export default function AnnounceCard({
                   >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     {rating}
                   </span>
                 </>
               ) : (
                 <svg
-                  className="w-4 h-4 text-gray-300 dark:text-gray-600"
+                  className="w-4 h-4 text-gray-300"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >

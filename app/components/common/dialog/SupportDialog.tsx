@@ -103,7 +103,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-400 hover hover rounded-lg transition-colors"
           >
             <XMarkIcon className="w-5 h-5" />
           </button>
@@ -147,7 +147,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
                   placeholder="votre@email.com"
                 />
               </div>
@@ -162,7 +162,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   name="supportCategory"
                   value={formData.supportCategory}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
                 >
                   <option value="GENERAL">Question générale</option>
                   <option value="TECHNICAL">Problème technique</option>
@@ -185,7 +185,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors resize-none"
                   placeholder="Décrivez votre demande en détail..."
                 />
                 <p className="mt-1 text-sm text-gray-500">
@@ -198,7 +198,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+                  className="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
                 >
                   Annuler
                 </button>
@@ -208,7 +208,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   className={`px-6 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ${
                     submitting
                       ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700"
+                      : "bg-blue-600 hover"
                   }`}
                 >
                   {submitting ? "Envoi en cours..." : "Envoyer"}

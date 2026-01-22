@@ -99,7 +99,7 @@ export default function LanguageDropdown() {
         <div className="relative language-dropdown">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-700 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-colors duration-200 flex items-center gap-2 font-medium text-sm"
+                className="text-gray-700 hover px-3 py-1.5 rounded-lg hover transition-colors duration-200 flex items-center gap-2 font-medium text-sm"
             >
                 <img src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${currentLang.countryCode}.svg`} alt={currentLang.name} className="w-5 h-4 object-cover rounded-sm" />
 
@@ -121,7 +121,7 @@ export default function LanguageDropdown() {
                         <button
                             key={language.code}
                             onClick={() => handleLanguageSelect(language.code)}
-                            className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 flex items-center gap-3 ${currentLanguage === language.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                            className={`w-full px-4 py-3 text-left hover transition-colors duration-200 flex items-center gap-3 ${currentLanguage === language.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
                                 }`}
                         >
                             <img src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${language.countryCode}.svg`} alt={language.name} className="w-5 h-4 object-cover rounded-sm" />

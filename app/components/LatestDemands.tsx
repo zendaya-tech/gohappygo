@@ -47,8 +47,8 @@ export default function LatestDemands() {
 
   if (loading) {
     return (
-      <section className="py-12 dark:bg-gray-900 px-10 rounded-2xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+      <section className="py-12 px-10 rounded-2xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">
           Dernières <span className="text-blue-600">demandes</span>
         </h2>
         <div className="text-center text-gray-500">
@@ -59,8 +59,8 @@ export default function LatestDemands() {
   }
 
   return (
-    <section className="py-12 dark:bg-gray-900 px-10 rounded-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+    <section className="py-12 px-10 rounded-2xl mx-auto">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">
         Dernières <span className="text-blue-600">demandes</span>
       </h2>
 
@@ -104,7 +104,7 @@ export default function LatestDemands() {
       </div>
       
       {demands.length === 0 && (
-        <div className="text-center text-gray-500 dark:text-gray-400">
+        <div className="text-center text-gray-500">
           Aucune demande disponible pour le moment
         </div>
       )}

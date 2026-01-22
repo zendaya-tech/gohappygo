@@ -96,7 +96,7 @@ export default function MessageDialog({
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Your message here ..."
               rows={6}
-              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600"
+              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus"
               disabled={sending}
             />
 
@@ -116,12 +116,12 @@ export default function MessageDialog({
           </div>
 
           {/* Right Column: Safety Information */}
-          <div className="relative w-full md:w-[380px] bg-white p-6 md:p-8 md:border-l border-gray-100">
+          <div className="relative w-full md:w-[380px] bg-white p-6 md:p-8 md border-gray-100">
             {/* Close Button positioned in the right panel as per image */}
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover transition-colors"
             >
               <svg
                 className="h-6 w-6"

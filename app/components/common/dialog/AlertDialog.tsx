@@ -50,25 +50,25 @@ export default function AlertDialog({
         return {
           bg: "bg-green-50",
           border: "border-green-200",
-          button: "bg-green-600 hover:bg-green-700",
+          button: "bg-green-600 hover",
         };
       case "error":
         return {
           bg: "bg-red-50",
           border: "border-red-200",
-          button: "bg-red-600 hover:bg-red-700",
+          button: "bg-red-600 hover",
         };
       case "warning":
         return {
           bg: "bg-yellow-50",
           border: "border-yellow-200",
-          button: "bg-yellow-600 hover:bg-yellow-700",
+          button: "bg-yellow-600 hover",
         };
       default:
         return {
           bg: "bg-gray-50",
           border: "border-gray-200",
-          button: "bg-gray-600 hover:bg-gray-700",
+          button: "bg-gray-600 hover",
         };
     }
   };

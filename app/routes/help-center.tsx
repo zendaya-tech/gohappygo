@@ -66,7 +66,7 @@ export default function HelpCenter() {
                     </div>
 
                     {/* Search */}
-                    <div className="sticky top-0 z-10 mb-6 rounded-2xl border border-gray-200 bg-white/80 p-2 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+                    <div className="sticky top-0 z-10 mb-6 rounded-2xl border border-gray-200 bg-white/80 p-2 backdrop-blur supports-[backdrop-filter]/60">
                         <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 focus-within:ring-2 focus-within:ring-indigo-500/30">
                             <svg className="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
@@ -77,13 +77,13 @@ export default function HelpCenter() {
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Rechercher une question..."
                                 aria-label="Rechercher une question dans le centre d’aide"
-                                className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
+                                className="w-full bg-transparent text-sm outline-none placeholder"
                             />
                             {query && (
                                 <button
                                     type="button"
                                     onClick={() => setQuery("")}
-                                    className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
+                                    className="rounded-full p-1 text-gray-500 hover"
                                     aria-label="Effacer la recherche"
                                 >
                                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">

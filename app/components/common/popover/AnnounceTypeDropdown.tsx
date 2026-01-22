@@ -85,7 +85,7 @@ export default function AnnounceTypeDropdown({
                             onSelectType(type.id as 'travel' | 'package');
                             onClose();
                         }}
-                        className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors duration-200 text-sm font-medium text-gray-700 hover:text-blue-600"
+                        className="w-full px-4 py-3 text-left hover transition-colors duration-200 text-sm font-medium text-gray-700 hover"
                     >
 
                         {t("demande." + type.title)}

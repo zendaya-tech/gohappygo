@@ -19,7 +19,7 @@ export default function PopularRoutes() {
 
   return (
     <section className="py-12 px-4 mx-auto">
-      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">
         <span className="text-blue-600">Voyages</span> les plus populaires
       </h2>
 
@@ -27,7 +27,7 @@ export default function PopularRoutes() {
         {routes.map((route, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-900 overflow-hidden "
+            className="bg-white overflow-hidden "
           >
             <div className="relative overflow-hidden rounded-2xl">
               <img
@@ -37,7 +37,7 @@ export default function PopularRoutes() {
               />
             </div>
             <div className="mt-2">
-              <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-2">
+              <h3 className="font-semibold text-gray-900 text-sm mb-2">
                 {route.name}
               </h3>
               <p className="text-blue-600 font-semibold text-xs">

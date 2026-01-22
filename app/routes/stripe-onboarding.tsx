@@ -35,7 +35,7 @@ export default function StripeOnboarding() {
               </div>
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+            <h1 className="text-2xl md font-bold text-gray-800 mb-2">
               Configuration Stripe Terminé !
             </h1>
             <p className="text-gray-600 text-base">
@@ -66,7 +66,7 @@ export default function StripeOnboarding() {
           <div className="py-4 flex justify-center mb-8">
             <button
               onClick={handleDashboardClick}
-              className="bg-green-500 hover:bg-green-600 text-white px-10 py-3 rounded-lg font-semibold transition-colors text-base"
+              className="bg-green-500 hover text-white px-10 py-3 rounded-lg font-semibold transition-colors text-base"
             >
               Accéder au Tableau de bord
             </button>

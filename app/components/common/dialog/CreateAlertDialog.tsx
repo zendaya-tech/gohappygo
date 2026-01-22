@@ -37,13 +37,13 @@ export default function CreateAlertDialog({
   // Initialize form with initial data
   useEffect(() => {
     if (open && initialData) {
-      // Convert date to datetime-local format if provided
-      let dateTimeValue = "";
+      // Convert date to date format if provided (without time)
+      let dateValue = "";
       if (initialData.date) {
         try {
           const date = new Date(initialData.date);
-          // Format to datetime-local (YYYY-MM-DDTHH:MM)
-          dateTimeValue = date.toISOString().slice(0, 16);
+          // Format to date only (YYYY-MM-DD)
+          dateValue = date.toISOString().slice(0, 10);
         } catch (error) {
           console.error("Error parsing date:", error);
         }
@@ -51,7 +51,9 @@ export default function CreateAlertDialog({
 
       setFormData((prev) => ({
         ...prev,
-        travelDateTime: dateTimeValue,
+        departureAirportId: initialData.from ? parseInt(initialData.from) : null,
+        arrivalAirportId: initialData.to ? parseInt(initialData.to) : null,
+        travelDateTime: dateValue,
         flightNumber: initialData.flight || "",
       }));
     }
@@ -75,7 +77,7 @@ export default function CreateAlertDialog({
         departureAirportId: formData.departureAirportId,
         arrivalAirportId: formData.arrivalAirportId,
         travelDateTime: formData.travelDateTime
-          ? new Date(formData.travelDateTime).toISOString()
+          ? new Date(formData.travelDateTime + "T00:00:00").toISOString()
           : undefined,
         flightNumber: formData.flightNumber || undefined,
       };
@@ -115,15 +117,15 @@ export default function CreateAlertDialog({
           onClick={onClose}
         />
 
-        <div className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-2xl shadow-xl">
+        <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <h2 className="text-xl font-bold text-gray-900">
               Créer une alerte
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="text-gray-400 hover transition-colors"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
@@ -132,13 +134,13 @@ export default function CreateAlertDialog({
           {/* Content */}
           <div className="p-6">
             {error && (
-              <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 rounded-lg text-sm">
+              <div className="mb-4 p-3 bg-red-50/20 border border-red-200 text-red-700 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
             {success && (
-              <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 rounded-lg text-sm">
+              <div className="mb-4 p-3 bg-green-50/20 border border-green-200 text-green-700 rounded-lg text-sm">
                 {success}
               </div>
             )}
@@ -146,7 +148,7 @@ export default function CreateAlertDialog({
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Alert Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Type d'alerte
                 </label>
                 <select
@@ -157,7 +159,7 @@ export default function CreateAlertDialog({
                       alertType: e.target.value as any,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="TRAVEL">Voyages uniquement</option>
                   <option value="DEMAND">Demandes uniquement</option>
@@ -197,11 +199,11 @@ export default function CreateAlertDialog({
 
               {/* Travel Date */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Date de voyage (optionnel)
                 </label>
                 <input
-                  type="datetime-local"
+                  type="date"
                   value={formData.travelDateTime}
                   onChange={(e) =>
                     setFormData((prev) => ({
@@ -209,13 +211,13 @@ export default function CreateAlertDialog({
                       travelDateTime: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               {/* Flight Number */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Numéro de vol (optionnel)
                 </label>
                 <input
@@ -228,7 +230,7 @@ export default function CreateAlertDialog({
                       flightNumber: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -237,7 +239,7 @@ export default function CreateAlertDialog({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover transition-colors"
                 >
                   Annuler
                 </button>
@@ -246,8 +248,8 @@ export default function CreateAlertDialog({
                   disabled={loading}
                   className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
                     loading
-                      ? "bg-gray-300 dark:bg-gray-600 cursor-not-allowed text-gray-500"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
+                      ? "bg-gray-300 cursor-not-allowed text-gray-500"
+                      : "bg-blue-600 text-white hover"
                   }`}
                 >
                   {loading ? "Création..." : "Créer l'alerte"}

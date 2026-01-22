@@ -70,7 +70,7 @@ export default function SupportSection() {
 
     return (
         <section className="px-4 py-12 mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">
     Nos <span className="text-blue-600">Garanties</span>
             </h2>
 
@@ -80,7 +80,7 @@ export default function SupportSection() {
                         <p className="text-blue-100 text-2xl mb-6">{t('home.supportSection.support247.description')}</p>
                         <a 
                             href="/support"
-                            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
+                            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover transition-colors text-center"
                         >
                             {t('home.supportSection.support247.cta')}
                         </a>
@@ -93,7 +93,7 @@ export default function SupportSection() {
 
                     <div className="bg-gray-100 col-span-1 md:col-span-2 flex flex-col justify-between text-gray-900 p-6 md:p-8 rounded-2xl">
                         <h3 className="text-xl font-bold mb-4 uppercase">{t('home.supportSection.online.title')}</h3>
-                        <p className="text-gray-800 mb-6 text-xl md:text-2xl">{t('home.supportSection.online.description')}</p>
+                        <p className="text-gray-800 mb-6 text-xl md">{t('home.supportSection.online.description')}</p>
                         
                         {quickFormSuccess ? (
                             <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
@@ -144,7 +144,7 @@ export default function SupportSection() {
                                         className={`px-5 py-3 rounded-lg font-semibold transition-colors ${
                                             quickFormSubmitting 
                                                 ? 'bg-gray-400 text-white cursor-not-allowed' 
-                                                : 'bg-slate-800 text-white hover:bg-slate-700'
+                                                : 'bg-slate-800 text-white hover'
                                         }`}
                                     >
                                         {quickFormSubmitting ? 'Envoi...' : t('home.supportSection.online.send')}
@@ -155,13 +155,13 @@ export default function SupportSection() {
                                     <button
                                         type="button"
                                         onClick={() => setSupportDialogOpen(true)}
-                                        className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors text-left"
+                                        className="text-blue-600 hover text-sm font-medium transition-colors text-left"
                                     >
                                         Besoin d'aide détaillée ?
                                     </button>
                                     <a
                                         href="/support"
-                                        className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
+                                        className="text-blue-600 hover text-sm font-medium transition-colors"
                                     >
                                         En savoir plus sur notre support →
                                     </a>

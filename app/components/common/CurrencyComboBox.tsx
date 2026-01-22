@@ -73,7 +73,7 @@ export default function CurrencyComboBox({
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="w-full text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl px-3 py-3 text-left outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-between"
+          className="w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-xl px-3 py-3 text-left outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-between"
         >
           <span className={displayValue ? "" : "text-gray-400"}>
             {displayValue || placeholder}
@@ -92,7 +92,7 @@ export default function CurrencyComboBox({
         </button>
 
         {open && (
-          <div className="absolute z-20 mt-1 w-64 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg max-h-72 overflow-auto">
+          <div className="absolute z-20 mt-1 w-64 rounded-md border border-gray-200 bg-white shadow-lg max-h-72 overflow-auto">
             {loading ? (
               <div className="px-3 py-2 text-sm text-gray-500">Loading...</div>
             ) : currencies.length === 0 ? (
@@ -102,10 +102,10 @@ export default function CurrencyComboBox({
                 <button
                   key={currency.id}
                   onClick={() => handleSelect(currency)}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                  className={`w-full text-left px-3 py-2 text-sm hover ${
                     selectedCurrency?.id === currency.id 
-                      ? "bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400" 
-                      : "text-gray-800 dark:text-gray-100"
+                      ? "bg-gray-100 text-indigo-600" 
+                      : "text-gray-800"
                   }`}
                 >
                   <div className="font-medium">
@@ -124,7 +124,7 @@ export default function CurrencyComboBox({
   return (
     <div>
       {label && (
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           {label}
         </label>
       )}
@@ -132,7 +132,7 @@ export default function CurrencyComboBox({
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="w-full text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl px-3 py-2 text-left outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-between"
+          className="w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-xl px-3 py-2 text-left outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-between"
         >
           <span className={displayValue ? "" : "text-gray-400"}>
             {displayValue || placeholder}
@@ -151,7 +151,7 @@ export default function CurrencyComboBox({
         </button>
 
         {open && (
-          <div className="absolute z-20 mt-1 w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg max-h-72 overflow-auto">
+          <div className="absolute z-20 mt-1 w-full rounded-md border border-gray-200 bg-white shadow-lg max-h-72 overflow-auto">
             {loading ? (
               <div className="px-3 py-2 text-sm text-gray-500">Loading...</div>
             ) : currencies.length === 0 ? (
@@ -161,10 +161,10 @@ export default function CurrencyComboBox({
                 <button
                   key={currency.id}
                   onClick={() => handleSelect(currency)}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                  className={`w-full text-left px-3 py-2 text-sm hover ${
                     selectedCurrency?.id === currency.id 
-                      ? "bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400" 
-                      : "text-gray-800 dark:text-gray-100"
+                      ? "bg-gray-100 text-indigo-600" 
+                      : "text-gray-800"
                   }`}
                 >
                   <div className="font-medium">

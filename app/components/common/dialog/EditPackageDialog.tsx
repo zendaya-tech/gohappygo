@@ -181,13 +181,13 @@ export default function EditPackageDialog({
       <div className="fixed inset-0 bg-black/35" onClick={onClose} />
 
       {/* Dialog container */}
-      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-4xl overflow-hidden rounded-2xl md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/10 dark:ring-white/10 h-[95vh] md:max-h-[85vh] flex flex-col">
+      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-4xl overflow-hidden rounded-2xl md:rounded-2xl bg-white shadow-2xl ring-1 ring-black/10/10 h-[95vh] md:max-h-[85vh] flex flex-col">
         <div className="flex flex-col min-h-0 flex-1">
           {/* Content */}
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
-              <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
-                <span className="uppercase text-sm md:text-base">
+              <h2 className="text-lg md font-bold text-gray-900">
+                <span className="uppercase text-sm md">
                   Modifier la demande de voyage
                 </span>
               </h2>
@@ -224,7 +224,7 @@ export default function EditPackageDialog({
                   value={flightNumber}
                   onChange={(e) => setFlightNumber(e.target.value)}
                   placeholder={t("dialogs.createAnnounce.flightNumber")}
-                  className="w-full uppercase rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full uppercase rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </Field>
               <Field label={t("dialogs.createAnnounce.travelDate")}>
@@ -232,7 +232,7 @@ export default function EditPackageDialog({
                   type="date"
                   value={travelDate}
                   onChange={(e) => setTravelDate(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </Field>
 
@@ -249,8 +249,8 @@ export default function EditPackageDialog({
                   className={`w-full resize-none rounded-xl border ${
                     baggageDescription.length > 500
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                  } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                      : "border-gray-300 focus:ring-indigo-500"
+                  } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                 />
                 <div
                   className={`mt-1 text-xs ${
@@ -266,11 +266,11 @@ export default function EditPackageDialog({
               </Field>
 
               <div>
-                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mb-2 text-sm font-semibold text-gray-900">
                   Nature du baggage
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
                       checked={packageNature === "STANDARD"}
@@ -278,7 +278,7 @@ export default function EditPackageDialog({
                     />
                     Standard
                   </label>
-                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
                       checked={packageNature === "FRAGILE"}
@@ -286,7 +286,7 @@ export default function EditPackageDialog({
                     />
                     Fragile
                   </label>
-                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
                       checked={packageNature === "URGENT"}
@@ -294,7 +294,7 @@ export default function EditPackageDialog({
                     />
                     Urgent
                   </label>
-                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
                       checked={packageNature === "MORE_THAN_3000"}
@@ -313,7 +313,7 @@ export default function EditPackageDialog({
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                   placeholder={t("dialogs.createAnnounce.weight")}
-                  className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </Field>
               <div>
@@ -326,11 +326,11 @@ export default function EditPackageDialog({
                       value={pricePerKilo}
                       onChange={(e) => setPricePerKilo(e.target.value)}
                       placeholder={t("dialogs.createAnnounce.pricePerKilo")}
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </Field>
                   <div className="w-32">
-                    <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">
                       Currency
                     </label>
                     <CurrencyComboBox
@@ -352,7 +352,7 @@ export default function EditPackageDialog({
             <div className="mt-10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
-                  className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover"
                   onClick={onClose}
                 >
                   ‹ {t("common.back")}
@@ -363,7 +363,7 @@ export default function EditPackageDialog({
                 disabled={!canSubmit() || submitting}
                 className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
                   canSubmit() && !submitting
-                    ? "bg-indigo-600 hover:bg-indigo-700"
+                    ? "bg-indigo-600 hover"
                     : "bg-gray-300 cursor-not-allowed"
                 }`}
               >
@@ -386,7 +386,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
         {label}
       </label>
       {children}

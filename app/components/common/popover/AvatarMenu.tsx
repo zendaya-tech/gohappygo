@@ -52,7 +52,7 @@ export default function AvatarMenu({
                 onClose();
                 onOpenLogin?.();
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
               role="menuitem"
             >
               Connexion
@@ -62,7 +62,7 @@ export default function AvatarMenu({
                 onClose();
                 onOpenRegister?.();
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150"
               role="menuitem"
             >
               Inscription
@@ -77,7 +77,7 @@ export default function AvatarMenu({
             <Link
               to="/profile"
               onClick={onClose}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
               role="menuitem"
             >
               <svg
@@ -99,7 +99,7 @@ export default function AvatarMenu({
             <Link
               to="/profile?section=messages"
               onClick={onClose}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
               role="menuitem"
             >
               <svg
@@ -121,7 +121,7 @@ export default function AvatarMenu({
             <Link
               to="/profile?section=travels"
               onClick={onClose}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
               role="menuitem"
             >
               <svg
@@ -143,7 +143,7 @@ export default function AvatarMenu({
             <Link
               to="/profile?section=travel-requests"
               onClick={onClose}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
               role="menuitem"
             >
               <svg
@@ -168,7 +168,7 @@ export default function AvatarMenu({
             {/* Logout */}
             <a
               href="/logout"
-              className="flex items-center w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-red-600 hover transition-colors duration-150"
               role="menuitem"
             >
               <svg
@@ -195,7 +195,7 @@ export default function AvatarMenu({
         {/* Section commune pour tous les utilisateurs */}
         <a
           href="/how-it-works"
-          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
           <svg
@@ -216,7 +216,7 @@ export default function AvatarMenu({
 
         <a
           href="/contact"
-          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
           <svg
@@ -237,7 +237,7 @@ export default function AvatarMenu({
 
         <a
           href="/legal"
-          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
           <svg
@@ -258,7 +258,7 @@ export default function AvatarMenu({
 
         <a
           href="/assurance"
-          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
           <svg
@@ -279,7 +279,7 @@ export default function AvatarMenu({
 
         <a
           href="/outils-voyageurs"
-          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150"
+          className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
           <svg

@@ -102,7 +102,7 @@ export default function CountryComboBox({
   return (
     <div ref={containerRef} className="relative">
       {label && (
-        <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+        <label className="mb-2 block text-sm font-semibold text-gray-900">
           {label}
         </label>
       )}
@@ -110,7 +110,7 @@ export default function CountryComboBox({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors bg-white text-left flex items-center justify-between"
+        className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors bg-white text-left flex items-center justify-between"
       >
         <div className="flex items-center">
           {displayCountry ? (
@@ -154,7 +154,7 @@ export default function CountryComboBox({
                   key={country.code}
                   type="button"
                   onClick={() => handleCountrySelect(country)}
-                  className={`w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center transition-colors ${
+                  className={`w-full px-4 py-2 text-left hover flex items-center transition-colors ${
                     displayCountry?.code === country.code ? "bg-green-50 text-green-700" : "text-gray-900"
                   }`}
                 >

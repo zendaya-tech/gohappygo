@@ -41,7 +41,7 @@ export default function AppDownloadPopover({ open, onClose, pinned, onTogglePin,
     return (
         <div
             ref={containerRef}
-            className="absolute  top-full z-50 mt-2 w-64 overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-lg border border-gray-200 dark:border-gray-700"
+            className="absolute  top-full z-50 mt-2 w-64 overflow-hidden rounded-xl bg-white shadow-lg border border-gray-200"
             role="dialog"
             aria-label="Télécharger l'application"
         >
@@ -64,7 +64,7 @@ export default function AppDownloadPopover({ open, onClose, pinned, onTogglePin,
                     )}
                 </div>
 
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                <p className="text-xs text-gray-500 mb-3">
                     Scannez pour télécharger
                 </p>
             </div>

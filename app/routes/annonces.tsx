@@ -236,12 +236,12 @@ export default function Annonces() {
   };
 
   return (
-    <div className="min-h-screen dark:bg-gray-950 relative">
+    <div className="min-h-screen relative">
       <Header />
 
       <main className="mx-auto relative max-w-7xl py-4 md:py-8 px-4">
         {/* Search Bar */}
-        <div className="sticky bg-white dark:bg-gray-950 z-10 top-16 md:top-20 pt-4 md:pt-10 left-0 w-full">
+        <div className="sticky bg-white z-10 top-16 md:top-20 pt-4 md:pt-10 left-0 w-full">
           <SearchFiltersBar
             ref={searchFiltersRef}
             initialFrom={searchParams.from}
@@ -264,17 +264,17 @@ export default function Annonces() {
           {/* Left Sidebar - Filters */}
           <div className="w-full lg:w-64 flex-shrink-0">
             <div
-              className={`lg:sticky lg:top-24 bg-gray-100 dark:bg-gray-900 rounded-2xl p-4 md:p-6 border border-gray-200 dark:border-gray-800 lg:max-h-[calc(100vh-7rem)] ${results.length === 0 && "h-full"} lg:overflow-y-auto`}
+              className={`lg:sticky lg:top-24 bg-gray-100 rounded-2xl p-4 md:p-6 border border-gray-200 lg:max-h-[calc(100vh-7rem)] ${results.length === 0 && "h-full"} lg:overflow-y-auto`}
             >
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 {results.length > 0 ? (
-                  <button className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-medium">
+                  <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-xs md font-medium">
                     Filtrer par
                   </button>
                 ) : (
                   <button
                     onClick={clearAllFilters}
-                    className="text-xs md:text-sm text-gray-100"
+                    className="text-xs md text-gray-100"
                     disabled={true}
                   >
                     Tout effacer
@@ -282,7 +282,7 @@ export default function Annonces() {
                 )}
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs md:text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 "
+                  className="text-xs md text-gray-500 hover "
                 >
                   Tout effacer
                 </button>
@@ -291,7 +291,7 @@ export default function Annonces() {
               {/* Filtrer non disponible button */}
               {results.length === 0 ? (
                 <div className="mb-3 md:mb-4">
-                  <button className="w-full text-left px-3 md:px-4 py-2 text-xs md:text-sm text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+                  <button className="w-full text-left px-3 md:px-4 py-2 text-xs md text-blue-600 border border-blue-200 rounded-lg hover/20 transition-colors">
                     Filtre non disponible
                   </button>
                 </div>
@@ -326,9 +326,9 @@ export default function Annonces() {
                             type="checkbox"
                             checked={selectedFilters.includes(filter.id)}
                             onChange={() => handleFilterChange(filter.id)}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 rounded"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500:ring-blue-600 focus:ring-2 rounded"
                           />
-                          <span className="text-xs md:text-sm text-gray-700 dark:text-gray-300">
+                          <span className="text-xs md text-gray-700">
                             {filter.label}
                           </span>
                         </label>
@@ -337,8 +337,8 @@ export default function Annonces() {
                   </div>
 
                   {/* Price Range Filter */}
-                  <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 dark:border-gray-700">
-                    <h4 className="text-xs md:text-sm font-medium text-gray-900 dark:text-white mb-2 md:mb-3">
+                  <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
+                    <h4 className="text-xs md font-medium text-gray-900 mb-2 md:mb-3">
                       Prix par kg (€)
                     </h4>
                     <div className="flex gap-2">
@@ -352,7 +352,7 @@ export default function Annonces() {
                             min: e.target.value,
                           }))
                         }
-                        className="w-full px-2 md:px-3 py-2 text-xs md:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-2 md:px-3 py-2 text-xs md border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                       />
                       <input
                         type="number"
@@ -364,14 +364,14 @@ export default function Annonces() {
                             max: e.target.value,
                           }))
                         }
-                        className="w-full px-2 md:px-3 py-2 text-xs md:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-2 md:px-3 py-2 text-xs md border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
 
                   {/* Weight Range Filter */}
                   <div className="mt-3 md:mt-4">
-                    <h4 className="text-xs md:text-sm font-medium text-gray-900 dark:text-white mb-2 md:mb-3">
+                    <h4 className="text-xs md font-medium text-gray-900 mb-2 md:mb-3">
                       Poids (kg)
                     </h4>
                     <div className="flex gap-2">
@@ -385,7 +385,7 @@ export default function Annonces() {
                             min: e.target.value,
                           }))
                         }
-                        className="w-full px-2 md:px-3 py-2 text-xs md:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-2 md:px-3 py-2 text-xs md border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                       />
                       <input
                         type="number"
@@ -397,7 +397,7 @@ export default function Annonces() {
                             max: e.target.value,
                           }))
                         }
-                        className="w-full px-2 md:px-3 py-2 text-xs md:text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-2 md:px-3 py-2 text-xs md border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -471,13 +471,13 @@ export default function Annonces() {
 
                 {/* Empty state text */}
                 <div className="text-center max-w-md px-4">
-                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="text-lg md font-semibold text-gray-900 mb-2">
                     Nous n'avons trouvé aucun bagage disponible
                   </h3>
-                  <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-1">
+                  <p className="text-base md text-gray-600 mb-1">
                     pour ce vol... encore !
                   </p>
-                  <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
+                  <p className="text-xs md text-gray-500 mb-6 md:mb-8">
                     Activez une alerte, nous vous préviendrons
                     <br />
                     dès qu'une offre correspond.
@@ -486,7 +486,7 @@ export default function Annonces() {
                   {/* Alert button */}
                   <button
                     onClick={handleAlertClick}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md:text-base font-medium transition-colors"
+                    className="bg-blue-600 hover text-white px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md font-medium transition-colors"
                   >
                     Activer une alerte
                   </button>
@@ -584,7 +584,7 @@ export default function Annonces() {
                 )}
                 {!hasMore && results.length > 0 && (
                   <div className="w-full py-8">
-                    <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-center text-sm text-gray-500">
                       Vous avez vu toutes les annonces disponibles
                     </p>
                   </div>
@@ -623,9 +623,9 @@ export default function Annonces() {
             {quotes.map((q) => (
               <div
                 key={q.id}
-                className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4"
+                className="rounded-2xl border border-gray-200 bg-white p-4"
               >
-                <p className="text-gray-800 dark:text-gray-200 text-sm">
+                <p className="text-gray-800 text-sm">
                   {q.quote}
                 </p>
                 <div className="mt-2 text-xs text-gray-500">

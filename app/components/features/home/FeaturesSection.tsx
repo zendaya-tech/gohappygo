@@ -46,7 +46,7 @@ export default function FeaturesSection() {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover transition-colors duration-300">
                       {feature.title}
                     </h3>
 

@@ -68,15 +68,15 @@ export default function PackageCategories() {
 
     return (
         <section className=" py-12 container mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Types de <span className="text-blue-600">colis</span></h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">Types de <span className="text-blue-600">colis</span></h2>
 
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
                 {categories.map((category) => (
-                    <div key={category.name} className="flex flex-col items-center text-center p-4 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer group">
-                        <div className="text-gray-600 dark:text-gray-300 group-hover:text-blue-600 transition-colors duration-200 mb-2">
+                    <div key={category.name} className="flex flex-col items-center text-center p-4 hover rounded-lg cursor-pointer group">
+                        <div className="text-gray-600 group-hover transition-colors duration-200 mb-2">
                             {category.icon}
                         </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-300 group-hover:text-blue-600 transition-colors duration-200">{category.name}</span>
+                        <span className="text-sm text-gray-600 group-hover transition-colors duration-200">{category.name}</span>
                     </div>
                 ))}
             </div>

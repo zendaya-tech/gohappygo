@@ -202,6 +202,20 @@ const ReservationsSection = () => {
     setReviewDialogOpen(true);
   };
 
+  // Fonction pour obtenir le nom de la personne à évaluer (vis-à-vis)
+  const getRevieweeName = (request: RequestResponse): string => {
+    const requester = request.requester;
+    const travelOwner = request.travel?.owner;
+    
+    // Si l'utilisateur connecté est le requester, évaluer le propriétaire
+    const isCurrentUserRequester = requester?.id.toString() === currentUser?.id;
+    const reviewee = isCurrentUserRequester ? travelOwner : requester;
+    
+    return reviewee
+      ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.`
+      : "Utilisateur";
+  };
+
   const handleReviewSuccess = () => {
     // Refresh requests
     const fetchRequests = async () => {
@@ -249,7 +263,7 @@ const ReservationsSection = () => {
           onClick={() => setTab("pending")}
           className={`text-sm font-semibold ${
             tab === "pending"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -259,7 +273,7 @@ const ReservationsSection = () => {
           onClick={() => setTab("accepted")}
           className={`text-sm font-semibold ${
             tab === "accepted"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -269,7 +283,7 @@ const ReservationsSection = () => {
           onClick={() => setTab("completed")}
           className={`text-sm font-semibold ${
             tab === "completed"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -290,6 +304,11 @@ const ReservationsSection = () => {
           {filtered.map((request) => {
             const travel = request.travel;
             const requester = request.requester;
+            const travelOwner = travel?.owner; // Utiliser travel.owner au lieu de travel.user
+
+            // Déterminer qui afficher : si l'utilisateur connecté est le requester, afficher le propriétaire du voyage, sinon afficher le requester
+            const isCurrentUserRequester = requester?.id.toString() === currentUser?.id;
+            const displayUser = isCurrentUserRequester ? travelOwner : requester;
 
             // Data Preparation
             const departureCity = travel?.departureAirport?.name || "Paris";
@@ -307,20 +326,20 @@ const ReservationsSection = () => {
 
             const price = Number((pricePerKg * weight).toFixed(0));
 
-            const requesterName = requester
-              ? `${requester.firstName} ${requester.lastName.charAt(0)}.`
+            const displayUserName = displayUser
+              ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
               : "Utilisateur";
 
-            const requesterAvatar =
-              (requester as any)?.profilePictureUrl || "/favicon.ico";
+            const displayUserAvatar =
+              (displayUser as any)?.profilePictureUrl || "/favicon.ico";
 
             return (
               <ActionCard
                 key={request.id}
                 id={request.id}
                 user={{
-                  name: requesterName,
-                  avatar: requesterAvatar,
+                  name: displayUserName,
+                  avatar: displayUserAvatar,
                 }}
                 image={request.travel?.airline?.logoUrl}
                 title={`${departureCity} → ${arrivalCity}`}
@@ -411,8 +430,8 @@ const ReservationsSection = () => {
                         label: "Message",
                         onClick: () =>
                           handleContactRequester(
-                            requesterName,
-                            requesterAvatar,
+                            displayUserName,
+                            displayUserAvatar,
                             request.id
                           ),
                       }
@@ -478,11 +497,7 @@ const ReservationsSection = () => {
             setRequestToReview(null);
           }}
           requestId={requestToReview.id}
-          requesterName={
-            requestToReview.requester
-              ? `${requestToReview.requester.firstName} ${requestToReview.requester.lastName.charAt(0)}.`
-              : "Utilisateur"
-          }
+          requesterName={getRevieweeName(requestToReview)}
           onSuccess={handleReviewSuccess}
         />
       )}
@@ -548,7 +563,7 @@ const ReviewsSection = () => {
           onClick={() => setTab("received")}
           className={`text-sm font-semibold ${
             tab === "received"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -557,7 +572,7 @@ const ReviewsSection = () => {
         <button
           onClick={() => setTab("given")}
           className={`text-sm font-semibold ${
-            tab === "given" ? "text-gray-900 dark:text-white" : "text-gray-500"
+            tab === "given" ? "text-gray-900" : "text-gray-500"
           }`}
         >
           | {isOwnProfile ? "Mes avis donnés" : "Avis donnés"}
@@ -610,7 +625,7 @@ const ReviewsSection = () => {
                 <p className="text-blue-600 font-semibold mb-6">GoHappyGo !</p>
 
                 {/* Button */}
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+                <button className="bg-blue-600 hover text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
                   Laisser un avis
                 </button>
               </div>
@@ -1204,7 +1219,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
           onClick={() => setTab("balance")}
           className={`text-sm font-semibold ${
             tab === "balance"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -1214,7 +1229,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
           onClick={() => setTab("transactions")}
           className={`text-sm font-semibold ${
             tab === "transactions"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -1224,7 +1239,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
           onClick={() => setTab("earnings")}
           className={`text-sm font-semibold ${
             tab === "earnings"
-              ? "text-gray-900 dark:text-white"
+              ? "text-gray-900"
               : "text-gray-500"
           }`}
         >
@@ -1292,10 +1307,10 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
 
           {/* Quick Actions */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover transition-colors">
               Retirer des fonds
             </button>
-            <button className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+            <button className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover transition-colors">
               Historique des retraits
             </button>
           </div>
@@ -1311,7 +1326,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
               <p className="text-red-800 font-medium">{errorMessage}</p>
               <button
                 onClick={() => setErrorMessage(null)}
-                className="text-red-600 hover:text-red-800"
+                className="text-red-600 hover"
               >
                 ✕
               </button>
@@ -1324,7 +1339,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
               <p className="text-green-800 font-medium">{successMessage}</p>
               <button
                 onClick={() => setSuccessMessage(null)}
-                className="text-green-600 hover:text-green-800"
+                className="text-green-600 hover"
               >
                 ✕
               </button>
@@ -1392,7 +1407,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                         <button
                           onClick={() => handleReleaseFunds(transaction.id)}
                           disabled={releasingFunds === transaction.id}
-                          className="mt-2 text-sm bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="mt-2 text-sm bg-green-600 text-white px-3 py-1 rounded-lg hover disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {releasingFunds === transaction.id
                             ? "..."
@@ -1407,7 +1422,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
               {hasMore && (
                 <button
                   onClick={loadMoreTransactions}
-                  className="w-full py-3 text-blue-600 hover:text-blue-700 font-medium"
+                  className="w-full py-3 text-blue-600 hover font-medium"
                 >
                   Charger plus de transactions
                 </button>
@@ -1647,7 +1662,7 @@ const FavoritesSection = () => {
                       bookmark.bookmarkType, 
                       isTravel ? bookmark.travelId! : bookmark.demandId!
                     )}
-                    className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors z-10"
+                    className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover transition-colors z-10"
                   >
                     <svg
                       className="w-4 h-4"
@@ -1828,7 +1843,7 @@ export default function Profile() {
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
         <div className="flex flex-col md:flex-row h-auto md:h-[600px]">
           {/* Conversations List */}
-          <div className="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-gray-200 max-h-[300px] md:max-h-none">
+          <div className="w-full md:w-1/3 border-b md md border-gray-200 max-h-[300px] md:max-h-none">
             <ConversationList
               onSelectConversation={setSelectedConversation}
               selectedConversationId={selectedConversation?.id}
@@ -1950,7 +1965,7 @@ export default function Profile() {
                 </div>
 
                 {/* User Name */}
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-base md font-semibold text-gray-900 mb-2">
                   {displayUser?.fullName
                     ? `${displayUser.fullName}`
                     : displayUser?.email || "Utilisateur"}
@@ -1973,7 +1988,7 @@ export default function Profile() {
                 {isOwnProfile && (
                   <button
                     onClick={() => setProfileDialogOpen(true)}
-                    className="w-full bg-white border border-blue-500 text-blue-500 rounded-lg px-4 py-2 text-sm font-medium hover:bg-blue-50 transition-colors"
+                    className="w-full bg-white border border-blue-500 text-blue-500 rounded-lg px-4 py-2 text-sm font-medium hover transition-colors"
                   >
                     Edit Profile
                   </button>
@@ -2030,7 +2045,7 @@ export default function Profile() {
                     <button
                       onClick={handleStripeOnboarding}
                       disabled={processingOnboarding}
-                      className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {processingOnboarding ? "Ouverture..." : "Register"}
                     </button>
@@ -2048,12 +2063,12 @@ export default function Profile() {
                       className={`w-full flex items-center justify-between p-2 md:p-3 rounded-lg text-left transition-colors ${
                         activeSection === section.id
                           ? "bg-blue-50 text-blue-600"
-                          : "text-gray-700 hover:bg-gray-50"
+                          : "text-gray-700 hover"
                       }`}
                     >
                       <div className="flex items-center gap-1">
                         <span className="flex-shrink-0">{section.icon}</span>
-                        <span className="text-xs md:text-sm font-medium truncate">
+                        <span className="text-xs md font-medium truncate">
                           {section.label}
                         </span>
                       </div>
@@ -2070,13 +2085,13 @@ export default function Profile() {
                 <div className="space-y-3">
                   <button
                     onClick={() => setCreateAnnounceDialogOpen(true)}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl"
+                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl"
                   >
                     Publier une annonce de voyage
                   </button>
                   <button
                     onClick={() => setCreatePackageDialogOpen(true)}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl"
+                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl"
                   >
                     Publier une demande de voyage
                   </button>
@@ -2088,7 +2103,7 @@ export default function Profile() {
             <section className="mx-5">
               {/* Section Title */}
               <div className="mb-4 md:mb-6">
-                <h1 className="text-xl md:text-2xl font-bold text-gray-900">
+                <h1 className="text-xl md font-bold text-gray-900">
                   | {visibleSections.find((s) => s.id === activeSection)?.label}
                 </h1>
               </div>

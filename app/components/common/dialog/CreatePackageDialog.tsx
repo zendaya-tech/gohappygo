@@ -265,22 +265,22 @@ export default function CreatePackageDialog({
       <div className="fixed inset-0 bg-black/35" onClick={onClose} />
 
       {/* Dialog container */}
-      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-6xl overflow-hidden rounded-2xl md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/10 dark:ring-white/10 h-[95vh] md:max-h-[85vh] flex flex-col">
+      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-6xl overflow-hidden rounded-2xl md:rounded-2xl bg-white shadow-2xl ring-1 ring-black/10/10 h-[95vh] md:max-h-[85vh] flex flex-col">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] min-h-0 flex-1">
           {/* Sidebar steps */}
-          <aside className="border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 p-4 md:p-6 overflow-y-auto">
+          <aside className="border-b md md border-gray-200 p-4 md:p-6 overflow-y-auto">
             <StepsNavPackage step={currentStep as 1 | 2} />
           </aside>
 
           {/* Content */}
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
-              <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-lg md font-bold text-gray-900">
                 {" "}
-                <span className="uppercase text-sm md:text-base">
+                <span className="uppercase text-sm md">
                   {t("dialogs.createPackage.title")}
                 </span>
-                <span className="text-sm md:text-base">
+                <span className="text-sm md">
                   {" "}
                   - {t("common.step")} {currentStep} {t("common.of")} 2
                 </span>
@@ -337,8 +337,8 @@ export default function CreatePackageDialog({
                     className={`w-full uppercase rounded-xl border ${
                       validationErrors.flightNumber
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.flightNumber && (
                     <p className="mt-1 text-sm text-red-600">
@@ -356,8 +356,8 @@ export default function CreatePackageDialog({
                     className={`w-full rounded-xl border ${
                       validationErrors.travelDate
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.travelDate && (
                     <p className="mt-1 text-sm text-red-600">
@@ -385,8 +385,8 @@ export default function CreatePackageDialog({
                       validationErrors.description ||
                       baggageDescription.length > 500
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   <div
                     className={`mt-1 text-xs ${
@@ -407,11 +407,11 @@ export default function CreatePackageDialog({
                 </Field>
 
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="mb-2 text-sm font-semibold text-gray-900">
                     Nature du baggage
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
                         checked={packageNature === "STANDARD"}
@@ -419,7 +419,7 @@ export default function CreatePackageDialog({
                       />
                       Standard
                     </label>
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
                         checked={packageNature === "FRAGILE"}
@@ -427,7 +427,7 @@ export default function CreatePackageDialog({
                       />
                       Fragile
                     </label>
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
                         checked={packageNature === "URGENT"}
@@ -435,7 +435,7 @@ export default function CreatePackageDialog({
                       />
                       Urgent
                     </label>
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
                         checked={packageNature === "MORE_THAN_3000"}
@@ -450,10 +450,10 @@ export default function CreatePackageDialog({
 
             {currentStep === 2 && (
               <div className="space-y-6">
-                <p className="text-gray-700 dark:text-gray-300 font-medium">
+                <p className="text-gray-700 font-medium">
                   {t("dialogs.createAnnounce.photos")}
                 </p>
-                <label className="block cursor-pointer rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800">
+                <label className="block cursor-pointer rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-500 hover">
                   <input
                     type="file"
                     accept="image/*"
@@ -474,11 +474,11 @@ export default function CreatePackageDialog({
                     {photos.map((photo, idx) => (
                       <div
                         key={idx}
-                        className="relative rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden"
+                        className="relative rounded-xl border border-gray-200 overflow-hidden"
                       >
                         <button
                           onClick={() => removePhoto(idx)}
-                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-10"
+                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-10"
                           title="Remove image"
                         >
                           −
@@ -489,7 +489,7 @@ export default function CreatePackageDialog({
                           className="w-full h-32 object-cover"
                         />
                         <div className="p-2">
-                          <div className="text-xs text-gray-600 dark:text-gray-300 truncate">
+                          <div className="text-xs text-gray-600 truncate">
                             {photo.name}
                           </div>
                         </div>
@@ -509,8 +509,8 @@ export default function CreatePackageDialog({
                     className={`w-full rounded-xl border ${
                       validationErrors.weight
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.weight && (
                     <p className="mt-1 text-sm text-red-600">
@@ -531,8 +531,8 @@ export default function CreatePackageDialog({
                         className={`w-full rounded-xl border ${
                           validationErrors.price
                             ? "border-red-500 focus:ring-red-500"
-                            : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                        } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                            : "border-gray-300 focus:ring-indigo-500"
+                        } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                       />
                       {validationErrors.price && (
                         <p className="mt-1 text-sm text-red-600">
@@ -541,7 +541,7 @@ export default function CreatePackageDialog({
                       )}
                     </Field>
                     <div className="w-32">
-                      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+                      <label className="mb-2 block text-sm font-semibold text-gray-900">
                         Currency
                       </label>
                       <CurrencyComboBox
@@ -568,7 +568,7 @@ export default function CreatePackageDialog({
             {/* Footer actions */}
             <div className="mt-10 flex items-center justify-between">
               <button
-                className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover"
                 onClick={() => (currentStep > 1 ? prevStep() : onClose())}
               >
                 ‹ {t("common.back")}
@@ -580,8 +580,8 @@ export default function CreatePackageDialog({
                   disabled={!isStepComplete()}
                   className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
                     isStepComplete()
-                      ? "bg-indigo-600 hover:bg-indigo-700"
-                      : "bg-gray-300 dark:bg-gray-700 cursor-not-allowed"
+                      ? "bg-indigo-600 hover"
+                      : "bg-gray-300 cursor-not-allowed"
                   }`}
                 >
                   {t("common.next")} ›
@@ -593,7 +593,7 @@ export default function CreatePackageDialog({
                   disabled={submitting || !isStepComplete()}
                   className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
                     !submitting && isStepComplete()
-                      ? "bg-indigo-600 hover:bg-indigo-700"
+                      ? "bg-indigo-600 hover"
                       : "bg-gray-300 cursor-not-allowed"
                   }`}
                 >
@@ -643,7 +643,7 @@ function StepsNavPackage({ step }: { step: 1 | 2 }) {
       <div>
         <div
           className={`text-base font-semibold ${
-            index <= step ? "text-gray-900 dark:text-white" : "text-gray-400"
+            index <= step ? "text-gray-900" : "text-gray-400"
           }`}
         >
           {title}
@@ -656,7 +656,7 @@ function StepsNavPackage({ step }: { step: 1 | 2 }) {
   return (
     <div>
       <Item index={1} title="General" subtitle="Select basic settings" />
-      <div className="ml-2 h-6 w-px bg-gray-200 dark:bg-gray-800" />
+      <div className="ml-2 h-6 w-px bg-gray-200" />
       <Item
         index={2}
         title="Pictures & Price"
@@ -675,7 +675,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
         {label}
       </label>
       {children}

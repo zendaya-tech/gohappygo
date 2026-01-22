@@ -242,7 +242,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         {onClose && (
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -381,7 +381,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
               onKeyDown={handleKeyDown}
               placeholder="Tapez votre message..."
               rows={1}
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus resize-none"
               disabled={sending || !isConnected}
               style={{ minHeight: '40px', maxHeight: '120px' }}
               onInput={(e) => {
@@ -394,7 +394,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
           <button
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || sending || !isConnected}
-            className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 bg-blue-600 text-white rounded-full hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {sending ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>

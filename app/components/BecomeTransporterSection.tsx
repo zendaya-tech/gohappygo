@@ -21,7 +21,7 @@ export default function BecomeTransporterSection() {
               {t("home.hostSection.description")}
             </p>
             <button
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-100"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover"
               onClick={handleCtaClick}
             >
               {t("home.hostSection.cta")}

@@ -366,7 +366,7 @@ export default function AnnounceDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen bg-gray-50">
         <Header />
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="max-w-7xl mx-auto">
@@ -374,10 +374,10 @@ export default function AnnounceDetail() {
             <div className="animate-pulse">
               {/* Gallery skeleton */}
               <div className="flex h-[400px] gap-4 mb-6">
-                <div className="flex-1 bg-gray-200 dark:bg-gray-800 rounded-xl"></div>
+                <div className="flex-1 bg-gray-200 rounded-xl"></div>
                 <div className="w-80 flex flex-col gap-3">
-                  <div className="flex-1 bg-gray-200 dark:bg-gray-800 rounded-xl"></div>
-                  <div className="flex-1 bg-gray-200 dark:bg-gray-800 rounded-xl"></div>
+                  <div className="flex-1 bg-gray-200 rounded-xl"></div>
+                  <div className="flex-1 bg-gray-200 rounded-xl"></div>
                 </div>
               </div>
 
@@ -385,30 +385,30 @@ export default function AnnounceDetail() {
                 <div className="lg:col-span-2 space-y-6">
                   {/* User info skeleton */}
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 bg-gray-200 dark:bg-gray-800 rounded-full"></div>
+                    <div className="h-12 w-12 bg-gray-200 rounded-full"></div>
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-32"></div>
-                      <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded w-24"></div>
+                      <div className="h-4 bg-gray-200 rounded w-32"></div>
+                      <div className="h-3 bg-gray-200 rounded w-24"></div>
                     </div>
                   </div>
 
                   {/* Route info skeleton */}
                   <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                   </div>
 
                   {/* Description skeleton */}
                   <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                   </div>
                 </div>
 
                 {/* Sidebar skeleton */}
                 <div className="lg:col-span-1">
-                  <div className="bg-gray-200 dark:bg-gray-800 rounded-2xl h-96"></div>
+                  <div className="bg-gray-200 rounded-2xl h-96"></div>
                 </div>
               </div>
             </div>
@@ -421,19 +421,19 @@ export default function AnnounceDetail() {
 
   if (!listing) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <div className="min-h-screen bg-gray-50">
         <Header />
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-2xl mx-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-2xl p-8 text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Annonce introuvable
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-gray-600 mb-6">
               Vérifiez l'identifiant ou retournez à la liste des annonces.
             </p>
             <Link
               to="/annonces"
-              className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+              className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover"
             >
               Retour aux annonces
             </Link>
@@ -530,15 +530,15 @@ export default function AnnounceDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-white">
       <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
         {/* Left: media + traveller + route + description */}
         <div>
           {/* top right small action */}
-          <div className="flex items-center justify-end text-xs sm:text-sm text-gray-500 mb-3 gap-2 sm:gap-3">
+          <div className="flex items-center justify-end text-xs sm text-gray-500 mb-3 gap-2 sm:gap-3">
             <button
-              className="inline-flex items-center gap-2 text-gray-500 hover:text-indigo-600"
+              className="inline-flex items-center gap-2 text-gray-500 hover"
               onClick={() => setShareOpen(true)}
             >
               <ShareIcon className="h-4 w-4" />
@@ -551,12 +551,12 @@ export default function AnnounceDetail() {
                 className={`inline-flex items-center gap-2 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
                   isFavorite
                     ? "text-red-500"
-                    : "text-gray-500 hover:text-rose-600"
+                    : "text-gray-500 hover"
                 }`}
               >
                 {isBookmarkLoading ? (
                   <svg
-                    className="h-4 w-4 animate-spin text-gray-600 dark:text-gray-300"
+                    className="h-4 w-4 animate-spin text-gray-600"
                     fill="none"
                     viewBox="0 0 24 24"
                   >
@@ -601,12 +601,12 @@ export default function AnnounceDetail() {
           </div>
 
           {/* Gallery with hover effects - Always 3 images */}
-          <div className="rounded-2xl overflow-hidden bg-white dark:bg-gray-900">
+          <div className="rounded-2xl overflow-hidden bg-white">
             <div className="flex flex-col md:flex-row h-auto md:h-[400px] gap-3 md:gap-4">
               {/* Image principale */}
               <div className="flex-1 h-[300px] md:h-full">
                 <div
-                  className="relative w-full h-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 cursor-pointer group transition-all duration-300 hover:shadow-lg"
+                  className="relative w-full h-full overflow-hidden rounded-xl border border-gray-200 cursor-pointer group transition-all duration-300 hover:shadow-lg"
                   onClick={() => {
                     setCurrentImageIndex(0);
                     setSliderOpen(true);
@@ -630,7 +630,7 @@ export default function AnnounceDetail() {
               <div className="w-full md:w-80 flex flex-row md:flex-col gap-3 h-[120px] md:h-full">
                 {/* Deuxième image */}
                 <div
-                  className="relative flex-1 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  className="relative flex-1 overflow-hidden rounded-xl border border-gray-200 cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   onClick={() => {
                     setCurrentImageIndex(1);
                     setSliderOpen(true);
@@ -646,7 +646,7 @@ export default function AnnounceDetail() {
 
                 {/* Troisième image */}
                 <div
-                  className="relative flex-1 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  className="relative flex-1 overflow-hidden rounded-xl border border-gray-200 cursor-pointer group transition-all duration-300 hover:scale-105 hover:shadow-lg"
                   onClick={() => {
                     setCurrentImageIndex(2);
                     setSliderOpen(true);
@@ -671,13 +671,13 @@ export default function AnnounceDetail() {
                   <img
                     src={listing.user?.profilePictureUrl || "/favicon.ico"}
                     alt={userName}
-                    className="h-12 w-12 rounded-full object-cover ring-2 ring-white dark:ring-gray-900 shadow"
+                    className="h-12 w-12 rounded-full object-cover ring-2 ring-white shadow"
                   />
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">
+                    <div className="font-semibold text-gray-900">
                       {userName}
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-xs text-gray-500">
                       {averageRating > 0
                         ? `Note ${averageRating.toFixed(1)}`
                         : "Pas encore noté"}{" "}
@@ -694,7 +694,7 @@ export default function AnnounceDetail() {
                     className={`rounded-lg px-4 sm:px-5 py-2 text-sm font-semibold shadow-sm transition-colors duration-200 flex-1 sm:flex-none ${
                       isOwnAnnounce
                         ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
+                        : "bg-blue-600 text-white hover"
                     }`}
                   >
                     Profile
@@ -704,8 +704,8 @@ export default function AnnounceDetail() {
                     disabled={isOwnAnnounce}
                     className={`rounded-lg border px-4 sm:px-5 py-2 text-sm font-medium transition-colors duration-200 flex-1 sm:flex-none ${
                       isOwnAnnounce
-                        ? "border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-not-allowed"
-                        : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                        ? "border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed"
+                        : "border-gray-300 bg-white text-gray-700 hover"
                     }`}
                   >
                     Message
@@ -714,9 +714,9 @@ export default function AnnounceDetail() {
               </div>
 
               {/* Route line */}
-              <div className="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-12 gap-4 text-xs sm:text-sm">
+              <div className="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-12 gap-4 text-xs sm">
                 <div className="md:col-span-9">
-                  <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-2 text-gray-700 dark:text-gray-300">
+                  <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-2 text-gray-700">
                     <span className="font-medium">
                       {listing.departureAirport?.name || "Départ"} →{" "}
                       {listing.arrivalAirport?.name || "Arrivée"}
@@ -736,7 +736,7 @@ export default function AnnounceDetail() {
                           Vol N° {listing.flightNumber}
                         </span>
                         {listing.airline?.name && (
-                          <span className="text-gray-600 dark:text-gray-400">
+                          <span className="text-gray-600">
                             {listing.airline.name}
                           </span>
                         )}
@@ -750,8 +750,8 @@ export default function AnnounceDetail() {
                     </span>
                   </div>
                 </div>
-                <div className="md:col-span-3 text-left md:text-right mt-2 md:mt-0">
-                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+                <div className="md:col-span-3 text-left md mt-2 md:mt-0">
+                  <div className="text-lg sm md font-bold text-gray-900">
                     {listing.pricePerKg} {currencySymbol}/Kilo
                   </div>
                 </div>
@@ -759,7 +759,7 @@ export default function AnnounceDetail() {
 
               {/* Description */}
               <div className="mt-12 mb-12">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
                   {listing.description || "Description non disponible"}
                 </p>
               </div>
@@ -768,7 +768,7 @@ export default function AnnounceDetail() {
               {type === "travel" && (
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   {/* Reservation type badge */}
-                  <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/multiple.jpeg"
                       alt="Type de réservation"
@@ -782,7 +782,7 @@ export default function AnnounceDetail() {
                   </div>
 
                   {/* Punctuality badge */}
-                  <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/ponctuel.jpeg"
                       alt="Ponctualité"
@@ -794,7 +794,7 @@ export default function AnnounceDetail() {
                   </div>
 
                   {/* Extra weight badge */}
-                  <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/kilos_trop.jpeg"
                       alt="Poids supplémentaire"
@@ -808,7 +808,7 @@ export default function AnnounceDetail() {
                   </div>
 
                   {/* Booking type badge */}
-                  <div className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/reservation.jpeg"
                       alt="Type de confirmation"
@@ -826,16 +826,16 @@ export default function AnnounceDetail() {
 
               {/* Capacity bar */}
               {/* <div className="mt-6 space-y-2">
-                                <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+                                <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
                                     <div className={`h-full rounded-full ${availableRatio > 0.5 ? "bg-green-500" : availableRatio > 0.2 ? "bg-yellow-500" : "bg-red-500"}`} style={{ width: `${availablePercent}%` }} />
                                 </div>
-                                <div className="text-xs text-gray-500 dark:text-gray-400">Capacité restante: {listing.availableWeight}kg / {listing.maxWeight}kg ({availablePercent}%)</div>
+                                <div className="text-xs text-gray-500">Capacité restante: {listing.availableWeight}kg / {listing.maxWeight}kg ({availablePercent}%)</div>
                             </div> */}
 
               {/* Bottom reviews-like section */}
               <div className="mt-14   mb-14">
                 {/* <div className="flex items-center justify-between mb-2"> */}
-                {/* <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Add a review</h3> */}
+                {/* <h3 className="text-2xl font-semibold text-gray-900">Add a review</h3> */}
                 {/* Interactive stars */}
                 {/* <div className="flex items-center">
                                         {[1, 2, 3, 4, 5].map((i) => (
@@ -852,14 +852,14 @@ export default function AnnounceDetail() {
                                         ))}
                                     </div>
                                 </div> */}
-                {/* <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">You will not be able to edit your review</p> */}
+                {/* <p className="text-sm text-gray-500 mb-4">You will not be able to edit your review</p> */}
                 {/* <div className="rounded-2xl   flex items-center justify-between gap-3">
-                                    <input placeholder="Write your review..." className="flex-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-3 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                                    <button className="rounded-lg bg-blue-600 text-white px-5 py-3 font-semibold hover:bg-blue-700">Post a review</button>
+                                    <input placeholder="Write your review..." className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                                    <button className="rounded-lg bg-blue-600 text-white px-5 py-3 font-semibold hover">Post a review</button>
                                 </div> */}
                 <div className="mt-8">
                   <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <h4 className="text-xl font-semibold text-gray-900">
                       {reviews.length} Commentaire
                       {reviews.length > 1 ? "s" : ""}
                     </h4>
@@ -880,7 +880,7 @@ export default function AnnounceDetail() {
                           </svg>
                         ))}
                       </div>
-                      <span className="text-gray-700 dark:text-gray-300 font-medium">
+                      <span className="text-gray-700 font-medium">
                         {averageRating.toFixed(1)}
                       </span>
                       <span className="text-gray-500">
@@ -890,7 +890,7 @@ export default function AnnounceDetail() {
                   </div>
                   <div className="flex flex-col mt-10 gap-5">
                     {reviews.length === 0 ? (
-                      <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                      <div className="text-center py-8 text-gray-500">
                         Aucun commentaire pour le moment
                       </div>
                     ) : (
@@ -917,10 +917,10 @@ export default function AnnounceDetail() {
                               className="h-10 w-10 rounded-full object-cover"
                             />
                             <div className="flex-1">
-                              <div className="text-sm text-gray-600 dark:text-gray-400">
+                              <div className="text-sm text-gray-600">
                                 {review.name} • {reviewDate}
                               </div>
-                              <p className="mt-1 text-gray-800 dark:text-gray-200">
+                              <p className="mt-1 text-gray-800">
                                 {review.comment}
                               </p>
                             </div>
@@ -951,17 +951,17 @@ export default function AnnounceDetail() {
 
             {/* Right: booking summary */}
             <aside className="lg:col-span-1 order-first lg:order-last">
-              <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 sticky top-20">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 sticky top-20">
                 {type === "travel" ? (
                   <>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <div className="text-2xl font-bold text-gray-900">
                       {listing.pricePerKg} {currencySymbol}/Kilo
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-6">
+                    <div className="text-xs text-gray-500 mb-6">
                       Prix par kilogramme
                     </div>
 
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Enter n° Kilo
                     </label>
                     <input
@@ -982,7 +982,7 @@ export default function AnnounceDetail() {
                         }
                       }}
                       placeholder="0"
-                      className="mb-6 w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="mb-6 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
 
                     {pricingLoading ? (
@@ -992,7 +992,7 @@ export default function AnnounceDetail() {
                     ) : pricingData ? (
                       <>
                         <div className="space-y-3 text-sm">
-                          <div className="flex items-center justify-between text-gray-700 dark:text-gray-300">
+                          <div className="flex items-center justify-between text-gray-700">
                             <span>Frais de service</span>
                             <div className="flex items-center gap-2">
                               <span>
@@ -1000,7 +1000,7 @@ export default function AnnounceDetail() {
                               </span>
                               <div className="relative">
                                 <button
-                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover:bg-gray-100"
+                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover"
                                   onMouseEnter={() =>
                                     setTooltipVisible((prev) => ({
                                       ...prev,
@@ -1032,7 +1032,7 @@ export default function AnnounceDetail() {
                               </div>
                             </div>
                           </div>
-                          <div className="flex items-center justify-between text-gray-700 dark:text-gray-300">
+                          <div className="flex items-center justify-between text-gray-700">
                             <span>TVA 20%</span>
                             <div className="flex items-center gap-2">
                               <span>
@@ -1041,7 +1041,7 @@ export default function AnnounceDetail() {
                               </span>
                               <div className="relative">
                                 <button
-                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover:bg-gray-100"
+                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover"
                                   onMouseEnter={() =>
                                     setTooltipVisible((prev) => ({
                                       ...prev,
@@ -1073,7 +1073,7 @@ export default function AnnounceDetail() {
                               </div>
                             </div>
                           </div>
-                          <div className="flex items-center justify-between text-gray-700 dark:text-gray-300">
+                          <div className="flex items-center justify-between text-gray-700">
                             <div className="flex items-center gap-2">
                               <div className="flex flex-col">
                                 <span>Assurance Protection</span>
@@ -1095,7 +1095,7 @@ export default function AnnounceDetail() {
                               </span>
                               <div className="relative">
                                 <button
-                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover:bg-gray-100"
+                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover"
                                   onMouseEnter={() =>
                                     setTooltipVisible((prev) => ({
                                       ...prev,
@@ -1131,12 +1131,12 @@ export default function AnnounceDetail() {
                           </div>
                         </div>
 
-                        <div className="mt-6 border-t border-gray-200 dark:border-gray-800 pt-4">
+                        <div className="mt-6 border-t border-gray-200 pt-4">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-700 dark:text-gray-300 font-medium">
+                            <span className="text-gray-700 font-medium">
                               Total with taxes
                             </span>
-                            <span className="font-bold text-lg text-gray-900 dark:text-white">
+                            <span className="font-bold text-lg text-gray-900">
                               {pricingData.totalAmount.toFixed(2)}{" "}
                               {currencySymbol}
                             </span>
@@ -1156,7 +1156,7 @@ export default function AnnounceDetail() {
                         {quotesError}
                       </div>
                     )}
-                    <div className="mt-6 bg-gray-50 dark:bg-gray-800/50 rounded-3xl p-6 border border-gray-100 dark:border-gray-700">
+                    <div className="mt-6 bg-gray-50/50 rounded-3xl p-6 border border-gray-100">
                       <div className="grid grid-cols-1 gap-6">
                         {quotes.slice(0, 4).map((q, index) => {
                           // Alternance visuelle : les citations paires sont légèrement décalées
@@ -1173,17 +1173,17 @@ export default function AnnounceDetail() {
                             >
                               <div className="relative group">
                                 {/* Guilllemet décoratif en arrière-plan */}
-                                <span className="absolute -top-4 -left-2 text-4xl text-blue-200 dark:text-blue-900/30 opacity-50 pointer-events-none">
+                                <span className="absolute -top-4 -left-2 text-4xl text-blue-200/30 opacity-50 pointer-events-none">
                                   "
                                 </span>
 
                                 <p
-                                  className={`text-gray-800 dark:text-gray-200 font-bold font-${q.fontFamily?.toLocaleLowerCase()} text-[${q.fontSize}px] leading-snug`}
+                                  className={`text-gray-800 font-bold font-${q.fontFamily?.toLocaleLowerCase()} text-[${q.fontSize}px] leading-snug`}
                                 >
                                   {q.quote}
                                 </p>
 
-                                <span className="mt-2 block text-[10px] uppercase tracking-tighter text-blue-600 dark:text-blue-400 opacity-80">
+                                <span className="mt-2 block text-[10px] uppercase tracking-tighter text-blue-600 opacity-80">
                                   — {q.author || "Anonyme"}
                                 </span>
                               </div>
@@ -1204,7 +1204,7 @@ export default function AnnounceDetail() {
                         ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                         : !pricingData
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
+                          : "bg-blue-600 text-white hover"
                     }`}
                   >
                     {isOwnAnnounce
@@ -1215,7 +1215,7 @@ export default function AnnounceDetail() {
                   !isOwnAnnounce && (
                     <button
                       onClick={() => setCreateOpen(true)}
-                      className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-4 text-sm font-semibold text-white hover:bg-blue-700"
+                      className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-4 text-sm font-semibold text-white hover"
                     >
                       Créer ce voyage
                     </button>
@@ -1306,7 +1306,7 @@ export default function AnnounceDetail() {
             {/* Close button */}
             <button
               onClick={() => setSliderOpen(false)}
-              className="absolute top-4 right-4 z-10 text-white hover:text-gray-300 transition-colors duration-200"
+              className="absolute top-4 right-4 z-10 text-white hover transition-colors duration-200"
             >
               <svg
                 className="w-8 h-8"
@@ -1330,7 +1330,7 @@ export default function AnnounceDetail() {
                   prev === 0 ? galleryImages.length - 1 : prev - 1
                 )
               }
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover:text-gray-300 transition-colors duration-200"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover transition-colors duration-200"
             >
               <svg
                 className="w-8 h-8"
@@ -1354,7 +1354,7 @@ export default function AnnounceDetail() {
                   prev === galleryImages.length - 1 ? 0 : prev + 1
                 )
               }
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover:text-gray-300 transition-colors duration-200"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover transition-colors duration-200"
             >
               <svg
                 className="w-8 h-8"
@@ -1372,7 +1372,7 @@ export default function AnnounceDetail() {
             </button>
 
             {/* Main image */}
-            <div className="max-w-4xl overflow-hidden rounded-lg  w-[640px] h-full max-h-[500px] flex items-center justify-center bg-gray-900 dark:bg-gray-800 rounded-lg">
+            <div className="max-w-4xl overflow-hidden rounded-lg  w-[640px] h-full max-h-[500px] flex items-center justify-center bg-gray-900 rounded-lg">
               <img
                 src={galleryImages[currentImageIndex]}
                 alt={`Image ${currentImageIndex + 1}`}
@@ -1399,8 +1399,8 @@ export default function AnnounceDetail() {
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-200 ${
                     index === currentImageIndex
-                      ? "bg-blue-600 dark:bg-white"
-                      : "bg-white bg-opacity-50 hover:bg-opacity-75"
+                      ? "bg-blue-600"
+                      : "bg-white bg-opacity-50 hover"
                   }`}
                 />
               ))}

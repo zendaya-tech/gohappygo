@@ -171,7 +171,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-gray-400 hover transition-colors"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
@@ -184,7 +184,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
               className={`flex-1 px-4 py-3 text-sm font-medium ${
                 activeTab === "profile"
                   ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-500 hover"
               }`}
             >
               Profil
@@ -194,7 +194,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
               className={`flex-1 px-4 py-3 text-sm font-medium ${
                 activeTab === "password"
                   ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-500 hover"
               }`}
             >
               Mot de passe
@@ -204,7 +204,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
               className={`flex-1 px-4 py-3 text-sm font-medium ${
                 activeTab === "account"
                   ? "text-blue-600 border-b-2 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-500 hover"
               }`}
             >
               Compte
@@ -229,7 +229,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 <div className="text-center">
                   <div className="relative inline-block">
                     <div
-                      className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                      className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center cursor-pointer hover transition-colors"
                       onClick={() => fileInputRef.current?.click()}
                     >
                       {profileImage ? (
@@ -268,7 +268,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       onChange={(e) =>
                         handleInputChange("firstName", e.target.value)
                       }
-                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
                     />
                     <p className="text-xs text-gray-500 mt-1">
                       (Seul votre prénom apparaît sur la plateforme)
@@ -284,7 +284,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       onChange={(e) =>
                         handleInputChange("lastName", e.target.value)
                       }
-                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
                     />
                   </div>
 
@@ -311,7 +311,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                         handleInputChange("aboutMe", e.target.value)
                       }
                       rows={4}
-                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus resize-none"
                     />
                   </div>
                 </div>
@@ -323,7 +323,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   className={`w-full py-3 rounded-lg font-medium transition-colors ${
                     submitting
                       ? "bg-gray-300 cursor-not-allowed text-gray-500"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-blue-600 text-white hover"
                   }`}
                 >
                   {submitting
@@ -393,12 +393,12 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                             e.target.value
                           )
                         }
-                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
                       />
                       <button
                         type="button"
                         onClick={() => togglePasswordVisibility("current")}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover"
                       >
                         {showPasswords.current ? (
                           <EyeSlashIcon className="h-5 w-5" />
@@ -422,12 +422,12 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                         onChange={(e) =>
                           handlePasswordChange("newPassword", e.target.value)
                         }
-                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
                       />
                       <button
                         type="button"
                         onClick={() => togglePasswordVisibility("new")}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover"
                       >
                         {showPasswords.new ? (
                           <EyeSlashIcon className="h-5 w-5" />
@@ -457,12 +457,12 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                             e.target.value
                           )
                         }
-                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
                       />
                       <button
                         type="button"
                         onClick={() => togglePasswordVisibility("confirm")}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover"
                       >
                         {showPasswords.confirm ? (
                           <EyeSlashIcon className="h-5 w-5" />
@@ -489,7 +489,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                     !passwordData.newPassword ||
                     passwordData.newPassword !== passwordData.confirmPassword
                       ? "bg-gray-300 cursor-not-allowed text-gray-500"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
+                      : "bg-blue-600 text-white hover"
                   }`}
                 >
                   {submitting
@@ -536,7 +536,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   <button
                     onClick={() => setShowDeleteConfirm(true)}
                     disabled={hasActiveTransactions}
-                    className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                    className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled disabled:cursor-not-allowed"
                   >
                     {hasActiveTransactions
                       ? "Suppression impossible (transactions en cours)"
@@ -553,7 +553,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                     <div className="flex gap-3">
                       <button
                         onClick={() => setShowDeleteConfirm(false)}
-                        className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+                        className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover transition-colors"
                       >
                         Annuler
                       </button>
@@ -584,7 +584,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                         className={`flex-1 py-3 rounded-lg font-medium transition-colors ${
                           submitting
                             ? "bg-gray-300 cursor-not-allowed text-gray-500"
-                            : "bg-red-600 text-white hover:bg-red-700"
+                            : "bg-red-600 text-white hover"
                         }`}
                       >
                         {submitting
@@ -609,7 +609,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       • Vous pouvez télécharger vos données avant suppression
                     </p>
                   </div>
-                  <button className="mt-3 text-sm text-blue-600 hover:text-blue-700">
+                  <button className="mt-3 text-sm text-blue-600 hover">
                     Télécharger mes données
                   </button>
                 </div>

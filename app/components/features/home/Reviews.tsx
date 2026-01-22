@@ -111,7 +111,7 @@ export default function Reviews() {
 
         {/* Review Card Display */}
         <div className="w-full lg:w-96 flex flex-col justify-center animate-in fade-in slide-in-from-right duration-500">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">
             {t("home.reviews.title", "Ce que disent nos voyageurs")}
           </h2>
           <ReviewCard {...reviews[selectedReview]} />

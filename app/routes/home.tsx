@@ -31,7 +31,7 @@ export default function Home() {
     <>
       <Header />
 
-      <div className="min-h-screen max-w-7xl mx-auto relative bg-white dark:bg-gray-950">
+      <div className="min-h-screen max-w-7xl mx-auto relative bg-white">
         <HeroSection />
         <FeaturesSection />
         {/* <PackageCategories /> */}

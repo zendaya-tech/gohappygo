@@ -29,36 +29,36 @@ function formatDate(dateString: string): string {
 function getNotificationStyle(notificationType: string) {
     const styles = {
         // Demandes
-        DEMAND_PUBLISHED: { bg: "bg-blue-50/60", dot: "bg-blue-600", hover: "hover:bg-blue-100/60" },
-        DEMAND_UPDATED: { bg: "bg-blue-50/60", dot: "bg-blue-500", hover: "hover:bg-blue-100/60" },
-        DEMAND_CANCELLED: { bg: "bg-gray-50/60", dot: "bg-gray-500", hover: "hover:bg-gray-100/60" },
+        DEMAND_PUBLISHED: { bg: "bg-blue-50/60", dot: "bg-blue-600", hover: "hover/60" },
+        DEMAND_UPDATED: { bg: "bg-blue-50/60", dot: "bg-blue-500", hover: "hover/60" },
+        DEMAND_CANCELLED: { bg: "bg-gray-50/60", dot: "bg-gray-500", hover: "hover/60" },
         
         // Annonces
-        ANNOUNCE_PUBLISHED: { bg: "bg-green-50/60", dot: "bg-green-600", hover: "hover:bg-green-100/60" },
-        ANNOUNCE_UPDATED: { bg: "bg-green-50/60", dot: "bg-green-500", hover: "hover:bg-green-100/60" },
-        ANNOUNCE_CANCELLED: { bg: "bg-gray-50/60", dot: "bg-gray-500", hover: "hover:bg-gray-100/60" },
+        ANNOUNCE_PUBLISHED: { bg: "bg-green-50/60", dot: "bg-green-600", hover: "hover/60" },
+        ANNOUNCE_UPDATED: { bg: "bg-green-50/60", dot: "bg-green-500", hover: "hover/60" },
+        ANNOUNCE_CANCELLED: { bg: "bg-gray-50/60", dot: "bg-gray-500", hover: "hover/60" },
         
         // Réservations
-        BOOKING_CREATED: { bg: "bg-purple-50/60", dot: "bg-purple-600", hover: "hover:bg-purple-100/60" },
-        BOOKING_CONFIRMED: { bg: "bg-green-50/60", dot: "bg-green-600", hover: "hover:bg-green-100/60" },
-        BOOKING_CANCELLED: { bg: "bg-red-50/60", dot: "bg-red-500", hover: "hover:bg-red-100/60" },
+        BOOKING_CREATED: { bg: "bg-purple-50/60", dot: "bg-purple-600", hover: "hover/60" },
+        BOOKING_CONFIRMED: { bg: "bg-green-50/60", dot: "bg-green-600", hover: "hover/60" },
+        BOOKING_CANCELLED: { bg: "bg-red-50/60", dot: "bg-red-500", hover: "hover/60" },
         
         // Paiements
-        PAYMENT_RECEIVED: { bg: "bg-emerald-50/60", dot: "bg-emerald-600", hover: "hover:bg-emerald-100/60" },
-        PAYMENT_SENT: { bg: "bg-yellow-50/60", dot: "bg-yellow-600", hover: "hover:bg-yellow-100/60" },
-        PAYMENT_FAILED: { bg: "bg-red-50/60", dot: "bg-red-600", hover: "hover:bg-red-100/60" },
+        PAYMENT_RECEIVED: { bg: "bg-emerald-50/60", dot: "bg-emerald-600", hover: "hover/60" },
+        PAYMENT_SENT: { bg: "bg-yellow-50/60", dot: "bg-yellow-600", hover: "hover/60" },
+        PAYMENT_FAILED: { bg: "bg-red-50/60", dot: "bg-red-600", hover: "hover/60" },
         
         // Messages
-        NEW_MESSAGE: { bg: "bg-indigo-50/60", dot: "bg-indigo-600", hover: "hover:bg-indigo-100/60" },
+        NEW_MESSAGE: { bg: "bg-indigo-50/60", dot: "bg-indigo-600", hover: "hover/60" },
         
         // Avis
-        NEW_REVIEW: { bg: "bg-amber-50/60", dot: "bg-amber-600", hover: "hover:bg-amber-100/60" },
+        NEW_REVIEW: { bg: "bg-amber-50/60", dot: "bg-amber-600", hover: "hover/60" },
         
         // Système
-        SYSTEM: { bg: "bg-gray-50/60", dot: "bg-gray-600", hover: "hover:bg-gray-100/60" },
+        SYSTEM: { bg: "bg-gray-50/60", dot: "bg-gray-600", hover: "hover/60" },
         
         // Default
-        DEFAULT: { bg: "bg-indigo-50/60", dot: "bg-indigo-600", hover: "hover:bg-indigo-100/60" }
+        DEFAULT: { bg: "bg-indigo-50/60", dot: "bg-indigo-600", hover: "hover/60" }
     };
     
     return styles[notificationType as keyof typeof styles] || styles.DEFAULT;
@@ -215,14 +215,14 @@ export default function NotificationPopover({
                     {notifications && notifications.some((n) => !n.isRead) && (
                         <button
                             onClick={handleMarkAllAsRead}
-                            className="text-xs text-indigo-600 hover:text-indigo-700 font-medium"
+                            className="text-xs text-indigo-600 hover font-medium"
                         >
                             Tout marquer lu
                         </button>
                     )}
                     <button
                         onClick={onClose}
-                        className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
+                        className="rounded-full p-1 text-gray-500 hover"
                         aria-label="Fermer"
                     >
                         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -274,7 +274,7 @@ export default function NotificationPopover({
                 <Link
                     to="/notifications"
                     onClick={onClose}
-                    className="block rounded-lg px-3 py-2 text-center text-sm font-medium text-indigo-600 hover:bg-indigo-50"
+                    className="block rounded-lg px-3 py-2 text-center text-sm font-medium text-indigo-600 hover"
                 >
                     Voir toutes les notifications
                 </Link>

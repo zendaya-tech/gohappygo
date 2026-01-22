@@ -86,7 +86,7 @@ export default function DownloadApp() {
     const storeInfo = getStoreInfo();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
             <Header />
 
             <main className="container mx-auto px-4 py-16">
@@ -96,23 +96,23 @@ export default function DownloadApp() {
                         <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl flex items-center justify-center">
                             <span className="text-4xl">✈️</span>
                         </div>
-                        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 font-poppins">
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4 font-poppins">
                             Téléchargez GoHappyGo
                         </h1>
-                        <p className="text-xl text-gray-600 dark:text-gray-300">
+                        <p className="text-xl text-gray-600">
                             Rejoignez notre communauté de voyageurs
                         </p>
                     </div>
 
                     {/* Détection d'appareil */}
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-8 shadow-lg">
+                    <div className="bg-white rounded-2xl p-8 mb-8 shadow-lg">
                         <div className="flex items-center justify-center mb-6">
                             <span className="text-6xl mr-4">{storeInfo.icon}</span>
                             <div className="text-left">
-                                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                                <h2 className="text-2xl font-semibold text-gray-900">
                                     {storeInfo.title}
                                 </h2>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-gray-600">
                                     {storeInfo.subtitle}
                                 </p>
                             </div>
@@ -137,44 +137,44 @@ export default function DownloadApp() {
                             )}
                         </button>
 
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+                        <p className="text-sm text-gray-500 mt-4">
                             Redirection automatique dans 3 secondes...
                         </p>
                     </div>
 
                     {/* Autres plateformes */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <div className="bg-white rounded-xl p-6 shadow-lg">
                             <div className="text-3xl mb-3">🍎</div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">iOS</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">iPhone et iPad</p>
+                            <h3 className="font-semibold text-gray-900 mb-2">iOS</h3>
+                            <p className="text-sm text-gray-600 mb-4">iPhone et iPad</p>
                             <button
                                 onClick={() => redirectToStore('ios')}
-                                className="w-full bg-black text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-800"
+                                className="w-full bg-black text-white py-2 px-4 rounded-lg text-sm font-medium hover"
                             >
                                 App Store
                             </button>
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <div className="bg-white rounded-xl p-6 shadow-lg">
                             <div className="text-3xl mb-3">🤖</div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Android</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Téléphones et tablettes</p>
+                            <h3 className="font-semibold text-gray-900 mb-2">Android</h3>
+                            <p className="text-sm text-gray-600 mb-4">Téléphones et tablettes</p>
                             <button
                                 onClick={() => redirectToStore('android')}
-                                className="w-full bg-green-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-green-700"
+                                className="w-full bg-green-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover"
                             >
                                 Google Play
                             </button>
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                        <div className="bg-white rounded-xl p-6 shadow-lg">
                             <div className="text-3xl mb-3">🌐</div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Extension</h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Chrome Browser</p>
+                            <h3 className="font-semibold text-gray-900 mb-2">Extension</h3>
+                            <p className="text-sm text-gray-600 mb-4">Chrome Browser</p>
                             <button
                                 onClick={() => redirectToStore('desktop')}
-                                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700"
+                                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover"
                             >
                                 Web Store
                             </button>
@@ -183,54 +183,54 @@ export default function DownloadApp() {
 
                     {/* Fonctionnalités */}
                     <div className="mt-16">
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 font-poppins">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-8 font-poppins">
                             Pourquoi télécharger GoHappyGo ?
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="text-left">
                                 <div className="flex items-center mb-3">
-                                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mr-3">
-                                        <span className="text-blue-600 dark:text-blue-400">✓</span>
+                                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                        <span className="text-blue-600">✓</span>
                                     </div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white">Transport sécurisé</h3>
+                                    <h3 className="font-semibold text-gray-900">Transport sécurisé</h3>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 ml-11">
+                                <p className="text-gray-600 ml-11">
                                     Profils vérifiés et assurance incluse pour tous vos transports
                                 </p>
                             </div>
 
                             <div className="text-left">
                                 <div className="flex items-center mb-3">
-                                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mr-3">
-                                        <span className="text-green-600 dark:text-green-400">✓</span>
+                                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                        <span className="text-green-600">✓</span>
                                     </div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white">Prix compétitifs</h3>
+                                    <h3 className="font-semibold text-gray-900">Prix compétitifs</h3>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 ml-11">
+                                <p className="text-gray-600 ml-11">
                                     Économisez jusqu'à 80% sur vos frais de bagages excédentaires
                                 </p>
                             </div>
 
                             <div className="text-left">
                                 <div className="flex items-center mb-3">
-                                    <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mr-3">
-                                        <span className="text-purple-600 dark:text-purple-400">✓</span>
+                                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                                        <span className="text-purple-600">✓</span>
                                     </div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white">Communauté active</h3>
+                                    <h3 className="font-semibold text-gray-900">Communauté active</h3>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 ml-11">
+                                <p className="text-gray-600 ml-11">
                                     Rejoignez des milliers de voyageurs dans le monde entier
                                 </p>
                             </div>
 
                             <div className="text-left">
                                 <div className="flex items-center mb-3">
-                                    <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mr-3">
-                                        <span className="text-orange-600 dark:text-orange-400">✓</span>
+                                    <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center mr-3">
+                                        <span className="text-orange-600">✓</span>
                                     </div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white">Support 24/7</h3>
+                                    <h3 className="font-semibold text-gray-900">Support 24/7</h3>
                                 </div>
-                                <p className="text-gray-600 dark:text-gray-300 ml-11">
+                                <p className="text-gray-600 ml-11">
                                     Assistance disponible à tout moment pour vous accompagner
                                 </p>
                             </div>

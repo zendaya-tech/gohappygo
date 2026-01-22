@@ -72,16 +72,16 @@ export default function Support() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       
       <main className="max-w-4xl mx-auto px-4 py-8 md:py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl md font-bold text-gray-900 mb-4">
             Centre d'aide GoHappyGo
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Nous sommes là pour vous aider ! Trouvez des réponses à vos questions ou contactez notre équipe de support.
           </p>
         </div>
@@ -90,76 +90,76 @@ export default function Support() {
           {/* Left Column - Support Info */}
           <div className="space-y-8">
             {/* Support Features */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Notre support 24/7
               </h2>
               
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 bg-blue-100/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Disponible 24h/24, 7j/7</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Notre équipe est toujours là pour vous aider, peu importe l'heure.</p>
+                    <h3 className="font-semibold text-gray-900">Disponible 24h/24, 7j/7</h3>
+                    <p className="text-gray-600">Notre équipe est toujours là pour vous aider, peu importe l'heure.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 bg-green-100/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Réponse rapide</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Nous nous engageons à répondre à vos demandes dans les plus brefs délais.</p>
+                    <h3 className="font-semibold text-gray-900">Réponse rapide</h3>
+                    <p className="text-gray-600">Nous nous engageons à répondre à vos demandes dans les plus brefs délais.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 bg-purple-100/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2v-6a2 2 0 012-2h8z" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">Support multilingue</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Notre équipe parle plusieurs langues pour mieux vous servir.</p>
+                    <h3 className="font-semibold text-gray-900">Support multilingue</h3>
+                    <p className="text-gray-600">Notre équipe parle plusieurs langues pour mieux vous servir.</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Contact Methods */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Autres moyens de contact
               </h2>
               
               <div className="space-y-4">
-                <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Email</p>
-                    <a href="mailto:support@gohappygo.fr" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    <p className="font-medium text-gray-900">Email</p>
+                    <a href="mailto:support@gohappygo.fr" className="text-blue-600 hover:underline">
                       support@gohappygo.fr
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                  <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">FAQ</p>
-                    <a href="/faq" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    <p className="font-medium text-gray-900">FAQ</p>
+                    <a href="/faq" className="text-blue-600 hover:underline">
                       Consultez notre foire aux questions
                     </a>
                   </div>
@@ -169,35 +169,35 @@ export default function Support() {
           </div>
 
           {/* Right Column - Contact Form */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Contactez-nous
             </h2>
 
             {success ? (
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 text-center">
+              <div className="bg-green-50/20 border border-green-200 rounded-lg p-6 text-center">
                 <div className="flex items-center justify-center mb-4">
-                  <svg className="w-12 h-12 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">
+                <h3 className="text-lg font-semibold text-green-800 mb-2">
                   Message envoyé avec succès !
                 </h3>
-                <p className="text-green-600 dark:text-green-400">
+                <p className="text-green-600">
                   Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 {error && (
-                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                    <p className="text-red-700 dark:text-red-300 text-sm">{error}</p>
+                  <div className="bg-red-50/20 border border-red-200 rounded-lg p-4">
+                    <p className="text-red-700 text-sm">{error}</p>
                   </div>
                 )}
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                     Adresse email *
                   </label>
                   <input
@@ -206,14 +206,14 @@ export default function Support() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus"
                     placeholder="votre@email.com"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
                     Catégorie
                   </label>
                   <select
@@ -221,7 +221,7 @@ export default function Support() {
                     name="category"
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus"
                   >
                     <option value="GENERAL">Question générale</option>
                     <option value="TECHNICAL">Problème technique</option>
@@ -233,7 +233,7 @@ export default function Support() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Message *
                   </label>
                   <textarea
@@ -242,7 +242,7 @@ export default function Support() {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus resize-none"
                     placeholder="Décrivez votre question ou problème en détail..."
                     required
                   />
@@ -253,8 +253,8 @@ export default function Support() {
                   disabled={submitting}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
                     submitting
-                      ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed text-white'
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                      ? 'bg-gray-400 cursor-not-allowed text-white'
+                      : 'bg-blue-600 hover text-white'
                   }`}
                 >
                   {submitting ? 'Envoi en cours...' : 'Envoyer le message'}
@@ -264,7 +264,7 @@ export default function Support() {
                   <button
                     type="button"
                     onClick={() => setSupportDialogOpen(true)}
-                    className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors"
+                    className="text-blue-600 hover text-sm font-medium transition-colors"
                   >
                     Préférez-vous utiliser notre formulaire avancé ?
                   </button>

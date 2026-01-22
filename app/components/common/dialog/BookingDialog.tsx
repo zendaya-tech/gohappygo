@@ -165,7 +165,7 @@ function CheckoutForm({
           className={`w-full rounded-md py-3 text-base font-semibold text-white shadow ${
             !stripe || isSubmitting
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
+              : "bg-blue-600 hover"
           }`}
         >
           {isSubmitting
@@ -231,7 +231,7 @@ export default function BookingDialog({
         {!isSubmitting && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute top-4 right-4 text-gray-400 hover transition-colors"
           >
             <svg
               className="h-6 w-6"

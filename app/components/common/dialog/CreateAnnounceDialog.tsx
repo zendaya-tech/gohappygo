@@ -374,21 +374,21 @@ export default function CreateAnnounceDialog({
       <div className="fixed inset-0 bg-black/35" onClick={onClose} />
 
       {/* Dialog container */}
-      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-6xl overflow-hidden rounded-2xl md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/10 dark:ring-white/10 h-[95vh] md:max-h-[85vh] flex flex-col">
+      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-6xl overflow-hidden rounded-2xl md:rounded-2xl bg-white shadow-2xl ring-1 ring-black/10/10 h-[95vh] md:max-h-[85vh] flex flex-col">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] min-h-0 flex-1">
           {/* Sidebar steps */}
-          <aside className="border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 p-4 md:p-6 overflow-y-auto">
+          <aside className="border-b md md border-gray-200 p-4 md:p-6 overflow-y-auto">
             <StepsNav step={step} />
           </aside>
 
           {/* Content */}
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
-              <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
-                <span className="uppercase text-sm md:text-base">
+              <h2 className="text-lg md font-bold text-gray-900">
+                <span className="uppercase text-sm md">
                   {t("dialogs.createAnnounce.title")}
                 </span>{" "}
-                <span className="text-sm md:text-base">- Step {step} of 3</span>
+                <span className="text-sm md">- Step {step} of 3</span>
               </h2>
             </header>
 
@@ -446,8 +446,8 @@ export default function CreateAnnounceDialog({
                     className={`w-full rounded-xl uppercase border ${
                       validationErrors.flightNumber || flightNumberError
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {(validationErrors.flightNumber || flightNumberError) && (
                     <p className="mt-1 text-sm text-red-600 font-medium">
@@ -462,7 +462,7 @@ export default function CreateAnnounceDialog({
                     onChange={(e) => setTravelDate(e.target.value)}
                     min={today} // This prevents selecting past dates
                     placeholder="Choisir une date"
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                   {/* Optional: Show an error message if the date is invalid */}
                   {travelDate && travelDate < today && (
@@ -483,7 +483,7 @@ export default function CreateAnnounceDialog({
                             ? "Détectée automatiquement"
                             : "Entrez d'abord le numéro de vol"
                       }
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                      className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-sm text-gray-600 cursor-not-allowed"
                     />
                     {fetchingAirline && (
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -528,8 +528,8 @@ export default function CreateAnnounceDialog({
                     className={`w-full resize-none rounded-xl border ${
                       validationErrors.story || story.length > 500
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   <div
                     className={`mt-1 text-xs ${
@@ -554,11 +554,11 @@ export default function CreateAnnounceDialog({
                   )}
                 </Field>
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="mb-2 text-sm font-semibold text-gray-900">
                     What kind of reservation do you prefer?
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
                         checked={reservationType === "single"}
@@ -566,7 +566,7 @@ export default function CreateAnnounceDialog({
                       />
                       All my kilos for one person
                     </label>
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
                         checked={reservationType === "shared"}
@@ -577,10 +577,10 @@ export default function CreateAnnounceDialog({
                   </div>
                 </div>
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="mb-2 text-sm font-semibold text-gray-900">
                     What kind of booking do you prefer for this travel?
                   </div>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-6 text-sm text-gray-700">
                     <label className="inline-flex items-center gap-2">
                       <input
                         type="radio"
@@ -604,10 +604,10 @@ export default function CreateAnnounceDialog({
 
             {step === 2 && (
               <div className="space-y-6">
-                <p className="text-gray-700 dark:text-gray-300 font-medium">
+                <p className="text-gray-700 font-medium">
                   Upload at least 2 pictures about your travel
                 </p>
-                <label className="block cursor-pointer rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800">
+                <label className="block cursor-pointer rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-500 hover">
                   <input
                     type="file"
                     accept="image/*"
@@ -628,11 +628,11 @@ export default function CreateAnnounceDialog({
                     {files.map((f, idx) => (
                       <div
                         key={idx}
-                        className="relative rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden"
+                        className="relative rounded-xl border border-gray-200 overflow-hidden"
                       >
                         <button
                           onClick={() => removeFile(idx)}
-                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-10"
+                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-10"
                           title="Remove image"
                         >
                           −
@@ -643,7 +643,7 @@ export default function CreateAnnounceDialog({
                           className="w-full h-32 object-cover"
                         />
                         <div className="p-2">
-                          <div className="text-xs text-gray-600 dark:text-gray-300 truncate">
+                          <div className="text-xs text-gray-600 truncate">
                             {f.name}
                           </div>
                         </div>
@@ -670,8 +670,8 @@ export default function CreateAnnounceDialog({
                     className={`w-full rounded-xl border ${
                       validationErrors.kilos
                         ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                    } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                    } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.kilos && (
                     <p className="mt-1 text-sm text-red-600">
@@ -695,8 +695,8 @@ export default function CreateAnnounceDialog({
                         className={`w-full rounded-xl border ${
                           validationErrors.pricePerKg
                             ? "border-red-500 focus:ring-red-500"
-                            : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                        } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                            : "border-gray-300 focus:ring-indigo-500"
+                        } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                       />
                       {validationErrors.pricePerKg && (
                         <p className="mt-1 text-sm text-red-600">
@@ -705,7 +705,7 @@ export default function CreateAnnounceDialog({
                       )}
                     </Field>
                     <div className="w-32">
-                      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+                      <label className="mb-2 block text-sm font-semibold text-gray-900">
                         Currency
                       </label>
                       <CurrencyComboBox
@@ -725,10 +725,10 @@ export default function CreateAnnounceDialog({
                 </div>
 
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="mb-2 text-sm font-semibold text-gray-900">
                     Tolérez vous quelques grammes de trop ?
                   </div>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-6 text-sm text-gray-700">
                     <label className="inline-flex items-center gap-2">
                       <input
                         type="radio"
@@ -749,11 +749,11 @@ export default function CreateAnnounceDialog({
                 </div>
 
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="mb-2 text-sm font-semibold text-gray-900">
                     Quelle ponctualité attendez-vous lors de la rencontre avec
                     votre HappyVoyageur ?
                   </div>
-                  <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                  <div className="flex items-center gap-6 text-sm text-gray-700">
                     <label className="inline-flex items-center gap-2">
                       <input
                         type="radio"
@@ -781,27 +781,27 @@ export default function CreateAnnounceDialog({
 
             {step === 4 && (
               <div className="space-y-6">
-                <p className="text-gray-700 dark:text-gray-300 font-medium">
+                <p className="text-gray-700 font-medium">
                   Setting up payments
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Field label="Account holder name">
                     <input
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="John Doe"
                     />
                   </Field>
                   <Field label="Payment email (Stripe)">
                     <input
                       type="email"
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       placeholder="name@email.com"
                     />
                   </Field>
                 </div>
                 <Field label="IBAN / Bank account">
                   <input
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="FR76...."
                   />
                 </Field>
@@ -812,7 +812,7 @@ export default function CreateAnnounceDialog({
             <div className="mt-10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
-                  className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover"
                   onClick={() => {
                     if (step > 1) {
                       setStep(
@@ -840,8 +840,8 @@ export default function CreateAnnounceDialog({
                   disabled={!isStepComplete()}
                   className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
                     isStepComplete()
-                      ? "bg-indigo-600 hover:bg-indigo-700"
-                      : "bg-gray-300 dark:bg-gray-700 cursor-not-allowed"
+                      ? "bg-indigo-600 hover"
+                      : "bg-gray-300 cursor-not-allowed"
                   }`}
                 >
                   Next ›
@@ -854,7 +854,7 @@ export default function CreateAnnounceDialog({
                   className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
                     submitting && isStepComplete()
                       ? "bg-gray-300 cursor-not-allowed"
-                      : "bg-indigo-600 hover:bg-indigo-700"
+                      : "bg-indigo-600 hover"
                   }`}
                 >
                   {submitting ? "Publication en cours..." : "Publish"}
@@ -904,13 +904,13 @@ function StepsNav({ step }: { step: StepKey }) {
       </div>
       <div className="flex-1 min-w-0">
         <div
-          className={`text-sm md:text-base font-semibold truncate ${
-            index <= step ? "text-gray-900 dark:text-white" : "text-gray-400"
+          className={`text-sm md font-semibold truncate ${
+            index <= step ? "text-gray-900" : "text-gray-400"
           }`}
         >
           {title}
         </div>
-        <div className="text-xs md:text-sm text-gray-400 truncate">
+        <div className="text-xs md text-gray-400 truncate">
           {subtitle}
         </div>
       </div>
@@ -920,9 +920,9 @@ function StepsNav({ step }: { step: StepKey }) {
   return (
     <div>
       <Item index={1} title="General" subtitle="Select basic settings" />
-      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200 dark:bg-gray-800" />
+      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
       <Item index={2} title="Pictures" subtitle="Add 2 photos" />
-      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200 dark:bg-gray-800" />
+      <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
       <Item
         index={3}
         title="Price & Booking"
@@ -941,7 +941,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
         {label}
       </label>
       {children}

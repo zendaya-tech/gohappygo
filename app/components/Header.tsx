@@ -4,7 +4,6 @@ import NotificationPopover from "./common/popover/NotificationPopover";
 import AppDownloadPopover from "./common/popover/AppDownloadPopover";
 import { useRef } from "react";
 import AvatarMenu from "./common/popover/AvatarMenu";
-import SettingsDialog from "./common/dialog/SettingsDialog";
 import CreatePackageDialog from "./common/dialog/CreatePackageDialog";
 import CreateAnnounceDialog from "./common/dialog/CreateAnnounceDialog";
 import AnnounceTypeDropdown from "./common/popover/AnnounceTypeDropdown";
@@ -27,7 +26,6 @@ export default function Header() {
   const [showNotif, setShowNotif] = useState(false);
   const [showAvatarMenuDesktop, setShowAvatarMenuDesktop] = useState(false);
   const [showAvatarMenuMobile, setShowAvatarMenuMobile] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const [showCreateAnnounce, setShowCreateAnnounce] = useState(false);
   const [hoverDownload, setHoverDownload] = useState(false);
   const [pinnedDownload, setPinnedDownload] = useState(false);
@@ -92,7 +90,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+      <header className="sticky top-0 z-50 bg-white/95/80 backdrop-blur-sm border-b border-gray-200">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -110,7 +108,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setHoverDownload((v) => !v)}
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-colors duration-200"
+                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200"
                   ref={(el) => {
                     (downloadBtnRef as any).current = el;
                   }}
@@ -131,7 +129,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setShowAnnounceTypeDropdown((v) => !v)}
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium text-sm transition-colors duration-200"
+                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200"
                 >
                   {t("header.publishAd")}
                 </button>
@@ -149,7 +147,7 @@ export default function Header() {
               {isLoggedIn && (
                 <div className="relative">
                   <button
-                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 relative"
+                    className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative"
                     onClick={() => setIsMenuOpen(false)}
                     aria-label="Notifications"
                     onMouseDown={(e) => e.preventDefault()}
@@ -184,10 +182,10 @@ export default function Header() {
                   />
                 </div>
               )}
-              <div className="w-px h-6 bg-gray-300 dark:bg-gray-700"></div>
+              <div className="w-px h-6 bg-gray-300"></div>
               <div className="relative">
                 <button
-                  className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                  className="flex items-center gap-2 rounded-lg p-1.5 hover transition-colors duration-200"
                   onClick={() => setShowAvatarMenuDesktop((v) => !v)}
                   aria-label="Ouvrir le menu du compte"
                 >
@@ -195,12 +193,12 @@ export default function Header() {
                     <img
                       src={uqer?.profilePictureUrl}
                       alt="Profile"
-                      className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
+                      className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
                       <svg
-                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        className="w-5 h-5 text-gray-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -215,7 +213,7 @@ export default function Header() {
                     </div>
                   )}
                   <svg
-                    className="h-4 w-4 text-gray-500 dark:text-gray-400"
+                    className="h-4 w-4 text-gray-500"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -233,7 +231,6 @@ export default function Header() {
                   onClose={() => setShowAvatarMenuDesktop(false)}
                   onOpenSettings={() => {
                     setShowAvatarMenuDesktop(false);
-                    setShowSettings(true);
                   }}
                   isLoggedIn={isLoggedIn}
                   onOpenLogin={() => {
@@ -255,7 +252,7 @@ export default function Header() {
               {isLoggedIn && (
                 <div className="relative">
                   <button
-                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 relative"
+                    className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative"
                     onClick={() => setShowNotif((v) => !v)}
                     aria-label="Notifications"
                   >
@@ -294,7 +291,7 @@ export default function Header() {
               {/* Avatar with dropdown for mobile */}
               <div className="relative">
                 <button
-                  className="flex items-center hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg p-2 transition-colors duration-200"
+                  className="flex items-center hover rounded-lg p-2 transition-colors duration-200"
                   onClick={() => setShowAvatarMenuMobile((v) => !v)}
                   aria-label="Ouvrir le menu du compte"
                 >
@@ -302,12 +299,12 @@ export default function Header() {
                     <img
                       src={uqer?.profilePictureUrl}
                       alt="Profile"
-                      className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200 dark:ring-gray-700"
+                      className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
                       <svg
-                        className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        className="w-5 h-5 text-gray-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -327,7 +324,6 @@ export default function Header() {
                   onClose={() => setShowAvatarMenuMobile(false)}
                   onOpenSettings={() => {
                     setShowAvatarMenuMobile(false);
-                    setShowSettings(true);
                   }}
                   isLoggedIn={isLoggedIn}
                   onOpenLogin={() => {
@@ -344,22 +340,22 @@ export default function Header() {
               {/* Modern Hamburger Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="relative w-10 h-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 flex items-center justify-center group"
+                className="relative w-10 h-10 rounded-lg hover transition-all duration-300 flex items-center justify-center group"
                 aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
               >
                 <div className="w-5 h-4 flex flex-col justify-between">
                   <span
-                    className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${
+                    className={`block h-0.5 w-full bg-gray-600 rounded-full transition-all duration-300 origin-center ${
                       isMenuOpen ? "rotate-45 translate-y-[7px]" : ""
                     }`}
                   ></span>
                   <span
-                    className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 ${
+                    className={`block h-0.5 w-full bg-gray-600 rounded-full transition-all duration-300 ${
                       isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
                     }`}
                   ></span>
                   <span
-                    className={`block h-0.5 w-full bg-gray-600 dark:bg-gray-300 rounded-full transition-all duration-300 origin-center ${
+                    className={`block h-0.5 w-full bg-gray-600 rounded-full transition-all duration-300 origin-center ${
                       isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""
                     }`}
                   ></span>
@@ -378,7 +374,7 @@ export default function Header() {
           >
             {/* Backdrop */}
             <div
-              className={`absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+              className={`absolute inset-0 bg-black/20/40 backdrop-blur-sm transition-opacity duration-300 ${
                 isMenuOpen ? "opacity-100" : "opacity-0"
               }`}
               onClick={() => setIsMenuOpen(false)}
@@ -386,7 +382,7 @@ export default function Header() {
 
             {/* Menu Panel */}
             <div
-              className={`absolute top-0 left-0 right-0 bg-white dark:bg-gray-900 shadow-xl transition-transform duration-300 ease-out ${
+              className={`absolute top-0 left-0 right-0 bg-white shadow-xl transition-transform duration-300 ease-out ${
                 isMenuOpen ? "translate-y-0" : "-translate-y-full"
               }`}
             >
@@ -398,10 +394,10 @@ export default function Header() {
                     setHoverDownload((v) => !v);
                     setIsMenuOpen(false);
                   }}
-                  className="flex items-center w-full text-left px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-xl font-medium transition-all duration-200 group"
+                  className="flex items-center w-full text-left px-4 py-3 text-gray-700 hover hover hover hover rounded-xl font-medium transition-all duration-200 group"
                 >
                   <svg
-                    className="w-5 h-5 mr-3 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                    className="w-5 h-5 mr-3 text-gray-400 group-hover transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -420,11 +416,11 @@ export default function Header() {
                 <div className="space-y-1">
                   <button
                     onClick={() => setShowMobilePublishOptions((v) => !v)}
-                    className="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-900/20 dark:hover:to-purple-900/20 rounded-xl font-medium transition-all duration-200 group"
+                    className="flex items-center justify-between w-full px-4 py-3 text-gray-700 hover hover hover hover rounded-xl font-medium transition-all duration-200 group"
                   >
                     <div className="flex items-center">
                       <svg
-                        className="w-5 h-5 mr-3 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                        className="w-5 h-5 mr-3 text-gray-400 group-hover transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -474,7 +470,7 @@ export default function Header() {
                           setShowCreateAnnounce(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
+                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -501,7 +497,7 @@ export default function Header() {
                           setShowCreatePackage(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
+                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -527,10 +523,6 @@ export default function Header() {
         </div>
       </header>
 
-      <SettingsDialog
-        open={showSettings}
-        onClose={() => setShowSettings(false)}
-      />
       <CreatePackageDialog
         open={showCreatePackage}
         onClose={() => setShowCreatePackage(false)}

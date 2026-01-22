@@ -27,9 +27,9 @@ export default function ProfileTravelCard({
   });
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
       <div className="flex">
-        <div className="w-40 h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+        <div className="w-40 h-40 bg-gray-100 flex items-center justify-center">
           {travel.imageUrl ? (
             <img
               src={travel.imageUrl}
@@ -42,7 +42,7 @@ export default function ProfileTravelCard({
         </div>
         <div className="flex-1 p-4">
           <div className="flex items-center gap-2">
-            <div className="text-sm font-medium text-gray-900 dark:text-white">
+            <div className="text-sm font-medium text-gray-900">
               {route}
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function ProfileTravelCard({
               </span>
             )}
             {typeof travel.pricePerKg === "number" && (
-              <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-sm">
+              <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-gray-100 text-gray-800 text-sm">
                 {travel.pricePerKg} €/Kg
               </span>
             )}
@@ -69,13 +69,13 @@ export default function ProfileTravelCard({
           <div className="mt-4 flex items-center gap-3">
             <button
               onClick={() => onEdit?.(travel.id)}
-              className="px-4 py-2 rounded-lg border text-sm hover:bg-gray-50 dark:hover:bg-gray-800"
+              className="px-4 py-2 rounded-lg border text-sm hover"
             >
               Edit
             </button>
             <button
               onClick={() => onDelete?.(travel.id)}
-              className="px-4 py-2 rounded-lg border border-red-300 text-red-600 text-sm hover:bg-red-50"
+              className="px-4 py-2 rounded-lg border border-red-300 text-red-600 text-sm hover"
             >
               Delete
             </button>

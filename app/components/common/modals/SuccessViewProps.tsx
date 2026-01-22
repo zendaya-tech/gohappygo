@@ -39,7 +39,7 @@ export default function SuccessModal({
         {/* 3. Close Button ('X') */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors z-20"
+          className="absolute top-4 right-4 p-2 rounded-full hover text-gray-400 hover transition-colors z-20"
         >
           <X className="w-6 h-6" />
         </button>
@@ -86,7 +86,7 @@ export default function SuccessModal({
               onPrimaryAction();
               onClose(); // Usually good to close after action
             }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-indigo-100"
+            className="bg-indigo-600 hover text-white px-10 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-indigo-100"
           >
             Accéder au Tableau de bord
           </button>

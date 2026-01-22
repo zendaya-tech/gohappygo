@@ -10,7 +10,6 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { useEffect } from "react";
-import { useThemeStore } from "./store/theme";
 import { useAuth } from "./hooks/useAuth";
 import ChatWidget from "./components/ChatWidget";
 import CookieConsent from "./components/common/dialog/CookieConsent";
@@ -39,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="color-scheme" content="light dark" />
+        <meta name="color-scheme" content="light" />
         
         {/* SEO Meta Tags */}
         <title>GoHappyGo - faites plus q'un voyage</title>
@@ -106,13 +105,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        {/* Early theme apply to avoid flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{var t=localStorage.getItem('theme');var d=(t==='dark')||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})();",
-          }}
-        />
         <Meta />
         <Links />
       </head>
@@ -127,12 +119,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { authenticate } = useAuth();
-  const hydrateTheme = useThemeStore((s: { hydrate: () => void }) => s.hydrate);
 
   useEffect(() => {
     authenticate();
-    hydrateTheme();
-  }, [authenticate, hydrateTheme]);
+  }, [authenticate]);
 
   return (
     <>

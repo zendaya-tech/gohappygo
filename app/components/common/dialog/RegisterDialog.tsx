@@ -148,10 +148,10 @@ export default function RegisterDialog({
           {/* Côté gauche - Formulaire */}
           <div className="w-full md:w-2/3 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[90vh]">
             <div className="mb-4">
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+              <h1 className="text-xl sm font-bold text-gray-900 mb-2">
                 {step === 1 ? "Inscription" : "Vérification"}
               </h1>
-              <p className="text-sm sm:text-base text-gray-600">
+              <p className="text-sm sm text-gray-600">
                 {step === 1
                   ? "et profitez de toutes les possibilités"
                   : "Saisissez le code de vérification"}
@@ -163,12 +163,12 @@ export default function RegisterDialog({
               onSubmit={onSubmit}
             >
               {message && (
-                <div className="text-xs sm:text-sm text-green-600">
+                <div className="text-xs sm text-green-600">
                   {message}
                 </div>
               )}
               {error && (
-                <div className="text-xs sm:text-sm text-red-600">{error}</div>
+                <div className="text-xs sm text-red-600">{error}</div>
               )}
 
               {step === 1 ? (
@@ -183,7 +183,7 @@ export default function RegisterDialog({
                     <input
                       type="text"
                       id="firstName"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
                       placeholder="Saisissez votre prénom tel que sur la pièce d'identité"
                       required
                       value={form.firstName}
@@ -205,7 +205,7 @@ export default function RegisterDialog({
                     <input
                       type="text"
                       id="lastName"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
                       placeholder="Saisissez votre nom tel que sur la pièce d'identité"
                       required
                       value={form.lastName}
@@ -237,10 +237,10 @@ export default function RegisterDialog({
                       onChange={(phone) =>
                         setForm((p) => ({ ...p, phoneNumber: phone }))
                       }
-                      inputClassName="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                      inputClassName="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
                       countrySelectorStyleProps={{
                         className:
-                          "border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent pointer-events-none opacity-75",
+                          "border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus pointer-events-none opacity-75",
                       }}
                       inputProps={{
                         placeholder: "Numéro de téléphone",
@@ -264,7 +264,7 @@ export default function RegisterDialog({
                     <input
                       type="email"
                       id="email"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
                       placeholder="Votre email"
                       required
                       value={form.email}
@@ -284,7 +284,7 @@ export default function RegisterDialog({
                     <input
                       type="password"
                       id="password"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
                       placeholder="Votre mot de passe"
                       required
                       value={form.password}
@@ -304,7 +304,7 @@ export default function RegisterDialog({
                     <input
                       type="password"
                       id="confirmPassword"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
                       placeholder="Confirmez votre mot de passe"
                       required
                       value={form.confirmPassword}
@@ -326,19 +326,19 @@ export default function RegisterDialog({
                     />
                     <label
                       htmlFor="terms"
-                      className="ml-2 text-xs sm:text-sm text-gray-600"
+                      className="ml-2 text-xs sm text-gray-600"
                     >
                       En vous inscrivant, vous acceptez la{" "}
                       <a
                         href="/privacy"
-                        className="text-green-600 hover:text-green-500 underline"
+                        className="text-green-600 hover underline"
                       >
                         Politique de confidentialité
                       </a>{" "}
                       et les{" "}
                       <a
                         href="/terms"
-                        className="text-green-600 hover:text-green-500 underline"
+                        className="text-green-600 hover underline"
                       >
                         Conditions d'utilisation
                       </a>
@@ -348,7 +348,7 @@ export default function RegisterDialog({
                 </>
               ) : (
                 <>
-                  <p className="text-xs sm:text-sm text-gray-600">
+                  <p className="text-xs sm text-gray-600">
                     Un code de vérification à 6 chiffres a été envoyé à{" "}
                     <span className="font-medium break-all">{form.email}</span>.
                   </p>
@@ -390,13 +390,13 @@ export default function RegisterDialog({
                             inputsRef.current[idx - 1]?.focus();
                           }
                         }}
-                        className="w-10 h-10 sm:w-12 sm:h-12 text-center text-base sm:text-lg rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="w-10 h-10 sm:w-12 sm:h-12 text-center text-base sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500"
                       />
                     ))}
                   </div>
                   <button
                     type="button"
-                    className="text-xs sm:text-sm text-green-600 hover:text-green-700"
+                    className="text-xs sm text-green-600 hover"
                   >
                     Renvoyer le code
                   </button>
@@ -406,10 +406,10 @@ export default function RegisterDialog({
               <button
                 type="submit"
                 disabled={submitting}
-                className={`w-full text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm:text-base font-medium transition-colors duration-200 ${
+                className={`w-full text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm font-medium transition-colors duration-200 ${
                   submitting
                     ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    : "bg-green-600 hover"
                 }`}
               >
                 {submitting ? "En cours…" : step === 1 ? "Suivant" : "Valider"}
@@ -419,7 +419,7 @@ export default function RegisterDialog({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="w-full inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="w-full inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 sm:py-2.5 text-xs sm font-medium text-gray-700 hover"
                 >
                   Retour
                 </button>
@@ -431,7 +431,7 @@ export default function RegisterDialog({
                 {/* Séparateur */}
                 <div className="my-4 sm:my-6 flex items-center">
                   <div className="flex-1 border-t border-gray-300"></div>
-                  <span className="px-2 sm:px-4 text-xs sm:text-sm text-gray-500">
+                  <span className="px-2 sm:px-4 text-xs sm text-gray-500">
                     Ou continuer avec
                   </span>
                   <div className="flex-1 border-t border-gray-300"></div>
@@ -439,7 +439,7 @@ export default function RegisterDialog({
 
                 {/* Boutons sociaux */}
                 <div className="flex justify-center gap-2 sm:gap-4">
-                  <button className="flex text-xs sm:text-sm w-28 sm:w-32 items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                  <button className="flex text-xs sm w-28 sm:w-32 items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors">
                     <svg
                       className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"
                       viewBox="0 0 24 24"
@@ -463,7 +463,7 @@ export default function RegisterDialog({
                     </svg>
                     Google
                   </button>
-                  <button className="text-xs sm:text-sm w-28 sm:w-32 flex items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                  <button className="text-xs sm w-28 sm:w-32 flex items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors">
                     <svg
                       className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"
                       fill="#1877F2"
@@ -477,12 +477,12 @@ export default function RegisterDialog({
 
                 {/* Lien vers connexion */}
                 <div className="mt-4 sm:mt-6 text-center">
-                  <span className="text-xs sm:text-sm text-gray-600">
+                  <span className="text-xs sm text-gray-600">
                     Vous avez déjà un compte ?{" "}
                   </span>
                   <button
                     onClick={onSwitchToLogin}
-                    className="text-xs sm:text-sm text-green-600 hover:text-green-500 font-medium"
+                    className="text-xs sm text-green-600 hover font-medium"
                   >
                     Se connecter
                   </button>

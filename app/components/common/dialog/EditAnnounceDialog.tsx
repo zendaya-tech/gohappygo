@@ -271,13 +271,13 @@ export default function EditAnnounceDialog({
       <div className="fixed inset-0 bg-black/35" onClick={onClose} />
 
       {/* Dialog container */}
-      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-4xl overflow-hidden rounded-2xl md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/10 dark:ring-white/10 h-[95vh] md:max-h-[85vh] flex flex-col">
+      <div className="relative z-10 mt-4 md:mt-10 w-full max-w-4xl overflow-hidden rounded-2xl md:rounded-2xl bg-white shadow-2xl ring-1 ring-black/10/10 h-[95vh] md:max-h-[85vh] flex flex-col">
         <div className="flex flex-col min-h-0 flex-1">
           {/* Content */}
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
-              <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
-                <span className="uppercase text-sm md:text-base">
+              <h2 className="text-lg md font-bold text-gray-900">
+                <span className="uppercase text-sm md">
                   Modifier l'annonce de voyage
                 </span>
               </h2>
@@ -331,8 +331,8 @@ export default function EditAnnounceDialog({
                   className={`w-full rounded-xl uppercase border ${
                     flightNumberError
                       ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                  } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                      : "border-gray-300 focus:ring-indigo-500"
+                  } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                 />
                 {flightNumberError && (
                   <p className="mt-1 text-sm text-red-600 font-medium">
@@ -346,7 +346,7 @@ export default function EditAnnounceDialog({
                   value={travelDate}
                   onChange={(e) => setTravelDate(e.target.value)}
                   placeholder="Choisir une date"
-                  className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </Field>
               <Field label="Compagnie aérienne">
@@ -361,7 +361,7 @@ export default function EditAnnounceDialog({
                           ? "Détectée automatiquement"
                           : "Entrez d'abord le numéro de vol"
                     }
-                    className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-400 cursor-not-allowed"
+                    className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-sm text-gray-600 cursor-not-allowed"
                   />
                   {fetchingAirline && (
                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -408,8 +408,8 @@ export default function EditAnnounceDialog({
                       ? "border-red-500 focus:ring-red-500"
                       : story.trim().length === 0
                         ? "border-red-300 focus:ring-red-400"
-                        : "border-gray-300 dark:border-gray-700 focus:ring-indigo-500"
-                  } bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2`}
+                        : "border-gray-300 focus:ring-indigo-500"
+                  } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                 />
                 <div
                   className={`mt-1 text-xs ${
@@ -436,11 +436,11 @@ export default function EditAnnounceDialog({
                 </div>
               </Field>
               <div>
-                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mb-2 text-sm font-semibold text-gray-900">
                   What kind of reservation do you prefer?
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
                       checked={reservationType === "single"}
@@ -448,7 +448,7 @@ export default function EditAnnounceDialog({
                     />
                     All my kilos for one person
                   </label>
-                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                  <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
                       checked={reservationType === "shared"}
@@ -459,10 +459,10 @@ export default function EditAnnounceDialog({
                 </div>
               </div>
               <div>
-                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mb-2 text-sm font-semibold text-gray-900">
                   What kind of booking do you prefer for this travel?
                 </div>
-                <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                <div className="flex items-center gap-6 text-sm text-gray-700">
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="radio"
@@ -493,7 +493,7 @@ export default function EditAnnounceDialog({
                     )
                   }
                   placeholder="Enter number of kilos"
-                  className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </Field>
               <div>
@@ -509,11 +509,11 @@ export default function EditAnnounceDialog({
                         )
                       }
                       placeholder="enter your price per kilos"
-                      className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </Field>
                   <div className="w-32">
-                    <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">
                       Currency
                     </label>
                     <CurrencyComboBox
@@ -528,10 +528,10 @@ export default function EditAnnounceDialog({
               </div>
 
               <div>
-                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mb-2 text-sm font-semibold text-gray-900">
                   Tolérez vous quelques grammes de trop ?
                 </div>
-                <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                <div className="flex items-center gap-6 text-sm text-gray-700">
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="radio"
@@ -552,11 +552,11 @@ export default function EditAnnounceDialog({
               </div>
 
               <div>
-                <div className="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="mb-2 text-sm font-semibold text-gray-900">
                   Quelle ponctualité attendez-vous lors de la rencontre avec
                   votre HappyVoyageur ?
                 </div>
-                <div className="flex items-center gap-6 text-sm text-gray-700 dark:text-gray-300">
+                <div className="flex items-center gap-6 text-sm text-gray-700">
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="radio"
@@ -585,7 +585,7 @@ export default function EditAnnounceDialog({
             <div className="mt-10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
-                  className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover"
                   onClick={onClose}
                 >
                   ‹ Back
@@ -596,7 +596,7 @@ export default function EditAnnounceDialog({
                 disabled={!canSubmit || submitting}
                 className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
                   canSubmit && !submitting
-                    ? "bg-indigo-600 hover:bg-indigo-700"
+                    ? "bg-indigo-600 hover"
                     : "bg-gray-300 cursor-not-allowed"
                 }`}
               >
@@ -619,7 +619,7 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-gray-900 dark:text-white">
+      <label className="mb-2 block text-sm font-semibold text-gray-900">
         {label}
       </label>
       {children}

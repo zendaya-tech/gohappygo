@@ -72,10 +72,10 @@ export default function LoginDialog({
           {/* Côté gauche - Formulaire */}
           <div className="w-full md:w-1/2 p-6 md:p-8">
             <div className="mb-6 md:mb-8">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl md font-bold text-gray-900 mb-2">
                 Connexion
               </h1>
-              <p className="text-sm md:text-base text-gray-600">
+              <p className="text-sm md text-gray-600">
                 et profitez de toutes les possibilités
               </p>
             </div>
@@ -84,7 +84,7 @@ export default function LoginDialog({
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2"
+                  className="block text-xs md font-medium text-gray-700 mb-1 md:mb-2"
                 >
                   Email
                 </label>
@@ -92,7 +92,7 @@ export default function LoginDialog({
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
                   placeholder="Votre email"
                   required
                   value={formData.email}
@@ -103,7 +103,7 @@ export default function LoginDialog({
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2"
+                  className="block text-xs md font-medium text-gray-700 mb-1 md:mb-2"
                 >
                   Mot de passe
                 </label>
@@ -111,7 +111,7 @@ export default function LoginDialog({
                   type="password"
                   id="password"
                   name="password"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
                   placeholder="Votre mot de passe"
                   required
                   value={formData.password}
@@ -134,7 +134,7 @@ export default function LoginDialog({
                 </label>
                 <a
                   href="/forgot-password"
-                  className="text-sm text-blue-600 hover:text-blue-500"
+                  className="text-sm text-blue-600 hover"
                 >
                   Mot de passe oublié ?
                 </a>
@@ -146,7 +146,7 @@ export default function LoginDialog({
                 className={`w-full text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 ${
                   submitting
                     ? "bg-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-blue-600 hover"
                 }`}
               >
                 {submitting ? "Connexion…" : "Se connecter"}
@@ -156,7 +156,7 @@ export default function LoginDialog({
             {/* Séparateur */}
             <div className="my-4 md:my-6 flex items-center">
               <div className="flex-1 border-t border-gray-300"></div>
-              <span className="px-3 md:px-4 text-xs md:text-sm text-gray-500">
+              <span className="px-3 md:px-4 text-xs md text-gray-500">
                 Ou continuer avec
               </span>
               <div className="flex-1 border-t border-gray-300"></div>
@@ -164,7 +164,7 @@ export default function LoginDialog({
 
             {/* Boutons sociaux */}
             <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md:text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors">
                 <svg className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" viewBox="0 0 24 24">
                   <path
                     fill="#4285F4"
@@ -185,7 +185,7 @@ export default function LoginDialog({
                 </svg>
                 Google
               </button>
-              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md:text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors">
                 <svg
                   className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
                   fill="#1877F2"
@@ -199,12 +199,12 @@ export default function LoginDialog({
 
             {/* Lien vers inscription */}
             <div className="mt-4 md:mt-6 text-center">
-              <span className="text-xs md:text-sm text-gray-600">
+              <span className="text-xs md text-gray-600">
                 Pas encore de compte ?{" "}
               </span>
               <button
                 onClick={onSwitchToRegister}
-                className="text-xs md:text-sm text-blue-600 hover:text-blue-500 font-medium"
+                className="text-xs md text-blue-600 hover font-medium"
               >
                 S'inscrire
               </button>

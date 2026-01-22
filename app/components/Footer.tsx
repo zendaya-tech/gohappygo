@@ -9,14 +9,14 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-gray-100 text-gray-600 px-6 py-12 dark:bg-gray-900 dark:text-gray-400">
+      <footer className="bg-gray-100 text-gray-600 px-6 py-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
             {/* Brand */}
             <div className="col-span-1 sm:col-span-2 md:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
                 <img src="/logo.png" alt="GoHappyGo logo" className="h-10" />
-                <span className="font-bold text-lg text-gray-900 dark:text-gray-100">GoHappyGo</span>
+                <span className="font-bold text-lg text-gray-900">GoHappyGo</span>
               </div>
               <p className="text-sm mb-4">
                 {t("footer.description")}
@@ -25,7 +25,7 @@ export default function Footer() {
                 <a
                   href="https://x.com/GoHappyGo1"
                   aria-label="Twitter"
-                  className="hover:text-gray-900 dark:hover:text-gray-100"
+                  className="hover"
                 >
                   <svg
                     className="h-5 w-5"
@@ -38,7 +38,7 @@ export default function Footer() {
                 <a
                   href="https://web.facebook.com/gohappygofr"
                   aria-label="Facebook"
-                  className="hover:text-gray-900 dark:hover:text-gray-100"
+                  className="hover"
                 >
                   <svg
                     className="h-5 w-5"
@@ -51,7 +51,7 @@ export default function Footer() {
                 <a
                   href="https://instagram.com/gohappygo1"
                   aria-label="Instagram"
-                  className="hover:text-gray-900 dark:hover:text-gray-100"
+                  className="hover"
                 >
                   <svg
                     className="h-5 w-5"
@@ -66,12 +66,12 @@ export default function Footer() {
 
             {/* Pour mieux nous connaître */}
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">{t("footer.knowUs.title")}</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t("footer.knowUs.title")}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
                     href="/how-it-work"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.knowUs.howItWorks")}
                   </a>
@@ -79,7 +79,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/impact-ecologique"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.knowUs.ecologicalImpact")}
                   </a>
@@ -87,7 +87,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/what-is-happiness"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.knowUs.whatIsHappiness")}
                   </a>
@@ -97,12 +97,12 @@ export default function Footer() {
 
             {/* Mentions Légales */}
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">{t("footer.legal.title")}</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t("footer.legal.title")}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
                     href="/terms-of-use"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.legal.termsOfUse")}
                   </a>
@@ -110,7 +110,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/privacy-policy"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.legal.privacyPolicy")}
                   </a>
@@ -118,7 +118,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/pricing-policy"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.legal.pricingPolicy")}
                   </a>
@@ -128,12 +128,12 @@ export default function Footer() {
 
             {/* Donnez du Bonheur */}
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">{t("footer.giveHappiness.title")}</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t("footer.giveHappiness.title")}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
                     href="/become-transporter"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.giveHappiness.becomeTransporter")}
                   </a>
@@ -141,7 +141,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/security-rules"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.giveHappiness.securityRules")}
                   </a>
@@ -149,7 +149,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/insurance-protection"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.giveHappiness.insuranceProtection")}
                   </a>
@@ -159,12 +159,12 @@ export default function Footer() {
 
             {/* Assistance */}
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">{t("footer.support.title")}</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t("footer.support.title")}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
                     href="/faq"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     Foire aux questions
                   </a>
@@ -172,7 +172,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="mailto:support@gohappygo.fr"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     support@gohappygo.fr
                   </a>
@@ -180,7 +180,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/download-app"
-                    className="hover:text-gray-900 dark:hover:text-gray-100"
+                    className="hover"
                   >
                     {t("footer.support.downloadApp")}
                   </a>
@@ -189,7 +189,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="border-t dark:border-gray-700 border-gray-300 mt-10 pt-8 text-center text-sm">
+          <div className="border-t border-gray-300 mt-10 pt-8 text-center text-sm">
             <p>&copy; {year} GoHappyGo. {t("footer.copyright")}</p>
           </div>
         </div>

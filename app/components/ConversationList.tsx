@@ -173,7 +173,7 @@ export default function ConversationList({ onSelectConversation, selectedConvers
           <div
             key={conversation.id}
             onClick={() => onSelectConversation(conversation)}
-            className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
+            className={`p-4 hover cursor-pointer transition-colors ${
               selectedConversationId === conversation.id ? 'bg-blue-50 border-r-2 border-blue-500' : ''
             }`}
           >

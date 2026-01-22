@@ -120,7 +120,7 @@ export default function NotificationsPage() {
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
       <main className="mx-auto max-w-4xl px-4 py-8 mt-16">
@@ -128,30 +128,30 @@ export default function NotificationsPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-gray-900">
                 Notifications
               </h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-500 mt-1">
                 {unreadCount > 0 ? `${unreadCount} non lue${unreadCount > 1 ? "s" : ""}` : "Toutes vos notifications sont lues"}
               </p>
             </div>
             <Link
               to="/profile"
-              className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+              className="text-sm text-blue-600 hover font-medium"
             >
               ← Retour au profil
             </Link>
           </div>
 
           {/* Filter and Actions Bar */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-800">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white rounded-xl p-4 border border-gray-200">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setFilter("all")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === "all"
                     ? "bg-blue-600 text-white"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    : "bg-gray-100 text-gray-700 hover"
                 }`}
               >
                 Toutes
@@ -161,7 +161,7 @@ export default function NotificationsPage() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === "unread"
                     ? "bg-blue-600 text-white"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    : "bg-gray-100 text-gray-700 hover"
                 }`}
               >
                 Non lues {unreadCount > 0 && `(${unreadCount})`}
@@ -172,14 +172,14 @@ export default function NotificationsPage() {
               {unreadCount > 0 && (
                 <button
                   onClick={handleMarkAllAsRead}
-                  className="px-4 py-2 rounded-lg text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-blue-600 hover/20 transition-colors"
                 >
                   Tout marquer lu
                 </button>
               )}
               <button
                 onClick={handleClearRead}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                className="px-4 py-2 rounded-lg text-sm font-medium text-red-600 hover/20 transition-colors"
               >
                 Effacer les lues
               </button>
@@ -197,13 +197,13 @@ export default function NotificationsPage() {
             </div>
           </div>
         ) : error ? (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center">
-            <p className="text-red-600 dark:text-red-400">{error}</p>
+          <div className="bg-red-50/20 border border-red-200 rounded-xl p-6 text-center">
+            <p className="text-red-600">{error}</p>
           </div>
         ) : notifications.length === 0 ? (
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-12 text-center">
+          <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
             <svg
-              className="w-16 h-16 mx-auto mb-4 text-gray-400 dark:text-gray-600"
+              className="w-16 h-16 mx-auto mb-4 text-gray-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -215,10 +215,10 @@ export default function NotificationsPage() {
                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
               />
             </svg>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
               Aucune notification
             </h3>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500">
               {filter === "unread" 
                 ? "Vous n'avez aucune notification non lue"
                 : "Vous n'avez aucune notification pour le moment"}
@@ -230,10 +230,10 @@ export default function NotificationsPage() {
               {notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`bg-white dark:bg-gray-900 rounded-xl border transition-all hover:shadow-md ${
+                  className={`bg-white rounded-xl border transition-all hover:shadow-md ${
                     !notification.isRead
-                      ? "border-blue-200 dark:border-blue-800 bg-blue-50/30 dark:bg-blue-900/10"
-                      : "border-gray-200 dark:border-gray-800"
+                      ? "border-blue-200 bg-blue-50/30/10"
+                      : "border-gray-200"
                   }`}
                 >
                   <div className="p-4 sm:p-6">
@@ -242,7 +242,7 @@ export default function NotificationsPage() {
                       <div className="flex-shrink-0 mt-1">
                         <div
                           className={`w-3 h-3 rounded-full ${
-                            !notification.isRead ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700"
+                            !notification.isRead ? "bg-blue-600" : "bg-gray-300"
                           }`}
                         />
                       </div>
@@ -250,14 +250,14 @@ export default function NotificationsPage() {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4 mb-2">
-                          <h3 className="font-semibold text-gray-900 dark:text-white">
+                          <h3 className="font-semibold text-gray-900">
                             {notification.title}
                           </h3>
-                          <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                          <span className="text-xs text-gray-500 whitespace-nowrap">
                             {formatTimeAgo(notification.createdAt)}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        <p className="text-sm text-gray-600 mb-3">
                           {notification.message}
                         </p>
 
@@ -266,14 +266,14 @@ export default function NotificationsPage() {
                           {!notification.isRead && (
                             <button
                               onClick={() => handleMarkAsRead(notification.id)}
-                              className="text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
+                              className="text-xs text-blue-600 hover font-medium"
                             >
                               Marquer comme lu
                             </button>
                           )}
                           <button
                             onClick={() => handleDeleteNotification(notification.id)}
-                            className="text-xs text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium"
+                            className="text-xs text-red-600 hover font-medium"
                           >
                             Supprimer
                           </button>
@@ -295,7 +295,7 @@ export default function NotificationsPage() {
                 </div>
               )}
               {!hasMore && notifications.length > 0 && (
-                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-center text-sm text-gray-500">
                   Vous avez vu toutes vos notifications
                 </p>
               )}
