@@ -11,8 +11,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { useEffect } from "react";
 import { useAuth } from "./hooks/useAuth";
-import ChatWidget from "./components/ChatWidget";
-import CookieConsent from "./components/common/dialog/CookieConsent";
+import ChatWidget from "./components/chat/ChatWidget";
+import CookieConsent from "./components/dialogs/CookieConsent";
 import "./i18n";
 
 export const links: Route.LinksFunction = () => [

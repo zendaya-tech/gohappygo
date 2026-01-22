@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import SearchFiltersBar from '~/components/SearchFiltersBar';
+import SearchFiltersBar from '~/components/forms/SearchFiltersBar';
 
 export default function HeroSection() {
     const navigate = useNavigate();
