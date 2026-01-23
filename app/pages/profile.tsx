@@ -175,10 +175,10 @@ const ReservationsSection = () => {
     setMessageDialogOpen(true);
   };
 
-  const handleSendMessage = (message: string) => {
-    // TODO: Implement message sending logic
-    console.log('Sending message:', message, 'to:', selectedRequester?.name);
-    // You can add API call here to send the message
+  const handleSendMessage = async (message: string) => {
+    console.log('Message sent:', message, 'to:', selectedRequester?.name);
+    // Message is already sent by MessageDialog component via API
+    // Optionally refresh unread count or request list here if needed
   };
 
   const handleOpenReview = (request: RequestResponse) => {

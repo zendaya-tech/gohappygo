@@ -982,8 +982,41 @@ export default function AnnounceDetail() {
                         }
                       }}
                       placeholder="0"
-                      className="mb-6 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
+                        kilos > (availableWeight || 0)
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-gray-300 focus:ring-indigo-500"
+                      }`}
                     />
+                    
+                    {/* Alert when weight exceeds available capacity */}
+                    {kilos > (availableWeight || 0) && (
+                      <div className="mt-2 mb-4 flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <svg
+                          className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-red-800">
+                            Poids disponible insuffisant
+                          </p>
+                          <p className="text-xs text-red-700 mt-1">
+                            Le poids demandé ({kilos}kg) dépasse la capacité disponible ({availableWeight || 0}kg).
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {!kilos && (
+                      <div className="mb-6" />
+                    )}
 
                     {pricingLoading ? (
                       <div className="flex items-center justify-center py-8">
@@ -1198,18 +1231,22 @@ export default function AnnounceDetail() {
                 {type === "travel" ? (
                   <button
                     onClick={() => setBookOpen(true)}
-                    disabled={isOwnAnnounce || !pricingData}
+                    disabled={isOwnAnnounce || !pricingData || kilos > (availableWeight || 0) || kilos === 0}
                     className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 ${
                       isOwnAnnounce
                         ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                        : !pricingData
+                        : !pricingData || kilos > (availableWeight || 0) || kilos === 0
                           ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                           : "bg-blue-600 text-white hover"
                     }`}
                   >
                     {isOwnAnnounce
                       ? "Votre voyage"
-                      : `Payer ${total.toFixed(2)} ${currencySymbol}`}
+                      : kilos > (availableWeight || 0)
+                        ? "Poids insuffisant"
+                        : kilos === 0
+                          ? "Entrez un poids"
+                          : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
