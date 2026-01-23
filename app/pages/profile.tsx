@@ -1,5 +1,5 @@
-import { useMemo, useState, useEffect } from "react";
-import { useSearchParams } from "react-router";
+import { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router';
 import Header from '../components/layout/Header';
 import FooterMinimal from '~/components/layout/FooterMinimal';
 import ProfileDialog from '../components/dialogs/ProfileDialog';
@@ -12,7 +12,7 @@ import MessageDialog from '~/components/dialogs/MessageDialog';
 import ReviewDialog from '~/components/dialogs/ReviewDialog';
 import ConversationList from '~/components/chat/ConversationList';
 import Chat from '~/components/chat/Chat';
-import { useAuth } from "~/hooks/useAuth";
+import { useAuth } from '~/hooks/useAuth';
 import TravelCard from '~/components/cards/TravelCard';
 import {
   StarIcon,
@@ -20,13 +20,9 @@ import {
   PaperAirplaneIcon,
   HeartIcon,
   CurrencyDollarIcon,
-} from "@heroicons/react/24/outline";
-import ReservationCard, {
-  type Reservation,
-} from '~/components/cards/ReservationCard';
-import ProfileTravelCard, {
-  type ProfileTravel,
-} from '~/components/cards/ProfileTravelCard';
+} from '@heroicons/react/24/outline';
+import ReservationCard, { type Reservation } from '~/components/cards/ReservationCard';
+import ProfileTravelCard, { type ProfileTravel } from '~/components/cards/ProfileTravelCard';
 import AnnounceCard from '~/components/cards/AnnounceCard';
 import {
   getBookmarks,
@@ -35,37 +31,29 @@ import {
   getUserDemandsAndTravels,
   deleteDemand as deleteOldDemand,
   type DemandTravelItem,
-} from "~/services/announceService";
-import {
-  getUserTravels,
-  deleteTravel,
-  type TravelItem,
-} from "~/services/travelService";
-import { removeBookmark } from "~/services/bookmarkService";
-import { getReviews, type Review } from "~/services/reviewService";
+} from '~/services/announceService';
+import { getUserTravels, deleteTravel, type TravelItem } from '~/services/travelService';
+import { removeBookmark } from '~/services/bookmarkService';
+import { getReviews, type Review } from '~/services/reviewService';
 import {
   getRequests,
   acceptRequest,
   completeRequest,
   cancelRequest,
   type RequestResponse,
-} from "~/services/requestService";
-import { getMe, type GetMeResponse } from "~/services/authService";
+} from '~/services/requestService';
+import { getMe, type GetMeResponse } from '~/services/authService';
 import {
   getTransactions,
   releaseFunds,
   getBalance,
   type Transaction,
   type Balance,
-} from "~/services/transactionService";
-import { getOnboardingLink } from "~/services/stripeService";
-import {
-  getUserDemands,
-  deleteDemand,
-  type DemandItem,
-} from "~/services/demandService";
+} from '~/services/transactionService';
+import { getOnboardingLink } from '~/services/stripeService';
+import { getUserDemands, deleteDemand, type DemandItem } from '~/services/demandService';
 import ActionCard from '~/components/cards/ActionCard';
-import { getUnreadCount } from "~/services/messageService";
+import { getUnreadCount } from '~/services/messageService';
 
 interface ProfileSection {
   id: string;
@@ -96,27 +84,23 @@ interface Conversation {
 }
 
 const ReservationsSection = () => {
-  const [tab, setTab] = useState<
-    "pending" | "accepted" | "completed" | "cancelled"
-  >("pending");
+  const [tab, setTab] = useState<'pending' | 'accepted' | 'completed' | 'cancelled'>('pending');
   const [requests, setRequests] = useState<RequestResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
-  const [requestToCancel, setRequestToCancel] =
-    useState<RequestResponse | null>(null);
+  const [requestToCancel, setRequestToCancel] = useState<RequestResponse | null>(null);
   const [selectedRequester, setSelectedRequester] = useState<{
     name: string;
     avatar: string;
     requestId: number;
   } | null>(null);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
-  const [requestToReview, setRequestToReview] =
-    useState<RequestResponse | null>(null);
+  const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
   const [searchParams] = useSearchParams();
 
-  const userId = searchParams.get("user");
+  const userId = searchParams.get('user');
   const { user: currentUser } = useAuth();
 
   const [isOwnProfile] = useState(
@@ -129,7 +113,7 @@ const ReservationsSection = () => {
         const response = await getRequests();
         setRequests(response.items || []);
       } catch (error) {
-        console.error("Error fetching requests:", error);
+        console.error('Error fetching requests:', error);
       } finally {
         setLoading(false);
       }
@@ -145,7 +129,7 @@ const ReservationsSection = () => {
       const response = await getRequests();
       setRequests(response.items || []);
     } catch (error) {
-      console.error("Error accepting request:", error);
+      console.error('Error accepting request:', error);
       setErrorMessage("Erreur lors de l'acceptation de la demande");
     }
   };
@@ -157,8 +141,8 @@ const ReservationsSection = () => {
       const response = await getRequests();
       setRequests(response.items || []);
     } catch (error) {
-      console.error("Error completing request:", error);
-      setErrorMessage("Erreur lors de la finalisation de la demande");
+      console.error('Error completing request:', error);
+      setErrorMessage('Erreur lors de la finalisation de la demande');
     }
   };
 
@@ -173,7 +157,7 @@ const ReservationsSection = () => {
       setRequestToCancel(null);
       setCancelConfirmOpen(false);
     } catch (error) {
-      console.error("Error canceling request:", error);
+      console.error('Error canceling request:', error);
       setErrorMessage("Erreur lors de l'annulation de la réservation");
     }
   };
@@ -193,7 +177,7 @@ const ReservationsSection = () => {
 
   const handleSendMessage = (message: string) => {
     // TODO: Implement message sending logic
-    console.log("Sending message:", message, "to:", selectedRequester?.name);
+    console.log('Sending message:', message, 'to:', selectedRequester?.name);
     // You can add API call here to send the message
   };
 
@@ -206,14 +190,12 @@ const ReservationsSection = () => {
   const getRevieweeName = (request: RequestResponse): string => {
     const requester = request.requester;
     const travelOwner = request.travel?.owner;
-    
+
     // Si l'utilisateur connecté est le requester, évaluer le propriétaire
     const isCurrentUserRequester = requester?.id.toString() === currentUser?.id;
     const reviewee = isCurrentUserRequester ? travelOwner : requester;
-    
-    return reviewee
-      ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.`
-      : "Utilisateur";
+
+    return reviewee ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.` : 'Utilisateur';
   };
 
   const handleReviewSuccess = () => {
@@ -223,7 +205,7 @@ const ReservationsSection = () => {
         const response = await getRequests();
         setRequests(response.items || []);
       } catch (error) {
-        console.error("Error fetching requests:", error);
+        console.error('Error fetching requests:', error);
       }
     };
     fetchRequests();
@@ -231,60 +213,49 @@ const ReservationsSection = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
   };
 
   const filtered = requests.filter((r) => {
     const status = r.currentStatus?.status?.toUpperCase();
-    if (tab === "pending")
-      return status === "NEGOTIATING" || status === "PENDING";
-    if (tab === "accepted") return status === "ACCEPTED";
-    if (tab === "completed") return status === "COMPLETED";
-    if (tab === "cancelled") return status === "CANCELLED";
+    if (tab === 'pending') return status === 'NEGOTIATING' || status === 'PENDING';
+    if (tab === 'accepted') return status === 'ACCEPTED';
+    if (tab === 'completed') return status === 'COMPLETED';
+    if (tab === 'cancelled') return status === 'CANCELLED';
     return false;
   });
 
   if (loading) {
-    return (
-      <div className="text-center text-gray-500 py-8">
-        Chargement de vos réservations...
-      </div>
-    );
+    return <div className="text-center text-gray-500 py-8">Chargement de vos réservations...</div>;
   }
 
   return (
     <div>
       <div className="flex items-center gap-6 mb-6">
         <button
-          onClick={() => setTab("pending")}
+          onClick={() => setTab('pending')}
           className={`text-sm font-semibold ${
-            tab === "pending"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'pending' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
           | Waiting for proposal
         </button>
         <button
-          onClick={() => setTab("accepted")}
+          onClick={() => setTab('accepted')}
           className={`text-sm font-semibold ${
-            tab === "accepted"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'accepted' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
           | Waiting for payment
         </button>
         <button
-          onClick={() => setTab("completed")}
+          onClick={() => setTab('completed')}
           className={`text-sm font-semibold ${
-            tab === "completed"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'completed' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
           | Archived reservations
@@ -311,16 +282,16 @@ const ReservationsSection = () => {
             const displayUser = isCurrentUserRequester ? travelOwner : requester;
 
             // Data Preparation
-            const departureCity = travel?.departureAirport?.name || "Paris";
-            const arrivalCity = travel?.arrivalAirport?.name || "New-York";
+            const departureCity = travel?.departureAirport?.name || 'Paris';
+            const arrivalCity = travel?.arrivalAirport?.name || 'New-York';
             const travelDate = travel?.departureDatetime
               ? formatDate(travel.departureDatetime)
-              : "";
-            const flightNumber = travel?.flightNumber || "N/A";
+              : '';
+            const flightNumber = travel?.flightNumber || 'N/A';
             const weight = request.weight || 0;
 
             const pricePerKg =
-              typeof travel?.pricePerKg === "string"
+              typeof travel?.pricePerKg === 'string'
                 ? parseFloat(travel.pricePerKg)
                 : travel?.pricePerKg || 0;
 
@@ -328,10 +299,9 @@ const ReservationsSection = () => {
 
             const displayUserName = displayUser
               ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
-              : "Utilisateur";
+              : 'Utilisateur';
 
-            const displayUserAvatar =
-              (displayUser as any)?.profilePictureUrl || "/favicon.ico";
+            const displayUserAvatar = (displayUser as any)?.profilePictureUrl || '/favicon.ico';
 
             return (
               <ActionCard
@@ -352,88 +322,82 @@ const ReservationsSection = () => {
                 unreadCount={request.unReadMessages || 0}
                 // Logic for Status Badges vs Buttons
                 statusBadge={
-                  request.currentStatus?.status === "COMPLETED"
-                    ? "Terminé"
-                    : request.currentStatus?.status === "CANCELLED"
-                      ? "Annulé"
+                  request.currentStatus?.status === 'COMPLETED'
+                    ? 'Terminé'
+                    : request.currentStatus?.status === 'CANCELLED'
+                      ? 'Annulé'
                       : undefined
                 }
                 primaryAction={
-                  request.currentStatus?.status === "NEGOTIATING" &&
+                  request.currentStatus?.status === 'NEGOTIATING' &&
                   requester?.id.toString() != currentUser?.id
                     ? {
-                        label: "Approve",
+                        label: 'Approve',
                         onClick: () => handleAcceptRequest(request.id),
                       }
-                    : request.currentStatus?.status === "ACCEPTED"
+                    : request.currentStatus?.status === 'ACCEPTED'
                       ? {
-                          label: "Terminer",
+                          label: 'Terminer',
                           onClick: () => handleCompleteRequest(request.id),
-                          color: "green",
+                          color: 'green',
                         }
                       : undefined
                 }
                 secondaryAction={
-                  request.currentStatus?.status === "NEGOTIATING" &&
+                  request.currentStatus?.status === 'NEGOTIATING' &&
                   requester?.id.toString() != currentUser?.id
                     ? {
-                        label: "Rejeter",
+                        label: 'Rejeter',
                         onClick: () => {
                           setRequestToCancel(request);
                           setCancelConfirmOpen(true);
                         },
-                        color: "red",
+                        color: 'red',
                       }
-                    : request.currentStatus?.status === "NEGOTIATING" &&
+                    : request.currentStatus?.status === 'NEGOTIATING' &&
                         requester?.id.toString() === currentUser?.id
                       ? {
-                          label: "Annuler",
+                          label: 'Annuler',
                           onClick: () => {
                             setRequestToCancel(request);
                             setCancelConfirmOpen(true);
                           },
-                          color: "red",
+                          color: 'red',
                         }
-                      : request.currentStatus?.status === "ACCEPTED" &&
+                      : request.currentStatus?.status === 'ACCEPTED' &&
                           requester?.id.toString() === currentUser?.id
                         ? {
-                            label: "Annuler",
+                            label: 'Annuler',
                             onClick: () => {
                               setRequestToCancel(request);
                               setCancelConfirmOpen(true);
                             },
-                            color: "red",
+                            color: 'red',
                           }
                         : undefined
                 }
                 tertiaryAction={
-                  request.currentStatus?.status === "COMPLETED" &&
-                  request.canReview
+                  request.currentStatus?.status === 'COMPLETED' && request.canReview
                     ? {
-                        label: "Évaluer",
+                        label: 'Évaluer',
                         onClick: () => handleOpenReview(request),
-                        color: "orange",
+                        color: 'orange',
                       }
-                    : request.currentStatus?.status === "COMPLETED" &&
-                        !request.canReview
+                    : request.currentStatus?.status === 'COMPLETED' && !request.canReview
                       ? {
-                          label: "Évalué",
+                          label: 'Évalué',
                           onClick: () => {},
-                          color: "gray",
+                          color: 'gray',
                           disabled: true,
                         }
                       : undefined
                 }
                 messageAction={
-                  request.currentStatus?.status === "NEGOTIATING"
+                  request.currentStatus?.status === 'NEGOTIATING'
                     ? {
-                        label: "Message",
+                        label: 'Message',
                         onClick: () =>
-                          handleContactRequester(
-                            displayUserName,
-                            displayUserAvatar,
-                            request.id
-                          ),
+                          handleContactRequester(displayUserName, displayUserAvatar, request.id),
                       }
                     : undefined
                 }
@@ -506,29 +470,25 @@ const ReservationsSection = () => {
 };
 
 const ReviewsSection = () => {
-  const [tab, setTab] = useState<"received" | "given">("received");
+  const [tab, setTab] = useState<'received' | 'given'>('received');
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("user");
+  const userId = searchParams.get('user');
   const { user: currentUser } = useAuth();
 
-  const isOwnProfile =
-    !userId || (currentUser && userId === currentUser.id?.toString());
+  const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
   useEffect(() => {
     const fetchReviews = async () => {
       setLoading(true);
       try {
         // For both own profile and public profiles, allow switching between received and given
-        const asReviewer = tab === "given";
-        const response = await getReviews(
-          asReviewer,
-          userId ? Number(userId) : undefined
-        );
+        const asReviewer = tab === 'given';
+        const response = await getReviews(asReviewer, userId ? Number(userId) : undefined);
         setReviews(response.items || []);
       } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.error('Error fetching reviews:', error);
       } finally {
         setLoading(false);
       }
@@ -539,19 +499,16 @@ const ReviewsSection = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
   };
 
   const calculateAverageRating = () => {
     if (reviews.length === 0) return 0;
-    const sum = reviews.reduce(
-      (acc, review) => acc + parseFloat(review.rating || "0"),
-      0
-    );
+    const sum = reviews.reduce((acc, review) => acc + parseFloat(review.rating || '0'), 0);
     return (sum / reviews.length).toFixed(1);
   };
 
@@ -560,29 +517,23 @@ const ReviewsSection = () => {
       {/* Tabs - Show for both own profile and public profiles */}
       <div className="flex items-center gap-6 mb-6">
         <button
-          onClick={() => setTab("received")}
+          onClick={() => setTab('received')}
           className={`text-sm font-semibold ${
-            tab === "received"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'received' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
-          | {isOwnProfile ? "Mes avis reçus" : "Avis reçus"}
+          | {isOwnProfile ? 'Mes avis reçus' : 'Avis reçus'}
         </button>
         <button
-          onClick={() => setTab("given")}
-          className={`text-sm font-semibold ${
-            tab === "given" ? "text-gray-900" : "text-gray-500"
-          }`}
+          onClick={() => setTab('given')}
+          className={`text-sm font-semibold ${tab === 'given' ? 'text-gray-900' : 'text-gray-500'}`}
         >
-          | {isOwnProfile ? "Mes avis donnés" : "Avis donnés"}
+          | {isOwnProfile ? 'Mes avis donnés' : 'Avis donnés'}
         </button>
       </div>
 
       {loading ? (
-        <div className="text-center text-gray-500 py-8">
-          Chargement des avis...
-        </div>
+        <div className="text-center text-gray-500 py-8">Chargement des avis...</div>
       ) : reviews.length === 0 ? (
         <div className="flex items-center justify-center h-64">
           {/* <div className="text-center">
@@ -604,24 +555,14 @@ const ReviewsSection = () => {
             <div className={`flex items-center justify-center p-8`}>
               {/* Chat bubble icon */}
               <div className="mb-6 w-[30%]">
-                <img
-                  src="/images/noAvisIcon.jpeg"
-                  alt="No reviews"
-                  className="w-full h-full"
-                />
+                <img src="/images/noAvisIcon.jpeg" alt="No reviews" className="w-full h-full" />
               </div>
 
               <div>
                 {/* Text content */}
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Aucun avis encore..
-                </h2>
-                <p className="text-gray-600 text-center mb-1">
-                  Soyez le premier à
-                </p>
-                <p className="text-gray-600 text-center mb-2">
-                  partager votre expérience
-                </p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">Aucun avis encore..</h2>
+                <p className="text-gray-600 text-center mb-1">Soyez le premier à</p>
+                <p className="text-gray-600 text-center mb-2">partager votre expérience</p>
                 <p className="text-blue-600 font-semibold mb-6">GoHappyGo !</p>
 
                 {/* Button */}
@@ -636,20 +577,18 @@ const ReviewsSection = () => {
         <div>
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900">
-              {tab === "received" ? "Avis reçus" : "Avis donnés"} (
-              {reviews.length})
+              {tab === 'received' ? 'Avis reçus' : 'Avis donnés'} ({reviews.length})
             </h3>
-            {tab === "received" && (
+            {tab === 'received' && (
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <StarIcon
                       key={star}
                       className={`h-4 w-4 ${
-                        star <=
-                        Math.round(parseFloat(calculateAverageRating() || "0"))
-                          ? "text-yellow-400 fill-current"
-                          : "text-gray-300"
+                        star <= Math.round(parseFloat(calculateAverageRating() || '0'))
+                          ? 'text-yellow-400 fill-current'
+                          : 'text-gray-300'
                       }`}
                     />
                   ))}
@@ -665,14 +604,12 @@ const ReviewsSection = () => {
             {reviews.map((review) => {
               // For received reviews, show the reviewer (who gave the review)
               // For given reviews, show the reviewee (who received the review)
-              const displayUser =
-                tab === "given" ? review.reviewee : review.reviewer;
+              const displayUser = tab === 'given' ? review.reviewee : review.reviewer;
               const displayName = displayUser
                 ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
-                : "Utilisateur";
-              const displayAvatar =
-                displayUser?.profilePictureUrl || "/favicon.ico";
-              const rating = parseFloat(review.rating || "0");
+                : 'Utilisateur';
+              const displayAvatar = displayUser?.profilePictureUrl || '/favicon.ico';
+              const rating = parseFloat(review.rating || '0');
 
               return (
                 <div
@@ -695,7 +632,7 @@ const ReviewsSection = () => {
                       <div className="flex items-center justify-between mb-2">
                         <div>
                           <h4 className="text-sm font-semibold text-gray-900">
-                            {tab === "received"
+                            {tab === 'received'
                               ? `Avis de ${displayName}`
                               : `Avis pour ${displayName}`}
                           </h4>
@@ -712,9 +649,7 @@ const ReviewsSection = () => {
                               <StarIcon
                                 key={star}
                                 className={`h-4 w-4 ${
-                                  star <= rating
-                                    ? "text-yellow-400 fill-current"
-                                    : "text-gray-300"
+                                  star <= rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
                                 }`}
                               />
                             ))}
@@ -727,9 +662,7 @@ const ReviewsSection = () => {
 
                       {/* Comment */}
                       {review.comment && (
-                        <p className="text-sm text-gray-700 mb-3">
-                          {review.comment}
-                        </p>
+                        <p className="text-sm text-gray-700 mb-3">{review.comment}</p>
                       )}
                     </div>
                   </div>
@@ -751,12 +684,11 @@ const TravelRequestsSection = () => {
   const [demandToCancel, setDemandToCancel] = useState<DemandItem | null>(null);
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("user");
+  const userId = searchParams.get('user');
 
   // Use the profile user ID or current user ID
   const targetUserId = userId || currentUser?.id;
-  const isOwnProfile =
-    !userId || (currentUser && userId === currentUser.id?.toString());
+  const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
   const fetchDemands = async () => {
     if (!targetUserId) return;
@@ -765,7 +697,7 @@ const TravelRequestsSection = () => {
       const response = await getUserDemands(Number(targetUserId));
       setDemands(response.items || []);
     } catch (error) {
-      console.error("Error fetching demands:", error);
+      console.error('Error fetching demands:', error);
     } finally {
       setLoading(false);
     }
@@ -784,7 +716,7 @@ const TravelRequestsSection = () => {
       await fetchDemands();
       setDemandToCancel(null);
     } catch (error) {
-      console.error("Error canceling demand:", error);
+      console.error('Error canceling demand:', error);
     }
   };
 
@@ -795,19 +727,17 @@ const TravelRequestsSection = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
   };
 
   if (loading) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <div className="text-center text-gray-500">
-          Chargement des demandes...
-        </div>
+        <div className="text-center text-gray-500">Chargement des demandes...</div>
       </div>
     );
   }
@@ -832,29 +762,27 @@ const TravelRequestsSection = () => {
                 key={demand.id}
                 id={demand.id.toString()}
                 image={
-                  demand.images?.[0]?.fileUrl ||
-                  demand.user?.profilePictureUrl ||
-                  "/favicon.ico"
+                  demand.images?.[0]?.fileUrl || demand.user?.profilePictureUrl || '/favicon.ico'
                 }
-                title={`${demand.departureAirport?.name || "N/A"} → ${demand.arrivalAirport?.name || "N/A"}`}
+                title={`${demand.departureAirport?.name || 'N/A'} → ${demand.arrivalAirport?.name || 'N/A'}`}
                 subtitle="Poids requis"
                 dateLabel={
                   demand.travelDate
                     ? formatDate(demand.travelDate)
                     : demand.deliveryDate
                       ? formatDate(demand.deliveryDate)
-                      : "—"
+                      : '—'
                 }
                 flightNumber={demand.flightNumber}
                 weight={demand.weight || 0}
                 price={demand.pricePerKg}
                 type="traveler"
-                priceSubtext={`${demand.currency?.symbol || "€"}/Kg`}
+                priceSubtext={`${demand.currency?.symbol || '€'}/Kg`}
                 // Buttons for Demands
                 primaryAction={
                   isOwnProfile
                     ? {
-                        label: "Edit",
+                        label: 'Edit',
                         onClick: () => setEditingDemand(demand),
                       }
                     : undefined
@@ -862,12 +790,12 @@ const TravelRequestsSection = () => {
                 secondaryAction={
                   isOwnProfile
                     ? {
-                        label: "Cancel",
+                        label: 'Cancel',
                         onClick: () => {
                           setDemandToCancel(demand);
                           setCancelConfirmOpen(true);
                         },
-                        color: "red",
+                        color: 'red',
                       }
                     : undefined
                 }
@@ -915,13 +843,12 @@ const TravelsSection = () => {
   const [travelToCancel, setTravelToCancel] = useState<TravelItem | null>(null);
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("user");
-  const type = "transporter"; // Puisqu'on récupère que les voyages
+  const userId = searchParams.get('user');
+  const type = 'transporter'; // Puisqu'on récupère que les voyages
 
   // Use the profile user ID or current user ID
   const targetUserId = userId || currentUser?.id;
-  const isOwnProfile =
-    !userId || (currentUser && userId === currentUser.id?.toString());
+  const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
   const fetchTravels = async () => {
     if (!targetUserId) return;
@@ -930,7 +857,7 @@ const TravelsSection = () => {
       const response = await getUserTravels(Number(targetUserId));
       setTravels(response.items || []);
     } catch (error) {
-      console.error("Error fetching travels:", error);
+      console.error('Error fetching travels:', error);
     } finally {
       setLoading(false);
     }
@@ -949,7 +876,7 @@ const TravelsSection = () => {
       await fetchTravels();
       setTravelToCancel(null);
     } catch (error) {
-      console.error("Error canceling travel:", error);
+      console.error('Error canceling travel:', error);
       // You could show an error modal here instead of alert
     }
   };
@@ -961,19 +888,17 @@ const TravelsSection = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
     });
   };
 
   if (loading) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <div className="text-center text-gray-500">
-          Chargement des voyages...
-        </div>
+        <div className="text-center text-gray-500">Chargement des voyages...</div>
       </div>
     );
   }
@@ -1010,26 +935,21 @@ const TravelsSection = () => {
                 key={travel.id}
                 id={travel.id}
                 // Image Priority: Travel Upload -> Airline Logo -> User Avatar -> Default
-                image={travel.airline?.logoUrl || "/favicon.ico"}
-                title={`${travel?.departureAirport?.name || "N/A"} → ${travel?.arrivalAirport?.name || "N/A"}`}
+                image={travel.airline?.logoUrl || '/favicon.ico'}
+                title={`${travel?.departureAirport?.name || 'N/A'} → ${travel?.arrivalAirport?.name || 'N/A'}`}
                 subtitle="Espace disponible"
                 type={type}
                 weight={travel.weightAvailable || 0}
-                dateLabel={
-                  travel.departureDatetime
-                    ? formatDate(travel.departureDatetime)
-                    : ""
-                }
-                flightNumber={travel.flightNumber || "N/A"}
+                dateLabel={travel.departureDatetime ? formatDate(travel.departureDatetime) : ''}
+                flightNumber={travel.flightNumber || 'N/A'}
                 price={travel.pricePerKg}
-                priceSubtext={`${travel.currency?.symbol || "€"}/Kg`}
+                priceSubtext={`${travel.currency?.symbol || '€'}/Kg`}
                 // Optional: Include user info if viewing someone else's profile
                 user={
                   !isOwnProfile
                     ? {
-                        name: travel.user?.fullName || "Utilisateur",
-                        avatar:
-                          travel.user?.profilePictureUrl || "/favicon.ico",
+                        name: travel.user?.fullName || 'Utilisateur',
+                        avatar: travel.user?.profilePictureUrl || '/favicon.ico',
                       }
                     : undefined
                 }
@@ -1037,21 +957,21 @@ const TravelsSection = () => {
                 primaryAction={
                   isOwnProfile && travel.isEditable
                     ? {
-                        label: "Edit",
+                        label: 'Edit',
                         onClick: () => setEditingTravel(travel),
-                        color: "blue",
+                        color: 'blue',
                       }
                     : undefined
                 }
                 secondaryAction={
                   isOwnProfile
                     ? {
-                        label: "Cancel",
+                        label: 'Cancel',
                         onClick: () => {
                           setTravelToCancel(travel);
                           setCancelConfirmOpen(true);
                         },
-                        color: "red",
+                        color: 'red',
                       }
                     : undefined
                 }
@@ -1092,9 +1012,7 @@ const TravelsSection = () => {
 };
 
 const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
-  const [tab, setTab] = useState<"balance" | "transactions" | "earnings">(
-    "balance"
-  );
+  const [tab, setTab] = useState<'balance' | 'transactions' | 'earnings'>('balance');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance | null>(null);
   const [loading, setLoading] = useState(true);
@@ -1117,7 +1035,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
         setTransactions(transactionData.items);
         setHasMore(transactionData.items.length === 10);
       } catch (error) {
-        console.error("Error fetching payment data:", error);
+        console.error('Error fetching payment data:', error);
       } finally {
         setLoading(false);
       }
@@ -1134,7 +1052,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       setPage(nextPage);
       setHasMore(transactionData.items.length === 10);
     } catch (error) {
-      console.error("Error loading more transactions:", error);
+      console.error('Error loading more transactions:', error);
     }
   };
 
@@ -1147,15 +1065,13 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       setBalance(balanceData);
       const transactionData = await getTransactions(1, 10);
       setTransactions(transactionData.items);
-      setSuccessMessage("Fonds libérés avec succès");
+      setSuccessMessage('Fonds libérés avec succès');
       // Clear success message after 3 seconds
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error: any) {
-      console.error("Error releasing funds:", error);
+      console.error('Error releasing funds:', error);
       const errorMsg =
-        error?.message ||
-        error?.error?.message ||
-        "Erreur lors de la libération des fonds";
+        error?.message || error?.error?.message || 'Erreur lors de la libération des fonds';
       setErrorMessage(errorMsg);
       // Clear error message after 5 seconds
       setTimeout(() => setErrorMessage(null), 5000);
@@ -1166,36 +1082,36 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     });
   };
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case "completed":
-        return "bg-green-100 text-green-800";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      case "failed":
-        return "bg-red-100 text-red-800";
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'failed':
+        return 'bg-red-100 text-red-800';
       default:
-        return "bg-gray-100 text-gray-800";
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status.toLowerCase()) {
-      case "completed":
-        return "Terminé";
-      case "pending":
-        return "En attente";
-      case "failed":
-        return "Échoué";
+      case 'completed':
+        return 'Terminé';
+      case 'pending':
+        return 'En attente';
+      case 'failed':
+        return 'Échoué';
       default:
         return status;
     }
@@ -1204,9 +1120,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
   if (loading) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <div className="text-center text-gray-500">
-          Chargement des données de paiement...
-        </div>
+        <div className="text-center text-gray-500">Chargement des données de paiement...</div>
       </div>
     );
   }
@@ -1216,31 +1130,25 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       {/* Tabs */}
       <div className="flex items-center gap-6 mb-6">
         <button
-          onClick={() => setTab("balance")}
+          onClick={() => setTab('balance')}
           className={`text-sm font-semibold ${
-            tab === "balance"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'balance' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
           | Solde
         </button>
         <button
-          onClick={() => setTab("transactions")}
+          onClick={() => setTab('transactions')}
           className={`text-sm font-semibold ${
-            tab === "transactions"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'transactions' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
           | Transactions
         </button>
         <button
-          onClick={() => setTab("earnings")}
+          onClick={() => setTab('earnings')}
           className={`text-sm font-semibold ${
-            tab === "earnings"
-              ? "text-gray-900"
-              : "text-gray-500"
+            tab === 'earnings' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
           | Gains
@@ -1248,15 +1156,13 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       </div>
 
       {/* Balance Tab */}
-      {tab === "balance" && balance && (
+      {tab === 'balance' && balance && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Available Balance */}
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium opacity-90">
-                  Solde disponible
-                </h3>
+                <h3 className="text-sm font-medium opacity-90">Solde disponible</h3>
                 <CurrencyDollarIcon className="h-6 w-6 opacity-75" />
               </div>
               <div className="text-2xl font-bold">
@@ -1268,14 +1174,8 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
             {/* Pending Balance */}
             <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium opacity-90">
-                  Solde en attente
-                </h3>
-                <svg
-                  className="h-6 w-6 opacity-75"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <h3 className="text-sm font-medium opacity-90">Solde en attente</h3>
+                <svg className="h-6 w-6 opacity-75" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                 </svg>
               </div>
@@ -1289,17 +1189,12 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
             <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium opacity-90">Solde total</h3>
-                <svg
-                  className="h-6 w-6 opacity-75"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="h-6 w-6 opacity-75" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
                 </svg>
               </div>
               <div className="text-2xl font-bold">
-                {(balance.available + balance.pending).toFixed(2)}{" "}
-                {balance.currency.toUpperCase()}
+                {(balance.available + balance.pending).toFixed(2)} {balance.currency.toUpperCase()}
               </div>
               <p className="text-xs opacity-75 mt-1">Disponible + En attente</p>
             </div>
@@ -1318,16 +1213,13 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       )}
 
       {/* Transactions Tab */}
-      {tab === "transactions" && (
+      {tab === 'transactions' && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           {/* Error Message */}
           {errorMessage && (
             <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
               <p className="text-red-800 font-medium">{errorMessage}</p>
-              <button
-                onClick={() => setErrorMessage(null)}
-                className="text-red-600 hover"
-              >
+              <button onClick={() => setErrorMessage(null)} className="text-red-600 hover">
                 ✕
               </button>
             </div>
@@ -1337,22 +1229,17 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
           {successMessage && (
             <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center justify-between">
               <p className="text-green-800 font-medium">{successMessage}</p>
-              <button
-                onClick={() => setSuccessMessage(null)}
-                className="text-green-600 hover"
-              >
+              <button onClick={() => setSuccessMessage(null)} className="text-green-600 hover">
                 ✕
               </button>
             </div>
           )}
 
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Historique des transactions
-            </h3>
+            <h3 className="text-lg font-semibold text-gray-900">Historique des transactions</h3>
             <div className="text-sm text-gray-500">
               {transactions.length} transaction
-              {transactions.length > 1 ? "s" : ""}
+              {transactions.length > 1 ? 's' : ''}
             </div>
           </div>
 
@@ -1383,8 +1270,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                           </h4>
                           {transaction.request && (
                             <p className="text-sm text-gray-500">
-                              Demande #{transaction.request.id} -{" "}
-                              {transaction.request.weight}kg
+                              Demande #{transaction.request.id} - {transaction.request.weight}kg
                             </p>
                           )}
                         </div>
@@ -1400,8 +1286,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-semibold text-gray-900">
-                        {transaction.amount.toFixed(2)}{" "}
-                        {transaction.currencyCode.toUpperCase()}
+                        {transaction.amount.toFixed(2)} {transaction.currencyCode.toUpperCase()}
                       </div>
                       {transaction.showReleaseFundButton && (
                         <button
@@ -1409,9 +1294,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                           disabled={releasingFunds === transaction.id}
                           className="mt-2 text-sm bg-green-600 text-white px-3 py-1 rounded-lg hover disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          {releasingFunds === transaction.id
-                            ? "..."
-                            : "Libérer"}
+                          {releasingFunds === transaction.id ? '...' : 'Libérer'}
                         </button>
                       )}
                     </div>
@@ -1433,21 +1316,15 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       )}
 
       {/* Earnings Tab */}
-      {tab === "earnings" && balance && (
+      {tab === 'earnings' && balance && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">
-            Analyse des gains
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">Analyse des gains</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Earnings Chart Placeholder */}
             <div className="bg-gray-50 rounded-xl p-6 h-64 flex items-center justify-center">
               <div className="text-center text-gray-500">
-                <svg
-                  className="h-12 w-12 mx-auto mb-4"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="h-12 w-12 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L3.5 15.9l.01 2.59z" />
                 </svg>
                 <p>Graphique des gains</p>
@@ -1458,20 +1335,15 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
             {/* Earnings Summary */}
             <div className="space-y-4">
               <div className="bg-blue-50 rounded-xl p-4">
-                <h4 className="font-medium text-blue-900 mb-2">
-                  Solde disponible
-                </h4>
+                <h4 className="font-medium text-blue-900 mb-2">Solde disponible</h4>
                 <div className="text-2xl font-bold text-blue-600">
-                  {balance.available.toFixed(2)}{" "}
-                  {balance.currency.toUpperCase()}
+                  {balance.available.toFixed(2)} {balance.currency.toUpperCase()}
                 </div>
                 <p className="text-sm text-blue-700">Prêt à être retiré</p>
               </div>
 
               <div className="bg-green-50 rounded-xl p-4">
-                <h4 className="font-medium text-green-900 mb-2">
-                  Solde en attente
-                </h4>
+                <h4 className="font-medium text-green-900 mb-2">Solde en attente</h4>
                 <div className="text-2xl font-bold text-green-600">
                   {balance.pending.toFixed(2)} {balance.currency.toUpperCase()}
                 </div>
@@ -1479,16 +1351,12 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
               </div>
 
               <div className="bg-purple-50 rounded-xl p-4">
-                <h4 className="font-medium text-purple-900 mb-2">
-                  Solde total
-                </h4>
+                <h4 className="font-medium text-purple-900 mb-2">Solde total</h4>
                 <div className="text-2xl font-bold text-purple-600">
-                  {(balance.available + balance.pending).toFixed(2)}{" "}
+                  {(balance.available + balance.pending).toFixed(2)}{' '}
                   {balance.currency.toUpperCase()}
                 </div>
-                <p className="text-sm text-purple-700">
-                  Disponible + En attente
-                </p>
+                <p className="text-sm text-purple-700">Disponible + En attente</p>
               </div>
             </div>
           </div>
@@ -1508,7 +1376,7 @@ const FavoritesSection = () => {
         const response = await getBookmarks();
         setBookmarks(response.items || []);
       } catch (error) {
-        console.error("Error fetching bookmarks:", error);
+        console.error('Error fetching bookmarks:', error);
       } finally {
         setLoading(false);
       }
@@ -1519,24 +1387,21 @@ const FavoritesSection = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
     });
   };
 
   const formatName = (fullName: string) => {
-    const parts = fullName.split(" ");
+    const parts = fullName.split(' ');
     if (parts.length >= 2) {
       return `${parts[0]} ${parts[1].charAt(0)}.`;
     }
     return fullName;
   };
 
-  const handleRemoveBookmark = async (
-    bookmarkType: "TRAVEL" | "DEMAND",
-    itemId: number
-  ) => {
+  const handleRemoveBookmark = async (bookmarkType: 'TRAVEL' | 'DEMAND', itemId: number) => {
     try {
       // Convert to lowercase for API endpoint
       const type = bookmarkType.toLowerCase();
@@ -1545,16 +1410,14 @@ const FavoritesSection = () => {
       const response = await getBookmarks();
       setBookmarks(response.items || []);
     } catch (error) {
-      console.error("Error removing bookmark:", error);
+      console.error('Error removing bookmark:', error);
     }
   };
 
   if (loading) {
     return (
       <div className="bg-white rounded-2x p-6">
-        <div className="text-center text-gray-500">
-          Chargement de vos favoris...
-        </div>
+        <div className="text-center text-gray-500">Chargement de vos favoris...</div>
       </div>
     );
   }
@@ -1563,11 +1426,7 @@ const FavoritesSection = () => {
     <div className="bg-white rounded-2xl ">
       {bookmarks.length === 0 ? (
         <div className="text-center text-gray-500 py-8 flex flex-col items-center">
-          <img
-            src="/images/noFavorites.jpeg"
-            alt="No favorites"
-            className="w-[50%] h-[50%]"
-          />
+          <img src="/images/noFavorites.jpeg" alt="No favorites" className="w-[50%] h-[50%]" />
         </div>
       ) : (
         <div>
@@ -1579,10 +1438,8 @@ const FavoritesSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
             {bookmarks.map((bookmark) => {
               // Determine if it's a travel or demand
-              const isTravel =
-                bookmark.bookmarkType === "TRAVEL" && bookmark.travel;
-              const isDemand =
-                bookmark.bookmarkType === "DEMAND" && bookmark.demand;
+              const isTravel = bookmark.bookmarkType === 'TRAVEL' && bookmark.travel;
+              const isDemand = bookmark.bookmarkType === 'DEMAND' && bookmark.demand;
 
               if (!isTravel && !isDemand) return null;
 
@@ -1591,27 +1448,21 @@ const FavoritesSection = () => {
               if (!item) return null;
 
               const id =
-                (isTravel
-                  ? bookmark.travelId
-                  : bookmark.demandId
-                )?.toString() || bookmark.id.toString();
-              const name = item.user
-                ? `${item.user.fullName}`.trim()
-                : "Voyageur";
+                (isTravel ? bookmark.travelId : bookmark.demandId)?.toString() ||
+                bookmark.id.toString();
+              const name = item.user ? `${item.user.fullName}`.trim() : 'Voyageur';
 
               const avatar =
-                item.user?.profilePictureUrl ||
-                item.images?.[0]?.fileUrl ||
-                "/favicon.ico";
-              const originName = item.departureAirport?.name || "";
-              const destName = item.arrivalAirport?.name || "";
+                item.user?.profilePictureUrl || item.images?.[0]?.fileUrl || '/favicon.ico';
+              const originName = item.departureAirport?.name || '';
+              const destName = item.arrivalAirport?.name || '';
               const location = `${originName} → ${destName}`;
               // Parse pricePerKg as it's returned as string from API
               const pricePerKg =
-                typeof item.pricePerKg === "string"
+                typeof item.pricePerKg === 'string'
                   ? parseFloat(item.pricePerKg)
                   : (item.pricePerKg ?? 0);
-              const rating = "4.7";
+              const rating = '4.7';
 
               // Pour les voyages (travel), utiliser le logo de la compagnie
               // Pour les demandes (demand), utiliser l'avatar de l'utilisateur
@@ -1620,17 +1471,14 @@ const FavoritesSection = () => {
               const featured = Boolean(item.user?.isVerified);
 
               // Use weightAvailable for travel type, weight for demand type
-              const availableWeight = isTravel
-                ? (item.weightAvailable ?? 0)
-                : (item.weight ?? 0);
+              const availableWeight = isTravel ? (item.weightAvailable ?? 0) : (item.weight ?? 0);
 
               // Get the date from the correct field
-              const dateString =
-                item.departureDatetime || item.deliveryDate || item.travelDate;
+              const dateString = item.departureDatetime || item.deliveryDate || item.travelDate;
               const departure = dateString ? formatDate(dateString) : undefined;
 
               const airline = item.airline?.name;
-              const type = isTravel ? "transporter" : "traveler";
+              const type = isTravel ? 'transporter' : 'traveler';
 
               return (
                 <>
@@ -1643,9 +1491,7 @@ const FavoritesSection = () => {
                     rating={rating}
                     image={image}
                     featured={featured}
-                    weight={
-                      availableWeight ? `${availableWeight}kg` : undefined
-                    }
+                    weight={availableWeight ? `${availableWeight}kg` : undefined}
                     departure={departure}
                     airline={airline}
                     type={type as any}
@@ -1657,9 +1503,9 @@ const FavoritesSection = () => {
                     }
                   />
                   {/* Remove from favorites button */}
-                  {/* <button 
+                  {/* <button
                     onClick={() => handleRemoveBookmark(
-                      bookmark.bookmarkType, 
+                      bookmark.bookmarkType,
                       isTravel ? bookmark.travelId! : bookmark.demandId!
                     )}
                     className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover transition-colors z-10"
@@ -1690,31 +1536,28 @@ const FavoritesSection = () => {
 
 export default function Profile() {
   const [searchParams] = useSearchParams();
-  const userId = searchParams.get("user"); // Get user ID from query params
+  const userId = searchParams.get('user'); // Get user ID from query params
   const { user: currentUser, isAuthenticated } = useAuth();
 
   // Determine if this is the current user's profile or another user's profile
-  const isOwnProfile =
-    !userId || (currentUser && userId === currentUser.id?.toString());
+  const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
   // Set default section based on profile type and URL parameters
-  const sectionParam = searchParams.get("section");
+  const sectionParam = searchParams.get('section');
   const [activeSection, setActiveSection] = useState<string>(
-    sectionParam || (isOwnProfile ? "reservations" : "reviews")
+    sectionParam || (isOwnProfile ? 'reservations' : 'reviews')
   );
 
   // Update active section when URL parameters change
   useEffect(() => {
-    const sectionParam = searchParams.get("section");
+    const sectionParam = searchParams.get('section');
     if (sectionParam) {
       setActiveSection(sectionParam);
     }
   }, [searchParams]);
   const [profileDialogOpen, setProfileDialogOpen] = useState<boolean>(false);
-  const [createAnnounceDialogOpen, setCreateAnnounceDialogOpen] =
-    useState<boolean>(false);
-  const [createPackageDialogOpen, setCreatePackageDialogOpen] =
-    useState<boolean>(false);
+  const [createAnnounceDialogOpen, setCreateAnnounceDialogOpen] = useState<boolean>(false);
+  const [createPackageDialogOpen, setCreatePackageDialogOpen] = useState<boolean>(false);
   const [profileUser, setProfileUser] = useState<GetMeResponse | null>(null);
   const [profileStats, setProfileStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -1738,7 +1581,7 @@ export default function Profile() {
           setProfileStats(userData.profileStats);
         }
       } catch (error) {
-        console.error("Error fetching profile data:", error);
+        console.error('Error fetching profile data:', error);
       } finally {
         setLoading(false);
       }
@@ -1752,21 +1595,16 @@ export default function Profile() {
 
   const profileSections: ProfileSection[] = [
     {
-      id: "reservations",
-      label: "Mes Réservations",
+      id: 'reservations',
+      label: 'Mes Réservations',
       icon: <PaperAirplaneIcon className="h-5 w-5" />,
       count: profileStats?.requestsAcceptedCount || 0,
     },
     {
-      id: "messages",
-      label: "Mes Messages",
+      id: 'messages',
+      label: 'Mes Messages',
       icon: (
-        <svg
-          className="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -1778,34 +1616,32 @@ export default function Profile() {
       count: totalUnreadCount, // Messages count not in profileStats
     },
     {
-      id: "reviews",
-      label: isOwnProfile ? "Mes Avis" : "Avis",
+      id: 'reviews',
+      label: isOwnProfile ? 'Mes Avis' : 'Avis',
       icon: <StarIcon className="h-5 w-5" />,
       count: profileStats?.reviewsReceivedCount || 0,
     },
     {
-      id: "travel-requests",
-      label: isOwnProfile ? "Mes Demandes de Voyages" : "Demandes de Voyages",
+      id: 'travel-requests',
+      label: isOwnProfile ? 'Mes Demandes de Voyages' : 'Demandes de Voyages',
       icon: <QuestionMarkCircleIcon className="h-5 w-5" />,
       count: profileStats?.demandsCount || 0,
     },
     {
-      id: "travels",
-      label: isOwnProfile ? "Mes Voyages" : "Voyages",
+      id: 'travels',
+      label: isOwnProfile ? 'Mes Voyages' : 'Voyages',
       icon: <PaperAirplaneIcon className="h-5 w-5" />,
       count: profileStats?.travelsCount || 0,
     },
     {
-      id: "favorites",
-      label: isOwnProfile ? "Mes Favoris" : "Favoris",
+      id: 'favorites',
+      label: isOwnProfile ? 'Mes Favoris' : 'Favoris',
       icon: <HeartIcon className="h-5 w-5" />,
-      count:
-        (profileStats?.bookMarkTravelCount || 0) +
-        (profileStats?.bookMarkDemandCount || 0),
+      count: (profileStats?.bookMarkTravelCount || 0) + (profileStats?.bookMarkDemandCount || 0),
     },
     {
-      id: "payments",
-      label: "Payments",
+      id: 'payments',
+      label: 'Payments',
       icon: <CurrencyDollarIcon className="h-5 w-5" />,
       count: profileStats?.transactionsCompletedCount || 0,
     },
@@ -1815,10 +1651,7 @@ export default function Profile() {
   const visibleSections = isOwnProfile
     ? profileSections
     : profileSections.filter(
-        (section) =>
-          !["reservations", "messages", "favorites", "payments"].includes(
-            section.id
-          )
+        (section) => !['reservations', 'messages', 'favorites', 'payments'].includes(section.id)
       );
 
   const handleStripeOnboarding = async () => {
@@ -1826,9 +1659,9 @@ export default function Profile() {
     try {
       const response = await getOnboardingLink();
       // Open the Stripe onboarding URL in a new tab
-      window.open(response.url, "_blank");
+      window.open(response.url, '_blank');
     } catch (error) {
-      console.error("Error getting onboarding link:", error);
+      console.error('Error getting onboarding link:', error);
       // You could show an error message here
     } finally {
       setProcessingOnboarding(false);
@@ -1836,8 +1669,7 @@ export default function Profile() {
   };
 
   const MessagesSection = () => {
-    const [selectedConversation, setSelectedConversation] =
-      useState<Conversation | null>(null);
+    const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
 
     return (
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
@@ -1875,12 +1707,9 @@ export default function Profile() {
                       />
                     </svg>
                   </div>
-                  <p className="text-gray-500 text-lg">
-                    Sélectionnez une conversation
-                  </p>
+                  <p className="text-gray-500 text-lg">Sélectionnez une conversation</p>
                   <p className="text-gray-400 text-sm mt-2">
-                    Choisissez une conversation dans la liste pour commencer à
-                    discuter
+                    Choisissez une conversation dans la liste pour commencer à discuter
                   </p>
                 </div>
               </div>
@@ -1893,24 +1722,24 @@ export default function Profile() {
 
   const renderContent = () => {
     switch (activeSection) {
-      case "messages":
+      case 'messages':
         return <MessagesSection />;
-      case "reservations":
+      case 'reservations':
         return (
           <div className="bg-white rounded-2xl border border-gray-200 p-2">
             <div className="mb-4 text-lg font-semibold">Reservations</div>
             <ReservationsSection />
           </div>
         );
-      case "reviews":
+      case 'reviews':
         return <ReviewsSection />;
-      case "travel-requests":
+      case 'travel-requests':
         return <TravelRequestsSection />;
-      case "travels":
+      case 'travels':
         return <TravelsSection />;
-      case "favorites":
+      case 'favorites':
         return <FavoritesSection />;
-      case "payments":
+      case 'payments':
         return <PaymentsSection profileStats={profileStats} />;
       default:
         return null;
@@ -1946,7 +1775,7 @@ export default function Profile() {
                   {displayUser?.profilePictureUrl ? (
                     <img
                       src={displayUser.profilePictureUrl}
-                      alt={displayUser?.fullName || "Profile"}
+                      alt={displayUser?.fullName || 'Profile'}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -1968,19 +1797,17 @@ export default function Profile() {
                 <h3 className="text-base md font-semibold text-gray-900 mb-2">
                   {displayUser?.fullName
                     ? `${displayUser.fullName}`
-                    : displayUser?.email || "Utilisateur"}
+                    : displayUser?.email || 'Utilisateur'}
                 </h3>
 
                 {/* User Bio */}
                 {displayUser?.bio ? (
-                  <p className="text-gray-600 text-sm mb-4 italic">
-                    "{displayUser.bio}"
-                  </p>
+                  <p className="text-gray-600 text-sm mb-4 italic">"{displayUser.bio}"</p>
                 ) : (
                   <p className="text-gray-500 text-sm mb-4">
                     {isOwnProfile
-                      ? "Ajoutez une bio pour vous présenter aux autres utilisateurs"
-                      : "Aucune bio disponible"}
+                      ? 'Ajoutez une bio pour vous présenter aux autres utilisateurs'
+                      : 'Aucune bio disponible'}
                   </p>
                 )}
 
@@ -1996,7 +1823,7 @@ export default function Profile() {
               </div>
 
               {/* Stripe Account Alert - Show for users with pending Stripe account */}
-              {(displayUser?.stripeAccountStatus === "pending" ||
+              {(displayUser?.stripeAccountStatus === 'pending' ||
                 !displayUser?.stripeAccountId) && (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
                   <div className="flex flex-col justify-center items-center text-center">
@@ -2011,13 +1838,7 @@ export default function Profile() {
                         <circle cx="50" cy="50" r="45" fill="#F4D951" />
 
                         {/* La bordure extérieure (jaune plus foncé/doré) */}
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="45"
-                          stroke="#E6C13E"
-                          strokeWidth="8"
-                        />
+                        <circle cx="50" cy="50" r="45" stroke="#E6C13E" strokeWidth="8" />
 
                         {/* La coche verte avec des extrémités arrondies */}
                         <path
@@ -2035,8 +1856,8 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
                       <p className="text-xs text-yellow-800">
-                        To withdraw your earnings from the platform you need to
-                        create a Stripe account.
+                        To withdraw your earnings from the platform you need to create a Stripe
+                        account.
                       </p>
                       <p className="text-sm text-yellow-800">
                         Click the button below to complete your registration.
@@ -2047,7 +1868,7 @@ export default function Profile() {
                       disabled={processingOnboarding}
                       className="w-full bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {processingOnboarding ? "Ouverture..." : "Register"}
+                      {processingOnboarding ? 'Ouverture...' : 'Register'}
                     </button>
                   </div>
                 </div>
@@ -2062,15 +1883,13 @@ export default function Profile() {
                       onClick={() => setActiveSection(section.id)}
                       className={`w-full flex items-center justify-between p-2 md:p-3 rounded-lg text-left transition-colors ${
                         activeSection === section.id
-                          ? "bg-blue-50 text-blue-600"
-                          : "text-gray-700 hover"
+                          ? 'bg-blue-50 text-blue-600'
+                          : 'text-gray-700 hover'
                       }`}
                     >
                       <div className="flex items-center gap-1">
                         <span className="flex-shrink-0">{section.icon}</span>
-                        <span className="text-xs md font-medium truncate">
-                          {section.label}
-                        </span>
+                        <span className="text-xs md font-medium truncate">{section.label}</span>
                       </div>
                       <span className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">
                         {section.count}
@@ -2117,10 +1936,7 @@ export default function Profile() {
 
       {/* Profile Dialog - Only show for own profile */}
       {isOwnProfile && (
-        <ProfileDialog
-          open={profileDialogOpen}
-          onClose={() => setProfileDialogOpen(false)}
-        />
+        <ProfileDialog open={profileDialogOpen} onClose={() => setProfileDialogOpen(false)} />
       )}
 
       {/* Create Announce Dialog - Only show for own profile */}
