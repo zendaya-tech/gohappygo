@@ -325,6 +325,9 @@ const ReservationsSection = () => {
                 : travel?.pricePerKg || 0;
 
             const price = Number((pricePerKg * weight).toFixed(0));
+            
+            // Get currency symbol from request
+            const currencySymbol = request.currency?.symbol || travel?.currency?.symbol || "€";
 
             const displayUserName = displayUser
               ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
@@ -348,6 +351,7 @@ const ReservationsSection = () => {
                 flightNumber={flightNumber}
                 weight={weight}
                 price={price}
+                priceSubtext={`${currencySymbol}/Kg`}
                 type="transporter" // For the proper airline logo styling
                 unreadCount={request.unReadMessages || 0}
                 // Logic for Status Badges vs Buttons
