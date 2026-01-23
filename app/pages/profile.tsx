@@ -238,7 +238,7 @@ const ReservationsSection = () => {
       <div className="flex items-center gap-6 mb-6">
         <button
           onClick={() => setTab('pending')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'pending' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -246,7 +246,7 @@ const ReservationsSection = () => {
         </button>
         <button
           onClick={() => setTab('accepted')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'accepted' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -254,7 +254,7 @@ const ReservationsSection = () => {
         </button>
         <button
           onClick={() => setTab('completed')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'completed' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -518,7 +518,7 @@ const ReviewsSection = () => {
       <div className="flex items-center gap-6 mb-6">
         <button
           onClick={() => setTab('received')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'received' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -526,7 +526,7 @@ const ReviewsSection = () => {
         </button>
         <button
           onClick={() => setTab('given')}
-          className={`text-sm font-semibold ${tab === 'given' ? 'text-gray-900' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${tab === 'given' ? 'text-gray-900' : 'text-gray-500'}`}
         >
           | {isOwnProfile ? 'Mes avis donnés' : 'Avis donnés'}
         </button>
@@ -1131,7 +1131,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       <div className="flex items-center gap-6 mb-6">
         <button
           onClick={() => setTab('balance')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'balance' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -1139,7 +1139,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
         </button>
         <button
           onClick={() => setTab('transactions')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'transactions' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -1147,7 +1147,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
         </button>
         <button
           onClick={() => setTab('earnings')}
-          className={`text-sm font-semibold ${
+          className={`text-sm font-semibold cursor-pointer ${
             tab === 'earnings' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
@@ -1202,10 +1202,10 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
 
           {/* Quick Actions */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover transition-colors">
+            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover transition-colors cursor-pointer">
               Retirer des fonds
             </button>
-            <button className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover transition-colors">
+            <button className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover transition-colors cursor-pointer">
               Historique des retraits
             </button>
           </div>
@@ -1815,7 +1815,7 @@ export default function Profile() {
                 {isOwnProfile && (
                   <button
                     onClick={() => setProfileDialogOpen(true)}
-                    className="w-full bg-white border border-blue-500 text-blue-500 rounded-lg px-4 py-2 text-sm font-medium hover transition-colors"
+                    className="w-full bg-white border border-blue-500 text-blue-500 rounded-lg px-4 py-2 text-sm font-medium hover transition-colors cursor-pointer"
                   >
                     Edit Profile
                   </button>
@@ -1881,7 +1881,7 @@ export default function Profile() {
                     <button
                       key={section.id}
                       onClick={() => setActiveSection(section.id)}
-                      className={`w-full flex items-center justify-between p-2 md:p-3 rounded-lg text-left transition-colors ${
+                      className={`w-full flex items-center justify-between p-2 md:p-3 rounded-lg text-left transition-colors cursor-pointer ${
                         activeSection === section.id
                           ? 'bg-blue-50 text-blue-600'
                           : 'text-gray-700 hover'
@@ -1904,13 +1904,13 @@ export default function Profile() {
                 <div className="space-y-3">
                   <button
                     onClick={() => setCreateAnnounceDialogOpen(true)}
-                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl"
+                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
                     Publier une annonce de voyage
                   </button>
                   <button
                     onClick={() => setCreatePackageDialogOpen(true)}
-                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl"
+                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
                     Publier une demande de voyage
                   </button>

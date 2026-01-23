@@ -1,11 +1,7 @@
-import { Link } from "react-router";
-import { useState, useEffect } from "react";
-import {
-  addBookmark,
-  removeBookmark,
-  checkIfBookmarked,
-} from "~/services/bookmarkService";
-import { useAuthStore, type AuthState } from "~/store/auth";
+import { Link } from 'react-router';
+import { useState, useEffect } from 'react';
+import { addBookmark, removeBookmark, checkIfBookmarked } from '~/services/bookmarkService';
+import { useAuthStore, type AuthState } from '~/store/auth';
 
 interface PropertyCardProps {
   id: string;
@@ -20,7 +16,7 @@ interface PropertyCardProps {
   airline?: string;
   isRequest?: boolean;
   avatar?: string;
-  type?: "traveler" | "transporter";
+  type?: 'traveler' | 'transporter';
   isBookmarked?: boolean;
   userId?: number; // ID de l'utilisateur qui a créé l'annonce
   currencySymbol?: string; // Symbole de la devise
@@ -42,7 +38,7 @@ export default function AnnounceCard({
   avatar,
   isBookmarked = false,
   userId,
-  currencySymbol = "€", // Valeur par défaut Euro
+  currencySymbol = '€', // Valeur par défaut Euro
 }: PropertyCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,8 +46,7 @@ export default function AnnounceCard({
   const currentUser = useAuthStore((s: AuthState) => s.user);
 
   // Vérifier si l'annonce appartient à l'utilisateur connecté
-  const isOwnAnnounce =
-    currentUser && userId && Number(currentUser.id) === Number(userId);
+  const isOwnAnnounce = currentUser && userId && Number(currentUser.id) === Number(userId);
 
   // Use the isBookmarked prop from API response or check bookmark status
   useEffect(() => {
@@ -60,14 +55,11 @@ export default function AnnounceCard({
     } else {
       const checkBookmarkStatus = async () => {
         try {
-          const bookmarkType = type === "transporter" ? "TRAVEL" : "DEMAND";
-          const bookmarkStatus = await checkIfBookmarked(
-            bookmarkType,
-            parseInt(id)
-          );
+          const bookmarkType = type === 'transporter' ? 'TRAVEL' : 'DEMAND';
+          const bookmarkStatus = await checkIfBookmarked(bookmarkType, parseInt(id));
           setIsFavorite(bookmarkStatus);
         } catch (error) {
-          console.error("Error checking bookmark status:", error);
+          console.error('Error checking bookmark status:', error);
         }
       };
       checkBookmarkStatus();
@@ -79,7 +71,7 @@ export default function AnnounceCard({
 
     // Si l'utilisateur n'est pas connecté, ouvrir la modal de connexion
     if (!isLoggedIn) {
-      window.dispatchEvent(new Event("open-login-dialog"));
+      window.dispatchEvent(new Event('open-login-dialog'));
       return;
     }
 
@@ -88,7 +80,7 @@ export default function AnnounceCard({
     setIsLoading(true);
 
     try {
-      const bookmarkType = type === "transporter" ? "TRAVEL" : "DEMAND";
+      const bookmarkType = type === 'transporter' ? 'TRAVEL' : 'DEMAND';
       const itemId = parseInt(id);
 
       if (isFavorite) {
@@ -98,10 +90,10 @@ export default function AnnounceCard({
       } else {
         // Add bookmark
         const bookmarkData: any = {
-          bookmarkType: bookmarkType as "TRAVEL" | "DEMAND",
+          bookmarkType: bookmarkType as 'TRAVEL' | 'DEMAND',
         };
 
-        if (bookmarkType === "TRAVEL") {
+        if (bookmarkType === 'TRAVEL') {
           bookmarkData.travelId = itemId;
         } else {
           bookmarkData.demandId = itemId;
@@ -111,13 +103,13 @@ export default function AnnounceCard({
         setIsFavorite(true);
       }
     } catch (error) {
-      console.error("Error toggling bookmark:", error);
+      console.error('Error toggling bookmark:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const announceType = type === "transporter" ? "travel" : "demand";
+  const announceType = type === 'transporter' ? 'travel' : 'demand';
 
   return (
     <Link
@@ -130,9 +122,9 @@ export default function AnnounceCard({
           src={image}
           alt={fullName}
           className={`${
-            type === "transporter"
-              ? "max-h-full h-52 p-5 object-contain max-w-full "
-              : "object-cover min-w-100 min-h-100 "
+            type === 'transporter'
+              ? 'max-h-full h-52 p-5 object-contain max-w-full '
+              : 'object-cover min-w-100 min-h-100 '
           } m-auto  `}
         />
         {featured && (
@@ -143,30 +135,22 @@ export default function AnnounceCard({
         {type && (
           <div
             className={`absolute bottom-4 left-4 px-3 py-1 rounded-full text-xs font-medium ${
-              type === "transporter"
-                ? "bg-blue-500/90 text-white"
-                : "bg-orange-500/90 text-white"
+              type === 'transporter' ? 'bg-blue-500/90 text-white' : 'bg-orange-500/90 text-white'
             }`}
           >
-            {type === "transporter" ? "Voyage" : "Demande"}
+            {type === 'transporter' ? 'Voyage' : 'Demande'}
           </div>
         )}
         {!isOwnAnnounce && (
           <button
             onClick={handleFavoriteClick}
             disabled={isLoading}
-            className={`absolute top-4 right-4 backdrop-blur-sm p-2 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed ${
-              isFavorite
-                ? "bg-red-500/90 text-white"
-                : "bg-white/80/70 hover"
+            className={`absolute top-4 right-4 backdrop-blur-sm p-2 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer ${
+              isFavorite ? 'bg-red-500/90 text-white' : 'bg-white/80/70 hover'
             }`}
           >
             {isLoading ? (
-              <svg
-                className="w-5 h-5 animate-spin text-gray-600"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-5 h-5 animate-spin text-gray-600" fill="none" viewBox="0 0 24 24">
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -184,9 +168,9 @@ export default function AnnounceCard({
             ) : (
               <svg
                 className={`w-5 h-5 transition-colors duration-200 ${
-                  isFavorite ? "text-white" : "text-gray-600"
+                  isFavorite ? 'text-white' : 'text-gray-600'
                 }`}
-                fill={isFavorite ? "currentColor" : "none"}
+                fill={isFavorite ? 'currentColor' : 'none'}
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
@@ -206,24 +190,17 @@ export default function AnnounceCard({
       <div className="p-6">
         <div className="flex items-center gap-2 mb-2">
           <img src={avatar} alt={fullName} className="w-10 h-10 rounded-full" />
-          <h3 className="font-semibold text-gray-900 ">
-            {fullName}
-          </h3>
+          <h3 className="font-semibold text-gray-900 ">{fullName}</h3>
         </div>
         <p className="text-gray-600 h-14 text-sm mb-2 ">
           {location.length - 3 > 80 ? `${location.slice(0, 80)} ...` : location}
         </p>
         {
           <p className="text-blue-600 text-sm font-medium mb-2">
-            {type === "transporter" ? "Espace disponible" : "Espace demandé"}:{" "}
-            {weight ?? "0 kg"}
+            {type === 'transporter' ? 'Espace disponible' : 'Espace demandé'}: {weight ?? '0 kg'}
           </p>
         }
-        {departure && (
-          <p className="text-gray-500 text-xs mb-2">
-            Date : {departure}
-          </p>
-        )}
+        {departure && <p className="text-gray-500 text-xs mb-2">Date : {departure}</p>}
         {/* {airline && (
           <p className="text-gray-500 text-xs mb-4">
             Compagnie: {airline}
@@ -238,23 +215,13 @@ export default function AnnounceCard({
             <div className="flex items-center space-x-1">
               {Number(rating) > 0 ? (
                 <>
-                  <svg
-                    className="w-4 h-4 text-yellow-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
+                  <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  <span className="text-sm text-gray-600">
-                    {rating}
-                  </span>
+                  <span className="text-sm text-gray-600">{rating}</span>
                 </>
               ) : (
-                <svg
-                  className="w-4 h-4 text-gray-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
+                <svg className="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
               )}
