@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import NotificationPopover from '~/components/popovers/NotificationPopover';
 import AppDownloadPopover from '~/components/popovers/AppDownloadPopover';
-import { useRef } from "react";
+import { useRef } from 'react';
 import AvatarMenu from '~/components/popovers/AvatarMenu';
 import CreatePackageDialog from '~/components/dialogs/CreatePackageDialog';
 import CreateAnnounceDialog from '~/components/dialogs/CreateAnnounceDialog';
 import AnnounceTypeDropdown from '~/components/popovers/AnnounceTypeDropdown';
 import LoginDialog from '~/components/dialogs/LoginDialog';
 import RegisterDialog from '~/components/dialogs/RegisterDialog';
-import { Link } from "react-router";
-import { useAuthStore, type AuthState } from "~/store/auth";
+import { Link } from 'react-router';
+import { useAuthStore, type AuthState } from '~/store/auth';
 import LanguageDropdown from '~/components/popovers/LanguageDropdown';
-import { notificationService } from "~/services/notificationService";
+import { notificationService } from '~/services/notificationService';
 
 export default function Header() {
   const { t } = useTranslation();
@@ -31,16 +31,14 @@ export default function Header() {
   const [pinnedDownload, setPinnedDownload] = useState(false);
   const downloadBtnRef = useRef<HTMLElement>({} as HTMLElement);
   const [showCreatePackage, setShowCreatePackage] = useState(false);
-  const [showAnnounceTypeDropdown, setShowAnnounceTypeDropdown] =
-    useState(false);
+  const [showAnnounceTypeDropdown, setShowAnnounceTypeDropdown] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [showMobilePublishOptions, setShowMobilePublishOptions] =
-    useState(false);
+  const [showMobilePublishOptions, setShowMobilePublishOptions] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
-  const handleAnnounceTypeSelect = (type: "travel" | "package") => {
-    if (type === "travel") {
+  const handleAnnounceTypeSelect = (type: 'travel' | 'package') => {
+    if (type === 'travel') {
       setShowCreateAnnounce(true);
-    } else if (type === "package") {
+    } else if (type === 'package') {
       setShowCreatePackage(true);
     }
   };
@@ -51,20 +49,11 @@ export default function Header() {
   useEffect(() => {
     const onOpenCreateAnnounce = () => setShowCreateAnnounce(true);
     const onOpenLogin = () => setShowLogin(true);
-    window.addEventListener(
-      "open-create-announce",
-      onOpenCreateAnnounce as EventListener
-    );
-    window.addEventListener("open-login-dialog", onOpenLogin as EventListener);
+    window.addEventListener('open-create-announce', onOpenCreateAnnounce as EventListener);
+    window.addEventListener('open-login-dialog', onOpenLogin as EventListener);
     return () => {
-      window.removeEventListener(
-        "open-create-announce",
-        onOpenCreateAnnounce as EventListener
-      );
-      window.removeEventListener(
-        "open-login-dialog",
-        onOpenLogin as EventListener
-      );
+      window.removeEventListener('open-create-announce', onOpenCreateAnnounce as EventListener);
+      window.removeEventListener('open-login-dialog', onOpenLogin as EventListener);
     };
   }, []);
 
@@ -72,19 +61,19 @@ export default function Header() {
     if (isLoggedIn) {
       const loadUnreadCount = async () => {
         try {
-          console.log("Loading notification counts...");
+          console.log('Loading notification counts...');
           const counts = await notificationService.getNotificationCounts();
-          console.log("Notification counts received:", counts);
+          console.log('Notification counts received:', counts);
           setUnreadCount(counts.unreadCount);
         } catch (error) {
-          console.error("Failed to load notification counts:", error);
+          console.error('Failed to load notification counts:', error);
         }
       };
       loadUnreadCount();
       const interval = setInterval(loadUnreadCount, 30000); // Refresh every 30 seconds
       return () => clearInterval(interval);
     } else {
-      console.log("User not logged in, skipping notification count load");
+      console.log('User not logged in, skipping notification count load');
     }
   }, [isLoggedIn]);
 
@@ -94,10 +83,7 @@ export default function Header() {
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link
-              to={"/"}
-              className="flex items-center space-x-3 flex-shrink-0"
-            >
+            <Link to={'/'} className="flex items-center space-x-3 flex-shrink-0">
               <div className="h-10">
                 <img src="/logo.png" alt="Logo" className="h-10" />
               </div>
@@ -108,7 +94,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setHoverDownload((v) => !v)}
-                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200"
+                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200 cursor-pointer"
                   ref={(el) => {
                     (downloadBtnRef as any).current = el;
                   }}
@@ -129,9 +115,9 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setShowAnnounceTypeDropdown((v) => !v)}
-                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200"
+                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200 cursor-pointer"
                 >
-                  {t("header.publishAd")}
+                  {t('header.publishAd')}
                 </button>
                 <AnnounceTypeDropdown
                   open={showAnnounceTypeDropdown}
@@ -147,7 +133,7 @@ export default function Header() {
               {isLoggedIn && (
                 <div className="relative">
                   <button
-                    className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative"
+                    className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
                     aria-label="Notifications"
                     onMouseDown={(e) => e.preventDefault()}
@@ -156,12 +142,7 @@ export default function Header() {
                       setShowNotif((v) => !v);
                     }}
                   >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -171,7 +152,7 @@ export default function Header() {
                     </svg>
                     {unreadCount > 0 && (
                       <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
-                        {unreadCount > 9 ? "9+" : unreadCount}
+                        {unreadCount > 9 ? '9+' : unreadCount}
                       </span>
                     )}
                   </button>
@@ -185,7 +166,7 @@ export default function Header() {
               <div className="w-px h-6 bg-gray-300"></div>
               <div className="relative">
                 <button
-                  className="flex items-center gap-2 rounded-lg p-1.5 hover transition-colors duration-200"
+                  className="flex items-center gap-2 rounded-lg p-1.5 hover transition-colors duration-200 cursor-pointer"
                   onClick={() => setShowAvatarMenuDesktop((v) => !v)}
                   aria-label="Ouvrir le menu du compte"
                 >
@@ -256,12 +237,7 @@ export default function Header() {
                     onClick={() => setShowNotif((v) => !v)}
                     aria-label="Notifications"
                   >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -271,7 +247,7 @@ export default function Header() {
                     </svg>
                     {unreadCount > 0 && (
                       <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
-                        {unreadCount > 9 ? "9+" : unreadCount}
+                        {unreadCount > 9 ? '9+' : unreadCount}
                       </span>
                     )}
                   </button>
@@ -341,22 +317,22 @@ export default function Header() {
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="relative w-10 h-10 rounded-lg hover transition-all duration-300 flex items-center justify-center group"
-                aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               >
                 <div className="w-5 h-4 flex flex-col justify-between">
                   <span
                     className={`block h-0.5 w-full bg-gray-600 rounded-full transition-all duration-300 origin-center ${
-                      isMenuOpen ? "rotate-45 translate-y-[7px]" : ""
+                      isMenuOpen ? 'rotate-45 translate-y-[7px]' : ''
                     }`}
                   ></span>
                   <span
                     className={`block h-0.5 w-full bg-gray-600 rounded-full transition-all duration-300 ${
-                      isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
+                      isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
                     }`}
                   ></span>
                   <span
                     className={`block h-0.5 w-full bg-gray-600 rounded-full transition-all duration-300 origin-center ${
-                      isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""
+                      isMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''
                     }`}
                   ></span>
                 </div>
@@ -367,15 +343,13 @@ export default function Header() {
           {/* Mobile Navigation - Modern Slide-in Menu */}
           <div
             className={`md:hidden fixed inset-0 top-16 z-40 transition-all duration-300 ${
-              isMenuOpen
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
+              isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
           >
             {/* Backdrop */}
             <div
               className={`absolute inset-0 bg-black/20/40 backdrop-blur-sm transition-opacity duration-300 ${
-                isMenuOpen ? "opacity-100" : "opacity-0"
+                isMenuOpen ? 'opacity-100' : 'opacity-0'
               }`}
               onClick={() => setIsMenuOpen(false)}
             ></div>
@@ -383,7 +357,7 @@ export default function Header() {
             {/* Menu Panel */}
             <div
               className={`absolute top-0 left-0 right-0 bg-white shadow-xl transition-transform duration-300 ease-out ${
-                isMenuOpen ? "translate-y-0" : "-translate-y-full"
+                isMenuOpen ? 'translate-y-0' : '-translate-y-full'
               }`}
             >
               <div className="px-4 py-3 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
@@ -416,7 +390,7 @@ export default function Header() {
                 <div className="space-y-1">
                   <button
                     onClick={() => setShowMobilePublishOptions((v) => !v)}
-                    className="flex items-center justify-between w-full px-4 py-3 text-gray-700 hover hover hover hover rounded-xl font-medium transition-all duration-200 group"
+                    className="flex items-center justify-between w-full px-4 py-3 text-gray-700 hover hover hover hover rounded-xl font-medium transition-all duration-200 group cursor-pointer"
                   >
                     <div className="flex items-center">
                       <svg
@@ -432,11 +406,11 @@ export default function Header() {
                           d="M12 4v16m8-8H4"
                         />
                       </svg>
-                      <span>{t("header.publishAd")}</span>
+                      <span>{t('header.publishAd')}</span>
                     </div>
                     <svg
                       className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
-                        showMobilePublishOptions ? "rotate-180" : ""
+                        showMobilePublishOptions ? 'rotate-180' : ''
                       }`}
                       viewBox="0 0 24 24"
                       fill="none"
@@ -454,9 +428,7 @@ export default function Header() {
                   {/* Submenu with smooth animation */}
                   <div
                     className={`overflow-hidden transition-all duration-300 ${
-                      showMobilePublishOptions
-                        ? "max-h-40 opacity-100"
-                        : "max-h-0 opacity-0"
+                      showMobilePublishOptions ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
                     <div className="pl-12 pr-4 space-y-1 py-1">
@@ -470,7 +442,7 @@ export default function Header() {
                           setShowCreateAnnounce(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200"
+                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -497,7 +469,7 @@ export default function Header() {
                           setShowCreatePackage(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200"
+                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -523,10 +495,7 @@ export default function Header() {
         </div>
       </header>
 
-      <CreatePackageDialog
-        open={showCreatePackage}
-        onClose={() => setShowCreatePackage(false)}
-      />
+      <CreatePackageDialog open={showCreatePackage} onClose={() => setShowCreatePackage(false)} />
       <CreateAnnounceDialog
         open={showCreateAnnounce}
         onClose={() => setShowCreateAnnounce(false)}

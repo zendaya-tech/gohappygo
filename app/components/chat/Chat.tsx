@@ -22,40 +22,46 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   const currentUser = useAuthStore((state) => state.user);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  const handleNewMessage = useCallback((message: ChatMessage) => {
-    setMessages(prev => {
-      // Avoid duplicates
-      if (prev.some(m => m.id === message.id)) {
-        return prev;
+  const handleNewMessage = useCallback(
+    (message: ChatMessage) => {
+      setMessages((prev) => {
+        // Avoid duplicates
+        if (prev.some((m) => m.id === message.id)) {
+          return prev;
+        }
+        return [
+          ...prev,
+          {
+            ...message,
+            isRead: message.sender.id === Number(currentUser?.id),
+          },
+        ];
+      });
+
+      // Mark as read if not from current user
+      if (message.sender.id !== Number(currentUser?.id)) {
+        // Use socket markAsRead first, fallback to HTTP
+        if (!markAsRead()) {
+          markThreadAsRead(requestId).catch(console.error);
+        }
       }
-      return [...prev, {
-        ...message,
-        isRead: message.sender.id === Number(currentUser?.id)
-      }];
-    });
-    
-    // Mark as read if not from current user
-    if (message.sender.id !== Number(currentUser?.id)) {
-      // Use socket markAsRead first, fallback to HTTP
-      if (!markAsRead()) {
-        markThreadAsRead(requestId).catch(console.error);
-      }
-    }
-  }, [requestId, currentUser?.id]);
+    },
+    [requestId, currentUser?.id]
+  );
 
   const handleTyping = useCallback((userId: number, isTyping: boolean) => {
-    setTypingUsers(prev => {
+    setTypingUsers((prev) => {
       const newSet = new Set(prev);
       if (isTyping) {
         newSet.add(userId);
@@ -68,10 +74,10 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
   const { isConnected, sendMessage, sendTyping, markAsRead } = useSocketIO({
     requestId,
-    
+
     onMessage: handleNewMessage,
     onTyping: handleTyping,
-    onError: (error) => console.error('Socket.IO error:', error)
+    onError: (error) => console.error('Socket.IO error:', error),
   });
 
   // Load initial messages
@@ -83,12 +89,12 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         setMessages(response.items); // Reverse to show oldest first
         setHasMore(response.meta.hasNextPage);
         setPage(1);
-        
+
         // Mark as read
         if (!markAsRead()) {
           await markThreadAsRead(requestId);
         }
-        
+
         setTimeout(scrollToBottom, 100);
       } catch (error) {
         console.error('Error loading messages:', error);
@@ -103,13 +109,13 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
   // Load more messages
   const loadMoreMessages = async () => {
     if (!hasMore || loadingMore) return;
-    
+
     try {
       setLoadingMore(true);
       const nextPage = page + 1;
       const response = await getMessageThread(requestId, nextPage, 20);
-      
-      setMessages(prev => [...response.items.reverse(), ...prev]);
+
+      setMessages((prev) => [...response.items.reverse(), ...prev]);
       setHasMore(response.meta.hasNextPage);
       setPage(nextPage);
     } catch (error) {
@@ -121,9 +127,9 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
   const handleSendMessage = async () => {
     if (!newMessage.trim() || sending) return;
-    
+
     setSending(true);
-    
+
     try {
       const success = sendMessage(newMessage.trim());
       if (success) {
@@ -142,16 +148,16 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
   const handleInputChange = (value: string) => {
     setNewMessage(value);
-    
+
     // Send typing indicator
     if (value.trim()) {
       sendTyping(true);
-      
+
       // Clear previous timeout
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
       }
-      
+
       // Stop typing after 2 seconds of inactivity
       typingTimeoutRef.current = setTimeout(() => {
         sendTyping(false);
@@ -172,7 +178,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     const date = new Date(dateString);
     return date.toLocaleTimeString('fr-FR', {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -181,15 +187,15 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    
+
     if (date.toDateString() === today.toDateString()) {
       return "Aujourd'hui";
     } else if (date.toDateString() === yesterday.toDateString()) {
-      return "Hier";
+      return 'Hier';
     } else {
       return date.toLocaleDateString('fr-FR', {
         day: 'numeric',
-        month: 'short'
+        month: 'short',
       });
     }
   };
@@ -242,17 +248,22 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         {onClose && (
           <button
             onClick={onClose}
-            className="text-gray-400 hover transition-colors"
+            className="text-gray-400 hover transition-colors cursor-pointer"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         )}
       </div>
 
       {/* Messages */}
-      <div 
+      <div
         ref={messagesContainerRef}
         className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
         onScroll={(e) => {
@@ -267,7 +278,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mx-auto"></div>
           </div>
         )}
-        
+
         {Object.entries(groupedMessages).map(([date, dayMessages]) => (
           <div key={date}>
             {/* Date separator */}
@@ -276,15 +287,13 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                 {formatDate(dayMessages[0].createdAt)}
               </span>
             </div>
-            
+
             {/* Messages for this date */}
             {dayMessages.map((message, index) => {
               const isOwn = message.sender.id === Number(currentUser?.id);
-              const showAvatar = (
-                index === 0 || 
-                dayMessages[index - 1]?.sender.id !== message.sender.id
-              );
-              
+              const showAvatar =
+                index === 0 || dayMessages[index - 1]?.sender.id !== message.sender.id;
+
               return (
                 <div
                   key={message.id}
@@ -302,7 +311,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                       )}
                     </div>
                   )}
-                  
+
                   <div className={`max-w-xs lg:max-w-md ${isOwn ? 'ml-auto' : ''}`}>
                     <div
                       className={`px-4 py-2 rounded-lg shadow-sm ${
@@ -313,19 +322,35 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                     </div>
-                    <div className={`flex items-center gap-2 mt-1 ${isOwn ? 'justify-end' : 'justify-start'}`}>
-                      <p className="text-xs text-gray-500">
-                        {formatTime(message.createdAt)}
-                      </p>
+                    <div
+                      className={`flex items-center gap-2 mt-1 ${isOwn ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <p className="text-xs text-gray-500">{formatTime(message.createdAt)}</p>
                       {isOwn && (
                         <div className="flex items-center">
                           {message.isRead ? (
-                            <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            <svg
+                              className="w-3 h-3 text-blue-500"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
                             </svg>
                           ) : (
-                            <svg className="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            <svg
+                              className="w-3 h-3 text-gray-400"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
                             </svg>
                           )}
                         </div>
@@ -350,7 +375,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
             })}
           </div>
         ))}
-        
+
         {/* Typing indicator */}
         {typingUsers.size > 0 && (
           <div className="flex justify-start mb-2">
@@ -359,15 +384,21 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
               <div className="flex items-center gap-1">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div
+                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                    style={{ animationDelay: '0.1s' }}
+                  ></div>
+                  <div
+                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                    style={{ animationDelay: '0.2s' }}
+                  ></div>
                 </div>
                 <span className="text-xs text-gray-500 ml-2">En train d'écrire...</span>
               </div>
             </div>
           </div>
         )}
-        
+
         <div ref={messagesEndRef} />
       </div>
 
@@ -394,18 +425,23 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
           <button
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || sending || !isConnected}
-            className="p-2 bg-blue-600 text-white rounded-full hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 bg-blue-600 text-white rounded-full hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {sending ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
             ) : (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                />
               </svg>
             )}
           </button>
         </div>
-        
+
         {!isConnected && (
           <div className="mt-2 text-xs text-red-600 text-center">
             Connexion perdue. Tentative de reconnexion...

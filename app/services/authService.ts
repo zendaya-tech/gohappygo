@@ -1,10 +1,9 @@
-import api from "./Api";
+import api from './Api';
 
 export const login = async (email: string, password: string) => {
   try {
     const response = await api.post(`/auth/login`, { email, password });
     return response.data;
-
   } catch (error) {
     console.error(error);
     return null;
@@ -21,17 +20,17 @@ export const register = async (
 ) => {
   try {
     const formData = new FormData();
-    
-    formData.append("email", email);
-    formData.append("password", password);
-    if (firstName) formData.append("firstName", firstName);
-    if (lastName) formData.append("lastName", lastName);
-    if (phoneNumber) formData.append("phoneNumber", phoneNumber);
-    if (countryCode) formData.append("countryCode", countryCode);
+
+    formData.append('email', email);
+    formData.append('password', password);
+    if (firstName) formData.append('firstName', firstName);
+    if (lastName) formData.append('lastName', lastName);
+    if (phoneNumber) formData.append('phoneNumber', phoneNumber);
+    if (countryCode) formData.append('countryCode', countryCode);
 
     const response = await api.post(`/auth/register`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
     return response.data;
@@ -54,25 +53,36 @@ export const verifyEmail = async (email: string, verificationCode: string) => {
   }
 };
 
+export const resendEmailVerification = async (email: string) => {
+  try {
+    const response = await api.post(`/auth/resend-email-verification`, {
+      email,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const updateProfile = async (data: UpdateProfileData) => {
   try {
     const formData = new FormData();
 
-    if (data.firstName) formData.append("firstName", data.firstName);
-    if (data.lastName) formData.append("lastName", data.lastName);
-    if (data.bio) formData.append("bio", data.bio);
-    if (data.phone) formData.append("phone", data.phone);
-    if (data.profilePicture)
-      formData.append("profilePicture", data.profilePicture);
+    if (data.firstName) formData.append('firstName', data.firstName);
+    if (data.lastName) formData.append('lastName', data.lastName);
+    if (data.bio) formData.append('bio', data.bio);
+    if (data.phone) formData.append('phone', data.phone);
+    if (data.profilePicture) formData.append('profilePicture', data.profilePicture);
 
     const response = await api.patch(`/user/update-profile`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
     return response.data;
   } catch (error) {
-    console.error("Update profile error:", error);
+    console.error('Update profile error:', error);
     throw error;
   }
 };
@@ -85,7 +95,7 @@ export const changePassword = async (data: ChangePasswordData) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Change password error:", error);
+    console.error('Change password error:', error);
     throw error;
   }
 };
@@ -96,7 +106,7 @@ export const getMe = async (userId?: string | number): Promise<GetMeResponse | n
     const response = await api.get(`/auth/me`, { params });
     return response.data;
   } catch (error) {
-    console.error("Get me error:", error);
+    console.error('Get me error:', error);
     throw error;
   }
 };
@@ -106,7 +116,7 @@ export const deleteAccount = async () => {
     const response = await api.delete(`/auth/delete`);
     return response.data;
   } catch (error) {
-    console.error("Delete account error:", error);
+    console.error('Delete account error:', error);
     throw error;
   }
 };

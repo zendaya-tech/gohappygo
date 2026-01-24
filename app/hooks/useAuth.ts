@@ -1,5 +1,5 @@
-import { useCallback } from "react";
-import { useAuthStore, type AuthState } from "../store/auth";
+import { useCallback } from 'react';
+import { useAuthStore, type AuthState } from '../store/auth';
 import {
   login as apiLogin,
   register as apiRegister,
@@ -8,18 +8,15 @@ import {
   changePassword as apiChangePassword,
   getMe as apiGetMe,
   deleteAccount as apiDeleteAccount,
+  resendEmailVerification as apiResendEmailVerification,
   type LoginResponse,
   type UpdateProfileData,
   type ChangePasswordData,
-} from "../services/authService";
+} from '../services/authService';
 
 export const useAuth = () => {
   const authStore = useAuthStore();
-  const {
-    login: storeLogin,
-    logout: storeLogout,
-    hydrateFromCookies,
-  } = authStore;
+  const { login: storeLogin, logout: storeLogout, hydrateFromCookies } = authStore;
 
   const login = useCallback(
     async (email: string, password: string) => {
@@ -27,17 +24,15 @@ export const useAuth = () => {
         const res = (await apiLogin(email, password)) as LoginResponse | null;
 
         if (!res || !res.access_token) {
-          throw new Error("Identifiants invalides");
+          throw new Error('Identifiants invalides');
         }
 
         const composedUser = res.user
           ? {
               id: String(res.user.id),
               name:
-                `${res.user.firstName ?? ""} ${
-                  res.user.lastName ?? ""
-                }`.trim() ||
-                (res.user.email ?? "Utilisateur"),
+                `${res.user.firstName ?? ''} ${res.user.lastName ?? ''}`.trim() ||
+                (res.user.email ?? 'Utilisateur'),
               email: res.user.email,
               firstName: res.user.firstName,
               lastName: res.user.lastName,
@@ -55,23 +50,23 @@ export const useAuth = () => {
               stripeAccountStatus: res.user.stripeAccountStatus,
             }
           : {
-              id: "me",
-              name: email.split("@")[0] || "Utilisateur",
+              id: 'me',
+              name: email.split('@')[0] || 'Utilisateur',
               email: email,
             };
 
         // Store token in localStorage
         try {
-          window.localStorage.setItem("auth_token", res.access_token);
+          window.localStorage.setItem('auth_token', res.access_token);
         } catch (e) {
-          console.warn("Could not store token in localStorage:", e);
+          console.warn('Could not store token in localStorage:', e);
         }
 
         storeLogin(res.access_token, composedUser, res.refresh_token);
 
         return { success: true, user: composedUser };
       } catch (error) {
-        console.error("Login error:", error);
+        console.error('Login error:', error);
         throw error;
       }
     },
@@ -103,10 +98,10 @@ export const useAuth = () => {
 
         return {
           success: true,
-          message: res.message || "Inscription réussie. Vérifiez votre email.",
+          message: res.message || 'Inscription réussie. Vérifiez votre email.',
         };
       } catch (error) {
-        console.error("Register error:", error);
+        console.error('Register error:', error);
         throw error;
       }
     },
@@ -119,7 +114,7 @@ export const useAuth = () => {
         const res = await apiVerifyEmail(email, verificationCode);
 
         if (!res) {
-          throw new Error("Code de vérification invalide. Réessayez.");
+          throw new Error('Code de vérification invalide. Réessayez.');
         }
 
         // Si la réponse contient un token d'accès, connecter automatiquement l'utilisateur
@@ -127,8 +122,8 @@ export const useAuth = () => {
           const composedUser = {
             id: String(res.user.id),
             name:
-              `${res.user.firstName ?? ""} ${res.user.lastName ?? ""}`.trim() ||
-              (res.user.email ?? "Utilisateur"),
+              `${res.user.firstName ?? ''} ${res.user.lastName ?? ''}`.trim() ||
+              (res.user.email ?? 'Utilisateur'),
             email: res.user.email,
             firstName: res.user.firstName,
             lastName: res.user.lastName,
@@ -148,9 +143,9 @@ export const useAuth = () => {
 
           // Stocker le token dans localStorage
           try {
-            window.localStorage.setItem("auth_token", res.access_token);
+            window.localStorage.setItem('auth_token', res.access_token);
           } catch (e) {
-            console.warn("Could not store token in localStorage:", e);
+            console.warn('Could not store token in localStorage:', e);
           }
 
           // Connecter l'utilisateur
@@ -159,23 +154,41 @@ export const useAuth = () => {
 
         return {
           success: true,
-          message: res.message || "Email vérifié avec succès!",
+          message: res.message || 'Email vérifié avec succès!',
           user: res.user,
           isLoggedIn: !!res.access_token,
         };
       } catch (error) {
-        console.error("Verify email error:", error);
+        console.error('Verify email error:', error);
         throw error;
       }
     },
     [storeLogin]
   );
 
+  const resendEmailVerification = useCallback(async (email: string) => {
+    try {
+      const res = await apiResendEmailVerification(email);
+
+      if (!res) {
+        throw new Error("Échec de l'envoi du code de vérification. Réessayez.");
+      }
+
+      return {
+        success: true,
+        message: res.message || 'Code de vérification envoyé avec succès!',
+      };
+    } catch (error) {
+      console.error('Verify email error:', error);
+      throw error;
+    }
+  }, []);
+
   const logout = useCallback(() => {
     try {
-      window.localStorage.removeItem("auth_token");
+      window.localStorage.removeItem('auth_token');
     } catch (e) {
-      console.warn("Could not remove token from localStorage:", e);
+      console.warn('Could not remove token from localStorage:', e);
     }
     storeLogout();
   }, [storeLogout]);
@@ -183,7 +196,7 @@ export const useAuth = () => {
   const authenticate = useCallback(async () => {
     try {
       // First try to get token from localStorage
-      const token = window.localStorage.getItem("auth_token");
+      const token = window.localStorage.getItem('auth_token');
       // if (!token) {
       //   // If no token, try hydrating from cookies as fallback
       //   hydrateFromCookies();
@@ -197,8 +210,8 @@ export const useAuth = () => {
         const composedUser = {
           id: String(userData.id),
           name:
-            `${userData.firstName ?? ""} ${userData.lastName ?? ""}`.trim() ||
-            (userData.email ?? "Utilisateur"),
+            `${userData.firstName ?? ''} ${userData.lastName ?? ''}`.trim() ||
+            (userData.email ?? 'Utilisateur'),
           email: userData.email,
           firstName: userData.firstName,
           lastName: userData.lastName,
@@ -219,16 +232,16 @@ export const useAuth = () => {
         storeLogin(token!, composedUser);
       } else {
         // If API call fails, remove invalid token and fallback to cookies
-        window.localStorage.removeItem("auth_token");
+        window.localStorage.removeItem('auth_token');
         hydrateFromCookies();
       }
     } catch (error) {
-      console.error("Authentication error:", error);
+      console.error('Authentication error:', error);
       // If API call fails, remove invalid token and fallback to cookies
       try {
-        window.localStorage.removeItem("auth_token");
+        window.localStorage.removeItem('auth_token');
       } catch (e) {
-        console.warn("Could not remove token from localStorage:", e);
+        console.warn('Could not remove token from localStorage:', e);
       }
       hydrateFromCookies();
     }
@@ -251,7 +264,9 @@ export const useAuth = () => {
             lastName: data.lastName || authStore.user.lastName,
             phone: data.phone || authStore.user.phone,
             profilePictureUrl:
-              res.user?.profilePictureUrl || res.profilePictureUrl || authStore.user.profilePictureUrl,
+              res.user?.profilePictureUrl ||
+              res.profilePictureUrl ||
+              authStore.user.profilePictureUrl,
             bio: data.bio || authStore.user.bio,
           };
           storeLogin(authStore.token!, updatedUser);
@@ -259,10 +274,10 @@ export const useAuth = () => {
 
         return {
           success: true,
-          message: res.message || "Profil mis à jour avec succès!",
+          message: res.message || 'Profil mis à jour avec succès!',
         };
       } catch (error) {
-        console.error("Update profile error:", error);
+        console.error('Update profile error:', error);
         throw error;
       }
     },
@@ -274,10 +289,10 @@ export const useAuth = () => {
       const res = await apiChangePassword(data);
       return {
         success: true,
-        message: res.message || "Mot de passe modifié avec succès!",
+        message: res.message || 'Mot de passe modifié avec succès!',
       };
     } catch (error) {
-      console.error("Change password error:", error);
+      console.error('Change password error:', error);
       throw error;
     }
   }, []);
@@ -291,10 +306,10 @@ export const useAuth = () => {
 
       return {
         success: true,
-        message: res.message || "Compte supprimé avec succès!",
+        message: res.message || 'Compte supprimé avec succès!',
       };
     } catch (error) {
-      console.error("Delete account error:", error);
+      console.error('Delete account error:', error);
       throw error;
     }
   }, [logout]);
@@ -314,5 +329,6 @@ export const useAuth = () => {
     deleteAccount,
     logout,
     authenticate,
+    resendEmailVerification,
   };
 };
