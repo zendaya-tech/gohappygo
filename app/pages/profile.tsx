@@ -333,12 +333,13 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 primaryAction={
-                  request.currentStatus?.status === 'NEGOTIATING' &&
+                  request.currentStatus?.status !== 'CANCELLED' &&
                   requester?.id.toString() != currentUser?.id
                     ? {
                         label: 'Approve',
                         onClick: () => handleAcceptRequest(request.id),
                       }
+<<<<<<< HEAD
                     : request.currentStatus?.status === "ACCEPTED"
                       ? (() => {
                           // Check if travel date has passed
@@ -357,6 +358,14 @@ const ReservationsSection = () => {
                             disabled: !canComplete,
                           };
                         })()
+=======
+                    : request.currentStatus?.status === 'ACCEPTED'
+                      ? {
+                          label: 'Terminer',
+                          onClick: () => handleCompleteRequest(request.id),
+                          color: 'green',
+                        }
+>>>>>>> support_frontEnd-dev
                       : undefined
                 }
                 secondaryAction={
@@ -409,7 +418,12 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 messageAction={
+<<<<<<< HEAD
+                  // Show message button for all statuses except CANCELLED
+                  request.currentStatus?.status !== "CANCELLED"
+=======
                   request.currentStatus?.status === 'NEGOTIATING'
+>>>>>>> support_frontEnd-dev
                     ? {
                         label: 'Message',
                         onClick: () =>
