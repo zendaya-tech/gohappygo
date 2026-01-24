@@ -409,12 +409,8 @@ const ReservationsSection = () => {
                       : undefined
                 }
                 messageAction={
-<<<<<<< HEAD
                   // Show message button for all statuses except CANCELLED
                   request.currentStatus?.status !== "CANCELLED"
-=======
-                  request.currentStatus?.status === 'NEGOTIATING'
->>>>>>> support_frontEnd-dev
                     ? {
                         label: 'Message',
                         onClick: () =>
