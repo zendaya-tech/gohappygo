@@ -14,17 +14,32 @@ export default function Logout() {
     }, [navigate, logout]);
 
     return (
-        <div className="min-h-screen grid place-items-center bg-white">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50">
             <div className="text-center">
-                <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-indigo-100 text-indigo-700 grid place-items-center">
-                    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7" />
-                        <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 8v8a4 4 0 004 4h1" />
-                    </svg>
+                {/* Animated Spinner */}
+                <div className="flex justify-center mx-auto mb-8">
+                    <div className="w-24 h-24 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"></div>
                 </div>
-                <p className="text-gray-700">Déconnexion en cours…</p>
+
+                {/* Text with fade animation */}
+                <div className="space-y-2 animate-pulse">
+                    <h2 className="text-2xl font-bold text-gray-900">
+                        À bientôt !
+                    </h2>
+                    <p className="text-gray-600">
+                        Déconnexion en cours...
+                    </p>
+                </div>
+
+                {/* Loading dots */}
+                <div className="flex justify-center gap-2 mt-6">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                </div>
             </div>
         </div>
     );
 }
+
 

@@ -3,7 +3,7 @@ import api from "./Api";
 export interface Notification {
   id: number;
   userId: number;
-  type: string;
+  notificationType: string;
   title: string;
   message: string;
   data?: any;
