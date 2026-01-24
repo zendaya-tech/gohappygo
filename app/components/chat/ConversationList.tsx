@@ -27,13 +27,36 @@ interface Conversation {
 interface ConversationListProps {
   onSelectConversation: (conversation: Conversation) => void;
   selectedConversationId?: number;
+  onConversationRead?: (conversationId: number) => void;
 }
 
-export default function ConversationList({ onSelectConversation, selectedConversationId }: ConversationListProps) {
+export default function ConversationList({ onSelectConversation, selectedConversationId, onConversationRead }: ConversationListProps) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalUnreadCount, setTotalUnreadCount] = useState(0);
   const { user } = useAuth();
+
+  const handleSelectConversation = (conversation: Conversation) => {
+    // Mark conversation as read locally
+    if (conversation.unreadCount > 0) {
+      setConversations(prev => 
+        prev.map(conv => 
+          conv.id === conversation.id 
+            ? { ...conv, unreadCount: 0 }
+            : conv
+        )
+      );
+      
+      // Update total unread count
+      setTotalUnreadCount(prev => Math.max(0, prev - conversation.unreadCount));
+      
+      // Notify parent
+      onConversationRead?.(conversation.id);
+    }
+    
+    // Call the original callback
+    onSelectConversation(conversation);
+  };
 
   useEffect(() => {
     const loadConversations = async () => {
@@ -172,7 +195,7 @@ export default function ConversationList({ onSelectConversation, selectedConvers
         {conversations.map((conversation) => (
           <div
             key={conversation.id}
-            onClick={() => onSelectConversation(conversation)}
+            onClick={() => handleSelectConversation(conversation)}
             className={`p-4 hover cursor-pointer transition-colors ${
               selectedConversationId === conversation.id ? 'bg-blue-50 border-r-2 border-blue-500' : ''
             }`}

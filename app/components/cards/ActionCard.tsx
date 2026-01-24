@@ -21,6 +21,7 @@ interface ActionCardProps {
     label: string;
     onClick: () => void;
     color?: "blue" | "green";
+    disabled?: boolean;
   };
   secondaryAction?: {
     label: string;
@@ -171,10 +172,13 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {primaryAction && (
                   <button
                     onClick={primaryAction.onClick}
+                    disabled={primaryAction.disabled}
                     className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap ${
-                      primaryAction.color === "green"
-                        ? "bg-green-500 hover"
-                        : "bg-blue-600 hover"
+                      primaryAction.disabled
+                        ? "bg-gray-400 cursor-not-allowed opacity-60"
+                        : primaryAction.color === "green"
+                          ? "bg-green-500 hover"
+                          : "bg-blue-600 hover"
                     }`}
                   >
                     {primaryAction.label}
