@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import AirportComboBox from "~/components/forms/AirportComboBox";
-import { createAlert, type CreateAlertData } from "~/services/alertService";
-import type { Airport } from "~/services/airportService";
+import { useState, useEffect } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import AirportComboBox from '~/components/forms/AirportComboBox';
+import { createAlert, type CreateAlertData } from '~/services/alertService';
 
 interface CreateAlertDialogProps {
   open: boolean;
@@ -23,11 +22,11 @@ export default function CreateAlertDialog({
   onSuccess,
 }: CreateAlertDialogProps) {
   const [formData, setFormData] = useState({
-    alertType: "TRAVEL" as "DEMAND" | "TRAVEL" | "BOTH",
+    alertType: 'TRAVEL' as 'DEMAND' | 'TRAVEL' | 'BOTH',
     departureAirportId: null as number | null,
     arrivalAirportId: null as number | null,
-    travelDateTime: "",
-    flightNumber: "",
+    travelDateTime: '',
+    flightNumber: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -38,14 +37,14 @@ export default function CreateAlertDialog({
   useEffect(() => {
     if (open && initialData) {
       // Convert date to date format if provided (without time)
-      let dateValue = "";
+      let dateValue = '';
       if (initialData.date) {
         try {
           const date = new Date(initialData.date);
           // Format to date only (YYYY-MM-DD)
           dateValue = date.toISOString().slice(0, 10);
         } catch (error) {
-          console.error("Error parsing date:", error);
+          console.error('Error parsing date:', error);
         }
       }
 
@@ -54,7 +53,7 @@ export default function CreateAlertDialog({
         departureAirportId: initialData.from ? parseInt(initialData.from) : null,
         arrivalAirportId: initialData.to ? parseInt(initialData.to) : null,
         travelDateTime: dateValue,
-        flightNumber: initialData.flight || "",
+        flightNumber: initialData.flight || '',
       }));
     }
   }, [open, initialData]);
@@ -77,26 +76,24 @@ export default function CreateAlertDialog({
         departureAirportId: formData.departureAirportId,
         arrivalAirportId: formData.arrivalAirportId,
         travelDateTime: formData.travelDateTime
-          ? new Date(formData.travelDateTime + "T00:00:00").toISOString()
+          ? new Date(formData.travelDateTime + 'T00:00:00').toISOString()
           : undefined,
         flightNumber: formData.flightNumber || undefined,
       };
 
       await createAlert(alertData);
-      setSuccess(
-        "Alerte créée avec succès ! Vous serez notifié dès qu'une offre correspond."
-      );
+      setSuccess("Alerte créée avec succès ! Vous serez notifié dès qu'une offre correspond.");
 
       setTimeout(() => {
         onSuccess?.();
         onClose();
         // Reset form
         setFormData({
-          alertType: "TRAVEL",
+          alertType: 'TRAVEL',
           departureAirportId: null,
           arrivalAirportId: null,
-          travelDateTime: "",
-          flightNumber: "",
+          travelDateTime: '',
+          flightNumber: '',
         });
         setSuccess(null);
       }, 2000);
@@ -112,20 +109,15 @@ export default function CreateAlertDialog({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex min-h-full items-center justify-center p-4">
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
         <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">
-              Créer une alerte
-            </h2>
+            <h2 className="text-xl font-bold text-gray-900">Créer une alerte</h2>
             <button
               onClick={onClose}
-              className="text-gray-400 hover transition-colors"
+              className="text-gray-400 hover transition-colors cursor-pointer"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
@@ -239,20 +231,20 @@ export default function CreateAlertDialog({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover transition-colors"
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover transition-colors cursor-pointer"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                  className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer ${
                     loading
-                      ? "bg-gray-300 cursor-not-allowed text-gray-500"
-                      : "bg-blue-600 text-white hover"
+                      ? 'bg-gray-300 cursor-not-allowed text-gray-500'
+                      : 'bg-blue-600 text-white hover'
                   }`}
                 >
-                  {loading ? "Création..." : "Créer l'alerte"}
+                  {loading ? 'Création...' : "Créer l'alerte"}
                 </button>
               </div>
             </form>

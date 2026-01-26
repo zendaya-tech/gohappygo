@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { StarIcon } from "@heroicons/react/24/outline";
-import { StarIcon as StarIconSolid } from "@heroicons/react/24/solid";
-import { createReview } from "~/services/reviewService";
+import { useState } from 'react';
+import { StarIcon } from '@heroicons/react/24/outline';
+import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
+import { createReview } from '~/services/reviewService';
 
 interface ReviewDialogProps {
   open: boolean;
@@ -19,13 +19,13 @@ export default function ReviewDialog({
   onSuccess,
 }: ReviewDialogProps) {
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     if (rating === 0) {
-      setError("Veuillez sélectionner une note");
+      setError('Veuillez sélectionner une note');
       return;
     }
 
@@ -41,14 +41,12 @@ export default function ReviewDialog({
 
       // Reset form
       setRating(0);
-      setComment("");
+      setComment('');
       onClose();
       onSuccess?.();
     } catch (err: any) {
-      console.error("Error submitting review:", err);
-      setError(
-        err?.message || "Erreur lors de la soumission de l'avis"
-      );
+      console.error('Error submitting review:', err);
+      setError(err?.message || "Erreur lors de la soumission de l'avis");
     } finally {
       setLoading(false);
     }
@@ -59,16 +57,12 @@ export default function ReviewDialog({
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-md w-full p-6 md:p-8 shadow-2xl">
-
-
         {/* Header */}
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Félicitations d'être un HappyVoyageur !
           </h2>
-          <p className="text-gray-600 text-sm">
-            Partagez votre expérience avec {requesterName}
-          </p>
+          <p className="text-gray-600 text-sm">Partagez votre expérience avec {requesterName}</p>
         </div>
 
         {/* Error Message */}
@@ -88,7 +82,7 @@ export default function ReviewDialog({
               <button
                 key={star}
                 onClick={() => setRating(star)}
-                className="focus:outline-none transition-transform hover:scale-110"
+                className="focus:outline-none transition-transform hover:scale-110 cursor-pointer"
               >
                 {star <= rating ? (
                   <StarIconSolid className="h-10 w-10 text-yellow-400" />
@@ -119,16 +113,16 @@ export default function ReviewDialog({
           <button
             onClick={onClose}
             disabled={loading}
-            className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover transition-colors disabled:opacity-50"
+            className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover transition-colors disabled:opacity-50 cursor-pointer"
           >
             Annuler
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-xl font-semibold hover transition-colors disabled:opacity-50 shadow-lg"
+            className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-xl font-semibold hover transition-colors disabled:opacity-50 shadow-lg cursor-pointer"
           >
-            {loading ? "Envoi..." : "Envoyer l'avis"}
+            {loading ? 'Envoi...' : "Envoyer l'avis"}
           </button>
         </div>
       </div>

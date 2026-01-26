@@ -164,7 +164,10 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
             <h2 className="text-xl font-bold text-gray-900">Paramètres du profil</h2>
-            <button onClick={onClose} className="text-gray-400 hover transition-colors">
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover transition-colors cursor-pointer"
+            >
               <XMarkIcon className="h-6 w-6" />
             </button>
           </div>
@@ -173,7 +176,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
           <div className="flex border-b border-gray-200 flex-shrink-0">
             <button
               onClick={() => setActiveTab('profile')}
-              className={`flex-1 px-4 py-3 text-sm font-medium ${
+              className={`flex-1 px-4 py-3 text-sm font-medium cursor-pointer ${
                 activeTab === 'profile'
                   ? 'text-blue-600 border-b-2 border-blue-600'
                   : 'text-gray-500 hover'
@@ -183,7 +186,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
             </button>
             <button
               onClick={() => setActiveTab('password')}
-              className={`flex-1 px-4 py-3 text-sm font-medium ${
+              className={`flex-1 px-4 py-3 text-sm font-medium cursor-pointer ${
                 activeTab === 'password'
                   ? 'text-blue-600 border-b-2 border-blue-600'
                   : 'text-gray-500 hover'
@@ -193,7 +196,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
             </button>
             <button
               onClick={() => setActiveTab('account')}
-              className={`flex-1 px-4 py-3 text-sm font-medium ${
+              className={`flex-1 px-4 py-3 text-sm font-medium cursor-pointer ${
                 activeTab === 'account'
                   ? 'text-blue-600 border-b-2 border-blue-600'
                   : 'text-gray-500 hover'
@@ -304,7 +307,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className={`w-full py-3 rounded-lg font-medium transition-colors ${
+                  className={`w-full py-3 rounded-lg font-medium transition-colors cursor-pointer ${
                     submitting
                       ? 'bg-gray-300 cursor-not-allowed text-gray-500'
                       : 'bg-blue-600 text-white hover'
@@ -373,7 +376,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       <button
                         type="button"
                         onClick={() => togglePasswordVisibility('current')}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover cursor-pointer"
                       >
                         {showPasswords.current ? (
                           <EyeSlashIcon className="h-5 w-5" />
@@ -400,7 +403,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       <button
                         type="button"
                         onClick={() => togglePasswordVisibility('new')}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover cursor-pointer"
                       >
                         {showPasswords.new ? (
                           <EyeSlashIcon className="h-5 w-5" />
@@ -430,7 +433,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       <button
                         type="button"
                         onClick={() => togglePasswordVisibility('confirm')}
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover cursor-pointer"
                       >
                         {showPasswords.confirm ? (
                           <EyeSlashIcon className="h-5 w-5" />
@@ -451,7 +454,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                     !passwordData.newPassword ||
                     passwordData.newPassword !== passwordData.confirmPassword
                   }
-                  className={`w-full py-3 rounded-lg font-medium transition-colors ${
+                  className={`w-full py-3 rounded-lg font-medium transition-colors cursor-pointer ${
                     submitting ||
                     !passwordData.currentPassword ||
                     !passwordData.newPassword ||
@@ -500,7 +503,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   <button
                     onClick={() => setShowDeleteConfirm(true)}
                     disabled={hasActiveTransactions}
-                    className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled disabled:cursor-not-allowed"
+                    className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled cursor-pointer disabled:cursor-not-allowed"
                   >
                     {hasActiveTransactions
                       ? 'Suppression impossible (transactions en cours)'
@@ -517,7 +520,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                     <div className="flex gap-3">
                       <button
                         onClick={() => setShowDeleteConfirm(false)}
-                        className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover transition-colors"
+                        className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover transition-colors cursor-pointer"
                       >
                         Annuler
                       </button>
@@ -542,7 +545,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                           }
                         }}
                         disabled={submitting}
-                        className={`flex-1 py-3 rounded-lg font-medium transition-colors ${
+                        className={`flex-1 py-3 rounded-lg font-medium transition-colors cursor-pointer ${
                           submitting
                             ? 'bg-gray-300 cursor-not-allowed text-gray-500'
                             : 'bg-red-600 text-white hover'
@@ -563,7 +566,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                     <p>• Les messages et transactions seront anonymisés</p>
                     <p>• Vous pouvez télécharger vos données avant suppression</p>
                   </div>
-                  <button className="mt-3 text-sm text-blue-600 hover">
+                  <button className="mt-3 text-sm text-blue-600 hover cursor-pointer">
                     Télécharger mes données
                   </button>
                 </div>

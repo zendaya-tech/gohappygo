@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import { useEffect, useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 // Remplace par ta clé publique Stripe
-const stripePromise = loadStripe(
-  import.meta.env.VITE_STRIPE_PUBLIC_KEY || "pk_test_your_key_here"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_test_your_key_here');
 
 export interface BookingCardData {
   paymentMethodId: string;
@@ -49,29 +42,26 @@ function CheckoutForm({
 
     const cardElement = elements.getElement(CardElement);
     if (!cardElement) {
-      setError("Erreur lors du chargement du formulaire de paiement");
+      setError('Erreur lors du chargement du formulaire de paiement');
       setIsSubmitting(false);
       return;
     }
 
     try {
       // Créer un PaymentMethod avec Stripe
-      const { error: stripeError, paymentMethod } =
-        await stripe.createPaymentMethod({
-          type: "card",
-          card: cardElement,
-        });
+      const { error: stripeError, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+      });
 
       if (stripeError) {
-        setError(
-          stripeError.message || "Erreur lors du traitement du paiement"
-        );
+        setError(stripeError.message || 'Erreur lors du traitement du paiement');
         setIsSubmitting(false);
         return;
       }
 
       if (!paymentMethod) {
-        setError("Impossible de créer la méthode de paiement");
+        setError('Impossible de créer la méthode de paiement');
         setIsSubmitting(false);
         return;
       }
@@ -84,7 +74,7 @@ function CheckoutForm({
         onSuccess();
       }
     } catch (err: any) {
-      setError(err.message || "Une erreur est survenue");
+      setError(err.message || 'Une erreur est survenue');
       setIsSubmitting(false);
     }
   };
@@ -96,18 +86,10 @@ function CheckoutForm({
           <img src="/images/paymentLogosCB.png" alt="CB" className=" w-full" />
         </div>
         <div className="w-[20%]">
-          <img
-            src="/images/paymentLogosVisa.png"
-            alt="Visa"
-            className="w-full"
-          />
+          <img src="/images/paymentLogosVisa.png" alt="Visa" className="w-full" />
         </div>
         <div className="w-[20%]">
-          <img
-            src="/images/paymentLogosMasterCard.png"
-            alt="MasterCard"
-            className="w-full"
-          />
+          <img src="/images/paymentLogosMasterCard.png" alt="MasterCard" className="w-full" />
         </div>
       </div>
       <div className="px-6 py-5">
@@ -120,14 +102,14 @@ function CheckoutForm({
               options={{
                 style: {
                   base: {
-                    fontSize: "16px",
-                    color: "#1f2937",
-                    "::placeholder": {
-                      color: "#9ca3af",
+                    fontSize: '16px',
+                    color: '#1f2937',
+                    '::placeholder': {
+                      color: '#9ca3af',
                     },
                   },
                   invalid: {
-                    color: "#ef4444",
+                    color: '#ef4444',
                   },
                 },
                 hidePostalCode: true,
@@ -162,15 +144,11 @@ function CheckoutForm({
         <button
           type="submit"
           disabled={!stripe || isSubmitting}
-          className={`w-full rounded-md py-3 text-base font-semibold text-white shadow ${
-            !stripe || isSubmitting
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover"
+          className={`w-full rounded-md py-3 text-base font-semibold text-white shadow cursor-pointer ${
+            !stripe || isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover'
           }`}
         >
-          {isSubmitting
-            ? "Traitement..."
-            : `Payer ${amount.toFixed(2)} ${currencySymbol}`}
+          {isSubmitting ? 'Traitement...' : `Payer ${amount.toFixed(2)} ${currencySymbol}`}
         </button>
       </div>
     </form>
@@ -181,7 +159,7 @@ export default function BookingDialog({
   open,
   onClose,
   amount,
-  currencySymbol = "€",
+  currencySymbol = '€',
   email,
   onConfirm,
   onSuccess,
@@ -199,10 +177,10 @@ export default function BookingDialog({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !isSubmitting) onClose();
+      if (e.key === 'Escape' && !isSubmitting) onClose();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose, isSubmitting]);
 
   useEffect(() => {
@@ -215,10 +193,7 @@ export default function BookingDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div
-        className="fixed inset-0 bg-black/40"
-        onClick={isSubmitting ? undefined : onClose}
-      />
+      <div className="fixed inset-0 bg-black/40" onClick={isSubmitting ? undefined : onClose} />
       <div className="relative z-10 w-full max-w-md rounded-2xl bg-white shadow-2xl ring-1 ring-black/10">
         {/* Logo badge */}
         <div className="absolute -top-8 left-1/2 -translate-x-1/2">
@@ -231,14 +206,9 @@ export default function BookingDialog({
         {!isSubmitting && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover transition-colors"
+            className="absolute top-4 right-4 text-gray-400 hover transition-colors cursor-pointer"
           >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -251,9 +221,7 @@ export default function BookingDialog({
 
         {/* Header */}
         <div className="pt-10 text-center px-6">
-          <p className="mt-1 text-[8px] text-gray-500">
-            Soyez un porteur du bonheur
-          </p>
+          <p className="mt-1 text-[8px] text-gray-500">Soyez un porteur du bonheur</p>
         </div>
 
         {/* Stripe Elements Provider */}

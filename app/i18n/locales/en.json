@@ -1,7 +1,7 @@
 {
   "demande": {
-    "Colis": "Demandez un transport",
-    "Voyage": "Annonce de voyage"
+    "Colis": "Je souhaite trouver un espace bagage",
+    "Voyage": "Je propose un espace bagage"
   },
   "common": {
     "loading": "Loading...",

@@ -1,5 +1,5 @@
-import api from "./Api";
-import { listings } from "~/data/announces";
+import api from './Api';
+import { listings } from '~/data/announces';
 
 export const getAnnounce = async (id: string) => {
   try {
@@ -16,14 +16,14 @@ export const getAnnounce = async (id: string) => {
 
 export const getAnnounceByIdAndType = async (
   id: string,
-  type: "demand" | "travel"
+  type: 'demand' | 'travel'
 ): Promise<DemandTravelItem | null> => {
   try {
-    const endpoint = type === "demand" ? `/demand/${id}` : `/travel/${id}`;
+    const endpoint = type === 'demand' ? `/demand/${id}` : `/travel/${id}`;
     const response = await api.get(endpoint);
     return response.data;
   } catch (error) {
-    console.error("Error fetching announce:", error);
+    console.error('Error fetching announce:', error);
     return null;
   }
 };
@@ -51,7 +51,7 @@ export type DemandAndTravelFilters = {
   weightAvailable?: number; // travels only
   isVerified?: boolean;
   status?: string; // active, expired, cancelled, resolved
-  type?: "demand" | "travel";
+  type?: 'demand' | 'travel';
   description?: string;
   airlineId?: number;
 };
@@ -88,6 +88,7 @@ export interface User {
   bio?: string;
   isVerified: boolean;
   createdAt: string;
+  rating?: string;
 }
 
 export interface Image {
@@ -118,7 +119,7 @@ export interface Review {
 
 export interface DemandTravelItem {
   id: number;
-  type?: "demand" | "travel";
+  type?: 'demand' | 'travel';
   title?: string;
   description: string;
   flightNumber: string;
@@ -129,7 +130,7 @@ export interface DemandTravelItem {
   airline: Airline;
   currency?: Currency;
   userId: number;
-  status: "active" | string;
+  status: 'active' | string;
   deliveryDate?: string; // For unified API
   departureDatetime?: string; // For travel detail
   travelDate?: string; // For demand detail
@@ -159,43 +160,34 @@ export async function getDemandAndTravel(
   const params: Record<string, string | number | boolean | undefined> = {};
 
   // Airport filters
-  if (filters.originAirportId)
-    params.departureAirportId = filters.originAirportId;
-  if (filters.destinationAirportId)
-    params.arrivalAirportId = filters.destinationAirportId;
+  if (filters.originAirportId) params.departureAirportId = filters.originAirportId;
+  if (filters.destinationAirportId) params.arrivalAirportId = filters.destinationAirportId;
 
   // Flight and airline filters
   if (filters.flightNumber) params.flightNumber = filters.flightNumber;
-  if (typeof filters.airlineId === "number")
-    params.airlineId = filters.airlineId;
+  if (typeof filters.airlineId === 'number') params.airlineId = filters.airlineId;
 
   // Date filter
   if (filters.travelDate) params.travelDate = filters.travelDate;
 
   // Weight filters
-  if (typeof filters.minWeight === "number")
-    params.minWeight = filters.minWeight;
-  if (typeof filters.maxWeight === "number")
-    params.maxWeight = filters.maxWeight;
-  if (typeof filters.weightAvailable === "number")
-    params.weightAvailable = filters.weightAvailable;
+  if (typeof filters.minWeight === 'number') params.minWeight = filters.minWeight;
+  if (typeof filters.maxWeight === 'number') params.maxWeight = filters.maxWeight;
+  if (typeof filters.weightAvailable === 'number') params.weightAvailable = filters.weightAvailable;
 
   // Price filters
-  if (typeof filters.minPricePerKg === "number")
-    params.minPricePerKg = filters.minPricePerKg;
-  if (typeof filters.maxPricePerKg === "number")
-    params.maxPricePerKg = filters.maxPricePerKg;
+  if (typeof filters.minPricePerKg === 'number') params.minPricePerKg = filters.minPricePerKg;
+  if (typeof filters.maxPricePerKg === 'number') params.maxPricePerKg = filters.maxPricePerKg;
 
   // Other filters
   if (filters.type) params.type = filters.type;
   if (filters.description) params.description = filters.description;
   if (filters.status) params.status = filters.status;
-  if (typeof filters.isVerified === "boolean")
-    params.isVerified = filters.isVerified;
+  if (typeof filters.isVerified === 'boolean') params.isVerified = filters.isVerified;
 
   // Pagination
-  if (typeof filters.page === "number") params.page = filters.page;
-  if (typeof filters.limit === "number") params.limit = filters.limit;
+  if (typeof filters.page === 'number') params.page = filters.page;
+  if (typeof filters.limit === 'number') params.limit = filters.limit;
 
   const response = await api.get(`/demand-and-travel`, { params });
   return response.data; // expected to be { items, meta, ... } structure
@@ -214,14 +206,14 @@ export const createAnnounce = async (announce: any) => {
 export const getLatestTravels = async (limit: number = 3) => {
   try {
     const response = await getDemandAndTravel({
-      type: "travel",
+      type: 'travel',
       page: 1,
       limit,
     });
     const items = Array.isArray(response) ? response : (response?.items ?? []);
     return items.slice(0, limit);
   } catch (error) {
-    console.error("Error fetching latest travels:", error);
+    console.error('Error fetching latest travels:', error);
     return [];
   }
 };
@@ -229,14 +221,14 @@ export const getLatestTravels = async (limit: number = 3) => {
 export const getLatestDemands = async (limit: number = 6) => {
   try {
     const response = await getDemandAndTravel({
-      type: "demand",
+      type: 'demand',
       page: 1,
       limit,
     });
     const items = Array.isArray(response) ? response : (response?.items ?? []);
     return items.slice(0, limit);
   } catch (error) {
-    console.error("Error fetching latest demands:", error);
+    console.error('Error fetching latest demands:', error);
     return [];
   }
 };
@@ -245,7 +237,7 @@ export interface BookmarkItem {
   id: number;
   createdAt: string;
   userId: number;
-  bookmarkType: "TRAVEL" | "DEMAND";
+  bookmarkType: 'TRAVEL' | 'DEMAND';
   travelId?: number;
   demandId?: number;
   notes?: string;
@@ -284,26 +276,23 @@ export interface BookmarkItem {
 
 export const getBookmarks = async () => {
   try {
-    const response = await api.get("/bookmark");
+    const response = await api.get('/bookmark');
     return response.data; // { items: BookmarkItem[], meta: {} }
   } catch (error) {
-    console.error("Error fetching bookmarks:", error);
+    console.error('Error fetching bookmarks:', error);
     return { items: [], meta: {} };
   }
 };
 
-export const getUserDemandsAndTravels = async (
-  userId: number,
-  type?: "demand" | "travel"
-) => {
+export const getUserDemandsAndTravels = async (userId: number, type?: 'demand' | 'travel') => {
   try {
     const params: Record<string, any> = { userId };
     if (type) params.type = type;
 
-    const response = await api.get("/demand-and-travel", { params });
+    const response = await api.get('/demand-and-travel', { params });
     return response.data; // { items: DemandTravelItem[], meta: {} }
   } catch (error) {
-    console.error("Error fetching user demands and travels:", error);
+    console.error('Error fetching user demands and travels:', error);
     return { items: [], meta: {} };
   }
 };
@@ -313,7 +302,7 @@ export const deleteTravel = async (travelId: number) => {
     const response = await api.delete(`/travel/${travelId}`);
     return response.data;
   } catch (error: any) {
-    console.error("Error deleting travel:", error);
+    console.error('Error deleting travel:', error);
     throw error?.response?.data || error;
   }
 };
@@ -323,7 +312,7 @@ export const deleteDemand = async (demandId: number) => {
     const response = await api.delete(`/demand/${demandId}`);
     return response.data;
   } catch (error: any) {
-    console.error("Error deleting demand:", error);
+    console.error('Error deleting demand:', error);
     throw error?.response?.data || error;
   }
 };

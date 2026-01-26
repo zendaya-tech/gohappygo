@@ -1,56 +1,46 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import type { Route } from "../+types/root";
-import { Link, useNavigate, useSearchParams } from "react-router";
-import { useEffect, useMemo, useState } from "react";
+import type { Route } from '../+types/root';
+import { Link, useNavigate, useSearchParams } from 'react-router';
+import { useEffect, useMemo, useState } from 'react';
 import FooterMinimal from '~/components/layout/FooterMinimal';
-import { ShareIcon } from "@heroicons/react/24/outline";
+import { ShareIcon } from '@heroicons/react/24/outline';
 import BookingDialog from '~/components/dialogs/BookingDialog';
 import MessageDialog from '~/components/dialogs/MessageDialog';
 import ShareDialog from '~/components/dialogs/ShareDialog';
 import CreateAnnounceDialog from '~/components/dialogs/CreateAnnounceDialog';
 import AlertDialog from '~/components/dialogs/AlertDialog';
-import {
-  getAnnounceByIdAndType,
-  type DemandTravelItem,
-} from "~/services/announceService";
-import { getRandomQuotes, type Quote } from "~/services/quotesService";
-import { useAuthStore, type AuthState } from "~/store/auth";
+import { getAnnounceByIdAndType, type DemandTravelItem } from '~/services/announceService';
+import { getRandomQuotes, type Quote } from '~/services/quotesService';
+import { useAuthStore, type AuthState } from '~/store/auth';
 import {
   createRequestToTravel,
   type CreateRequestToTravelPayload,
-} from "~/services/requestService";
+} from '~/services/requestService';
 import type { BookingCardData } from '~/components/dialogs/BookingDialog';
-import {
-  calculatePricing,
-  type PricingCalculationResponse,
-} from "~/services/pricingService";
-import {
-  addBookmark,
-  removeBookmark,
-  checkIfBookmarked,
-} from "~/services/bookmarkService";
+import { calculatePricing, type PricingCalculationResponse } from '~/services/pricingService';
+import { addBookmark, removeBookmark, checkIfBookmarked } from '~/services/bookmarkService';
 
 // Reviews are now fetched from the API
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);
-  return date.toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  return date.toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
   });
 }
 
 export default function AnnounceDetail() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const id = searchParams.get("id") ?? "";
-  const type = (searchParams.get("type") as "demand" | "travel") ?? "travel";
-  
+  const id = searchParams.get('id') ?? '';
+  const type = (searchParams.get('type') as 'demand' | 'travel') ?? 'travel';
+
   // Récupérer les paramètres from et to de l'URL (IDs d'aéroports)
-  const fromParam = searchParams.get("from");
-  const toParam = searchParams.get("to");
+  const fromParam = searchParams.get('from');
+  const toParam = searchParams.get('to');
 
   const [listing, setListing] = useState<DemandTravelItem | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -66,8 +56,7 @@ export default function AnnounceDetail() {
   const [newRating, setNewRating] = useState<number>(0);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [quotesError, setQuotesError] = useState<string | null>(null);
-  const [pricingData, setPricingData] =
-    useState<PricingCalculationResponse | null>(null);
+  const [pricingData, setPricingData] = useState<PricingCalculationResponse | null>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
   const [tooltipVisible, setTooltipVisible] = useState<{
     serviceFee: boolean;
@@ -84,12 +73,12 @@ export default function AnnounceDetail() {
     open: boolean;
     title: string;
     message: string;
-    type: "success" | "error" | "warning";
+    type: 'success' | 'error' | 'warning';
   }>({
     open: false,
-    title: "",
-    message: "",
-    type: "success",
+    title: '',
+    message: '',
+    type: 'success',
   });
 
   // Import auth store to check if user owns this announce
@@ -100,11 +89,7 @@ export default function AnnounceDetail() {
   );
 
   // Helper function to show alert dialog
-  const showAlert = (
-    title: string,
-    message: string,
-    type: "success" | "error" | "warning"
-  ) => {
+  const showAlert = (title: string, message: string, type: 'success' | 'error' | 'warning') => {
     setAlertDialog({
       open: true,
       title,
@@ -120,9 +105,9 @@ export default function AnnounceDetail() {
     // If user is not logged in, show login prompt
     if (!isLoggedIn) {
       showAlert(
-        "Connexion requise",
-        "Vous devez être connecté pour ajouter aux favoris.",
-        "warning"
+        'Connexion requise',
+        'Vous devez être connecté pour ajouter aux favoris.',
+        'warning'
       );
       return;
     }
@@ -132,7 +117,7 @@ export default function AnnounceDetail() {
     setIsBookmarkLoading(true);
 
     try {
-      const bookmarkType = type === "travel" ? "TRAVEL" : "DEMAND";
+      const bookmarkType = type === 'travel' ? 'TRAVEL' : 'DEMAND';
       const itemId = Number(id);
 
       if (isFavorite) {
@@ -142,10 +127,10 @@ export default function AnnounceDetail() {
       } else {
         // Add bookmark
         const bookmarkData: any = {
-          bookmarkType: bookmarkType as "TRAVEL" | "DEMAND",
+          bookmarkType: bookmarkType as 'TRAVEL' | 'DEMAND',
         };
 
-        if (bookmarkType === "TRAVEL") {
+        if (bookmarkType === 'TRAVEL') {
           bookmarkData.travelId = itemId;
         } else {
           bookmarkData.demandId = itemId;
@@ -155,7 +140,7 @@ export default function AnnounceDetail() {
         setIsFavorite(true);
       }
     } catch (error) {
-      console.error("Error toggling bookmark:", error);
+      console.error('Error toggling bookmark:', error);
     } finally {
       setIsBookmarkLoading(false);
     }
@@ -167,27 +152,26 @@ export default function AnnounceDetail() {
     return listing.reviews.map((review) => ({
       id: review.id,
       rating: parseFloat(review.rating) || 0,
-      name: `${review.reviewer?.fullName}` || "Anonyme",
-      avatar: review.reviewer?.profilePictureUrl || "/favicon.ico",
-      comment: review.comment || "",
+      name: `${review.reviewer?.fullName}` || 'Anonyme',
+      avatar: review.reviewer?.profilePictureUrl || '/favicon.ico',
+      comment: review.comment || '',
       createdAt: review.createdAt,
     }));
   }, [listing?.reviews]);
 
   // Format user name from firstName and lastName
   const userName = useMemo(() => {
-    if (!listing?.user) return "Voyageur";
+    if (!listing?.user) return 'Voyageur';
     const { firstName, lastName, fullName } = listing.user;
     if (fullName) {
       return fullName;
     }
-    return firstName + " " + lastName;
+    return firstName + ' ' + lastName;
   }, [listing?.user]);
 
   const averageRating =
     reviews.length > 0
-      ? reviews.reduce((sum: number, review: any) => sum + review.rating, 0) /
-        reviews.length
+      ? reviews.reduce((sum: number, review: any) => sum + review.rating, 0) / reviews.length
       : 0;
   const totalReviews = reviews.length;
 
@@ -202,7 +186,7 @@ export default function AnnounceDetail() {
         const announce = await getAnnounceByIdAndType(id, type);
         setListing(announce);
       } catch (error) {
-        console.error("Error fetching announce:", error);
+        console.error('Error fetching announce:', error);
       } finally {
         setLoading(false);
       }
@@ -212,13 +196,13 @@ export default function AnnounceDetail() {
 
   // Update meta tags dynamically when listing data is loaded
   useEffect(() => {
-    if (listing && typeof document !== "undefined") {
-      const title = `${listing.departureAirport?.name || "Départ"} → ${listing.arrivalAirport?.name || "Arrivée"} - ${listing.pricePerKg} €/kg - GoHappyGo`;
-      const description = `${type === "travel" ? "Voyage" : "Demande"} de ${userName} : ${listing.description || "Transport de bagages disponible"}`;
+    if (listing && typeof document !== 'undefined') {
+      const title = `${listing.departureAirport?.name || 'Départ'} → ${listing.arrivalAirport?.name || 'Arrivée'} - ${listing.pricePerKg} €/kg - GoHappyGo`;
+      const description = `${type === 'travel' ? 'Voyage' : 'Demande'} de ${userName} : ${listing.description || 'Transport de bagages disponible'}`;
       const imageUrl =
         listing.images?.[0]?.fileUrl ||
         listing.user?.profilePictureUrl ||
-        "https://gohappygo.com/og-image.jpg";
+        'https://gohappygo.com/og-image.jpg';
       const url = window.location.href;
 
       // Update document title
@@ -230,17 +214,11 @@ export default function AnnounceDetail() {
         if (meta) {
           meta.content = content;
         } else {
-          meta = document.createElement("meta");
-          if (selector.includes("property=")) {
-            meta.setAttribute(
-              "property",
-              selector.match(/property="([^"]+)"/)?.[1] || ""
-            );
+          meta = document.createElement('meta');
+          if (selector.includes('property=')) {
+            meta.setAttribute('property', selector.match(/property="([^"]+)"/)?.[1] || '');
           } else {
-            meta.setAttribute(
-              "name",
-              selector.match(/name="([^"]+)"/)?.[1] || ""
-            );
+            meta.setAttribute('name', selector.match(/name="([^"]+)"/)?.[1] || '');
           }
           meta.content = content;
           document.head.appendChild(meta);
@@ -263,7 +241,7 @@ export default function AnnounceDetail() {
     const loadQuotes = async () => {
       const res = await getRandomQuotes();
       if (!res) {
-        setQuotesError("Impossible de charger les citations.");
+        setQuotesError('Impossible de charger les citations.');
         setQuotes([]);
         return;
       }
@@ -275,7 +253,7 @@ export default function AnnounceDetail() {
   // Calculate pricing when weight or listing changes
   useEffect(() => {
     const calculatePrice = async () => {
-      if (!listing || type !== "travel") {
+      if (!listing || type !== 'travel') {
         setPricingData(null);
         return;
       }
@@ -285,7 +263,7 @@ export default function AnnounceDetail() {
         const pricing = await calculatePricing(kilos, Number(id));
         setPricingData(pricing);
       } catch (error) {
-        console.error("Error calculating pricing:", error);
+        console.error('Error calculating pricing:', error);
         // Fallback calculation if API fails
         const subtotal = kilos * (listing.pricePerKg || 0);
         const serviceFee = subtotal * 0.05; // 5% service fee
@@ -318,14 +296,11 @@ export default function AnnounceDetail() {
       }
 
       try {
-        const bookmarkType = type === "travel" ? "TRAVEL" : "DEMAND";
-        const bookmarkStatus = await checkIfBookmarked(
-          bookmarkType,
-          Number(id)
-        );
+        const bookmarkType = type === 'travel' ? 'TRAVEL' : 'DEMAND';
+        const bookmarkStatus = await checkIfBookmarked(bookmarkType, Number(id));
         setIsFavorite(bookmarkStatus);
       } catch (error) {
-        console.error("Error checking bookmark status:", error);
+        console.error('Error checking bookmark status:', error);
         setIsFavorite(false);
       }
     };
@@ -335,30 +310,30 @@ export default function AnnounceDetail() {
 
   // Simple gallery to mirror the design - Always 3 images
   const galleryImages = useMemo(() => {
-    if (!listing) return ["/logo.png", "/logo.png", "/logo.png"];
+    if (!listing) return ['/logo.png', '/logo.png', '/logo.png'];
     const images = listing.images?.map((img) => img.fileUrl) || [];
 
-    if (type === "travel") {
+    if (type === 'travel') {
       // Pour les voyages: logo de la compagnie + images
       const travelImages = [];
 
       // Image principale (logo de la compagnie ou première image)
-      travelImages.push(listing.airline?.logoUrl || images[0] || "/logo.png");
+      travelImages.push(listing.airline?.logoUrl || images[0] || '/logo.png');
 
       // Deuxième image
-      travelImages.push(images[0] || "/logo.png");
+      travelImages.push(images[0] || '/logo.png');
 
       // Troisième image
-      travelImages.push(images[1] || "/logo.png");
+      travelImages.push(images[1] || '/logo.png');
 
       return travelImages;
     } else {
       // Pour les demandes: toujours 3 images avec placeholders si nécessaire
       const demandImages = [];
 
-      demandImages.push(images[0] || "/logo.png");
-      demandImages.push(images[1] || "/logo.png");
-      demandImages.push(images[2] || "/logo.png");
+      demandImages.push(images[0] || '/logo.png');
+      demandImages.push(images[1] || '/logo.png');
+      demandImages.push(images[2] || '/logo.png');
 
       return demandImages;
     }
@@ -425,9 +400,7 @@ export default function AnnounceDetail() {
         <Header />
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-2xl p-8 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Annonce introuvable
-            </h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Annonce introuvable</h1>
             <p className="text-gray-600 mb-6">
               Vérifiez l'identifiant ou retournez à la liste des annonces.
             </p>
@@ -447,39 +420,34 @@ export default function AnnounceDetail() {
   // Pricing calculation using API data
   const pricePerKg = listing?.pricePerKg || 0;
   const total = pricingData?.totalAmount || 0;
-  const currencySymbol = listing?.currency?.symbol || "€"; // Fallback to Euro if no currency
+  const currencySymbol = listing?.currency?.symbol || '€'; // Fallback to Euro if no currency
 
-  const availableWeight =
-    type === "travel" ? listing.weightAvailable : listing.weight;
+  const availableWeight = type === 'travel' ? listing.weightAvailable : listing.weight;
 
   const handleBookingConfirm = async (cardData: BookingCardData) => {
     if (!currentUser) {
       setBookOpen(false);
       showAlert(
-        "Connexion requise",
-        "Vous devez être connecté pour réserver un voyage.",
-        "warning"
+        'Connexion requise',
+        'Vous devez être connecté pour réserver un voyage.',
+        'warning'
       );
-      setTimeout(() => navigate("/login"), 2000);
+      setTimeout(() => navigate('/login'), 2000);
       return;
     }
 
-    if (type !== "travel") {
+    if (type !== 'travel') {
       setBookOpen(false);
-      showAlert(
-        "Type d'annonce invalide",
-        "Vous ne pouvez réserver que des voyages.",
-        "error"
-      );
+      showAlert("Type d'annonce invalide", 'Vous ne pouvez réserver que des voyages.', 'error');
       return;
     }
 
     if (kilos < 0) {
       setBookOpen(false);
       showAlert(
-        "Poids invalide",
-        "Veuillez entrer un poids valide supérieur ou égal à 0.",
-        "warning"
+        'Poids invalide',
+        'Veuillez entrer un poids valide supérieur ou égal à 0.',
+        'warning'
       );
       return;
     }
@@ -487,9 +455,9 @@ export default function AnnounceDetail() {
     if (kilos > (availableWeight || 0)) {
       setBookOpen(false);
       showAlert(
-        "Capacité insuffisante",
+        'Capacité insuffisante',
         `Le poids demandé (${kilos}kg) dépasse la capacité disponible (${availableWeight || 0}kg).`,
-        "warning"
+        'warning'
       );
       return;
     }
@@ -497,7 +465,7 @@ export default function AnnounceDetail() {
     try {
       const payload: CreateRequestToTravelPayload = {
         travelId: Number(id),
-        requestType: "GoAndGo",
+        requestType: 'GoAndGo',
         weight: kilos,
         paymentMethodId: cardData.paymentMethodId,
       };
@@ -507,9 +475,9 @@ export default function AnnounceDetail() {
 
       // Show success message
       showAlert(
-        "Réservation réussie!",
+        'Réservation réussie!',
         `Votre demande #${response.id} a été créée avec succès.`,
-        "success"
+        'success'
       );
 
       // Reset kilos
@@ -521,11 +489,10 @@ export default function AnnounceDetail() {
         setListing(updatedListing);
       }
     } catch (error: any) {
-      console.error("Booking error:", error);
-      const errorMessage =
-        error?.message || "Une erreur est survenue lors de la réservation";
+      console.error('Booking error:', error);
+      const errorMessage = error?.message || 'Une erreur est survenue lors de la réservation';
       setBookOpen(false);
-      showAlert("Erreur de réservation", errorMessage, "error");
+      showAlert('Erreur de réservation', errorMessage, 'error');
     }
   };
 
@@ -538,7 +505,7 @@ export default function AnnounceDetail() {
           {/* top right small action */}
           <div className="flex items-center justify-end text-xs sm text-gray-500 mb-3 gap-2 sm:gap-3">
             <button
-              className="inline-flex items-center gap-2 text-gray-500 hover"
+              className="inline-flex items-center gap-2 text-gray-500 hover cursor-pointer"
               onClick={() => setShareOpen(true)}
             >
               <ShareIcon className="h-4 w-4" />
@@ -548,10 +515,8 @@ export default function AnnounceDetail() {
               <button
                 onClick={handleFavoriteClick}
                 disabled={isBookmarkLoading}
-                className={`inline-flex items-center gap-2 transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
-                  isFavorite
-                    ? "text-red-500"
-                    : "text-gray-500 hover"
+                className={`inline-flex items-center gap-2 transition-all duration-200 hover:scale-105 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed ${
+                  isFavorite ? 'text-red-500' : 'text-gray-500 hover'
                 }`}
               >
                 {isBookmarkLoading ? (
@@ -577,7 +542,7 @@ export default function AnnounceDetail() {
                 ) : (
                   <svg
                     className="h-4 w-4 transition-colors duration-200"
-                    fill={isFavorite ? "currentColor" : "none"}
+                    fill={isFavorite ? 'currentColor' : 'none'}
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -589,7 +554,7 @@ export default function AnnounceDetail() {
                     />
                   </svg>
                 )}
-                {isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
+                {isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
               </button>
             )}
 
@@ -616,10 +581,9 @@ export default function AnnounceDetail() {
                     src={galleryImages[0]}
                     alt="Image principale"
                     className={`h-full w-full transition-transform duration-300 group-hover:scale-110 ${
-                      type === "travel" &&
-                      galleryImages[0] === listing.airline?.logoUrl
-                        ? "object-contain p-8"
-                        : "object-cover"
+                      type === 'travel' && galleryImages[0] === listing.airline?.logoUrl
+                        ? 'object-contain p-8'
+                        : 'object-cover'
                     }`}
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
@@ -669,32 +633,26 @@ export default function AnnounceDetail() {
               <div className="mt-4 md:mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <img
-                    src={listing.user?.profilePictureUrl || "/favicon.ico"}
+                    src={listing.user?.profilePictureUrl || '/favicon.ico'}
                     alt={userName}
                     className="h-12 w-12 rounded-full object-cover ring-2 ring-white shadow"
                   />
                   <div>
-                    <div className="font-semibold text-gray-900">
-                      {userName}
-                    </div>
+                    <div className="font-semibold text-gray-900">{userName}</div>
                     <div className="text-xs text-gray-500">
-                      {averageRating > 0
-                        ? `Note ${averageRating.toFixed(1)}`
-                        : "Pas encore noté"}{" "}
-                      • {listing.user?.isVerified ? "Vérifié" : "Non vérifié"}
+                      {averageRating > 0 ? `Note ${averageRating.toFixed(1)}` : 'Pas encore noté'} •{' '}
+                      {listing.user?.isVerified ? 'Vérifié' : 'Non vérifié'}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                   <button
-                    onClick={() =>
-                      navigate(`/profile?user=${listing.user?.id}`)
-                    }
+                    onClick={() => navigate(`/profile?user=${listing.user?.id}`)}
                     disabled={isOwnAnnounce}
-                    className={`rounded-lg px-4 sm:px-5 py-2 text-sm font-semibold shadow-sm transition-colors duration-200 flex-1 sm:flex-none ${
+                    className={`rounded-lg px-4 sm:px-5 py-2 text-sm font-semibold shadow-sm transition-colors duration-200 flex-1 sm:flex-none cursor-pointer ${
                       isOwnAnnounce
-                        ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                        : "bg-blue-600 text-white hover"
+                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                        : 'bg-blue-600 text-white hover'
                     }`}
                   >
                     Profile
@@ -702,10 +660,10 @@ export default function AnnounceDetail() {
                   <button
                     onClick={() => setMessageOpen(true)}
                     disabled={isOwnAnnounce}
-                    className={`rounded-lg border px-4 sm:px-5 py-2 text-sm font-medium transition-colors duration-200 flex-1 sm:flex-none ${
+                    className={`rounded-lg border px-4 sm:px-5 py-2 text-sm font-medium transition-colors duration-200 flex-1 sm:flex-none cursor-pointer ${
                       isOwnAnnounce
-                        ? "border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed"
-                        : "border-gray-300 bg-white text-gray-700 hover"
+                        ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'border-gray-300 bg-white text-gray-700 hover'
                     }`}
                   >
                     Message
@@ -718,11 +676,11 @@ export default function AnnounceDetail() {
                 <div className="md:col-span-9">
                   <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-2 text-gray-700">
                     <span className="font-medium">
-                      {listing.departureAirport?.name || "Départ"} →{" "}
-                      {listing.arrivalAirport?.name || "Arrivée"}
+                      {listing.departureAirport?.name || 'Départ'} →{' '}
+                      {listing.arrivalAirport?.name || 'Arrivée'}
                     </span>
                     <span>
-                      Départ:{" "}
+                      Départ:{' '}
                       {formatDate(
                         listing.departureDatetime ||
                           listing.travelDate ||
@@ -730,23 +688,19 @@ export default function AnnounceDetail() {
                           new Date().toISOString()
                       )}
                     </span>
-                    {type === "travel" && (
+                    {type === 'travel' && (
                       <>
                         <span className="font-medium">
-                          Vol N° {listing.flightNumber}
+                          Vol N° {listing.flightNumber.toUpperCase()}
                         </span>
                         {listing.airline?.name && (
-                          <span className="text-gray-600">
-                            {listing.airline.name}
-                          </span>
+                          <span className="text-gray-600">{listing.airline.name}</span>
                         )}
                       </>
                     )}
                     <span className="text-blue-600">
-                      {type === "travel"
-                        ? "Espace disponible"
-                        : "Espace demandé"}
-                      : {availableWeight}kg
+                      {type === 'travel' ? 'Espace disponible' : 'Espace demandé'}:{' '}
+                      {availableWeight}kg
                     </span>
                   </div>
                 </div>
@@ -760,12 +714,12 @@ export default function AnnounceDetail() {
               {/* Description */}
               <div className="mt-12 mb-12">
                 <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                  {listing.description || "Description non disponible"}
+                  {listing.description || 'Description non disponible'}
                 </p>
               </div>
 
               {/* Badges - Grid 2x2 - Only show for travels */}
-              {type === "travel" && (
+              {type === 'travel' && (
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   {/* Reservation type badge */}
                   <div className="flex items-center gap-3 text-gray-700">
@@ -776,7 +730,7 @@ export default function AnnounceDetail() {
                     />
                     <span className="flex-1">
                       {listing.isSharedWeight
-                        ? "peut prendre des kilos de plusieurs voyageurs"
+                        ? 'peut prendre des kilos de plusieurs voyageurs'
                         : "accepte qu'une personne pour tous les kilos"}
                     </span>
                   </div>
@@ -789,7 +743,7 @@ export default function AnnounceDetail() {
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      {listing.punctualityLevel ? "très ponctuel" : "ponctuel"}
+                      {listing.punctualityLevel ? 'très ponctuel' : 'ponctuel'}
                     </span>
                   </div>
 
@@ -802,7 +756,7 @@ export default function AnnounceDetail() {
                     />
                     <span className="flex-1">
                       {listing.isAllowExtraWeight
-                        ? "accepte quelques grammes en trop"
+                        ? 'accepte quelques grammes en trop'
                         : "n'accepte pas de grammes en trop"}
                     </span>
                   </div>
@@ -815,10 +769,8 @@ export default function AnnounceDetail() {
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      la réservation sera confirmée{" "}
-                      {listing.isInstant
-                        ? "instantanément"
-                        : "par l'HappyVoyageur"}
+                      la réservation sera confirmée{' '}
+                      {listing.isInstant ? 'instantanément' : "par l'HappyVoyageur"}
                     </span>
                   </div>
                 </div>
@@ -861,7 +813,7 @@ export default function AnnounceDetail() {
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-xl font-semibold text-gray-900">
                       {reviews.length} Commentaire
-                      {reviews.length > 1 ? "s" : ""}
+                      {reviews.length > 1 ? 's' : ''}
                     </h4>
                     <div className="flex items-center gap-2 text-sm">
                       <div className="flex items-center">
@@ -869,9 +821,7 @@ export default function AnnounceDetail() {
                           <svg
                             key={i}
                             className={`h-4 w-4 ${
-                              i <= Math.round(averageRating)
-                                ? "text-yellow-400"
-                                : "text-gray-300"
+                              i <= Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-300'
                             }`}
                             viewBox="0 0 20 20"
                             fill="currentColor"
@@ -880,12 +830,8 @@ export default function AnnounceDetail() {
                           </svg>
                         ))}
                       </div>
-                      <span className="text-gray-700 font-medium">
-                        {averageRating.toFixed(1)}
-                      </span>
-                      <span className="text-gray-500">
-                        ({totalReviews} reviews)
-                      </span>
+                      <span className="text-gray-700 font-medium">{averageRating.toFixed(1)}</span>
+                      <span className="text-gray-500">({totalReviews} reviews)</span>
                     </div>
                   </div>
                   <div className="flex flex-col mt-10 gap-5">
@@ -896,21 +842,15 @@ export default function AnnounceDetail() {
                     ) : (
                       reviews.map((review: any) => {
                         const reviewDate = review.createdAt
-                          ? new Date(review.createdAt).toLocaleDateString(
-                              "fr-FR",
-                              {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                              }
-                            )
-                          : "";
+                          ? new Date(review.createdAt).toLocaleDateString('fr-FR', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                            })
+                          : '';
 
                         return (
-                          <div
-                            key={review.id}
-                            className="flex items-start gap-3"
-                          >
+                          <div key={review.id} className="flex items-start gap-3">
                             <img
                               src={review.avatar}
                               alt="avatar"
@@ -920,18 +860,14 @@ export default function AnnounceDetail() {
                               <div className="text-sm text-gray-600">
                                 {review.name} • {reviewDate}
                               </div>
-                              <p className="mt-1 text-gray-800">
-                                {review.comment}
-                              </p>
+                              <p className="mt-1 text-gray-800">{review.comment}</p>
                             </div>
                             <div className="flex items-center">
                               {[1, 2, 3, 4, 5].map((i) => (
                                 <svg
                                   key={i}
                                   className={`h-4 w-4 ${
-                                    i <= review.rating
-                                      ? "text-yellow-400"
-                                      : "text-gray-300"
+                                    i <= review.rating ? 'text-yellow-400' : 'text-gray-300'
                                   }`}
                                   viewBox="0 0 20 20"
                                   fill="currentColor"
@@ -952,14 +888,12 @@ export default function AnnounceDetail() {
             {/* Right: booking summary */}
             <aside className="lg:col-span-1 order-first lg:order-last">
               <div className="rounded-2xl border border-gray-200 bg-white p-4 sticky top-20">
-                {type === "travel" ? (
+                {type === 'travel' ? (
                   <>
                     <div className="text-2xl font-bold text-gray-900">
                       {listing.pricePerKg} {currencySymbol}/Kilo
                     </div>
-                    <div className="text-xs text-gray-500 mb-6">
-                      Prix par kilogramme
-                    </div>
+                    <div className="text-xs text-gray-500 mb-6">Prix par kilogramme</div>
 
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Enter n° Kilo
@@ -967,14 +901,14 @@ export default function AnnounceDetail() {
                     <input
                       type="number"
                       min={0}
-                      value={kilos === 0 ? "" : kilos}
+                      value={kilos === 0 ? '' : kilos}
                       onChange={(e) => {
                         const value = e.target.value;
-                        if (value === "" || value === "0") {
+                        if (value === '' || value === '0') {
                           setKilos(0);
                         } else {
                           // Remove leading zeros and convert to number
-                          const cleanValue = value.replace(/^0+/, "") || "0";
+                          const cleanValue = value.replace(/^0+/, '') || '0';
                           const numValue = Number(cleanValue);
                           if (!isNaN(numValue) && numValue >= 0) {
                             setKilos(numValue);
@@ -984,11 +918,11 @@ export default function AnnounceDetail() {
                       placeholder="0"
                       className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
                         kilos > (availableWeight || 0)
-                          ? "border-red-500 focus:ring-red-500"
-                          : "border-gray-300 focus:ring-indigo-500"
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'border-gray-300 focus:ring-indigo-500'
                       }`}
                     />
-                    
+
                     {/* Alert when weight exceeds available capacity */}
                     {kilos > (availableWeight || 0) && (
                       <div className="mt-2 mb-4 flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -1008,15 +942,14 @@ export default function AnnounceDetail() {
                             Poids disponible insuffisant
                           </p>
                           <p className="text-xs text-red-700 mt-1">
-                            Le poids demandé ({kilos}kg) dépasse la capacité disponible ({availableWeight || 0}kg).
+                            Le poids demandé ({kilos}kg) dépasse la capacité disponible (
+                            {availableWeight || 0}kg).
                           </p>
                         </div>
                       </div>
                     )}
-                    
-                    {!kilos && (
-                      <div className="mb-6" />
-                    )}
+
+                    {!kilos && <div className="mb-6" />}
 
                     {pricingLoading ? (
                       <div className="flex items-center justify-center py-8">
@@ -1033,7 +966,7 @@ export default function AnnounceDetail() {
                               </span>
                               <div className="relative">
                                 <button
-                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover"
+                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover cursor-pointer"
                                   onMouseEnter={() =>
                                     setTooltipVisible((prev) => ({
                                       ...prev,
@@ -1055,9 +988,8 @@ export default function AnnounceDetail() {
                                       Frais de service GoHappyGo
                                     </div>
                                     <div>
-                                      Ces frais couvrent le traitement sécurisé
-                                      de votre paiement, le support client 24/7,
-                                      et la garantie de transaction.
+                                      Ces frais couvrent le traitement sécurisé de votre paiement,
+                                      le support client 24/7, et la garantie de transaction.
                                     </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
@@ -1069,12 +1001,11 @@ export default function AnnounceDetail() {
                             <span>TVA 20%</span>
                             <div className="flex items-center gap-2">
                               <span>
-                                {pricingData.tvaAmount.toFixed(2)}{" "}
-                                {currencySymbol}
+                                {pricingData.tvaAmount.toFixed(2)} {currencySymbol}
                               </span>
                               <div className="relative">
                                 <button
-                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover"
+                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover cursor-pointer"
                                   onMouseEnter={() =>
                                     setTooltipVisible((prev) => ({
                                       ...prev,
@@ -1096,9 +1027,8 @@ export default function AnnounceDetail() {
                                       Taxe sur la Valeur Ajoutée
                                     </div>
                                     <div>
-                                      TVA française de 20% appliquée
-                                      conformément à la réglementation fiscale
-                                      en vigueur sur les services numériques.
+                                      TVA française de 20% appliquée conformément à la
+                                      réglementation fiscale en vigueur sur les services numériques.
                                     </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
@@ -1118,17 +1048,15 @@ export default function AnnounceDetail() {
                                 className="h-6 w-6 rounded object-contain"
                                 onError={(e) => {
                                   // Fallback if image doesn't exist
-                                  e.currentTarget.style.display = "none";
+                                  e.currentTarget.style.display = 'none';
                                 }}
                               />
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-green-600 font-semibold">
-                                Offert !
-                              </span>
+                              <span className="text-green-600 font-semibold">Offert !</span>
                               <div className="relative">
                                 <button
-                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover"
+                                  className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover cursor-pointer"
                                   onMouseEnter={() =>
                                     setTooltipVisible((prev) => ({
                                       ...prev,
@@ -1150,11 +1078,9 @@ export default function AnnounceDetail() {
                                       Assurance Protection Juridique AXA
                                     </div>
                                     <div>
-                                      Protection juridique internationale
-                                      offerte par AXA. Couvre les litiges liés
-                                      au transport, assistance juridique 24/7,
-                                      et remboursement des frais de justice
-                                      jusqu'à 15 000€.
+                                      Protection juridique internationale offerte par AXA. Couvre
+                                      les litiges liés au transport, assistance juridique 24/7, et
+                                      remboursement des frais de justice jusqu'à 15 000€.
                                     </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
@@ -1166,12 +1092,9 @@ export default function AnnounceDetail() {
 
                         <div className="mt-6 border-t border-gray-200 pt-4">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-700 font-medium">
-                              Total with taxes
-                            </span>
+                            <span className="text-gray-700 font-medium">Total with taxes</span>
                             <span className="font-bold text-lg text-gray-900">
-                              {pricingData.totalAmount.toFixed(2)}{" "}
-                              {currencySymbol}
+                              {pricingData.totalAmount.toFixed(2)} {currencySymbol}
                             </span>
                           </div>
                         </div>
@@ -1184,11 +1107,7 @@ export default function AnnounceDetail() {
                   </>
                 ) : (
                   <>
-                    {quotesError && (
-                      <div className="text-xs text-red-600 mb-2">
-                        {quotesError}
-                      </div>
-                    )}
+                    {quotesError && <div className="text-xs text-red-600 mb-2">{quotesError}</div>}
                     <div className="mt-6 bg-gray-50/50 rounded-3xl p-6 border border-gray-100">
                       <div className="grid grid-cols-1 gap-6">
                         {quotes.slice(0, 4).map((q, index) => {
@@ -1199,9 +1118,7 @@ export default function AnnounceDetail() {
                             <div
                               key={q.id}
                               className={`flex flex-col p-4 transition-transform hover:scale-[1.02] ${
-                                isEven
-                                  ? "items-start text-left"
-                                  : "items-end text-right"
+                                isEven ? 'items-start text-left' : 'items-end text-right'
                               }`}
                             >
                               <div className="relative group">
@@ -1217,7 +1134,7 @@ export default function AnnounceDetail() {
                                 </p>
 
                                 <span className="mt-2 block text-[10px] uppercase tracking-tighter text-blue-600 opacity-80">
-                                  — {q.author || "Anonyme"}
+                                  — {q.author || 'Anonyme'}
                                 </span>
                               </div>
                             </div>
@@ -1228,31 +1145,33 @@ export default function AnnounceDetail() {
                   </>
                 )}
 
-                {type === "travel" ? (
+                {type === 'travel' ? (
                   <button
                     onClick={() => setBookOpen(true)}
-                    disabled={isOwnAnnounce || !pricingData || kilos > (availableWeight || 0) || kilos === 0}
-                    className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 ${
+                    disabled={
+                      isOwnAnnounce || !pricingData || kilos > (availableWeight || 0) || kilos === 0
+                    }
+                    className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
                       isOwnAnnounce
-                        ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
                         : !pricingData || kilos > (availableWeight || 0) || kilos === 0
-                          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          : "bg-blue-600 text-white hover"
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-blue-600 text-white hover'
                     }`}
                   >
                     {isOwnAnnounce
-                      ? "Votre voyage"
+                      ? 'Votre voyage'
                       : kilos > (availableWeight || 0)
-                        ? "Poids insuffisant"
+                        ? 'Poids insuffisant'
                         : kilos === 0
-                          ? "Entrez un poids"
+                          ? 'Entrez un poids'
                           : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
                     <button
                       onClick={() => setCreateOpen(true)}
-                      className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-4 text-sm font-semibold text-white hover"
+                      className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-4 text-sm font-semibold text-white hover cursor-pointer"
                     >
                       Créer ce voyage
                     </button>
@@ -1274,7 +1193,7 @@ export default function AnnounceDetail() {
           bedrooms: 1,
           beds: 1,
           bathrooms: 1,
-          image: listing.user?.profilePictureUrl || "/favicon.ico",
+          image: listing.user?.profilePictureUrl || '/favicon.ico',
         }}
       />
       {/* Booking Dialog */}
@@ -1283,11 +1202,11 @@ export default function AnnounceDetail() {
         onClose={() => setBookOpen(false)}
         amount={total}
         currencySymbol={currencySymbol}
-        email={currentUser?.email || ""}
+        email={currentUser?.email || ''}
         onConfirm={handleBookingConfirm}
         onSuccess={() => {
           // Redirect to profile reservations tab after successful booking
-          navigate("/profile?section=reservations");
+          navigate('/profile?section=reservations');
         }}
       />
 
@@ -1297,9 +1216,9 @@ export default function AnnounceDetail() {
         onClose={() => setMessageOpen(false)}
         title={`${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`}
         hostName={userName}
-        hostAvatar={listing.user?.profilePictureUrl || "/favicon.ico"}
+        hostAvatar={listing.user?.profilePictureUrl || '/favicon.ico'}
         onSend={(msg) => {
-          console.log("Message sent:", msg);
+          console.log('Message sent:', msg);
         }}
       />
 
@@ -1311,27 +1230,25 @@ export default function AnnounceDetail() {
           // Utiliser les paramètres from/to de l'URL s'ils existent, sinon utiliser les données du listing
           departureId: fromParam ? Number(fromParam) : listing.departureAirportId,
           arrivalId: toParam ? Number(toParam) : listing.arrivalAirportId,
-          story: "", // Ne pas pré-remplir la description car c'est un autre utilisateur
+          story: '', // Ne pas pré-remplir la description car c'est un autre utilisateur
           kilos: availableWeight,
           pricePerKg: listing.pricePerKg,
           travelDate: (() => {
             try {
               const dateStr =
-                listing.departureDatetime ||
-                listing.travelDate ||
-                listing.deliveryDate;
-              if (!dateStr) return "";
+                listing.departureDatetime || listing.travelDate || listing.deliveryDate;
+              if (!dateStr) return '';
               const d = new Date(dateStr);
-              if (Number.isNaN(d.getTime())) return "";
+              if (Number.isNaN(d.getTime())) return '';
               return d.toISOString().slice(0, 10);
             } catch {
-              return "";
+              return '';
             }
           })(),
           airline: listing.airline,
           flightNumber: listing.flightNumber,
-          reservationType: listing.isSharedWeight ? "shared" : "single",
-          bookingType: listing.isInstant ? "instant" : "non-instant",
+          reservationType: listing.isSharedWeight ? 'shared' : 'single',
+          bookingType: listing.isInstant ? 'instant' : 'non-instant',
           allowExtraGrams: Boolean(listing.isAllowExtraWeight),
         }}
       />
@@ -1343,14 +1260,9 @@ export default function AnnounceDetail() {
             {/* Close button */}
             <button
               onClick={() => setSliderOpen(false)}
-              className="absolute top-4 right-4 z-10 text-white hover transition-colors duration-200"
+              className="absolute top-4 right-4 z-10 text-white hover transition-colors duration-200 cursor-pointer"
             >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -1363,18 +1275,11 @@ export default function AnnounceDetail() {
             {/* Previous button */}
             <button
               onClick={() =>
-                setCurrentImageIndex((prev) =>
-                  prev === 0 ? galleryImages.length - 1 : prev - 1
-                )
+                setCurrentImageIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))
               }
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover transition-colors duration-200"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover transition-colors duration-200 cursor-pointer"
             >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -1387,18 +1292,11 @@ export default function AnnounceDetail() {
             {/* Next button */}
             <button
               onClick={() =>
-                setCurrentImageIndex((prev) =>
-                  prev === galleryImages.length - 1 ? 0 : prev + 1
-                )
+                setCurrentImageIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))
               }
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover transition-colors duration-200"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 text-white hover transition-colors duration-200 cursor-pointer"
             >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -1414,11 +1312,11 @@ export default function AnnounceDetail() {
                 src={galleryImages[currentImageIndex]}
                 alt={`Image ${currentImageIndex + 1}`}
                 className={`max-w-full max-h-full w-full h-full ${
-                  type === "travel" &&
+                  type === 'travel' &&
                   currentImageIndex === 0 &&
                   galleryImages[0] === listing.airline?.logoUrl
-                    ? "object-contain p-8"
-                    : "object-cover"
+                    ? 'object-contain p-8'
+                    : 'object-cover'
                 }`}
               />
             </div>
@@ -1434,10 +1332,8 @@ export default function AnnounceDetail() {
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    index === currentImageIndex
-                      ? "bg-blue-600"
-                      : "bg-white bg-opacity-50 hover"
+                  className={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
+                    index === currentImageIndex ? 'bg-blue-600' : 'bg-white bg-opacity-50 hover'
                   }`}
                 />
               ))}
@@ -1462,41 +1358,41 @@ export default function AnnounceDetail() {
 
 export const meta: Route.MetaFunction = ({ location }) => {
   const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("id") || "unknown";
-  const type = searchParams.get("type") || "travel";
+  const id = searchParams.get('id') || 'unknown';
+  const type = searchParams.get('type') || 'travel';
 
   // Create dynamic meta tags based on URL parameters
-  const title = `${type === "travel" ? "Voyage" : "Demande"} #${id} - GoHappyGo`;
-  const description = `Découvrez cette ${type === "travel" ? "annonce de voyage" : "demande de transport"} sur GoHappyGo. faites plus q'un voyage.`;
+  const title = `${type === 'travel' ? 'Voyage' : 'Demande'} #${id} - GoHappyGo`;
+  const description = `Découvrez cette ${type === 'travel' ? 'annonce de voyage' : 'demande de transport'} sur GoHappyGo. faites plus q'un voyage.`;
   const url = `https://gohappygo.com${location.pathname}${location.search}`;
-  const imageUrl = "https://gohappygo.com/og-image.jpg";
+  const imageUrl = 'https://gohappygo.com/og-image.jpg';
 
   return [
     { title },
-    { name: "description", content: description },
+    { name: 'description', content: description },
 
     // Open Graph
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:image", content: imageUrl },
-    { property: "og:url", content: url },
-    { property: "og:type", content: "website" },
-    { property: "og:site_name", content: "GoHappyGo" },
-    { property: "og:locale", content: "fr_FR" },
+    { property: 'og:title', content: title },
+    { property: 'og:description', content: description },
+    { property: 'og:image', content: imageUrl },
+    { property: 'og:url', content: url },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: 'GoHappyGo' },
+    { property: 'og:locale', content: 'fr_FR' },
 
     // Twitter
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { name: "twitter:image", content: imageUrl },
-    { name: "twitter:creator", content: "@gohappygo" },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: title },
+    { name: 'twitter:description', content: description },
+    { name: 'twitter:image', content: imageUrl },
+    { name: 'twitter:creator', content: '@gohappygo' },
 
     // Additional meta
     {
-      name: "keywords",
-      content: `transport bagages, voyage, ${type === "travel" ? "transporteur" : "demande"}, GoHappyGo`,
+      name: 'keywords',
+      content: `transport bagages, voyage, ${type === 'travel' ? 'transporteur' : 'demande'}, GoHappyGo`,
     },
-    { name: "robots", content: "index, follow" },
-    { name: "author", content: "GoHappyGo" },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'author', content: 'GoHappyGo' },
   ];
 };

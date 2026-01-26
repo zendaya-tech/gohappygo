@@ -23,21 +23,21 @@ export default function AnnounceTypeDropdown({
   const ref = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
   const isLoggedIn = useAuthStore((s: AuthState) => s.isLoggedIn);
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    const onClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    window.addEventListener('mousedown', onClickOutside);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      window.removeEventListener('mousedown', onClickOutside);
-    };
-  }, [open, onClose]);
+  // useEffect(() => {
+  //   if (!open) return;
+  //   const onKey = (e: KeyboardEvent) => {
+  //     if (e.key === 'Escape') onClose();
+  //   };
+  //   const onClickOutside = (e: MouseEvent) => {
+  //     if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+  //   };
+  //   window.addEventListener('keydown', onKey);
+  //   window.addEventListener('mousedown', onClickOutside);
+  //   return () => {
+  //     window.removeEventListener('keydown', onKey);
+  //     window.removeEventListener('mousedown', onClickOutside);
+  //   };
+  // }, [open, onClose]);
 
   if (!open) return null;
 
@@ -81,13 +81,8 @@ export default function AnnounceTypeDropdown({
   ];
 
   return (
-    <div
-      ref={ref}
-      className="absolute left-0 top-full mt-2 w-48 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl ring-1 ring-black/5 z-50"
-      role="dialog"
-      aria-label="Types d'annonces"
-    >
-      <div className="py-2">
+    <div ref={ref} className="flex" role="dialog" aria-label="Types d'annonces">
+      <div className="flex w-fit">
         {announceTypes.map((type) => (
           <button
             key={type.id}
@@ -100,7 +95,7 @@ export default function AnnounceTypeDropdown({
               onSelectType(type.id as 'travel' | 'package');
               onClose();
             }}
-            className="w-full px-4 py-3 text-left hover transition-colors duration-200 text-sm font-medium text-gray-700 hover cursor-pointer"
+            className="w-full px-4 py-3 text-left hover transition-colors duration-200 text-sm font-medium text-blue-600 hover cursor-pointer text-nowrap"
           >
             {t('demande.' + type.title)}
           </button>

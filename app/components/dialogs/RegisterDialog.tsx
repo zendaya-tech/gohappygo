@@ -314,7 +314,7 @@ export default function RegisterDialog({
                     <input
                       type="checkbox"
                       id="terms"
-                      className="mt-0.5 sm:mt-1 rounded border-gray-300 text-green-600 focus:ring-green-500"
+                      className="mt-0.5 sm:mt-1 rounded border-gray-300 text-green-600 focus:ring-green-500 cursor-pointer"
                       required
                     />
                     <label htmlFor="terms" className="ml-2 text-xs sm text-gray-600">
@@ -373,7 +373,7 @@ export default function RegisterDialog({
                   </div>
                   <button
                     type="button"
-                    className="text-xs sm text-green-600 hover"
+                    className="text-xs sm text-green-600 hover cursor-pointer"
                     onClick={onResendEmailVerification}
                   >
                     Renvoyer le code
@@ -384,7 +384,7 @@ export default function RegisterDialog({
               <button
                 type="submit"
                 disabled={submitting}
-                className={`w-full text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm font-medium transition-colors duration-200 ${
+                className={`w-full text-white py-2.5 sm:py-3 px-4 rounded-lg text-sm sm font-medium transition-colors duration-200 cursor-pointer ${
                   submitting ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-600 hover'
                 }`}
               >
@@ -395,7 +395,7 @@ export default function RegisterDialog({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="w-full inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 sm:py-2.5 text-xs sm font-medium text-gray-700 hover"
+                  className="w-full inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 sm:py-2.5 text-xs sm font-medium text-gray-700 hover cursor-pointer"
                 >
                   Retour
                 </button>
@@ -413,7 +413,7 @@ export default function RegisterDialog({
 
                 {/* Boutons sociaux */}
                 <div className="flex justify-center gap-2 sm:gap-4">
-                  <button className="flex text-xs sm w-28 sm:w-32 items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors">
+                  <button className="flex text-xs sm w-28 sm:w-32 items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
@@ -434,7 +434,7 @@ export default function RegisterDialog({
                     </svg>
                     Google
                   </button>
-                  <button className="text-xs sm w-28 sm:w-32 flex items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors">
+                  <button className="text-xs sm w-28 sm:w-32 flex items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
                     <svg
                       className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"
                       fill="#1877F2"
@@ -451,7 +451,7 @@ export default function RegisterDialog({
                   <span className="text-xs sm text-gray-600">Vous avez déjà un compte ? </span>
                   <button
                     onClick={onSwitchToLogin}
-                    className="text-xs sm text-green-600 hover font-medium"
+                    className="text-xs sm text-green-600 hover font-medium cursor-pointer"
                   >
                     Se connecter
                   </button>

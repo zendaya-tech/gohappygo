@@ -94,12 +94,12 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setHoverDownload((v) => !v)}
-                  className="text-gray-700 hover font-medium text-sm transition-colors duration-200 cursor-pointer"
+                  className="text-blue-600 hover font-medium text-sm transition-colors duration-200 cursor-pointer"
                   ref={(el) => {
                     (downloadBtnRef as any).current = el;
                   }}
                 >
-                  Téléchargez l'appli +
+                  Je télécharge l'application mobile
                 </button>
                 <AppDownloadPopover
                   open={hoverDownload}
@@ -113,14 +113,14 @@ export default function Header() {
                 />
               </div>
               <div className="relative">
-                <button
+                {/* <button
                   onClick={() => setShowAnnounceTypeDropdown((v) => !v)}
                   className="text-gray-700 hover font-medium text-sm transition-colors duration-200 cursor-pointer"
                 >
                   {t('header.publishAd')}
-                </button>
+                </button> */}
                 <AnnounceTypeDropdown
-                  open={showAnnounceTypeDropdown}
+                  open={true}
                   onClose={() => setShowAnnounceTypeDropdown(false)}
                   onSelectType={handleAnnounceTypeSelect}
                 />

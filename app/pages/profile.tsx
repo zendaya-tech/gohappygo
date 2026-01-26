@@ -83,10 +83,10 @@ interface Conversation {
   };
 }
 
-const ReservationsSection = ({ 
-  onNavigateToMessages 
-}: { 
-  onNavigateToMessages?: (requestId: number) => void 
+const ReservationsSection = ({
+  onNavigateToMessages,
+}: {
+  onNavigateToMessages?: (requestId: number) => void;
 }) => {
   const [tab, setTab] = useState<'pending' | 'accepted' | 'completed' | 'cancelled'>('pending');
   const [requests, setRequests] = useState<RequestResponse[]>([]);
@@ -244,7 +244,7 @@ const ReservationsSection = ({
             tab === 'pending' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
-          | Waiting for proposal
+          | Réservations à confirmer
         </button>
         <button
           onClick={() => setTab('accepted')}
@@ -252,7 +252,7 @@ const ReservationsSection = ({
             tab === 'accepted' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
-          | Waiting for payment
+          | Réservations en attente
         </button>
         <button
           onClick={() => setTab('completed')}
@@ -260,7 +260,7 @@ const ReservationsSection = ({
             tab === 'completed' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
-          | Archived reservations
+          | Réservations terminées
         </button>
       </div>
 
@@ -298,9 +298,9 @@ const ReservationsSection = ({
                 : travel?.pricePerKg || 0;
 
             const price = Number((pricePerKg * weight).toFixed(0));
-            
+
             // Get currency symbol from request
-            const currencySymbol = request.currency?.symbol || travel?.currency?.symbol || "€";
+            const currencySymbol = request.currency?.symbol || travel?.currency?.symbol || '€';
 
             const displayUserName = displayUser
               ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
@@ -341,7 +341,7 @@ const ReservationsSection = ({
                         label: 'Approve',
                         onClick: () => handleAcceptRequest(request.id),
                       }
-                    : request.currentStatus?.status === "ACCEPTED"
+                    : request.currentStatus?.status === 'ACCEPTED'
                       ? (() => {
                           // Check if travel date has passed
                           const travelDate = travel?.departureDatetime
@@ -351,11 +351,11 @@ const ReservationsSection = ({
                           const canComplete = travelDate ? travelDate < now : false;
 
                           return {
-                            label: "Terminer",
+                            label: 'Terminer',
                             onClick: canComplete
                               ? () => handleCompleteRequest(request.id)
                               : () => {},
-                            color: "green" as const,
+                            color: 'green' as const,
                             disabled: !canComplete,
                           };
                         })()
@@ -412,7 +412,7 @@ const ReservationsSection = ({
                 }
                 messageAction={
                   // Show message button for all statuses except CANCELLED
-                  request.currentStatus?.status !== "CANCELLED"
+                  request.currentStatus?.status !== 'CANCELLED'
                     ? {
                         label: 'Message',
                         onClick: () =>
@@ -1566,7 +1566,7 @@ export default function Profile() {
   const [activeSection, setActiveSection] = useState<string>(
     sectionParam || (isOwnProfile ? 'reservations' : 'reviews')
   );
-  
+
   // State to track which conversation should be auto-selected when navigating to messages
   const [autoSelectRequestId, setAutoSelectRequestId] = useState<number | null>(null);
 
@@ -1692,7 +1692,7 @@ export default function Profile() {
 
   const MessagesSection = ({ initialRequestId }: { initialRequestId?: number | null }) => {
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
-    
+
     // Clear the auto-select request ID after component mounts
     useEffect(() => {
       if (initialRequestId) {
@@ -1761,8 +1761,8 @@ export default function Profile() {
       case 'reservations':
         return (
           <div className="bg-white rounded-2xl border border-gray-200 p-2">
-            <div className="mb-4 text-lg font-semibold">Reservations</div>
-            <ReservationsSection 
+            <div className="mb-4 text-lg font-semibold">Réservations</div>
+            <ReservationsSection
               onNavigateToMessages={(requestId) => {
                 setActiveSection('messages');
                 setAutoSelectRequestId(requestId);
@@ -1945,13 +1945,13 @@ export default function Profile() {
                     onClick={() => setCreateAnnounceDialogOpen(true)}
                     className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    Publier une annonce de voyage
+                    Je propose un espace de bagage
                   </button>
                   <button
                     onClick={() => setCreatePackageDialogOpen(true)}
                     className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    Publier une demande de voyage
+                    Je souhaite trouver un espace de bagage
                   </button>
                 </div>
               )}

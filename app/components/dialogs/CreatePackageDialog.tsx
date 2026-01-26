@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
-import { createDemand } from "~/services/transportService";
-import AirportComboBox from "~/components/forms/AirportComboBox";
-import CurrencyComboBox from "~/components/forms/CurrencyComboBox";
-import type { Currency } from "~/services/currencyService";
-import { useAuth } from "~/hooks/useAuth";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { createDemand } from '~/services/transportService';
+import AirportComboBox from '~/components/forms/AirportComboBox';
+import CurrencyComboBox from '~/components/forms/CurrencyComboBox';
+import type { Currency } from '~/services/currencyService';
+import { useAuth } from '~/hooks/useAuth';
 
 export default function CreatePackageDialog({
   open,
@@ -20,40 +20,36 @@ export default function CreatePackageDialog({
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1: General
-  const [departureAirportId, setDepartureAirportId] = useState<number | null>(
-    null
-  );
+  const [departureAirportId, setDepartureAirportId] = useState<number | null>(null);
   const [arrivalAirportId, setArrivalAirportId] = useState<number | null>(null);
-  const [baggageDescription, setBaggageDescription] = useState("");
+  const [baggageDescription, setBaggageDescription] = useState('');
 
   // Step 2: Photos (now requires 3 images)
   const [photos, setPhotos] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [validationErrors, setValidationErrors] = useState<
-    Record<string, string>
-  >({});
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   // Price & Booking (moved from step 3 to step 2)
-  const [weight, setWeight] = useState("");
-  const [pricePerKilo, setPricePerKilo] = useState("");
+  const [weight, setWeight] = useState('');
+  const [pricePerKilo, setPricePerKilo] = useState('');
   const [currency, setCurrency] = useState<Currency | null>(null);
-  const [flightNumber, setFlightNumber] = useState("");
-  const [travelDate, setTravelDate] = useState("");
+  const [flightNumber, setFlightNumber] = useState('');
+  const [travelDate, setTravelDate] = useState('');
   const [packageNature, setPackageNature] = useState<
-    "FRAGILE" | "URGENT" | "STANDARD" | "MORE_THAN_3000"
-  >("STANDARD");
+    'FRAGILE' | 'URGENT' | 'STANDARD' | 'MORE_THAN_3000'
+  >('STANDARD');
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
   useEffect(() => {
@@ -61,18 +57,18 @@ export default function CreatePackageDialog({
     setCurrentStep(1);
     setDepartureAirportId(null);
     setArrivalAirportId(null);
-    setBaggageDescription("");
+    setBaggageDescription('');
     setPhotos([]);
-    setWeight("");
-    setPricePerKilo("");
+    setWeight('');
+    setPricePerKilo('');
     // Add country property to match Currency interface
     const defaultCurrency = user?.recentCurrency
-      ? { ...user.recentCurrency, id: user.recentCurrency.id.toString(), country: "" }
+      ? { ...user.recentCurrency, id: user.recentCurrency.id.toString(), country: '' }
       : null;
     setCurrency(defaultCurrency);
-    setFlightNumber("");
-    setTravelDate("");
-    setPackageNature("STANDARD");
+    setFlightNumber('');
+    setTravelDate('');
+    setPackageNature('STANDARD');
     setSubmitting(false);
     setError(null);
     setSuccess(null);
@@ -88,7 +84,7 @@ export default function CreatePackageDialog({
       return [...prev, ...filesToAdd];
     });
     // Reset input so same file can be chosen again after removing
-    e.target.value = "";
+    e.target.value = '';
   };
 
   const removePhoto = (index: number) => {
@@ -100,28 +96,20 @@ export default function CreatePackageDialog({
 
     switch (currentStep) {
       case 1:
-        if (!departureAirportId)
-          errors.departure = "Veuillez sélectionner un aéroport de départ";
-        if (!arrivalAirportId)
-          errors.arrival = "Veuillez sélectionner un aéroport d'arrivée";
-        if (!baggageDescription.trim())
-          errors.description = "Veuillez décrire votre baggage";
+        if (!departureAirportId) errors.departure = 'Veuillez sélectionner un aéroport de départ';
+        if (!arrivalAirportId) errors.arrival = "Veuillez sélectionner un aéroport d'arrivée";
+        if (!baggageDescription.trim()) errors.description = 'Veuillez décrire votre baggage';
         if (baggageDescription.length > 500)
-          errors.description =
-            "La description ne peut pas dépasser 500 caractères";
-        if (!flightNumber.trim())
-          errors.flightNumber = "Veuillez saisir le numéro de vol";
-        if (!travelDate)
-          errors.travelDate = "Veuillez sélectionner une date de voyage";
+          errors.description = 'La description ne peut pas dépasser 500 caractères';
+        if (!flightNumber.trim()) errors.flightNumber = 'Veuillez saisir le numéro de vol';
+        if (!travelDate) errors.travelDate = 'Veuillez sélectionner une date de voyage';
         break;
       case 2:
-        if (photos.length < 3)
-          errors.photos = "Veuillez ajouter 3 images de votre baggage";
-        if (!weight || parseFloat(weight) <= 0)
-          errors.weight = "Veuillez saisir un poids valide";
+        if (photos.length < 3) errors.photos = 'Veuillez ajouter 3 images de votre baggage';
+        if (!weight || parseFloat(weight) <= 0) errors.weight = 'Veuillez saisir un poids valide';
         if (!pricePerKilo || parseFloat(pricePerKilo) <= 0)
-          errors.price = "Veuillez saisir un prix valide";
-        if (!currency) errors.currency = "Veuillez sélectionner une devise";
+          errors.price = 'Veuillez saisir un prix valide';
+        if (!currency) errors.currency = 'Veuillez sélectionner une devise';
         break;
     }
 
@@ -183,7 +171,7 @@ export default function CreatePackageDialog({
     }
 
     if (photos.length < 3) {
-      setError("Veuillez ajouter 3 images");
+      setError('Veuillez ajouter 3 images');
       return;
     }
 
@@ -199,7 +187,7 @@ export default function CreatePackageDialog({
       }
 
       if (!currency) {
-        setError("Veuillez sélectionner une devise");
+        setError('Veuillez sélectionner une devise');
         setSubmitting(false);
         return;
       }
@@ -222,33 +210,29 @@ export default function CreatePackageDialog({
       const result = await createDemand(demandData);
 
       if (result) {
-        setSuccess("Demande de voyage créée avec succès!");
+        setSuccess('Demande de voyage créée avec succès!');
         setTimeout(() => {
           onClose();
         }, 2000);
       } else {
-        setError(
-          "Erreur lors de la création de la demande. Veuillez réessayer."
-        );
+        setError('Erreur lors de la création de la demande. Veuillez réessayer.');
       }
     } catch (err: any) {
       // Check if it's a 401 error (user not authenticated)
       if (err?.response?.status === 401 || err?.status === 401) {
         setError(
-          "Vous devez être connecté pour créer une demande de voyage. Veuillez vous connecter."
+          'Vous devez être connecté pour créer une demande de voyage. Veuillez vous connecter.'
         );
       } else {
         // Handle validation errors from backend
         if (err?.response?.data?.message) {
           if (Array.isArray(err.response.data.message)) {
-            setError(err.response.data.message.join(", "));
+            setError(err.response.data.message.join(', '));
           } else {
             setError(err.response.data.message);
           }
         } else {
-          setError(
-            "Erreur lors de la création de la demande. Veuillez réessayer."
-          );
+          setError('Erreur lors de la création de la demande. Veuillez réessayer.');
         }
       }
     } finally {
@@ -275,13 +259,11 @@ export default function CreatePackageDialog({
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
               <h2 className="text-lg md font-bold text-gray-900">
-                {" "}
-                <span className="uppercase text-sm md">
-                  {t("dialogs.createPackage.title")}
-                </span>
+                {' '}
+                <span className="uppercase text-sm md">{t('dialogs.createPackage.title')}</span>
                 <span className="text-sm md">
-                  {" "}
-                  - {t("common.step")} {currentStep} {t("common.of")} 2
+                  {' '}
+                  - {t('common.step')} {currentStep} {t('common.of')} 2
                 </span>
               </h2>
             </header>
@@ -302,66 +284,58 @@ export default function CreatePackageDialog({
               <div className="space-y-6">
                 <div>
                   <AirportComboBox
-                    label={t("dialogs.createPackage.departurePlaceholder")}
+                    label={t('dialogs.createPackage.departurePlaceholder')}
                     value={departureAirportId ?? undefined}
                     onChange={setDepartureAirportId}
-                    placeholder={"Choose airport"}
+                    placeholder={'Choisir un aéroport'}
                   />
                   {validationErrors.departure && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {validationErrors.departure}
-                    </p>
+                    <p className="mt-1 text-sm text-red-600">{validationErrors.departure}</p>
                   )}
                 </div>
 
                 <div>
                   <AirportComboBox
-                    label={t("dialogs.createPackage.arrivalPlaceholder")}
+                    label={t('dialogs.createPackage.arrivalPlaceholder')}
                     value={arrivalAirportId ?? undefined}
                     onChange={setArrivalAirportId}
-                    placeholder={"Choose airport"}
+                    placeholder={'Choisir un aéroport'}
                   />
                   {validationErrors.arrival && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {validationErrors.arrival}
-                    </p>
+                    <p className="mt-1 text-sm text-red-600">{validationErrors.arrival}</p>
                   )}
                 </div>
 
-                <Field label={t("dialogs.createAnnounce.flightNumber")}>
+                <Field label={t('dialogs.createAnnounce.flightNumber')}>
                   <input
                     value={flightNumber}
                     onChange={(e) => setFlightNumber(e.target.value)}
-                    placeholder={t("dialogs.createAnnounce.flightNumber")}
+                    placeholder={t('dialogs.createAnnounce.flightNumber')}
                     className={`w-full uppercase rounded-xl border ${
                       validationErrors.flightNumber
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 focus:ring-indigo-500"
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:ring-indigo-500'
                     } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.flightNumber && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {validationErrors.flightNumber}
-                    </p>
+                    <p className="mt-1 text-sm text-red-600">{validationErrors.flightNumber}</p>
                   )}
                 </Field>
 
-                <Field label={t("dialogs.createAnnounce.travelDate")}>
+                <Field label={t('dialogs.createAnnounce.travelDate')}>
                   <input
                     type="date"
                     value={travelDate}
                     onChange={(e) => setTravelDate(e.target.value)}
-                    min={today} // This prevents selecting past dates
+                    min={today}
                     className={`w-full rounded-xl border ${
                       validationErrors.travelDate
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 focus:ring-indigo-500"
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:ring-indigo-500'
                     } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.travelDate && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {validationErrors.travelDate}
-                    </p>
+                    <p className="mt-1 text-sm text-red-600">{validationErrors.travelDate}</p>
                   )}
                   {travelDate && travelDate < today && (
                     <p className="mt-1 text-xs text-red-500 font-medium">
@@ -370,75 +344,68 @@ export default function CreatePackageDialog({
                   )}
                 </Field>
 
-                <Field label={t("dialogs.createAnnounce.story")}>
+                <Field label={t('dialogs.createAnnounce.story')}>
                   <textarea
                     value={baggageDescription}
                     onChange={(e) => {
-                      // Allow typing beyond 500 characters but show validation
-
                       setBaggageDescription(e.target.value);
                     }}
                     rows={5}
-                    placeholder={t("dialogs.createAnnounce.story")}
+                    placeholder={t('dialogs.createAnnounce.story')}
                     className={`w-full resize-none rounded-xl border ${
-                      validationErrors.description ||
-                      baggageDescription.length > 500
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 focus:ring-indigo-500"
+                      validationErrors.description || baggageDescription.length > 500
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:ring-indigo-500'
                     } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   <div
                     className={`mt-1 text-xs ${
                       baggageDescription.length > 500
-                        ? "text-red-500 font-semibold"
+                        ? 'text-red-500 font-semibold'
                         : baggageDescription.length > 450
-                          ? "text-orange-500"
-                          : "text-gray-400"
+                          ? 'text-orange-500'
+                          : 'text-gray-400'
                     }`}
                   >
                     {baggageDescription.length}/500 caractères
                   </div>
                   {validationErrors.description && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {validationErrors.description}
-                    </p>
+                    <p className="mt-1 text-sm text-red-600">{validationErrors.description}</p>
                   )}
                 </Field>
 
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900">
-                    Nature du baggage
-                  </div>
+                  <div className="mb-2 text-sm font-semibold text-gray-900">Nature du bagage</div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
-                        checked={packageNature === "STANDARD"}
-                        onChange={() => setPackageNature("STANDARD")}
+                        checked={packageNature === 'STANDARD'}
+                        onChange={() => setPackageNature('STANDARD')}
                       />
                       Standard
                     </label>
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
-                        checked={packageNature === "FRAGILE"}
-                        onChange={() => setPackageNature("FRAGILE")}
+                        checked={packageNature === 'FRAGILE'}
+                        onChange={() => setPackageNature('FRAGILE')}
                       />
                       Fragile
                     </label>
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
-                        checked={packageNature === "URGENT"}
-                        onChange={() => setPackageNature("URGENT")}
+                        checked={packageNature === 'URGENT'}
+                        onChange={() => setPackageNature('URGENT')}
                       />
                       Urgent
                     </label>
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
                         type="radio"
-                        checked={packageNature === "MORE_THAN_3000"}
-                        onChange={() => setPackageNature("MORE_THAN_3000")}
+                        checked={packageNature === 'MORE_THAN_3000'}
+                        onChange={() => setPackageNature('MORE_THAN_3000')}
                       />
                       Valeur supérieure à 3000 €
                     </label>
@@ -449,9 +416,7 @@ export default function CreatePackageDialog({
 
             {currentStep === 2 && (
               <div className="space-y-6">
-                <p className="text-gray-700 font-medium">
-                  {t("dialogs.createAnnounce.photos")}
-                </p>
+                <p className="text-gray-700 font-medium">{t('dialogs.createAnnounce.photos')}</p>
                 <label className="block cursor-pointer rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-500 hover">
                   <input
                     type="file"
@@ -461,12 +426,10 @@ export default function CreatePackageDialog({
                     onChange={handleFileUpload}
                     disabled={photos.length >= 3}
                   />
-                  {t("common.upload")} ({photos.length}/3)
+                  {t('common.upload')} ({photos.length}/3)
                 </label>
                 {validationErrors.photos && (
-                  <p className="text-sm text-red-600">
-                    {validationErrors.photos}
-                  </p>
+                  <p className="text-sm text-red-600">{validationErrors.photos}</p>
                 )}
                 {photos.length > 0 && (
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -477,71 +440,65 @@ export default function CreatePackageDialog({
                       >
                         <button
                           onClick={() => removePhoto(idx)}
-                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg z-10"
-                          title="Remove image"
+                          className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg cursor-pointer z-10"
+                          title="Supprimer l'image"
                         >
                           −
                         </button>
                         <img
                           src={URL.createObjectURL(photo)}
-                          alt={`Preview ${idx + 1}`}
+                          alt={`Aperçu ${idx + 1}`}
                           className="w-full h-32 object-cover"
                         />
                         <div className="p-2">
-                          <div className="text-xs text-gray-600 truncate">
-                            {photo.name}
-                          </div>
+                          <div className="text-xs text-gray-600 truncate">{photo.name}</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
 
-                <Field label={t("dialogs.createAnnounce.weight")}>
+                <Field label={t('dialogs.createAnnounce.weight')}>
                   <input
                     type="number"
                     min={0}
                     step={0.1}
                     value={weight}
                     onChange={(e) => setWeight(e.target.value)}
-                    placeholder={t("dialogs.createAnnounce.weight")}
+                    placeholder={t('dialogs.createAnnounce.weight')}
                     className={`w-full rounded-xl border ${
                       validationErrors.weight
-                        ? "border-red-500 focus:ring-red-500"
-                        : "border-gray-300 focus:ring-indigo-500"
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:ring-indigo-500'
                     } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                   />
                   {validationErrors.weight && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {validationErrors.weight}
-                    </p>
+                    <p className="mt-1 text-sm text-red-600">{validationErrors.weight}</p>
                   )}
                 </Field>
                 <div>
                   <div className="flex gap-4">
-                    <Field label={t("dialogs.createAnnounce.pricePerKilo")}>
+                    <Field label={t('dialogs.createAnnounce.pricePerKilo')}>
                       <input
                         type="number"
                         min={0}
                         step={0.01}
                         value={pricePerKilo}
                         onChange={(e) => setPricePerKilo(e.target.value)}
-                        placeholder={t("dialogs.createAnnounce.pricePerKilo")}
+                        placeholder={t('dialogs.createAnnounce.pricePerKilo')}
                         className={`w-full rounded-xl border ${
                           validationErrors.price
-                            ? "border-red-500 focus:ring-red-500"
-                            : "border-gray-300 focus:ring-indigo-500"
+                            ? 'border-red-500 focus:ring-red-500'
+                            : 'border-gray-300 focus:ring-indigo-500'
                         } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                       />
                       {validationErrors.price && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {validationErrors.price}
-                        </p>
+                        <p className="mt-1 text-sm text-red-600">{validationErrors.price}</p>
                       )}
                     </Field>
                     <div className="w-32">
                       <label className="mb-2 block text-sm font-semibold text-gray-900">
-                        Currency
+                        Devise
                       </label>
                       <CurrencyComboBox
                         value={currency?.code}
@@ -551,9 +508,7 @@ export default function CreatePackageDialog({
                         compact
                       />
                       {validationErrors.currency && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {validationErrors.currency}
-                        </p>
+                        <p className="mt-1 text-sm text-red-600">{validationErrors.currency}</p>
                       )}
                     </div>
                   </div>
@@ -567,38 +522,34 @@ export default function CreatePackageDialog({
             {/* Footer actions */}
             <div className="mt-10 flex items-center justify-between">
               <button
-                className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover"
+                className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover cursor-pointer"
                 onClick={() => (currentStep > 1 ? prevStep() : onClose())}
               >
-                ‹ {t("common.back")}
+                ‹ {t('common.back')}
               </button>
               {currentStep < 2 ? (
                 <button
                   onClick={nextStep}
                   // Button is disabled if step is not complete
                   disabled={!isStepComplete()}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
-                    isStepComplete()
-                      ? "bg-indigo-600 hover"
-                      : "bg-gray-300 cursor-not-allowed"
+                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors cursor-pointer ${
+                    isStepComplete() ? 'bg-indigo-600 hover' : 'bg-gray-300 cursor-not-allowed'
                   }`}
                 >
-                  {t("common.next")} ›
+                  {t('common.next')} ›
                 </button>
               ) : (
                 <button
                   onClick={handleSubmit}
                   // Button is disabled if submitting OR step 2 is incomplete
                   disabled={submitting || !isStepComplete()}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
+                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white cursor-pointer ${
                     !submitting && isStepComplete()
-                      ? "bg-indigo-600 hover"
-                      : "bg-gray-300 cursor-not-allowed"
+                      ? 'bg-indigo-600 hover'
+                      : 'bg-gray-300 cursor-not-allowed'
                   }`}
                 >
-                  {submitting
-                    ? "Création en cours..."
-                    : t("dialogs.createAnnounce.create")}
+                  {submitting ? 'Création en cours...' : t('dialogs.createAnnounce.create')}
                 </button>
               )}
             </div>
@@ -610,21 +561,11 @@ export default function CreatePackageDialog({
 }
 
 function StepsNavPackage({ step }: { step: 1 | 2 }) {
-  const Item = ({
-    index,
-    title,
-    subtitle,
-  }: {
-    index: 1 | 2;
-    title: string;
-    subtitle: string;
-  }) => (
+  const Item = ({ index, title, subtitle }: { index: 1 | 2; title: string; subtitle: string }) => (
     <div className="flex items-start gap-3 py-4">
       <div
         className={`mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full border ${
-          index <= step
-            ? "border-green-500 text-green-600"
-            : "border-gray-300 text-gray-400"
+          index <= step ? 'border-green-500 text-green-600' : 'border-gray-300 text-gray-400'
         }`}
       >
         {index <= step ? (
@@ -641,9 +582,7 @@ function StepsNavPackage({ step }: { step: 1 | 2 }) {
       </div>
       <div>
         <div
-          className={`text-base font-semibold ${
-            index <= step ? "text-gray-900" : "text-gray-400"
-          }`}
+          className={`text-base font-semibold ${index <= step ? 'text-gray-900' : 'text-gray-400'}`}
         >
           {title}
         </div>
@@ -654,29 +593,17 @@ function StepsNavPackage({ step }: { step: 1 | 2 }) {
 
   return (
     <div>
-      <Item index={1} title="General" subtitle="Select basic settings" />
+      <Item index={1} title="Général" subtitle="Sélectionnez les paramètres de base" />
       <div className="ml-2 h-6 w-px bg-gray-200" />
-      <Item
-        index={2}
-        title="Pictures & Price"
-        subtitle="Add photos and set price"
-      />
+      <Item index={2} title="Photos & Prix" subtitle="Ajoutez des photos et définissez le prix" />
     </div>
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: React.ReactNode;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-gray-900">
-        {label}
-      </label>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">{label}</label>
       {children}
     </div>
   );

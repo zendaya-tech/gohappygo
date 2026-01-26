@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { sendMessage, type SendMessageDto } from "~/services/messageService";
+import { useEffect, useState } from 'react';
+import { sendMessage, type SendMessageDto } from '~/services/messageService';
 
 export default function MessageDialog({
   open,
@@ -18,22 +18,22 @@ export default function MessageDialog({
   requestId?: number;
   onSend?: (message: string) => void;
 }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
   useEffect(() => {
     if (!open) return;
-    setMessage("");
+    setMessage('');
     setError(null);
   }, [open]);
 
@@ -41,26 +41,26 @@ export default function MessageDialog({
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
-    
+
     setSending(true);
     setError(null);
-    
+
     try {
       if (requestId) {
         // Use API to send message
         const dto: SendMessageDto = {
           requestId,
-          content: message.trim()
+          content: message.trim(),
         };
         await sendMessage(dto);
       }
-      
+
       // Call the callback if provided
       onSend?.(message.trim());
-      setMessage("");
+      setMessage('');
       onClose();
     } catch (error: any) {
-      console.error("Error sending message:", error);
+      console.error('Error sending message:', error);
       setError(error?.response?.data?.message || "Erreur lors de l'envoi du message");
     } finally {
       setSending(false);
@@ -84,9 +84,7 @@ export default function MessageDialog({
                 className="h-12 w-12 rounded-full object-cover shadow-sm"
               />
               <div>
-                <div className="text-lg font-bold text-gray-900 leading-tight">
-                  {title}
-                </div>
+                <div className="text-lg font-bold text-gray-900 leading-tight">{title}</div>
                 <div className="text-sm text-gray-500">{hostName}</div>
               </div>
             </div>
@@ -109,9 +107,9 @@ export default function MessageDialog({
             <button
               onClick={handleSendMessage}
               disabled={!message.trim() || sending}
-              className="mt-6 w-full rounded-lg bg-[#2d6a74] py-3 text-white font-semibold hover:bg-[#25575f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-6 w-full rounded-lg bg-[#2d6a74] py-3 text-white font-semibold hover:bg-[#25575f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
-              {sending ? "Envoi..." : "Send message"}
+              {sending ? 'Envoi...' : 'Send message'}
             </button>
           </div>
 
@@ -121,14 +119,9 @@ export default function MessageDialog({
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute top-4 right-4 text-gray-400 hover transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover transition-colors cursor-pointer"
             >
-              <svg
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -141,12 +134,7 @@ export default function MessageDialog({
             <div className="mt-2 flex flex-col gap-6">
               {/* Warning Icon */}
               <div className="text-red-500">
-                <svg
-                  className="h-9 w-9"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -159,15 +147,15 @@ export default function MessageDialog({
               {/* French Safety Text */}
               <div className="space-y-6 text-[15px] leading-relaxed text-gray-800 font-semibold">
                 <p>
-                  Pour garantir votre sécurité, restez toujours sur{" "}
+                  Pour garantir votre sécurité, restez toujours sur{' '}
                   <span className="font-semibold text-blue-600 hover:underline cursor-pointer">
                     GoHappyGo
-                  </span>{" "}
+                  </span>{' '}
                   jusqu'au bout de votre voyage.
                 </p>
                 <p>
-                  Pour éviter les arnaques, ne cliquez jamais sur des liens de
-                  paiement ou de virement partagés par d'autres membres.
+                  Pour éviter les arnaques, ne cliquez jamais sur des liens de paiement ou de
+                  virement partagés par d'autres membres.
                 </p>
               </div>
             </div>

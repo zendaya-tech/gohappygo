@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useAuth } from "~/hooks/useAuth";
+import { useEffect, useRef, useState } from 'react';
+import { useAuth } from '~/hooks/useAuth';
 
 export default function LoginDialog({
   open,
@@ -15,23 +15,23 @@ export default function LoginDialog({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
     const onClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     };
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("mousedown", onClickOutside);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('mousedown', onClickOutside);
     return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('mousedown', onClickOutside);
     };
   }, [open, onClose]);
 
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     rememberMe: false,
   });
   const [submitting, setSubmitting] = useState(false);
@@ -46,7 +46,7 @@ export default function LoginDialog({
       await login(formData.email, formData.password);
       onClose();
     } catch (err: any) {
-      setError(err.message || "Une erreur est survenue. Réessayez.");
+      setError(err.message || 'Une erreur est survenue. Réessayez.');
     } finally {
       setSubmitting(false);
     }
@@ -56,7 +56,7 @@ export default function LoginDialog({
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
@@ -72,12 +72,8 @@ export default function LoginDialog({
           {/* Côté gauche - Formulaire */}
           <div className="w-full md:w-1/2 p-6 md:p-8">
             <div className="mb-6 md:mb-8">
-              <h1 className="text-2xl md font-bold text-gray-900 mb-2">
-                Connexion
-              </h1>
-              <p className="text-sm md text-gray-600">
-                et profitez de toutes les possibilités
-              </p>
+              <h1 className="text-2xl md font-bold text-gray-900 mb-2">Connexion</h1>
+              <p className="text-sm md text-gray-600">et profitez de toutes les possibilités</p>
             </div>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {error && <div className="text-sm text-red-600">{error}</div>}
@@ -123,19 +119,14 @@ export default function LoginDialog({
                 <label className="flex items-center">
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                     name="rememberMe"
                     checked={formData.rememberMe}
                     onChange={handleChange}
                   />
-                  <span className="ml-2 text-sm text-gray-600">
-                    Se souvenir de moi
-                  </span>
+                  <span className="ml-2 text-sm text-gray-600">Se souvenir de moi</span>
                 </label>
-                <a
-                  href="/forgot-password"
-                  className="text-sm text-blue-600 hover"
-                >
+                <a href="/forgot-password" className="text-sm text-blue-600 hover">
                   Mot de passe oublié ?
                 </a>
               </div>
@@ -143,28 +134,24 @@ export default function LoginDialog({
               <button
                 type="submit"
                 disabled={submitting}
-                className={`w-full text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 ${
-                  submitting
-                    ? "bg-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 hover"
+                className={`w-full text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 cursor-pointer ${
+                  submitting ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover'
                 }`}
               >
-                {submitting ? "Connexion…" : "Se connecter"}
+                {submitting ? 'Connexion…' : 'Se connecter'}
               </button>
             </form>
 
             {/* Séparateur */}
             <div className="my-4 md:my-6 flex items-center">
               <div className="flex-1 border-t border-gray-300"></div>
-              <span className="px-3 md:px-4 text-xs md text-gray-500">
-                Ou continuer avec
-              </span>
+              <span className="px-3 md:px-4 text-xs md text-gray-500">Ou continuer avec</span>
               <div className="flex-1 border-t border-gray-300"></div>
             </div>
 
             {/* Boutons sociaux */}
             <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors">
+              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
                 <svg className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" viewBox="0 0 24 24">
                   <path
                     fill="#4285F4"
@@ -185,7 +172,7 @@ export default function LoginDialog({
                 </svg>
                 Google
               </button>
-              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors">
+              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
                 <svg
                   className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
                   fill="#1877F2"
@@ -199,12 +186,10 @@ export default function LoginDialog({
 
             {/* Lien vers inscription */}
             <div className="mt-4 md:mt-6 text-center">
-              <span className="text-xs md text-gray-600">
-                Pas encore de compte ?{" "}
-              </span>
+              <span className="text-xs md text-gray-600">Pas encore de compte ? </span>
               <button
                 onClick={onSwitchToRegister}
-                className="text-xs md text-blue-600 hover font-medium"
+                className="text-xs md text-blue-600 hover font-medium cursor-pointer"
               >
                 S'inscrire
               </button>
@@ -213,11 +198,7 @@ export default function LoginDialog({
 
           {/* Côté droit - Image */}
           <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 relative min-h-[300px]">
-            <img
-              src="/images/login.jpg"
-              alt="Login"
-              className="w-full h-full object-cover"
-            />
+            <img src="/images/login.jpg" alt="Login" className="w-full h-full object-cover" />
           </div>
         </div>
       </div>

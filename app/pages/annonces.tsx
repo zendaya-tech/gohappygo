@@ -1,27 +1,22 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import { Link, useLocation, useNavigate } from "react-router";
-import { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import { Link, useLocation, useNavigate } from 'react-router';
+import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import FooterMinimal from '~/components/layout/FooterMinimal';
 import AnnounceCard from '~/components/cards/AnnounceCard';
-import SearchFiltersBar, {
-  type SearchFiltersBarRef,
-} from '~/components/forms/SearchFiltersBar';
-import { getRandomQuotes, type Quote } from "../services/quotesService";
-import { getDemandAndTravel } from "~/services/announceService";
+import SearchFiltersBar, { type SearchFiltersBarRef } from '~/components/forms/SearchFiltersBar';
+import { getRandomQuotes, type Quote } from '../services/quotesService';
+import { getDemandAndTravel } from '~/services/announceService';
 import AirlineComboBox from '~/components/forms/AirlineComboBox';
-import type { Airline } from "~/services/airlineService";
-import { useInfiniteScroll } from "~/hooks/useInfiniteScroll";
+import type { Airline } from '~/services/airlineService';
+import { useInfiniteScroll } from '~/hooks/useInfiniteScroll';
 import CreateAlertDialog from '~/components/dialogs/CreateAlertDialog';
-import { useAuthStore } from "~/store/auth";
+import { useAuthStore } from '~/store/auth';
 
 export default function Annonces() {
   const location = useLocation();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-  const urlParams = useMemo(
-    () => new URLSearchParams(location.search),
-    [location.search]
-  );
+  const urlParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -30,15 +25,15 @@ export default function Annonces() {
   const [hasMore, setHasMore] = useState(true);
   const [meta, setMeta] = useState<any>(null);
   const [searchParams, setSearchParams] = useState({
-    from: urlParams.get("from") || "",
-    to: urlParams.get("to") || "",
-    date: urlParams.get("date") || new Date().toISOString().slice(0, 10),
-    flight: urlParams.get("flight") || "",
+    from: urlParams.get('from') || '',
+    to: urlParams.get('to') || '',
+    date: urlParams.get('date') || new Date().toISOString().slice(0, 10),
+    flight: urlParams.get('flight') || '',
   });
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [quotesError, setQuotesError] = useState<string | null>(null);
-  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
-  const [weightRange, setWeightRange] = useState({ min: "", max: "" });
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [weightRange, setWeightRange] = useState({ min: '', max: '' });
   const [selectedAirline, setSelectedAirline] = useState<string | null>(null);
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);
   const navigate = useNavigate();
@@ -50,39 +45,39 @@ export default function Annonces() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("fr-FR", {
-      day: "numeric",
-      month: "short",
+    return date.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'short',
     });
   };
 
   const filters = [
-    { id: "verified", label: "Profil vérifié" },
-    { id: "lowest-price", label: "Prix le plus bas" },
-    { id: "airline", label: "Compagnie aérienne" },
-    { id: "travel-date", label: "Plus ancien" },
-    { id: "travel-ad", label: "Annonce de voyage" },
-    { id: "transport-request", label: "Demande de Voyage" },
+    { id: 'verified', label: 'Profil vérifié' },
+    { id: 'lowest-price', label: 'Prix le plus bas' },
+    { id: 'airline', label: 'Compagnie aérienne' },
+    { id: 'travel-date', label: 'Plus ancien' },
+    { id: 'travel-ad', label: 'Annonce de voyage' },
+    { id: 'transport-request', label: 'Demande de Voyage' },
   ];
   // Build filters object
   const buildFilters = useCallback(() => {
     const filters: any = {
-      originAirportId: urlParams.get("from") || undefined,
-      destinationAirportId: urlParams.get("to") || undefined,
-      travelDate: urlParams.get("date") || undefined,
-      flightNumber: urlParams.get("flight") || undefined,
+      originAirportId: urlParams.get('from') || undefined,
+      destinationAirportId: urlParams.get('to') || undefined,
+      travelDate: urlParams.get('date') || undefined,
+      flightNumber: urlParams.get('flight') || undefined,
       limit: 4, // Items per page
     };
 
     // Apply selected filters
-    if (selectedFilters.includes("verified")) {
+    if (selectedFilters.includes('verified')) {
       filters.isVerified = true;
     }
-    if (selectedFilters.includes("travel-ad")) {
-      filters.type = "travel";
+    if (selectedFilters.includes('travel-ad')) {
+      filters.type = 'travel';
     }
-    if (selectedFilters.includes("transport-request")) {
-      filters.type = "demand";
+    if (selectedFilters.includes('transport-request')) {
+      filters.type = 'demand';
     }
 
     // Apply price range filters
@@ -125,18 +120,14 @@ export default function Annonces() {
         const responseMeta = apiRes?.meta;
 
         // Apply client-side sorting for "lowest-price"
-        if (selectedFilters.includes("lowest-price")) {
-          items = [...items].sort(
-            (a, b) => (a.pricePerKg || 0) - (b.pricePerKg || 0)
-          );
+        if (selectedFilters.includes('lowest-price')) {
+          items = [...items].sort((a, b) => (a.pricePerKg || 0) - (b.pricePerKg || 0));
         }
 
         // Apply client-side sorting for "travel-date"
-        if (selectedFilters.includes("travel-date")) {
+        if (selectedFilters.includes('travel-date')) {
           items = [...items].sort(
-            (a, b) =>
-              new Date(a.deliveryDate).getTime() -
-              new Date(b.deliveryDate).getTime()
+            (a, b) => new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
           );
         }
 
@@ -144,7 +135,7 @@ export default function Annonces() {
         setMeta(responseMeta);
         setHasMore(responseMeta?.hasNextPage ?? false);
       } catch (e: any) {
-        setError(e?.message || "Failed to load results");
+        setError(e?.message || 'Failed to load results');
       } finally {
         setLoading(false);
       }
@@ -175,18 +166,14 @@ export default function Annonces() {
       const responseMeta = apiRes?.meta;
 
       // Apply client-side sorting for "lowest-price"
-      if (selectedFilters.includes("lowest-price")) {
-        items = [...items].sort(
-          (a, b) => (a.pricePerKg || 0) - (b.pricePerKg || 0)
-        );
+      if (selectedFilters.includes('lowest-price')) {
+        items = [...items].sort((a, b) => (a.pricePerKg || 0) - (b.pricePerKg || 0));
       }
 
       // Apply client-side sorting for "travel-date"
-      if (selectedFilters.includes("travel-date")) {
+      if (selectedFilters.includes('travel-date')) {
         items = [...items].sort(
-          (a, b) =>
-            new Date(a.deliveryDate).getTime() -
-            new Date(b.deliveryDate).getTime()
+          (a, b) => new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
         );
       }
 
@@ -195,7 +182,7 @@ export default function Annonces() {
       setCurrentPage((prev) => prev + 1);
       setHasMore(responseMeta?.hasNextPage ?? false);
     } catch (e: any) {
-      console.error("Failed to load more results:", e);
+      console.error('Failed to load more results:', e);
     } finally {
       setLoadingMore(false);
     }
@@ -211,9 +198,7 @@ export default function Annonces() {
 
   const handleFilterChange = (filterId: string) => {
     setSelectedFilters((prev) =>
-      prev.includes(filterId)
-        ? prev.filter((id) => id !== filterId)
-        : [...prev, filterId]
+      prev.includes(filterId) ? prev.filter((id) => id !== filterId) : [...prev, filterId]
     );
   };
 
@@ -227,8 +212,8 @@ export default function Annonces() {
 
   const clearAllFilters = () => {
     setSelectedFilters([]);
-    setPriceRange({ min: "", max: "" });
-    setWeightRange({ min: "", max: "" });
+    setPriceRange({ min: '', max: '' });
+    setWeightRange({ min: '', max: '' });
     setSelectedAirline(null);
     // Reset the SearchFiltersBar component
     searchFiltersRef.current?.reset();
@@ -264,11 +249,11 @@ export default function Annonces() {
           {/* Left Sidebar - Filters */}
           <div className="w-full lg:w-64 flex-shrink-0">
             <div
-              className={`lg:sticky lg:top-24 bg-gray-100 rounded-2xl p-4 md:p-6 border border-gray-200 lg:max-h-[calc(100vh-7rem)] ${results.length === 0 && "h-full"} lg:overflow-y-auto`}
+              className={`lg:sticky lg:top-24 bg-gray-100 rounded-2xl p-4 md:p-6 border border-gray-200 lg:max-h-[calc(100vh-7rem)] ${results.length === 0 && 'h-full'} lg:overflow-y-auto`}
             >
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 {results.length > 0 ? (
-                  <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-xs md font-medium">
+                  <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-xs md font-medium ">
                     Filtrer par
                   </button>
                 ) : (
@@ -282,7 +267,7 @@ export default function Annonces() {
                 )}
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs md text-gray-500 hover "
+                  className="text-xs md text-gray-500 hover cursor-pointer"
                 >
                   Tout effacer
                 </button>
@@ -300,16 +285,14 @@ export default function Annonces() {
                   <div className="space-y-2 md:space-y-3">
                     {filters.map((filter) => {
                       // Si c'est le filtre "airline", afficher le combobox au lieu du checkbox
-                      if (filter.id === "airline") {
+                      if (filter.id === 'airline') {
                         return (
                           <div key={filter.id} className="mt-3 md:mt-4">
                             <AirlineComboBox
                               label={filter.label}
-                              value={selectedAirline || ""}
+                              value={selectedAirline || ''}
                               onChange={(airline: Airline | null) => {
-                                setSelectedAirline(
-                                  airline ? String(airline.id) : null
-                                );
+                                setSelectedAirline(airline ? String(airline.id) : null);
                               }}
                               placeholder="Rechercher une compagnie"
                             />
@@ -326,11 +309,9 @@ export default function Annonces() {
                             type="checkbox"
                             checked={selectedFilters.includes(filter.id)}
                             onChange={() => handleFilterChange(filter.id)}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500:ring-blue-600 focus:ring-2 rounded"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500:ring-blue-600 focus:ring-2 rounded cursor-pointer"
                           />
-                          <span className="text-xs md text-gray-700">
-                            {filter.label}
-                          </span>
+                          <span className="text-xs md text-gray-700">{filter.label}</span>
                         </label>
                       );
                     })}
@@ -408,16 +389,8 @@ export default function Annonces() {
 
           {/* Right Section - Results Grid */}
           <div className="flex-1 w-full">
-            {loading && (
-              <div className="text-sm text-gray-500 text-center py-8">
-                Chargement…
-              </div>
-            )}
-            {error && (
-              <div className="text-sm text-red-600 text-center py-8">
-                {error}
-              </div>
-            )}
+            {loading && <div className="text-sm text-gray-500 text-center py-8">Chargement…</div>}
+            {error && <div className="text-sm text-red-600 text-center py-8">{error}</div>}
             {!loading && !error && results.length === 0 && (
               <div className="flex flex-col items-center justify-center py-16 px-4">
                 {/* Empty state illustration */}
@@ -448,14 +421,7 @@ export default function Annonces() {
                       fill="none"
                     />
                     {/* Suitcase lock */}
-                    <rect
-                      x="57"
-                      y="60"
-                      width="6"
-                      height="8"
-                      rx="1"
-                      fill="currentColor"
-                    />
+                    <rect x="57" y="60" width="6" height="8" rx="1" fill="currentColor" />
                     {/* Sad face */}
                     <circle cx="50" cy="75" r="2" fill="currentColor" />
                     <circle cx="70" cy="75" r="2" fill="currentColor" />
@@ -474,9 +440,7 @@ export default function Annonces() {
                   <h3 className="text-lg md font-semibold text-gray-900 mb-2">
                     Nous n'avons trouvé aucun bagage disponible
                   </h3>
-                  <p className="text-base md text-gray-600 mb-1">
-                    pour ce vol... encore !
-                  </p>
+                  <p className="text-base md text-gray-600 mb-1">pour ce vol... encore !</p>
                   <p className="text-xs md text-gray-500 mb-6 md:mb-8">
                     Activez une alerte, nous vous préviendrons
                     <br />
@@ -486,7 +450,7 @@ export default function Annonces() {
                   {/* Alert button */}
                   <button
                     onClick={handleAlertClick}
-                    className="bg-blue-600 hover text-white px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md font-medium transition-colors"
+                    className="bg-blue-600 hover text-white px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md font-medium transition-colors cursor-pointer"
                   >
                     Activer une alerte
                   </button>
@@ -498,17 +462,12 @@ export default function Annonces() {
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                   {results.map((item: any) => {
-                    const id =
-                      item.id?.toString() ||
-                      Math.random().toString(36).slice(2);
-                    const name =
-                      item.user?.fullName || item.title || "Voyageur";
+                    const id = item.id?.toString() || Math.random().toString(36).slice(2);
+                    const name = item.user?.fullName || item.title || 'Voyageur';
                     const avatar =
-                      item.user?.selfieImage ||
-                      item.images?.[0]?.fileUrl ||
-                      "/favicon.ico";
-                    const originName = item.departureAirport?.name || "";
-                    const destName = item.arrivalAirport?.name || "";
+                      item.user?.selfieImage || item.images?.[0]?.fileUrl || '/favicon.ico';
+                    const originName = item.departureAirport?.name || '';
+                    const destName = item.arrivalAirport?.name || '';
                     const route = `${originName} - ${destName}`;
                     const pricePerKg = item.pricePerKg ?? 0;
                     const rating = item.user.rating; // Default rating since it's not in the new structure
@@ -516,7 +475,7 @@ export default function Annonces() {
                     // Pour les transporteurs (travel), utiliser le logo de la compagnie
                     // Pour les voyageurs (demand), utiliser la première image de l'annonce
                     const image =
-                      item.type === "travel"
+                      item.type === 'travel'
                         ? item.airline?.logoUrl || avatar
                         : item.images?.[0]?.fileUrl || avatar;
 
@@ -524,17 +483,12 @@ export default function Annonces() {
 
                     // Use weightAvailable for travel type, weight for demand type
                     const availableWeight =
-                      item.type === "travel"
-                        ? (item.weightAvailable ?? 0)
-                        : (item.weight ?? 0);
+                      item.type === 'travel' ? (item.weightAvailable ?? 0) : (item.weight ?? 0);
 
-                    const departure = item.deliveryDate
-                      ? formatDate(item.deliveryDate)
-                      : undefined;
+                    const departure = item.deliveryDate ? formatDate(item.deliveryDate) : undefined;
 
                     const airline = item.airline?.name;
-                    const type =
-                      item.type === "travel" ? "transporter" : "traveler";
+                    const type = item.type === 'travel' ? 'transporter' : 'traveler';
 
                     return (
                       <AnnounceCard
@@ -547,15 +501,13 @@ export default function Annonces() {
                         rating={rating}
                         image={image}
                         featured={featured}
-                        weight={
-                          availableWeight ? `${availableWeight}kg` : undefined
-                        }
+                        weight={availableWeight ? `${availableWeight}kg` : undefined}
                         departure={departure}
                         airline={airline}
                         type={type as any}
                         isBookmarked={item.isBookmarked}
                         userId={item.user?.id}
-                        currencySymbol={item.currency?.symbol || "€"}
+                        currencySymbol={item.currency?.symbol || '€'}
                       />
                     );
                   })}
@@ -568,15 +520,15 @@ export default function Annonces() {
                       <div className="flex justify-center items-center gap-2">
                         <div
                           className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                          style={{ animationDelay: "0ms" }}
+                          style={{ animationDelay: '0ms' }}
                         ></div>
                         <div
                           className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                          style={{ animationDelay: "150ms" }}
+                          style={{ animationDelay: '150ms' }}
                         ></div>
                         <div
                           className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-                          style={{ animationDelay: "300ms" }}
+                          style={{ animationDelay: '300ms' }}
                         ></div>
                       </div>
                     )}
@@ -607,7 +559,7 @@ export default function Annonces() {
         }}
         onSuccess={() => {
           // Optionally refresh results or show a success message
-          console.log("Alert created successfully");
+          console.log('Alert created successfully');
         }}
       />
 
@@ -615,22 +567,11 @@ export default function Annonces() {
       {(quotes.length > 0 || quotesError) && (
         <section className="mx-auto max-w-7xl px-4 pb-10">
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {quotesError && (
-              <div className="col-span-full text-sm text-red-600">
-                {quotesError}
-              </div>
-            )}
+            {quotesError && <div className="col-span-full text-sm text-red-600">{quotesError}</div>}
             {quotes.map((q) => (
-              <div
-                key={q.id}
-                className="rounded-2xl border border-gray-200 bg-white p-4"
-              >
-                <p className="text-gray-800 text-sm">
-                  {q.quote}
-                </p>
-                <div className="mt-2 text-xs text-gray-500">
-                  {q.author || "Anonyme"}
-                </div>
+              <div key={q.id} className="rounded-2xl border border-gray-200 bg-white p-4">
+                <p className="text-gray-800 text-sm">{q.quote}</p>
+                <div className="mt-2 text-xs text-gray-500">{q.author || 'Anonyme'}</div>
               </div>
             ))}
           </div>

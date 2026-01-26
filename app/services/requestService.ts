@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from './Api';
 
 export interface CreateRequestToTravelPayload {
   travelId: number;
@@ -10,7 +10,7 @@ export interface CreateRequestToTravelPayload {
 export interface UserResponse {
   id: number;
   firstName: string;
-  fullName:string;
+  fullName: string;
   lastName: string;
   email: string;
 }
@@ -35,6 +35,13 @@ export interface RequestResponse {
   demand?: any;
   unReadMessages?: number;
   canReview?: boolean;
+  currency?: Currency;
+}
+
+export interface Currency {
+  code: string;
+  name: string;
+  symbol: string;
 }
 
 export interface PaginatedRequests {
@@ -49,12 +56,14 @@ export interface PaginatedRequests {
   };
 }
 
-export const createRequestToTravel = async (payload: CreateRequestToTravelPayload): Promise<RequestResponse> => {
+export const createRequestToTravel = async (
+  payload: CreateRequestToTravelPayload
+): Promise<RequestResponse> => {
   try {
     const response = await api.post('/request/to-travel', payload);
     return response.data;
   } catch (error: any) {
-    console.error("Error creating request to travel:", error);
+    console.error('Error creating request to travel:', error);
     throw error?.response?.data || error;
   }
 };
@@ -64,7 +73,7 @@ export const getRequests = async (): Promise<PaginatedRequests> => {
     const response = await api.get('/request');
     return response.data;
   } catch (error) {
-    console.error("Error fetching requests:", error);
+    console.error('Error fetching requests:', error);
     return {
       items: [],
       meta: {
@@ -84,7 +93,7 @@ export const acceptRequest = async (requestId: number): Promise<RequestResponse>
     const response = await api.patch(`/request/${requestId}/accept`);
     return response.data;
   } catch (error: any) {
-    console.error("Error accepting request:", error);
+    console.error('Error accepting request:', error);
     throw error?.response?.data || error;
   }
 };
@@ -94,7 +103,7 @@ export const completeRequest = async (requestId: number): Promise<RequestRespons
     const response = await api.patch(`/request/${requestId}/complete`);
     return response.data;
   } catch (error: any) {
-    console.error("Error completing request:", error);
+    console.error('Error completing request:', error);
     throw error?.response?.data || error;
   }
 };
@@ -104,7 +113,7 @@ export const cancelRequest = async (requestId: number): Promise<RequestResponse>
     const response = await api.delete(`/request/${requestId}/cancel`);
     return response.data;
   } catch (error: any) {
-    console.error("Error canceling request:", error);
+    console.error('Error canceling request:', error);
     throw error?.response?.data || error;
   }
 };

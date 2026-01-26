@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 export default function FeaturesSection() {
   const { t } = useTranslation();
@@ -6,27 +6,27 @@ export default function FeaturesSection() {
   const features = [
     {
       id: 1,
-      title: t("home.features.profitability.title"),
-      description: t("home.features.profitability.description"),
-      image: "/images/renta.jpg",
+      title: t('home.features.profitability.title'),
+      description: t('home.features.profitability.description'),
+      image: '/images/renta.jpg',
     },
     {
       id: 2,
-      title: t("home.features.security.title"),
-      description: t("home.features.security.description"),
-      image: "/images/voyage.jpg",
+      title: t('home.features.security.title'),
+      description: t('home.features.security.description'),
+      image: '/images/voyage.jpg',
     },
     {
       id: 3,
-      title: t("home.features.simplicity.title"),
-      description: t("home.features.simplicity.description"),
-      image: "/images/bonheur.jpg",
+      title: t('home.features.simplicity.title'),
+      description: t('home.features.simplicity.description'),
+      image: '/images/bonheur.jpg',
     },
   ];
 
   return (
     <section className="py-20  ">
-      <div className=" mx-auto px-4 ">
+      <div className=" mx-auto px-4 flex flex-col items-center relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {features.map((feature) => {
             const IconComponent = feature.image;
@@ -63,6 +63,16 @@ export default function FeaturesSection() {
               </div>
             );
           })}
+        </div>
+        <div className="hidden md:flex absolute items-end mt-4  top-120 lg:top-95 left-[50%]">
+          <img
+            src="/images/arrowPink.png"
+            alt="Aéroport"
+            className="w-35 h-15 object-cover hover:scale-105 transition-transform duration-300"
+          />
+          <span className="text-[#de179c] font-bold text-md lg:text-xl w-[55%] text-center">
+            Billets d'avion vérifié et bien plus encore
+          </span>
         </div>
       </div>
     </section>

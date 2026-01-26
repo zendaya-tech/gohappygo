@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   updateTravel,
   getAirlineFromFlightNumber,
   type TravelItem,
-} from "~/services/travelService";
-import AirportComboBox from "~/components/forms/AirportComboBox";
-import CurrencyComboBox from "~/components/forms/CurrencyComboBox";
-import { useAuth } from "~/hooks/useAuth";
-import type { DemandTravelItem } from "~/services/announceService";
-import type { Currency } from "~/services/currencyService";
+} from '~/services/travelService';
+import AirportComboBox from '~/components/forms/AirportComboBox';
+import CurrencyComboBox from '~/components/forms/CurrencyComboBox';
+import { useAuth } from '~/hooks/useAuth';
+import type { DemandTravelItem } from '~/services/announceService';
+import type { Currency } from '~/services/currencyService';
 
 type StepKey = 1 | 2;
 
@@ -30,42 +30,34 @@ export default function EditAnnounceDialog({
   // Form state - all in one step now
   const [departureId, setDepartureId] = useState<number | null>(null);
   const [arrivalId, setArrivalId] = useState<number | null>(null);
-  const [story, setStory] = useState("");
-  const [kilos, setKilos] = useState<number | "">("");
-  const [pricePerKg, setPricePerKg] = useState<number | "">("");
+  const [story, setStory] = useState('');
+  const [kilos, setKilos] = useState<number | ''>('');
+  const [pricePerKg, setPricePerKg] = useState<number | ''>('');
   const [currency, setCurrency] = useState<Currency | null>(null);
   const [allowExtraGrams, setAllowExtraGrams] = useState<boolean>(false);
-  const [punctuality, setPunctuality] = useState<"punctual" | "very-punctual">(
-    "punctual"
-  );
+  const [punctuality, setPunctuality] = useState<'punctual' | 'very-punctual'>('punctual');
 
   // Supplementary info
-  const [flightNumber, setFlightNumber] = useState("");
+  const [flightNumber, setFlightNumber] = useState('');
   const [airline, setAirline] = useState<{ name?: string }>({});
-  const [travelDate, setTravelDate] = useState("");
+  const [travelDate, setTravelDate] = useState('');
   const [fetchingAirline, setFetchingAirline] = useState(false);
-  const [flightNumberError, setFlightNumberError] = useState<string | null>(
-    null
-  );
+  const [flightNumberError, setFlightNumberError] = useState<string | null>(null);
 
   // API integration state
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [reservationType, setReservationType] = useState<"single" | "shared">(
-    "single"
-  );
-  const [bookingType, setBookingType] = useState<"instant" | "non-instant">(
-    "instant"
-  );
+  const [reservationType, setReservationType] = useState<'single' | 'shared'>('single');
+  const [bookingType, setBookingType] = useState<'instant' | 'non-instant'>('instant');
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
   // Fetch airline when flight number changes
@@ -86,12 +78,12 @@ export default function EditAnnounceDialog({
           setFlightNumberError(null);
         } else {
           setAirline({});
-          setFlightNumberError("Numéro de vol non valide");
+          setFlightNumberError('Numéro de vol non valide');
         }
       } catch (error) {
-        console.error("Error fetching airline:", error);
+        console.error('Error fetching airline:', error);
         setAirline({});
-        setFlightNumberError("Numéro de vol non valide");
+        setFlightNumberError('Numéro de vol non valide');
       } finally {
         setFetchingAirline(false);
       }
@@ -116,36 +108,34 @@ export default function EditAnnounceDialog({
     }
 
     // Set other fields
-    setStory(travel.description || "");
-    setKilos(travel.weightAvailable || travel.totalWeightAllowance || "");
+    setStory(travel.description || '');
+    setKilos(travel.weightAvailable || travel.totalWeightAllowance || '');
     const priceValue =
-      typeof travel.pricePerKg === "string"
-        ? parseFloat(travel.pricePerKg)
-        : travel.pricePerKg;
-    setPricePerKg(priceValue || "");
+      typeof travel.pricePerKg === 'string' ? parseFloat(travel.pricePerKg) : travel.pricePerKg;
+    setPricePerKg(priceValue || '');
 
     // Set currency - use user's recent currency as fallback since travel doesn't have currency info
     const defaultCurrency = user?.recentCurrency
       ? {
           ...user.recentCurrency,
           id: user.recentCurrency.id.toString(),
-          country: "",
+          country: '',
         }
       : null;
     setCurrency(defaultCurrency);
 
     setAllowExtraGrams(Boolean(travel.isAllowExtraWeight));
-    setPunctuality("punctual"); // Default value since not stored in backend yet
-    setFlightNumber(travel.flightNumber || "");
+    setPunctuality('punctual'); // Default value since not stored in backend yet
+    setFlightNumber(travel.flightNumber || '');
 
     // Set travel date
     if (travel.departureDatetime) {
       const date = new Date(travel.departureDatetime);
-      setTravelDate(date.toISOString().split("T")[0]);
+      setTravelDate(date.toISOString().split('T')[0]);
     }
 
-    setReservationType(travel.isSharedWeight ? "shared" : "single");
-    setBookingType(travel.isInstant ? "instant" : "non-instant");
+    setReservationType(travel.isSharedWeight ? 'shared' : 'single');
+    setBookingType(travel.isInstant ? 'instant' : 'non-instant');
 
     // Reset other states
     setFlightNumberError(null);
@@ -186,7 +176,7 @@ export default function EditAnnounceDialog({
     }
 
     if (flightNumber && (!airline.name || flightNumberError)) {
-      setError("Veuillez entrer un numéro de vol valide");
+      setError('Veuillez entrer un numéro de vol valide');
       return;
     }
 
@@ -196,28 +186,26 @@ export default function EditAnnounceDialog({
 
     try {
       // Convert travelDate to datetime format (assuming departure time)
-      const departureDatetime = travelDate
-        ? `${travelDate}T12:00:00Z`
-        : undefined;
+      const departureDatetime = travelDate ? `${travelDate}T12:00:00Z` : undefined;
 
       if (!currency) {
-        setError("Veuillez sélectionner une devise");
+        setError('Veuillez sélectionner une devise');
         return;
       }
 
       const updateData: any = {
         description: story,
         flightNumber,
-        isSharedWeight: reservationType === "shared",
-        isInstant: bookingType === "instant",
+        isSharedWeight: reservationType === 'shared',
+        isInstant: bookingType === 'instant',
         isAllowExtraWeight: allowExtraGrams,
         feeForGloomy: 0,
-        punctualityLevel: punctuality === "very-punctual",
+        punctualityLevel: punctuality === 'very-punctual',
         departureAirportId: departureId,
         arrivalAirportId: arrivalId,
-        pricePerKg: pricePerKg === "" ? 0 : Number(pricePerKg),
+        pricePerKg: pricePerKg === '' ? 0 : Number(pricePerKg),
         currencyId: parseInt(currency.id),
-        totalWeightAllowance: kilos === "" ? 0 : Number(kilos),
+        totalWeightAllowance: kilos === '' ? 0 : Number(kilos),
       };
 
       if (departureDatetime) {
@@ -227,34 +215,28 @@ export default function EditAnnounceDialog({
       const result = await updateTravel(travel.id, updateData);
 
       if (result) {
-        setSuccess("Annonce de voyage mise à jour avec succès!");
+        setSuccess('Annonce de voyage mise à jour avec succès!');
         setTimeout(() => {
           onSuccess?.();
           onClose();
         }, 2000);
       } else {
-        setError(
-          "Erreur lors de la mise à jour de l'annonce. Veuillez réessayer."
-        );
+        setError("Erreur lors de la mise à jour de l'annonce. Veuillez réessayer.");
       }
     } catch (err: any) {
       // Check if it's a 401 error (user not authenticated)
       if (err?.response?.status === 401 || err?.status === 401) {
-        setError(
-          "Vous devez être connecté pour modifier une annonce. Veuillez vous connecter."
-        );
+        setError('Vous devez être connecté pour modifier une annonce. Veuillez vous connecter.');
       } else {
         // Handle validation errors from backend
         if (err?.response?.data?.message) {
           if (Array.isArray(err.response.data.message)) {
-            setError(err.response.data.message.join(", "));
+            setError(err.response.data.message.join(', '));
           } else {
             setError(err.response.data.message);
           }
         } else {
-          setError(
-            "Erreur lors de la mise à jour de l'annonce. Veuillez réessayer."
-          );
+          setError("Erreur lors de la mise à jour de l'annonce. Veuillez réessayer.");
         }
       }
     } finally {
@@ -276,9 +258,7 @@ export default function EditAnnounceDialog({
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
               <h2 className="text-lg md font-bold text-gray-900">
-                <span className="uppercase text-sm md">
-                  Modifier l'annonce de voyage
-                </span>
+                <span className="uppercase text-sm md">Modifier l'annonce de voyage</span>
               </h2>
             </header>
 
@@ -329,14 +309,12 @@ export default function EditAnnounceDialog({
                   placeholder="Add numero de vol sur votre billet d'avion"
                   className={`w-full rounded-xl uppercase border ${
                     flightNumberError
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-indigo-500"
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:ring-indigo-500'
                   } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                 />
                 {flightNumberError && (
-                  <p className="mt-1 text-sm text-red-600 font-medium">
-                    {flightNumberError}
-                  </p>
+                  <p className="mt-1 text-sm text-red-600 font-medium">{flightNumberError}</p>
                 )}
               </Field>
               <Field label="Date de votre Voyage">
@@ -351,13 +329,13 @@ export default function EditAnnounceDialog({
               <Field label="Compagnie aérienne">
                 <div className="relative">
                   <input
-                    value={airline.name || ""}
+                    value={airline.name || ''}
                     disabled
                     placeholder={
                       fetchingAirline
-                        ? "Recherche en cours..."
+                        ? 'Recherche en cours...'
                         : flightNumber
-                          ? "Détectée automatiquement"
+                          ? 'Détectée automatiquement'
                           : "Entrez d'abord le numéro de vol"
                     }
                     className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-sm text-gray-600 cursor-not-allowed"
@@ -388,8 +366,7 @@ export default function EditAnnounceDialog({
                   )}
                 </div>
                 <p className="mt-1 text-xs text-gray-500">
-                  La compagnie aérienne est détectée automatiquement à partir
-                  du numéro de vol
+                  La compagnie aérienne est détectée automatiquement à partir du numéro de vol
                 </p>
               </Field>
 
@@ -404,21 +381,21 @@ export default function EditAnnounceDialog({
                   placeholder="Type here..."
                   className={`w-full resize-none rounded-xl border ${
                     story.length > 500
-                      ? "border-red-500 focus:ring-red-500"
+                      ? 'border-red-500 focus:ring-red-500'
                       : story.trim().length === 0
-                        ? "border-red-300 focus:ring-red-400"
-                        : "border-gray-300 focus:ring-indigo-500"
+                        ? 'border-red-300 focus:ring-red-400'
+                        : 'border-gray-300 focus:ring-indigo-500'
                   } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
                 />
                 <div
                   className={`mt-1 text-xs ${
                     story.length > 500
-                      ? "text-red-500 font-semibold"
+                      ? 'text-red-500 font-semibold'
                       : story.length > 450
-                        ? "text-orange-500"
+                        ? 'text-orange-500'
                         : story.trim().length === 0
-                          ? "text-red-400"
-                          : "text-gray-400"
+                          ? 'text-red-400'
+                          : 'text-gray-400'
                   }`}
                 >
                   {story.length}/500 caractères
@@ -442,16 +419,16 @@ export default function EditAnnounceDialog({
                   <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
-                      checked={reservationType === "single"}
-                      onChange={() => setReservationType("single")}
+                      checked={reservationType === 'single'}
+                      onChange={() => setReservationType('single')}
                     />
                     All my kilos for one person
                   </label>
                   <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
                       type="radio"
-                      checked={reservationType === "shared"}
-                      onChange={() => setReservationType("shared")}
+                      checked={reservationType === 'shared'}
+                      onChange={() => setReservationType('shared')}
                     />
                     Shared kilo with differents traveller
                   </label>
@@ -465,16 +442,16 @@ export default function EditAnnounceDialog({
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="radio"
-                      checked={bookingType === "instant"}
-                      onChange={() => setBookingType("instant")}
+                      checked={bookingType === 'instant'}
+                      onChange={() => setBookingType('instant')}
                     />
                     Instant
                   </label>
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="radio"
-                      checked={bookingType === "non-instant"}
-                      onChange={() => setBookingType("non-instant")}
+                      checked={bookingType === 'non-instant'}
+                      onChange={() => setBookingType('non-instant')}
                     />
                     Non-instant
                   </label>
@@ -486,11 +463,7 @@ export default function EditAnnounceDialog({
                   type="number"
                   min={0}
                   value={kilos}
-                  onChange={(e) =>
-                    setKilos(
-                      e.target.value === "" ? "" : Number(e.target.value)
-                    )
-                  }
+                  onChange={(e) => setKilos(e.target.value === '' ? '' : Number(e.target.value))}
                   placeholder="Enter number of kilos"
                   className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
@@ -503,9 +476,7 @@ export default function EditAnnounceDialog({
                       min={0}
                       value={pricePerKg}
                       onChange={(e) =>
-                        setPricePerKg(
-                          e.target.value === "" ? "" : Number(e.target.value)
-                        )
+                        setPricePerKg(e.target.value === '' ? '' : Number(e.target.value))
                       }
                       placeholder="enter your price per kilos"
                       className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -552,16 +523,15 @@ export default function EditAnnounceDialog({
 
               <div>
                 <div className="mb-2 text-sm font-semibold text-gray-900">
-                  Quelle ponctualité attendez-vous lors de la rencontre avec
-                  votre HappyVoyageur ?
+                  Quelle ponctualité attendez-vous lors de la rencontre avec votre HappyVoyageur ?
                 </div>
                 <div className="flex items-center gap-6 text-sm text-gray-700">
                   <label className="inline-flex items-center gap-2">
                     <input
                       type="radio"
                       name="punctuality-edit"
-                      checked={punctuality === "punctual"}
-                      onChange={() => setPunctuality("punctual")}
+                      checked={punctuality === 'punctual'}
+                      onChange={() => setPunctuality('punctual')}
                       className="text-blue-600 focus:ring-blue-500"
                     />
                     Ponctuel
@@ -570,8 +540,8 @@ export default function EditAnnounceDialog({
                     <input
                       type="radio"
                       name="punctuality-edit"
-                      checked={punctuality === "very-punctual"}
-                      onChange={() => setPunctuality("very-punctual")}
+                      checked={punctuality === 'very-punctual'}
+                      onChange={() => setPunctuality('very-punctual')}
                       className="text-blue-600 focus:ring-blue-500"
                     />
                     Très Ponctuel
@@ -584,7 +554,7 @@ export default function EditAnnounceDialog({
             <div className="mt-10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <button
-                  className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover"
+                  className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover cursor-pointer"
                   onClick={onClose}
                 >
                   ‹ Back
@@ -593,13 +563,13 @@ export default function EditAnnounceDialog({
               <button
                 onClick={handleSubmit}
                 disabled={!canSubmit || submitting}
-                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white ${
+                className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white cursor-pointer ${
                   canSubmit && !submitting
-                    ? "bg-indigo-600 hover"
-                    : "bg-gray-300 cursor-not-allowed"
+                    ? 'bg-indigo-600 hover'
+                    : 'bg-gray-300 cursor-not-allowed'
                 }`}
               >
-                {submitting ? "Mise à jour en cours..." : "Update"}
+                {submitting ? 'Mise à jour en cours...' : 'Update'}
               </button>
             </div>
           </section>
@@ -609,18 +579,10 @@ export default function EditAnnounceDialog({
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: React.ReactNode;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold text-gray-900">
-        {label}
-      </label>
+      <label className="mb-2 block text-sm font-semibold text-gray-900">{label}</label>
       {children}
     </div>
   );

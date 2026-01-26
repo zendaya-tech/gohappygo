@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { Link } from "react-router";
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router';
 
 export default function AvatarMenu({
   open,
@@ -21,16 +21,16 @@ export default function AvatarMenu({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === 'Escape') onClose();
     };
     const onClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     };
-    window.addEventListener("keydown", onKey);
-    window.addEventListener("mousedown", onClickOutside);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('mousedown', onClickOutside);
     return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("mousedown", onClickOutside);
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('mousedown', onClickOutside);
     };
   }, [open, onClose]);
 
@@ -52,7 +52,7 @@ export default function AvatarMenu({
                 onClose();
                 onOpenLogin?.();
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
               Connexion
@@ -62,7 +62,7 @@ export default function AvatarMenu({
                 onClose();
                 onOpenRegister?.();
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150"
+              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
               Inscription
