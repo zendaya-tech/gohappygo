@@ -162,7 +162,7 @@ export default function AirportComboBox({ label, value, onChange, placeholder }:
                                 onClick={() => onPick(a)}
                                 className={`w-full text-left px-3 py-2 text-sm text-gray-800 ${idx === activeIndex ? "bg-gray-100" : "hover"}`}
                             >
-                                <div className="font-medium">{a.name} <span className="text-gray-500">({a.iataCode})</span></div>
+                                <div className="font-medium">{a.name} <span className="text-gray-500">({a.municipality || a.city})</span></div>
                                 <div className="text-xs text-gray-500">{[a.city, a.country].filter(Boolean).join(", ")}</div>
                             </button>
                         ))}

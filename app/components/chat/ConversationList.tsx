@@ -28,9 +28,10 @@ interface ConversationListProps {
   onSelectConversation: (conversation: Conversation) => void;
   selectedConversationId?: number;
   onConversationRead?: (conversationId: number) => void;
+  initialRequestId?: number | null;
 }
 
-export default function ConversationList({ onSelectConversation, selectedConversationId, onConversationRead }: ConversationListProps) {
+export default function ConversationList({ onSelectConversation, selectedConversationId, onConversationRead, initialRequestId }: ConversationListProps) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalUnreadCount, setTotalUnreadCount] = useState(0);
@@ -116,6 +117,16 @@ export default function ConversationList({ onSelectConversation, selectedConvers
           });
         
         setConversations(conversationList);
+        
+        // Auto-select conversation if initialRequestId is provided
+        if (initialRequestId) {
+          const conversationToSelect = conversationList.find(
+            conv => conv.requestId === initialRequestId
+          );
+          if (conversationToSelect) {
+            handleSelectConversation(conversationToSelect);
+          }
+        }
       } catch (error) {
         console.error('Error loading conversations:', error);
       } finally {
@@ -124,7 +135,7 @@ export default function ConversationList({ onSelectConversation, selectedConvers
     };
 
     loadConversations();
-  }, [user?.id]);
+  }, [user?.id, initialRequestId]);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);

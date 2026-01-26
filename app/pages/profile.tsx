@@ -83,7 +83,11 @@ interface Conversation {
   };
 }
 
-const ReservationsSection = () => {
+const ReservationsSection = ({ 
+  onNavigateToMessages 
+}: { 
+  onNavigateToMessages?: (requestId: number) => void 
+}) => {
   const [tab, setTab] = useState<'pending' | 'accepted' | 'completed' | 'cancelled'>('pending');
   const [requests, setRequests] = useState<RequestResponse[]>([]);
   const [loading, setLoading] = useState(true);
@@ -167,12 +171,10 @@ const ReservationsSection = () => {
     requesterAvatar: string,
     requestId: number
   ) => {
-    setSelectedRequester({
-      name: requesterName,
-      avatar: requesterAvatar,
-      requestId: requestId,
-    });
-    setMessageDialogOpen(true);
+    // Redirect to messages section and auto-select the conversation
+    if (onNavigateToMessages) {
+      onNavigateToMessages(requestId);
+    }
   };
 
   const handleSendMessage = async (message: string) => {
@@ -1564,6 +1566,9 @@ export default function Profile() {
   const [activeSection, setActiveSection] = useState<string>(
     sectionParam || (isOwnProfile ? 'reservations' : 'reviews')
   );
+  
+  // State to track which conversation should be auto-selected when navigating to messages
+  const [autoSelectRequestId, setAutoSelectRequestId] = useState<number | null>(null);
 
   // Update active section when URL parameters change
   useEffect(() => {
@@ -1685,8 +1690,19 @@ export default function Profile() {
     }
   };
 
-  const MessagesSection = () => {
+  const MessagesSection = ({ initialRequestId }: { initialRequestId?: number | null }) => {
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+    
+    // Clear the auto-select request ID after component mounts
+    useEffect(() => {
+      if (initialRequestId) {
+        // Clear it after a short delay to ensure ConversationList has processed it
+        const timer = setTimeout(() => {
+          setAutoSelectRequestId(null);
+        }, 500);
+        return () => clearTimeout(timer);
+      }
+    }, [initialRequestId]);
 
     return (
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
@@ -1696,6 +1712,7 @@ export default function Profile() {
             <ConversationList
               onSelectConversation={setSelectedConversation}
               selectedConversationId={selectedConversation?.id}
+              initialRequestId={initialRequestId}
             />
           </div>
 
@@ -1740,12 +1757,17 @@ export default function Profile() {
   const renderContent = () => {
     switch (activeSection) {
       case 'messages':
-        return <MessagesSection />;
+        return <MessagesSection initialRequestId={autoSelectRequestId} />;
       case 'reservations':
         return (
           <div className="bg-white rounded-2xl border border-gray-200 p-2">
             <div className="mb-4 text-lg font-semibold">Reservations</div>
-            <ReservationsSection />
+            <ReservationsSection 
+              onNavigateToMessages={(requestId) => {
+                setActiveSection('messages');
+                setAutoSelectRequestId(requestId);
+              }}
+            />
           </div>
         );
       case 'reviews':
