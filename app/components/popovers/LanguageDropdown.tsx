@@ -102,11 +102,11 @@ export default function LanguageDropdown() {
         className="text-gray-700 hover px-3 py-1.5 rounded-lg hover transition-colors duration-200 flex items-center gap-2 font-medium text-sm cursor-pointer"
       >
         <img
-          src={`https://purecatamphetamine.github.io/country-flag-icons/3x2/${currentLang.countryCode}.svg`}
+          src={`https://flagcdn.com/${currentLang.countryCode.toLocaleLowerCase()}.svg`} // Note : en minuscule pour ce service
           alt={currentLang.name}
-          className="w-5 h-4 object-cover rounded-sm"
+          className="w-5 h-4 object-cover rounded-sm shadow-sm"
+          onError={(e) => (e.currentTarget.src = '/fallback-flag.png')} // Sécurité
         />
-
         <span>{currentLang.name}</span>
         <svg
           className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}

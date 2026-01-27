@@ -1307,7 +1307,7 @@ export default function AnnounceDetail() {
             </button>
 
             {/* Main image */}
-            <div className="max-w-4xl overflow-hidden rounded-lg  w-[640px] h-full max-h-[500px] flex items-center justify-center bg-gray-900 rounded-lg">
+            <div className="max-w-4xl overflow-hidden  w-[640px] h-full max-h-[500px] flex items-center justify-center bg-gray-900 rounded-lg">
               <img
                 src={galleryImages[currentImageIndex]}
                 alt={`Image ${currentImageIndex + 1}`}

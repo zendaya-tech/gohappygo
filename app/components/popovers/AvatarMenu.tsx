@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 export default function AvatarMenu({
@@ -17,6 +18,7 @@ export default function AvatarMenu({
   onOpenRegister?: () => void;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!open) return;
@@ -184,7 +186,7 @@ export default function AvatarMenu({
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                 />
               </svg>
-              Logout
+              {t('header.logout')}
             </a>
 
             {/* Séparateur */}

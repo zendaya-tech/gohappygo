@@ -81,7 +81,7 @@ export default function HeroSection() {
               className="w-20 h-30 ml-10 lg:ml-0 lg:w-25 lg:h-35 object-cover hover:scale-105 transition-transform duration-300"
             />
             <span className="text-yellow-500 font-bold text-md lg:text-xl text-nowrap">
-              Recherche par Numero de vol
+              Recherche par Numéro de vol
             </span>
           </div>
         </div>

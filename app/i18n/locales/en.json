@@ -1,7 +1,7 @@
 {
-  "demande": {
-    "Colis": "Je souhaite trouver un espace bagage",
-    "Voyage": "Je propose un espace bagage"
+  "demand": {
+    "package": "I want to find baggage space",
+    "travel": "I offer baggage space"
   },
   "common": {
     "loading": "Loading...",
