@@ -252,7 +252,7 @@ const ReservationsSection = ({
             tab === 'accepted' ? 'text-gray-900' : 'text-gray-500'
           }`}
         >
-          | Réservations en attente
+          | Réservations en attente de livraison
         </button>
         <button
           onClick={() => setTab('completed')}

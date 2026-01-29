@@ -196,7 +196,7 @@
   },
   "dialogs": {
     "createAnnounce": {
-      "title": "Create announcement",
+      "title": "I offer baggage space",
       "step1": "Basic information",
       "step2": "Photos",
       "step3": "Price and conditions",
@@ -220,7 +220,7 @@
       "create": "Create"
     },
     "createPackage": {
-      "title": "Package title ",
+      "title": "I want to find baggage space",
       "description": "Description",
       "weight": "Weight (kg)",
       "maxDeliveryDate": "Max delivery date",

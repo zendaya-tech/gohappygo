@@ -45,7 +45,7 @@
   "home": {
     "hero": {
       "title": "Emportez autant de bagages que vous le désirez avec GoHappyGo lors de votre voyage",
-      "subtitle": "Faites enregistrer vos excédents de bagages par d'autres voyageurs effectuant le même vol, pour la même destination",
+      "subtitle": "Faites enregistrer vos excédents de bagages par d'autres voyageurs effectuant le même vol que vous, pour la même destination",
       "searchFrom": "Départ",
       "searchTo": "Arrivée",
       "searchDate": "Date",
@@ -197,7 +197,7 @@
   },
   "dialogs": {
     "createAnnounce": {
-      "title": "Annonce de voyage",
+      "title": "Je propose un espace bagage",
       "step1": "Informations de base",
       "step2": "Photos",
       "step3": "Prix et conditions",
@@ -221,7 +221,7 @@
       "create": "Créer"
     },
     "createPackage": {
-      "title": "Demande de voyage",
+      "title": "Je souhaite trouver un espace bagage",
       "description": "Description",
       "weight": "Poids (kg)",
       "maxDeliveryDate": "Date max de livraison",
