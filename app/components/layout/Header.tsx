@@ -90,11 +90,11 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center flex-1 justify-between px-6 space-x-8">
+            <nav className="hidden md:flex items-center flex-1 justify-between px-4 space-x-3 lg:px-6 lg:space-x-8">
               <div className="relative">
                 <button
                   onClick={() => setHoverDownload((v) => !v)}
-                  className="text-blue-600 hover font-medium text-sm transition-colors duration-200 cursor-pointer"
+                  className="text-blue-600 hover font-medium text-xs lg:text-sm transition-colors duration-200 cursor-pointer"
                   ref={(el) => {
                     (downloadBtnRef as any).current = el;
                   }}
