@@ -121,6 +121,28 @@ export const deleteAccount = async () => {
   }
 };
 
+export const forgotPassword = async (email: string) => {
+  try {
+    const response = await api.post(`/auth/forgot-password`, { email });
+    return response.data;
+  } catch (error) {
+    console.error('Forgot password error:', error);
+    throw error;
+  }
+};
+
+export const resetPassword = async (code: string, password: string) => {
+  try {
+    const response = await api.post(`/auth/reset-password?code=${code}`, { 
+      password 
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Reset password error:', error);
+    throw error;
+  }
+};
+
 export type LoginResponse = {
   access_token: string;
   refresh_token?: string;

@@ -10,6 +10,7 @@ export default [
   route("/logos", "pages/logos.tsx"),
   route("/transporters", "pages/transporters.tsx"),
   route("/forgot-password", "pages/forgot-password.tsx"),
+  route("/reset-password", "pages/reset-password.tsx"),
   route("/help-center", "pages/help-center.tsx"),
   route("/security-rules", "pages/security-rules.tsx"),
   route("/assurance-colis", "pages/assurance-colis.tsx"),

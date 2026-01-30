@@ -54,7 +54,7 @@ export default function AirportComboBox({ label, value, onChange, placeholder }:
         setLoading(true);
         try {
             const currentId = ++requestIdRef.current;
-            const res = await searchAirports({ name: debouncedQuery, cursor: reset ? undefined : cursor ?? undefined });
+            const res = await searchAirports({ municipalityOrName: debouncedQuery, cursor: reset ? undefined : cursor ?? undefined });
             if (requestIdRef.current !== currentId) return; // ignore stale results
             setItems(prev => (reset ? res.items : [...prev, ...res.items]));
             setCursor(res.nextCursor ?? null);
