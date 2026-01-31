@@ -734,7 +734,7 @@ export default function AnnounceDetail() {
                     <span className="flex-1">
                       {listing.isSharedWeight
                         ? 'peut prendre des kilos de plusieurs voyageurs'
-                        : "accepte qu'une personne pour tous les kilos"}
+                        : "n'accepte qu'une personne pour tous les kilos"}
                     </span>
                   </div>
 
@@ -1151,9 +1151,7 @@ export default function AnnounceDetail() {
                 {type === 'travel' ? (
                   <button
                     onClick={() => setBookOpen(true)}
-                    disabled={
-                      isOwnAnnounce || !pricingData || kilos > (availableWeight || 0)
-                    }
+                    disabled={isOwnAnnounce || !pricingData || kilos > (availableWeight || 0)}
                     className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
                       isOwnAnnounce
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'

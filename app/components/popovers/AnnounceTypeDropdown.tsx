@@ -82,7 +82,7 @@ export default function AnnounceTypeDropdown({
 
   return (
     <div ref={ref} className="flex" role="dialog" aria-label="Types d'annonces">
-      <div className="flex w-fit">
+      <div className="flex w-fit gap-1.5">
         {announceTypes.map((type) => (
           <button
             key={type.id}
@@ -95,7 +95,7 @@ export default function AnnounceTypeDropdown({
               onSelectType(type.id as 'travel' | 'package');
               onClose();
             }}
-            className="w-full px-4 py-3 text-left hover transition-colors duration-200 text-xs lg:text-sm font-medium text-blue-600 hover cursor-pointer text-nowrap"
+            className="w-full bg-blue-600 hover text-nowrap text-white px-4 py-2 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
           >
             {t('demande.' + type.title)}
           </button>

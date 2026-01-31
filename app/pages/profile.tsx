@@ -241,7 +241,7 @@ const ReservationsSection = ({
         <button
           onClick={() => setTab('pending')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'pending' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'pending' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | Réservations à confirmer
@@ -249,7 +249,7 @@ const ReservationsSection = ({
         <button
           onClick={() => setTab('accepted')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'accepted' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'accepted' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | Réservations en attente de livraison
@@ -257,7 +257,7 @@ const ReservationsSection = ({
         <button
           onClick={() => setTab('completed')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'completed' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'completed' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | Réservations terminées
@@ -538,14 +538,14 @@ const ReviewsSection = () => {
         <button
           onClick={() => setTab('received')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'received' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'received' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | {isOwnProfile ? 'Mes avis reçus' : 'Avis reçus'}
         </button>
         <button
           onClick={() => setTab('given')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'given' ? 'text-gray-900' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${tab === 'given' ? 'text-blue-600' : 'text-gray-500'}`}
         >
           | {isOwnProfile ? 'Mes avis donnés' : 'Avis donnés'}
         </button>
@@ -1161,7 +1161,7 @@ const PaymentsSection = ({
         <button
           onClick={() => setTab('earnings')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'earnings' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'earnings' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | Configurer
@@ -1169,7 +1169,7 @@ const PaymentsSection = ({
         <button
           onClick={() => setTab('balance')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'balance' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'balance' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | Solde
@@ -1177,7 +1177,7 @@ const PaymentsSection = ({
         <button
           onClick={() => setTab('transactions')}
           className={`text-sm font-semibold cursor-pointer ${
-            tab === 'transactions' ? 'text-gray-900' : 'text-gray-500'
+            tab === 'transactions' ? 'text-blue-600' : 'text-gray-500'
           }`}
         >
           | Transactions
@@ -1377,23 +1377,23 @@ const PaymentsSection = ({
                   </svg>
 
                   <h3 className="text-sm font-semibold text-yellow-800">
-                    Stripe connect GoHappyGo Account
+                    Compte Stripe Connect GoHappyGo
                   </h3>
                 </div>
                 <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
                   <p className="text-xs text-yellow-800">
-                    To withdraw your earnings from the platform you need to create a Stripe account.
+                    Pour retirer vos gains de la plateforme, vous devez créer un compte Stripe.
                   </p>
                   <p className="text-sm text-yellow-800">
-                    Click the button below to complete your registration.
+                    Cliquez sur le bouton ci-dessous pour terminer votre inscription.
                   </p>
                 </div>
                 <button
                   onClick={handleStripeOnboarding}
                   disabled={processingOnboarding}
-                  className="w-full bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-[40%] bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {processingOnboarding ? 'Ouverture...' : 'Register'}
+                  {processingOnboarding ? 'Ouverture...' : 'Inscription'}
                 </button>
               </div>
             </div>
@@ -1704,7 +1704,7 @@ export default function Profile() {
     },
     {
       id: 'travel-requests',
-      label: isOwnProfile ? 'Mes Demandes de Voyages' : 'Demandes de Voyages',
+      label: isOwnProfile ? 'Mes Souhaits de Voyages' : 'Souhaits de Voyages',
       icon: <QuestionMarkCircleIcon className="h-5 w-5" />,
       count: profileStats?.demandsCount || 0,
     },
