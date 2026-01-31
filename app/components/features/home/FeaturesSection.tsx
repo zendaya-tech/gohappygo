@@ -33,7 +33,7 @@ export default function FeaturesSection() {
             return (
               <div key={feature.id} className="group relative h-full">
                 <div className=" rounded-2xl p-8  transition-all duration-300 transform hover:-translate-y-2  h-full flex flex-col">
-                  <div className="relative">
+                  <div className="relative text-gray-900 hover:text-blue-600">
                     <div className="mb-8">
                       <div className={` relative text-center`}>
                         <img
@@ -46,13 +46,11 @@ export default function FeaturesSection() {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover transition-colors duration-300">
+                    <h3 className="text-xl font-bold mb-4 group-hover transition-colors duration-300">
                       {feature.title}
                     </h3>
 
-                    <p className="text-gray-600  text-justify leading-relaxed text-sm">
-                      {feature.description}
-                    </p>
+                    <p className="text-justify leading-relaxed text-sm">{feature.description}</p>
 
                     {/* Indicateur visuel */}
                     {/* <div className="mt-6 flex items-center justify-center mt-auto">
