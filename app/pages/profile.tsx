@@ -1030,8 +1030,18 @@ const TravelsSection = () => {
   );
 };
 
-const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
-  const [tab, setTab] = useState<'balance' | 'transactions' | 'earnings'>('balance');
+const PaymentsSection = ({
+  profileStats,
+  displayUser,
+  processingOnboarding,
+  handleStripeOnboarding,
+}: {
+  profileStats: any;
+  displayUser?: any;
+  processingOnboarding: boolean;
+  handleStripeOnboarding: () => void;
+}) => {
+  const [tab, setTab] = useState<'balance' | 'transactions' | 'earnings'>('earnings');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance | null>(null);
   const [loading, setLoading] = useState(true);
@@ -1339,6 +1349,55 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuration</h3>
 
+          {/* Stripe Account Alert - Show for users with pending Stripe account */}
+          {(displayUser?.stripeAccountStatus === 'pending' || !displayUser?.stripeAccountId) && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
+              <div className="flex flex-col justify-center items-center text-center">
+                <div className="flex gap-2 justify-center">
+                  <svg
+                    className="w-6 h-6 "
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* Le cercle de fond jaune (plus clair) */}
+                    <circle cx="50" cy="50" r="45" fill="#F4D951" />
+
+                    {/* La bordure extérieure (jaune plus foncé/doré) */}
+                    <circle cx="50" cy="50" r="45" stroke="#E6C13E" strokeWidth="8" />
+
+                    {/* La coche verte avec des extrémités arrondies */}
+                    <path
+                      d="M30 52L43 65L72 36"
+                      stroke="#22A925"
+                      strokeWidth="10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <h3 className="text-sm font-semibold text-yellow-800">
+                    Stripe connect GoHappyGo Account
+                  </h3>
+                </div>
+                <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
+                  <p className="text-xs text-yellow-800">
+                    To withdraw your earnings from the platform you need to create a Stripe account.
+                  </p>
+                  <p className="text-sm text-yellow-800">
+                    Click the button below to complete your registration.
+                  </p>
+                </div>
+                <button
+                  onClick={handleStripeOnboarding}
+                  disabled={processingOnboarding}
+                  className="w-full bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {processingOnboarding ? 'Ouverture...' : 'Register'}
+                </button>
+              </div>
+            </div>
+          )}
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> /*}
             {/* Earnings Chart Placeholder */}
           {/*<div className="bg-gray-50 rounded-xl p-6 h-64 flex items-center justify-center">
@@ -1663,7 +1722,7 @@ export default function Profile() {
     },
     {
       id: 'payments',
-      label: 'Payments',
+      label: 'Porte-monnaie',
       icon: <CurrencyDollarIcon className="h-5 w-5" />,
       count: profileStats?.transactionsCompletedCount || 0,
     },
@@ -1779,7 +1838,14 @@ export default function Profile() {
       case 'favorites':
         return <FavoritesSection />;
       case 'payments':
-        return <PaymentsSection profileStats={profileStats} />;
+        return (
+          <PaymentsSection
+            profileStats={profileStats}
+            displayUser={displayUser}
+            processingOnboarding={processingOnboarding}
+            handleStripeOnboarding={handleStripeOnboarding}
+          />
+        );
       default:
         return null;
     }
@@ -1860,58 +1926,6 @@ export default function Profile() {
                   </button>
                 )}
               </div>
-
-              {/* Stripe Account Alert - Show for users with pending Stripe account */}
-              {(displayUser?.stripeAccountStatus === 'pending' ||
-                !displayUser?.stripeAccountId) && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
-                  <div className="flex flex-col justify-center items-center text-center">
-                    <div className="flex gap-2 justify-center">
-                      <svg
-                        className="w-6 h-6 "
-                        viewBox="0 0 100 100"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        {/* Le cercle de fond jaune (plus clair) */}
-                        <circle cx="50" cy="50" r="45" fill="#F4D951" />
-
-                        {/* La bordure extérieure (jaune plus foncé/doré) */}
-                        <circle cx="50" cy="50" r="45" stroke="#E6C13E" strokeWidth="8" />
-
-                        {/* La coche verte avec des extrémités arrondies */}
-                        <path
-                          d="M30 52L43 65L72 36"
-                          stroke="#22A925"
-                          strokeWidth="10"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-
-                      <h3 className="text-sm font-semibold text-yellow-800">
-                        Stripe connect GoHappyGo Account
-                      </h3>
-                    </div>
-                    <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
-                      <p className="text-xs text-yellow-800">
-                        To withdraw your earnings from the platform you need to create a Stripe
-                        account.
-                      </p>
-                      <p className="text-sm text-yellow-800">
-                        Click the button below to complete your registration.
-                      </p>
-                    </div>
-                    <button
-                      onClick={handleStripeOnboarding}
-                      disabled={processingOnboarding}
-                      className="w-full bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {processingOnboarding ? 'Ouverture...' : 'Register'}
-                    </button>
-                  </div>
-                </div>
-              )}
 
               {/* Navigation */}
               <div className="bg-white rounded-2xl border border-gray-200 p-2">
