@@ -69,13 +69,15 @@ function CheckoutForm({
       // Appeler la fonction de confirmation avec le paymentMethodId
       await onConfirm({ paymentMethodId: paymentMethod.id });
 
-      // Call onSuccess callback if provided
+      // Call onSuccess callback ONLY if onConfirm succeeds (no error thrown)
       if (onSuccess) {
         onSuccess();
       }
     } catch (err: any) {
+      // En cas d'erreur, afficher le message et ne PAS appeler onSuccess
       setError(err.message || 'Une erreur est survenue');
       setIsSubmitting(false);
+      // Ne pas appeler onSuccess ici
     }
   };
 

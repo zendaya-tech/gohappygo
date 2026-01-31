@@ -16,9 +16,9 @@ export type AirportSearchResponse = {
     nextCursor?: string | null;
 };
 
-export async function searchAirports(params: { name: string; cursor?: string; limit?: number }): Promise<AirportSearchResponse> {
-    const { name, cursor, limit = 20 } = params;
-    const response = await api.get("/airports", { params: { name, cursor, limit } });
+export async function searchAirports(params: { name?: string; municipalityOrName?: string; cursor?: string; limit?: number }): Promise<AirportSearchResponse> {
+    const { name, municipalityOrName, cursor, limit = 20 } = params;
+    const response = await api.get("/airports", { params: { name, municipalityOrName, cursor, limit } });
     // Backend may return different shapes; normalize to { items, nextCursor }
     const data = response.data;
     if (Array.isArray(data)) {

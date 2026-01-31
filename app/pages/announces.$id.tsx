@@ -491,8 +491,11 @@ export default function AnnounceDetail() {
     } catch (error: any) {
       console.error('Booking error:', error);
       const errorMessage = error?.message || 'Une erreur est survenue lors de la réservation';
-      setBookOpen(false);
+      // Ne pas fermer le dialog en cas d'erreur pour que l'utilisateur puisse voir le message
+      // et réessayer
       showAlert('Erreur de réservation', errorMessage, 'error');
+      // Propager l'erreur pour que BookingDialog puisse l'afficher
+      throw error;
     }
   };
 
@@ -1149,12 +1152,12 @@ export default function AnnounceDetail() {
                   <button
                     onClick={() => setBookOpen(true)}
                     disabled={
-                      isOwnAnnounce || !pricingData || kilos > (availableWeight || 0) || kilos === 0
+                      isOwnAnnounce || !pricingData || kilos > (availableWeight || 0)
                     }
                     className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
                       isOwnAnnounce
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-                        : !pricingData || kilos > (availableWeight || 0) || kilos === 0
+                        : !pricingData || kilos > (availableWeight || 0)
                           ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                           : 'bg-blue-600 text-white hover'
                     }`}
@@ -1163,9 +1166,7 @@ export default function AnnounceDetail() {
                       ? 'Votre voyage'
                       : kilos > (availableWeight || 0)
                         ? 'Poids insuffisant'
-                        : kilos === 0
-                          ? 'Entrez un poids'
-                          : `Payer ${total.toFixed(2)} ${currencySymbol}`}
+                        : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
