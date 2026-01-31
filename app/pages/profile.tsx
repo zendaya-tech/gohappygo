@@ -1149,6 +1149,14 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       {/* Tabs */}
       <div className="flex items-center gap-6 mb-6">
         <button
+          onClick={() => setTab('earnings')}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'earnings' ? 'text-gray-900' : 'text-gray-500'
+          }`}
+        >
+          | Configurer
+        </button>
+        <button
           onClick={() => setTab('balance')}
           className={`text-sm font-semibold cursor-pointer ${
             tab === 'balance' ? 'text-gray-900' : 'text-gray-500'
@@ -1163,14 +1171,6 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
           }`}
         >
           | Transactions
-        </button>
-        <button
-          onClick={() => setTab('earnings')}
-          className={`text-sm font-semibold cursor-pointer ${
-            tab === 'earnings' ? 'text-gray-900' : 'text-gray-500'
-          }`}
-        >
-          | Gains
         </button>
       </div>
 
@@ -1337,11 +1337,11 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
       {/* Earnings Tab */}
       {tab === 'earnings' && balance && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Analyse des gains</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuration</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> /*}
             {/* Earnings Chart Placeholder */}
-            <div className="bg-gray-50 rounded-xl p-6 h-64 flex items-center justify-center">
+          {/*<div className="bg-gray-50 rounded-xl p-6 h-64 flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <svg className="h-12 w-12 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L3.5 15.9l.01 2.59z" />
@@ -1349,10 +1349,10 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                 <p>Graphique des gains</p>
                 <p className="text-sm">Bientôt disponible</p>
               </div>
-            </div>
+            </div> /*}
 
             {/* Earnings Summary */}
-            <div className="space-y-4">
+          {/*<div className="space-y-4">
               <div className="bg-blue-50 rounded-xl p-4">
                 <h4 className="font-medium text-blue-900 mb-2">Solde disponible</h4>
                 <div className="text-2xl font-bold text-blue-600">
@@ -1378,7 +1378,7 @@ const PaymentsSection = ({ profileStats }: { profileStats: any }) => {
                 <p className="text-sm text-purple-700">Disponible + En attente</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

@@ -101,7 +101,7 @@ export default function RegisterDialog({
         setMessage(res.message);
         setStep(2);
       } catch (err: any) {
-        setError(err.message || "Échec de l'inscription. Réessayez.");
+        setError(err.response?.data?.message || "Échec de l'inscription. Réessayez.");
       } finally {
         setSubmitting(false);
       }
