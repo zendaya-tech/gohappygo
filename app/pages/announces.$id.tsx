@@ -745,7 +745,7 @@ export default function AnnounceDetail() {
                     <span className="flex-1">
                       {listing.isSharedWeight
                         ? 'peut prendre des kilos de plusieurs voyageurs'
-                        : "accepte qu'une personne pour tous les kilos"}
+                        : "accepte une seul personne pour tous les kilos"}
                     </span>
                   </div>
 
