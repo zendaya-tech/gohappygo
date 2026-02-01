@@ -185,6 +185,13 @@ export default function AnnounceDetail() {
       try {
         const announce = await getAnnounceByIdAndType(id, type);
         setListing(announce);
+        
+        // Si c'est un voyage qui n'accepte qu'un seul voyageur pour tous les kilos,
+        // initialiser le poids à tous les kilos disponibles
+        if (announce && type === 'travel' && !announce.isSharedWeight) {
+          const availableKg = announce.weightAvailable || 0;
+          setKilos(availableKg);
+        }
       } catch (error) {
         console.error('Error fetching announce:', error);
       } finally {
@@ -423,6 +430,10 @@ export default function AnnounceDetail() {
   const currencySymbol = listing?.currency?.symbol || '€'; // Fallback to Euro if no currency
 
   const availableWeight = type === 'travel' ? listing.weightAvailable : listing.weight;
+
+  // Vérifier si l'annonce n'accepte qu'un seul voyageur pour tous les kilos
+  const requiresAllKilos = type === 'travel' && !listing.isSharedWeight;
+  const hasInvalidKilosForSingleTraveler = requiresAllKilos && kilos !== availableWeight;
 
   const handleBookingConfirm = async (cardData: BookingCardData) => {
     if (!currentUser) {
@@ -919,11 +930,14 @@ export default function AnnounceDetail() {
                         }
                       }}
                       placeholder="0"
+                      disabled={requiresAllKilos}
                       className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
                         kilos > (availableWeight || 0)
                           ? 'border-red-500 focus:ring-red-500'
-                          : 'border-gray-300 focus:ring-indigo-500'
-                      }`}
+                          : hasInvalidKilosForSingleTraveler
+                            ? 'border-orange-500 focus:ring-orange-500'
+                            : 'border-gray-300 focus:ring-indigo-500'
+                      } ${requiresAllKilos ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
 
                     {/* Alert when weight exceeds available capacity */}
@@ -952,7 +966,32 @@ export default function AnnounceDetail() {
                       </div>
                     )}
 
-                    {!kilos && <div className="mb-6" />}
+                    {/* Alert when single traveler mode requires all kilos */}
+                    {hasInvalidKilosForSingleTraveler && kilos <= (availableWeight || 0) && (
+                      <div className="mt-2 mb-4 flex items-start gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                        <svg
+                          className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-orange-800">
+                            Tous les kilos requis
+                          </p>
+                          <p className="text-xs text-orange-700 mt-1">
+                            Ce voyage n'accepte qu'un seul voyageur pour tous les kilos disponibles ({availableWeight || 0}kg).
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {!kilos && !hasInvalidKilosForSingleTraveler && <div className="mb-6" />}
 
                     {pricingLoading ? (
                       <div className="flex items-center justify-center py-8">
@@ -1152,12 +1191,12 @@ export default function AnnounceDetail() {
                   <button
                     onClick={() => setBookOpen(true)}
                     disabled={
-                      isOwnAnnounce || !pricingData || kilos > (availableWeight || 0)
+                      isOwnAnnounce || !pricingData || kilos > (availableWeight || 0) || hasInvalidKilosForSingleTraveler
                     }
                     className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
                       isOwnAnnounce
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-                        : !pricingData || kilos > (availableWeight || 0)
+                        : !pricingData || kilos > (availableWeight || 0) || hasInvalidKilosForSingleTraveler
                           ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                           : 'bg-blue-600 text-white hover'
                     }`}
@@ -1166,7 +1205,9 @@ export default function AnnounceDetail() {
                       ? 'Votre voyage'
                       : kilos > (availableWeight || 0)
                         ? 'Poids insuffisant'
-                        : `Payer ${total.toFixed(2)} ${currencySymbol}`}
+                        : hasInvalidKilosForSingleTraveler
+                          ? `Tous les kilos requis (${availableWeight}kg)`
+                          : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
