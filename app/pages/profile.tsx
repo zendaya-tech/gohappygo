@@ -532,7 +532,7 @@ const ReviewsSection = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6">
+    <div className="bg-white rounded-2xl">
       {/* Tabs - Show for both own profile and public profiles */}
       <div className="flex items-center gap-6 mb-6">
         <button
@@ -755,7 +755,7 @@ const TravelRequestsSection = () => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-white rounded-2xl">
         <div className="text-center text-gray-500">Chargement des demandes...</div>
       </div>
     );
@@ -763,7 +763,7 @@ const TravelRequestsSection = () => {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-white rounded-2xl">
         {demands.length === 0 ? (
           <div className="flex items-center justify-center h-64">
             <div className="text-center text-gray-500 py-8 flex flex-col items-center">
@@ -916,7 +916,7 @@ const TravelsSection = () => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-white rounded-2xl">
         <div className="text-center text-gray-500">Chargement des voyages...</div>
       </div>
     );
@@ -924,7 +924,7 @@ const TravelsSection = () => {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-white rounded-2xl">
         {travels.length === 0 ? (
           <div className="flex items-center justify-center h-64">
             {/* <div className="text-center">
@@ -1819,8 +1819,7 @@ export default function Profile() {
         return <MessagesSection initialRequestId={autoSelectRequestId} />;
       case 'reservations':
         return (
-          <div className="bg-white rounded-2xl border border-gray-200 p-2">
-            <div className="mb-4 text-lg font-semibold">Réservations</div>
+          <div className="bg-white rounded-2xl">
             <ReservationsSection
               onNavigateToMessages={(requestId) => {
                 setActiveSection('messages');
@@ -1852,10 +1851,10 @@ export default function Profile() {
   };
 
   return (
-    <div className=" bg-white">
+    <div className="bg-white">
       <Header />
 
-      <main className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+      <main className="min-h-screen max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 md:py-8">
         {loading ? (
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -1870,9 +1869,9 @@ export default function Profile() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[256px_1fr] xl:grid-cols-[288px_1fr] gap-3 md:gap-5">
             {/* Sidebar */}
-            <aside className="space-y-4 md:space-y-6">
+            <aside className="space-y-4 md:space-y-6 lg:sticky lg:top-24 self-start">
               {/* Profile Card */}
               <div className="bg-white rounded-2xl border border-gray-200 p-4 md:p-6 text-center">
                 {/* Profile Picture */}
@@ -1957,22 +1956,22 @@ export default function Profile() {
                 <div className="space-y-3">
                   <button
                     onClick={() => setCreateAnnounceDialogOpen(true)}
-                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
+                    className="w-full bg-blue-600 hover bg-blue-700 text-white px-4 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    Je propose un espace de bagage
+                    publier un espace bagage
                   </button>
                   <button
                     onClick={() => setCreatePackageDialogOpen(true)}
-                    className="w-full bg-blue-600 hover text-white px-4 py-3 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    Je souhaite trouver un espace de bagage
+                    trouver un espace bagage
                   </button>
                 </div>
               )}
             </aside>
 
             {/* Main Content */}
-            <section className="mx-5">
+            <section className="w-full">
               {/* Section Title */}
               <div className="mb-4 md:mb-6">
                 <h1 className="text-xl md font-bold text-gray-900">
