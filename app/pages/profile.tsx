@@ -335,7 +335,7 @@ const ReservationsSection = ({
                       : undefined
                 }
                 primaryAction={
-                  request.currentStatus?.status !== 'CANCELLED' &&
+                  request.currentStatus?.status === 'NEGOTIATING' &&
                   requester?.id.toString() != currentUser?.id
                     ? {
                         label: 'Approve',
@@ -1869,7 +1869,7 @@ export default function Profile() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-[256px_1fr] xl:grid-cols-[288px_1fr] gap-3 md:gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] xl:grid-cols-[320px_1fr] gap-3 md:gap-5">
             {/* Sidebar */}
             <aside className="space-y-4 md:space-y-6 lg:sticky lg:top-24 self-start">
               {/* Profile Card */}
@@ -1956,15 +1956,15 @@ export default function Profile() {
                 <div className="space-y-3">
                   <button
                     onClick={() => setCreateAnnounceDialogOpen(true)}
-                    className="w-full bg-blue-600 hover bg-blue-700 text-white px-4 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    publier un espace bagage
+                    Je propose un espace bagage
                   </button>
                   <button
                     onClick={() => setCreatePackageDialogOpen(true)}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   >
-                    trouver un espace bagage
+                    Je souhaite trouver un espace bagage
                   </button>
                 </div>
               )}

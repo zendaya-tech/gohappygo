@@ -143,14 +143,14 @@ const ActionCard: React.FC<ActionCardProps> = ({
                   <button
                     onClick={tertiaryAction.onClick}
                     disabled={tertiaryAction.disabled}
-                    className={`px-4 py-2 rounded-xl font-bold text-xs shadow-lg transition-all active:scale-95 cursor-pointer${
+                    className={`px-4 py-2 rounded-xl font-bold text-xs shadow-lg transition-all active:scale-95 cursor-pointer ${
                       tertiaryAction.disabled
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-60'
                         : tertiaryAction.color === 'orange'
-                          ? 'bg-orange-500 text-white hover shadow-orange-100'
+                          ? 'bg-orange-500 text-white hover:bg-orange-600 hover:shadow-md'
                           : tertiaryAction.color === 'gray'
                             ? 'bg-gray-400 text-white cursor-not-allowed'
-                            : 'bg-blue-600 text-white hover shadow-blue-100'
+                            : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
                     }`}
                   >
                     {tertiaryAction.label}
@@ -166,7 +166,9 @@ const ActionCard: React.FC<ActionCardProps> = ({
                   <button
                     onClick={primaryAction.onClick}
                     className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap cursor-pointer ${
-                      primaryAction.color === 'green' ? 'bg-green-500 hover' : 'bg-blue-600 hover'
+                      primaryAction.color === 'green'
+                        ? 'bg-green-500 hover:bg-green-600'
+                        : 'bg-blue-600 hover:bg-blue-700'
                     }`}
                   >
                     {primaryAction.label}
@@ -178,7 +180,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
                     className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md font-bold rounded-xl transition-colors border-2 whitespace-nowrap cursor-pointer ${
                       secondaryAction.color === 'red'
                         ? 'border-red-500 text-red-500 hover:bg-red-50'
-                        : 'border-gray-200 text-gray-500 hover'
+                        : 'border-gray-200 text-gray-500 hover:bg-gray-50'
                     }`}
                   >
                     {secondaryAction.label}
