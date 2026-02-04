@@ -354,9 +354,11 @@ const ReservationsSection = ({
                             label: 'Terminer',
                             onClick: canComplete
                               ? () => handleCompleteRequest(request.id)
-                              : () => {},
+                              : () =>
+                                  setErrorMessage(
+                                    "Impossible de terminer avant la date de départ du voyage."
+                                  ),
                             color: 'green' as const,
-                            disabled: !canComplete,
                           };
                         })()
                       : undefined
