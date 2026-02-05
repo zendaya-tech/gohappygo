@@ -1,0 +1,155 @@
+Date : 2026-02-01 05:08:50
+Directory : /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app
+Total : 108 files,  19190 codes, 958 comments, 1766 blanks, all 21914 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| TypeScript JSX |         73 |     15,091 |        847 |      1,340 |     17,278 |
+| TypeScript     |         32 |      3,333 |        105 |        396 |      3,834 |
+| JSON           |          2 |        652 |          0 |          3 |        655 |
+| CSS            |          1 |        114 |          6 |         27 |        147 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                |        108 |     19,190 |        958 |      1,766 |     21,914 |
+| . (Files)                                                                                                        |          3 |        270 |         16 |         48 |        334 |
+| components                                                                                                       |         54 |      9,809 |        458 |        841 |     11,108 |
+| components/cards                                                                                                 |          6 |        706 |         18 |         57 |        781 |
+| components/chat                                                                                                  |          3 |        848 |         45 |         88 |        981 |
+| components/dialogs                                                                                               |         19 |      4,918 |        202 |        423 |      5,543 |
+| components/features                                                                                              |          5 |        292 |         17 |         26 |        335 |
+| components/features/home                                                                                         |          5 |        292 |         17 |         26 |        335 |
+| components/forms                                                                                                 |          5 |        903 |         34 |         78 |      1,015 |
+| components/layout                                                                                                |          3 |        693 |         28 |         29 |        750 |
+| components/popovers                                                                                              |          5 |        879 |        105 |         85 |      1,069 |
+| components/sections                                                                                              |          8 |        570 |          9 |         55 |        634 |
+| data                                                                                                             |          1 |        398 |          2 |          5 |        405 |
+| hooks                                                                                                            |          4 |        598 |         30 |         95 |        723 |
+| i18n                                                                                                             |          3 |        681 |          1 |         10 |        692 |
+| i18n (Files)                                                                                                     |          1 |         29 |          1 |          7 |         37 |
+| i18n/locales                                                                                                     |          2 |        652 |          0 |          3 |        655 |
+| pages                                                                                                            |         18 |      5,147 |        379 |        480 |      6,006 |
+| services                                                                                                         |         23 |      2,187 |         69 |        277 |      2,533 |
+| store                                                                                                            |          1 |         84 |          0 |          6 |         90 |
+| utils                                                                                                            |          1 |         16 |          3 |          4 |         23 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                         | language       | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/app.css                                          | CSS            |        114 |          6 |         27 |        147 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/ActionCard.tsx                  | TypeScript JSX |        182 |          6 |          9 |        197 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/AnnounceCard.tsx                | TypeScript JSX |        208 |         10 |         17 |        235 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/ProfileTravelCard.tsx           | TypeScript JSX |         83 |          0 |          5 |         88 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/ReservationCard.tsx             | TypeScript JSX |         66 |          0 |         11 |         77 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/TravelCard.tsx                  | TypeScript JSX |        107 |          1 |          7 |        115 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/VideoCard.tsx                   | TypeScript JSX |         60 |          1 |          8 |         69 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/chat/Chat.tsx                         | TypeScript JSX |        393 |         19 |         42 |        454 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/chat/ChatWidget.tsx                   | TypeScript JSX |        237 |          6 |         21 |        264 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/chat/ConversationList.tsx             | TypeScript JSX |        218 |         20 |         25 |        263 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/AlertDialog.tsx               | TypeScript JSX |         97 |          7 |         13 |        117 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/AnnounceTypeDialog.tsx        | TypeScript JSX |         98 |          3 |         14 |        115 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/BookingDialog.tsx             | TypeScript JSX |        209 |         11 |         25 |        245 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ConfirmCancelDialog.tsx       | TypeScript JSX |         89 |          6 |         11 |        106 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CookieConsent.tsx             | TypeScript JSX |         67 |          0 |         10 |         77 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CreateAlertDialog.tsx         | TypeScript JSX |        222 |         13 |         22 |        257 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CreateAnnounceDialog.tsx      | TypeScript JSX |        797 |         28 |         49 |        874 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CreatePackageDialog.tsx       | TypeScript JSX |        551 |         15 |         45 |        611 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/EditAnnounceDialog.tsx        | TypeScript JSX |        528 |         19 |         43 |        590 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/EditPackageDialog.tsx         | TypeScript JSX |        340 |         15 |         33 |        388 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/LoginDialog.tsx               | TypeScript JSX |        187 |          5 |         16 |        208 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/MessageDialog.tsx             | TypeScript JSX |        142 |          9 |         17 |        168 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/NotificationModal.tsx         | TypeScript JSX |          0 |          1 |          0 |          1 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ProfileDialog.tsx             | TypeScript JSX |        521 |         23 |         37 |        581 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/RegisterDialog.tsx            | TypeScript JSX |        432 |         11 |         29 |        472 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ReviewDialog.tsx              | TypeScript JSX |        113 |          6 |         13 |        132 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ShareDialog.tsx               | TypeScript JSX |        226 |          6 |         10 |        242 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/SuccessViewProps.tsx          | TypeScript JSX |        110 |         10 |         15 |        135 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/SupportDialog.tsx             | TypeScript JSX |        189 |         14 |         21 |        224 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/FeaturesSection.tsx     | TypeScript JSX |         66 |          5 |          8 |         79 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/HeroSection.tsx         | TypeScript JSX |         84 |          2 |          6 |         92 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/LatestAnnounces.tsx     | TypeScript JSX |          0 |          0 |          1 |          1 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/ReviewCard.tsx          | TypeScript JSX |         29 |          7 |          4 |         40 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/Reviews.tsx             | TypeScript JSX |        113 |          3 |          7 |        123 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/AirlineComboBox.tsx             | TypeScript JSX |        197 |          6 |         12 |        215 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/AirportComboBox.tsx             | TypeScript JSX |        159 |          7 |         15 |        181 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/CountryComboBox.tsx             | TypeScript JSX |        163 |          1 |         14 |        178 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/CurrencyComboBox.tsx            | TypeScript JSX |        169 |          2 |         14 |        185 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/SearchFiltersBar.tsx            | TypeScript JSX |        215 |         18 |         23 |        256 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/layout/Footer.tsx                     | TypeScript JSX |        191 |          6 |          9 |        206 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/layout/FooterMinimal.tsx              | TypeScript JSX |         19 |          0 |          3 |         22 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/layout/Header.tsx                     | TypeScript JSX |        483 |         22 |         17 |        522 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/AnnounceTypeDropdown.tsx     | TypeScript JSX |         85 |         15 |          7 |        107 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/AppDownloadPopover.tsx       | TypeScript JSX |         66 |          2 |          9 |         77 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/AvatarMenu.tsx               | TypeScript JSX |        288 |          7 |         17 |        312 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/LanguageDropdown.tsx         | TypeScript JSX |         91 |         59 |         10 |        160 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/NotificationPopover.tsx      | TypeScript JSX |        349 |         22 |         42 |        413 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/BecomeTransporterSection.tsx | TypeScript JSX |         40 |          0 |          2 |         42 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/LatestAnnounces.tsx          | TypeScript JSX |          0 |          0 |          1 |          1 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/LatestDemands.tsx            | TypeScript JSX |         93 |          3 |         13 |        109 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/PackageCategories.tsx        | TypeScript JSX |         83 |          0 |          2 |         85 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/PopularRoutes.tsx            | TypeScript JSX |         49 |          0 |          4 |         53 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/SupportSection.tsx           | TypeScript JSX |        179 |          4 |         18 |        201 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/VerifiedTravelers.tsx        | TypeScript JSX |         90 |          2 |         11 |        103 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/VideoRecommendations.tsx     | TypeScript JSX |         36 |          0 |          4 |         40 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/data/announces.ts                                | TypeScript     |        398 |          2 |          5 |        405 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useAuth.ts                                 | TypeScript     |        284 |         17 |         34 |        335 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useInfiniteScroll.ts                       | TypeScript     |         34 |          1 |          9 |         44 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useLanguage.ts                             | TypeScript     |         16 |          1 |          5 |         22 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useSocketIO.ts                             | TypeScript     |        264 |         11 |         47 |        322 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/i18n/index.ts                                    | TypeScript     |         29 |          1 |          7 |         37 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/i18n/locales/en.json                             | JSON           |        316 |          0 |          1 |        317 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/i18n/locales/fr.json                             | JSON           |        336 |          0 |          2 |        338 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/annonces.tsx                               | TypeScript JSX |        503 |         36 |         46 |        585 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/announces.$id.tsx                          | TypeScript JSX |      1,228 |        111 |        102 |      1,441 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/assurance-colis.tsx                        | TypeScript JSX |         49 |          0 |          8 |         57 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/download-app.tsx                           | TypeScript JSX |        214 |          7 |         25 |        246 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/forgot-password.tsx                        | TypeScript JSX |         83 |          0 |          7 |         90 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/help-center.tsx                            | TypeScript JSX |        118 |          2 |         10 |        130 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/home.tsx                                   | TypeScript JSX |         45 |          1 |          5 |         51 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/how-it-works.tsx                           | TypeScript JSX |         58 |          0 |          5 |         63 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/logos.tsx                                  | TypeScript JSX |         57 |          0 |          5 |         62 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/logout.tsx                                 | TypeScript JSX |         35 |          3 |          8 |         46 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/notifications.tsx                          | TypeScript JSX |        276 |          9 |         26 |        311 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/profile.tsx                                | TypeScript JSX |      1,674 |        189 |        152 |      2,015 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/reset-password.tsx                         | TypeScript JSX |        176 |          1 |         16 |        193 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/security-rules.tsx                         | TypeScript JSX |         45 |          0 |         10 |         55 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/stripe-onboarding.tsx                      | TypeScript JSX |        109 |         11 |         15 |        135 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/support.tsx                                | TypeScript JSX |        313 |          9 |         28 |        350 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/terms.tsx                                  | TypeScript JSX |         51 |          0 |          4 |         55 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/transporters.tsx                           | TypeScript JSX |        113 |          0 |          8 |        121 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/root.tsx                                         | TypeScript JSX |        135 |         10 |         19 |        164 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/routes.ts                                        | TypeScript     |         21 |          0 |          2 |         23 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/Api.ts                                  | TypeScript     |         86 |         18 |         28 |        132 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/airlineService.ts                       | TypeScript     |         50 |          2 |          8 |         60 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/airportService.ts                       | TypeScript     |         36 |          1 |          7 |         44 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/alertService.ts                         | TypeScript     |         57 |          0 |          5 |         62 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/announceService.ts                      | TypeScript     |        280 |          9 |         30 |        319 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/authService.ts                          | TypeScript     |        236 |          0 |         21 |        257 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/bookmarkService.ts                      | TypeScript     |         66 |          0 |          7 |         73 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/currencyService.ts                      | TypeScript     |        217 |          6 |         23 |        246 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/demandService.ts                        | TypeScript     |        195 |          8 |         19 |        222 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/messageService.ts                       | TypeScript     |         97 |          5 |          9 |        111 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/notificationService.ts                  | TypeScript     |         62 |          0 |         12 |         74 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/pricingService.ts                       | TypeScript     |         21 |          0 |          3 |         24 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/quotesService.ts                        | TypeScript     |         17 |          0 |          5 |         22 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/requestService.ts                       | TypeScript     |        108 |          0 |         12 |        120 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/reviewService.ts                        | TypeScript     |        103 |          2 |         13 |        118 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/reviewsService.ts                       | TypeScript     |         11 |          0 |          1 |         12 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/socketService.ts                        | TypeScript     |         76 |          7 |         22 |        105 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/stripeService.ts                        | TypeScript     |         29 |          0 |          4 |         33 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/supportService.ts                       | TypeScript     |         73 |          1 |          8 |         82 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/transactionService.ts                   | TypeScript     |         90 |          0 |          6 |         96 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/transportService.ts                     | TypeScript     |         75 |          5 |         12 |         92 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/travelService.ts                        | TypeScript     |        191 |          5 |         19 |        215 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/userService.ts                          | TypeScript     |         11 |          0 |          3 |         14 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/store/auth.ts                                    | TypeScript     |         84 |          0 |          6 |         90 |
+| /home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/utils/cookies.ts                                 | TypeScript     |         16 |          3 |          4 |         23 |
+| Total                                                                                                            |                |     19,190 |        958 |      1,766 |     21,914 |
++------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

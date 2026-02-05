@@ -1,0 +1,110 @@
+"filename", "language", "TypeScript", "TypeScript JSX", "JSON", "CSS", "comment", "blank", "total"
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/app.css", "CSS", 0, 0, 0, 114, 6, 27, 147
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/ActionCard.tsx", "TypeScript JSX", 0, 182, 0, 0, 6, 9, 197
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/AnnounceCard.tsx", "TypeScript JSX", 0, 208, 0, 0, 10, 17, 235
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/ProfileTravelCard.tsx", "TypeScript JSX", 0, 83, 0, 0, 0, 5, 88
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/ReservationCard.tsx", "TypeScript JSX", 0, 66, 0, 0, 0, 11, 77
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/TravelCard.tsx", "TypeScript JSX", 0, 107, 0, 0, 1, 7, 115
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/cards/VideoCard.tsx", "TypeScript JSX", 0, 60, 0, 0, 1, 8, 69
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/chat/Chat.tsx", "TypeScript JSX", 0, 393, 0, 0, 19, 42, 454
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/chat/ChatWidget.tsx", "TypeScript JSX", 0, 237, 0, 0, 6, 21, 264
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/chat/ConversationList.tsx", "TypeScript JSX", 0, 218, 0, 0, 20, 25, 263
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/AlertDialog.tsx", "TypeScript JSX", 0, 97, 0, 0, 7, 13, 117
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/AnnounceTypeDialog.tsx", "TypeScript JSX", 0, 98, 0, 0, 3, 14, 115
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/BookingDialog.tsx", "TypeScript JSX", 0, 209, 0, 0, 11, 25, 245
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ConfirmCancelDialog.tsx", "TypeScript JSX", 0, 89, 0, 0, 6, 11, 106
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CookieConsent.tsx", "TypeScript JSX", 0, 67, 0, 0, 0, 10, 77
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CreateAlertDialog.tsx", "TypeScript JSX", 0, 222, 0, 0, 13, 22, 257
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CreateAnnounceDialog.tsx", "TypeScript JSX", 0, 797, 0, 0, 28, 49, 874
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/CreatePackageDialog.tsx", "TypeScript JSX", 0, 551, 0, 0, 15, 45, 611
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/EditAnnounceDialog.tsx", "TypeScript JSX", 0, 528, 0, 0, 19, 43, 590
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/EditPackageDialog.tsx", "TypeScript JSX", 0, 340, 0, 0, 15, 33, 388
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/LoginDialog.tsx", "TypeScript JSX", 0, 187, 0, 0, 5, 16, 208
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/MessageDialog.tsx", "TypeScript JSX", 0, 142, 0, 0, 9, 17, 168
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/NotificationModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 1, 0, 1
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ProfileDialog.tsx", "TypeScript JSX", 0, 521, 0, 0, 23, 37, 581
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/RegisterDialog.tsx", "TypeScript JSX", 0, 432, 0, 0, 11, 29, 472
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ReviewDialog.tsx", "TypeScript JSX", 0, 113, 0, 0, 6, 13, 132
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/ShareDialog.tsx", "TypeScript JSX", 0, 226, 0, 0, 6, 10, 242
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/SuccessViewProps.tsx", "TypeScript JSX", 0, 110, 0, 0, 10, 15, 135
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/dialogs/SupportDialog.tsx", "TypeScript JSX", 0, 189, 0, 0, 14, 21, 224
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/FeaturesSection.tsx", "TypeScript JSX", 0, 66, 0, 0, 5, 8, 79
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/HeroSection.tsx", "TypeScript JSX", 0, 84, 0, 0, 2, 6, 92
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/LatestAnnounces.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 1, 1
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/ReviewCard.tsx", "TypeScript JSX", 0, 29, 0, 0, 7, 4, 40
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/features/home/Reviews.tsx", "TypeScript JSX", 0, 113, 0, 0, 3, 7, 123
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/AirlineComboBox.tsx", "TypeScript JSX", 0, 197, 0, 0, 6, 12, 215
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/AirportComboBox.tsx", "TypeScript JSX", 0, 159, 0, 0, 7, 15, 181
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/CountryComboBox.tsx", "TypeScript JSX", 0, 163, 0, 0, 1, 14, 178
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/CurrencyComboBox.tsx", "TypeScript JSX", 0, 169, 0, 0, 2, 14, 185
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/forms/SearchFiltersBar.tsx", "TypeScript JSX", 0, 215, 0, 0, 18, 23, 256
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/layout/Footer.tsx", "TypeScript JSX", 0, 191, 0, 0, 6, 9, 206
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/layout/FooterMinimal.tsx", "TypeScript JSX", 0, 19, 0, 0, 0, 3, 22
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/layout/Header.tsx", "TypeScript JSX", 0, 483, 0, 0, 22, 17, 522
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/AnnounceTypeDropdown.tsx", "TypeScript JSX", 0, 85, 0, 0, 15, 7, 107
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/AppDownloadPopover.tsx", "TypeScript JSX", 0, 66, 0, 0, 2, 9, 77
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/AvatarMenu.tsx", "TypeScript JSX", 0, 288, 0, 0, 7, 17, 312
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/LanguageDropdown.tsx", "TypeScript JSX", 0, 91, 0, 0, 59, 10, 160
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/popovers/NotificationPopover.tsx", "TypeScript JSX", 0, 349, 0, 0, 22, 42, 413
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/BecomeTransporterSection.tsx", "TypeScript JSX", 0, 40, 0, 0, 0, 2, 42
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/LatestAnnounces.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 1, 1
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/LatestDemands.tsx", "TypeScript JSX", 0, 93, 0, 0, 3, 13, 109
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/PackageCategories.tsx", "TypeScript JSX", 0, 83, 0, 0, 0, 2, 85
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/PopularRoutes.tsx", "TypeScript JSX", 0, 49, 0, 0, 0, 4, 53
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/SupportSection.tsx", "TypeScript JSX", 0, 179, 0, 0, 4, 18, 201
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/VerifiedTravelers.tsx", "TypeScript JSX", 0, 90, 0, 0, 2, 11, 103
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/components/sections/VideoRecommendations.tsx", "TypeScript JSX", 0, 36, 0, 0, 0, 4, 40
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/data/announces.ts", "TypeScript", 398, 0, 0, 0, 2, 5, 405
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useAuth.ts", "TypeScript", 284, 0, 0, 0, 17, 34, 335
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useInfiniteScroll.ts", "TypeScript", 34, 0, 0, 0, 1, 9, 44
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useLanguage.ts", "TypeScript", 16, 0, 0, 0, 1, 5, 22
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/hooks/useSocketIO.ts", "TypeScript", 264, 0, 0, 0, 11, 47, 322
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/i18n/index.ts", "TypeScript", 29, 0, 0, 0, 1, 7, 37
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/i18n/locales/en.json", "JSON", 0, 0, 316, 0, 0, 1, 317
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/i18n/locales/fr.json", "JSON", 0, 0, 336, 0, 0, 2, 338
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/annonces.tsx", "TypeScript JSX", 0, 503, 0, 0, 36, 46, 585
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/announces.$id.tsx", "TypeScript JSX", 0, 1228, 0, 0, 111, 102, 1441
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/assurance-colis.tsx", "TypeScript JSX", 0, 49, 0, 0, 0, 8, 57
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/download-app.tsx", "TypeScript JSX", 0, 214, 0, 0, 7, 25, 246
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/forgot-password.tsx", "TypeScript JSX", 0, 83, 0, 0, 0, 7, 90
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/help-center.tsx", "TypeScript JSX", 0, 118, 0, 0, 2, 10, 130
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/home.tsx", "TypeScript JSX", 0, 45, 0, 0, 1, 5, 51
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/how-it-works.tsx", "TypeScript JSX", 0, 58, 0, 0, 0, 5, 63
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/logos.tsx", "TypeScript JSX", 0, 57, 0, 0, 0, 5, 62
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/logout.tsx", "TypeScript JSX", 0, 35, 0, 0, 3, 8, 46
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/notifications.tsx", "TypeScript JSX", 0, 276, 0, 0, 9, 26, 311
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/profile.tsx", "TypeScript JSX", 0, 1674, 0, 0, 189, 152, 2015
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/reset-password.tsx", "TypeScript JSX", 0, 176, 0, 0, 1, 16, 193
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/security-rules.tsx", "TypeScript JSX", 0, 45, 0, 0, 0, 10, 55
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/stripe-onboarding.tsx", "TypeScript JSX", 0, 109, 0, 0, 11, 15, 135
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/support.tsx", "TypeScript JSX", 0, 313, 0, 0, 9, 28, 350
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/terms.tsx", "TypeScript JSX", 0, 51, 0, 0, 0, 4, 55
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/pages/transporters.tsx", "TypeScript JSX", 0, 113, 0, 0, 0, 8, 121
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/root.tsx", "TypeScript JSX", 0, 135, 0, 0, 10, 19, 164
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/routes.ts", "TypeScript", 21, 0, 0, 0, 0, 2, 23
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/Api.ts", "TypeScript", 86, 0, 0, 0, 18, 28, 132
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/airlineService.ts", "TypeScript", 50, 0, 0, 0, 2, 8, 60
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/airportService.ts", "TypeScript", 36, 0, 0, 0, 1, 7, 44
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/alertService.ts", "TypeScript", 57, 0, 0, 0, 0, 5, 62
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/announceService.ts", "TypeScript", 280, 0, 0, 0, 9, 30, 319
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/authService.ts", "TypeScript", 236, 0, 0, 0, 0, 21, 257
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/bookmarkService.ts", "TypeScript", 66, 0, 0, 0, 0, 7, 73
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/currencyService.ts", "TypeScript", 217, 0, 0, 0, 6, 23, 246
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/demandService.ts", "TypeScript", 195, 0, 0, 0, 8, 19, 222
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/messageService.ts", "TypeScript", 97, 0, 0, 0, 5, 9, 111
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/notificationService.ts", "TypeScript", 62, 0, 0, 0, 0, 12, 74
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/pricingService.ts", "TypeScript", 21, 0, 0, 0, 0, 3, 24
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/quotesService.ts", "TypeScript", 17, 0, 0, 0, 0, 5, 22
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/requestService.ts", "TypeScript", 108, 0, 0, 0, 0, 12, 120
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/reviewService.ts", "TypeScript", 103, 0, 0, 0, 2, 13, 118
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/reviewsService.ts", "TypeScript", 11, 0, 0, 0, 0, 1, 12
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/socketService.ts", "TypeScript", 76, 0, 0, 0, 7, 22, 105
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/stripeService.ts", "TypeScript", 29, 0, 0, 0, 0, 4, 33
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/supportService.ts", "TypeScript", 73, 0, 0, 0, 1, 8, 82
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/transactionService.ts", "TypeScript", 90, 0, 0, 0, 0, 6, 96
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/transportService.ts", "TypeScript", 75, 0, 0, 0, 5, 12, 92
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/travelService.ts", "TypeScript", 191, 0, 0, 0, 5, 19, 215
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/services/userService.ts", "TypeScript", 11, 0, 0, 0, 0, 3, 14
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/store/auth.ts", "TypeScript", 84, 0, 0, 0, 0, 6, 90
+"/home/ngdream/Documents/GitHub/gohappygo/gohappygo_frontend/app/utils/cookies.ts", "TypeScript", 16, 0, 0, 0, 3, 4, 23
+"Total", "-", 3333, 15091, 652, 114, 958, 1766, 21914
