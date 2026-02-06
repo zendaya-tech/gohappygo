@@ -8,6 +8,7 @@ export interface Transaction {
   amount: number;
   originalAmount: number | null;
   convertedAmount: number | null;
+  travelPayment?: number | null;
   travelerPayment: number | null;
   status: string;
   paymentMethod: string;
