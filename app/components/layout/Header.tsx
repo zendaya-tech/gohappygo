@@ -90,16 +90,16 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center flex-1 justify-between px-4 space-x-3 lg:px-6 lg:space-x-8">
+            <nav className="hidden lg:flex items-center flex-1 justify-between px-4 space-x-3 lg:px-6 lg:space-x-8">
               <div className="relative">
                 <button
                   onClick={() => setHoverDownload((v) => !v)}
-                  className="text-blue-600 hover font-medium text-xs lg:text-sm transition-colors duration-200 cursor-pointer"
+                  className="bg-blue-600 hover text-nowrap text-white px-4 py-2 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   ref={(el) => {
                     (downloadBtnRef as any).current = el;
                   }}
                 >
-                  Je télécharge l'application mobile
+                  Télécharger l'appli
                 </button>
                 <AppDownloadPopover
                   open={hoverDownload}
@@ -128,7 +128,7 @@ export default function Header() {
             </nav>
 
             {/* Desktop Actions */}
-            <div className="hidden md:flex items-center space-x-4 relative">
+            <div className="hidden lg:flex items-center space-x-4 relative">
               {/* Notifications - Only show if logged in */}
               {isLoggedIn && (
                 <div className="relative">
@@ -228,7 +228,7 @@ export default function Header() {
             </div>
 
             {/* Mobile Actions */}
-            <div className="md:hidden flex items-center space-x-1">
+            <div className="lg:hidden flex items-center space-x-1">
               {/* Notifications for mobile - Only show if logged in */}
               {isLoggedIn && (
                 <div className="relative">
@@ -342,7 +342,7 @@ export default function Header() {
 
           {/* Mobile Navigation - Modern Slide-in Menu */}
           <div
-            className={`md:hidden fixed inset-0 top-16 z-40 transition-all duration-300 ${
+            className={`lg:hidden fixed inset-0 top-16 z-40 transition-all duration-300 ${
               isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
           >
@@ -368,10 +368,10 @@ export default function Header() {
                     setHoverDownload((v) => !v);
                     setIsMenuOpen(false);
                   }}
-                  className="flex items-center w-full text-left px-4 py-3 text-gray-700 hover hover hover hover rounded-xl font-medium transition-all duration-200 group"
+                  className="flex items-center w-full text-left px-4 py-3 text-blue-600 hover hover hover hover rounded-xl font-medium transition-all duration-200 group"
                 >
                   <svg
-                    className="w-5 h-5 mr-3 text-gray-400 group-hover transition-colors"
+                    className="w-5 h-5 mr-3 text-blue-600 group-hover transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -383,18 +383,18 @@ export default function Header() {
                       d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
                     />
                   </svg>
-                  <span>Téléchargez l'appli</span>
+                  <span>Télécharger l'appli</span>
                 </button>
 
                 {/* Publier une annonce */}
                 <div className="space-y-1">
                   <button
                     onClick={() => setShowMobilePublishOptions((v) => !v)}
-                    className="flex items-center justify-between w-full px-4 py-3 text-gray-700 hover hover hover hover rounded-xl font-medium transition-all duration-200 group cursor-pointer"
+                    className="flex items-center justify-between w-full px-4 py-3 text-blue-600 hover hover hover hover rounded-xl font-medium transition-all duration-200 group cursor-pointer"
                   >
                     <div className="flex items-center">
                       <svg
-                        className="w-5 h-5 mr-3 text-gray-400 group-hover transition-colors"
+                        className="w-5 h-5 mr-3 text-blue-600 group-hover transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -442,7 +442,7 @@ export default function Header() {
                           setShowCreateAnnounce(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
+                        className="flex items-center w-full text-left px-4 py-2.5 text-blue-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -457,7 +457,7 @@ export default function Header() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        Publier un trajet
+                        Je propose un espace bagage
                       </button>
                       <button
                         onClick={() => {
@@ -469,7 +469,7 @@ export default function Header() {
                           setShowCreatePackage(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-gray-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
+                        className="flex items-center w-full text-left px-4 py-2.5 text-blue-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -484,7 +484,7 @@ export default function Header() {
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
                           />
                         </svg>
-                        Publier un baggage
+                        Je souhaite trouver un espace bagage
                       </button>
                     </div>
                   </div>
