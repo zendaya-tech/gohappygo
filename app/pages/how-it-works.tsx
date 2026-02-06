@@ -9,9 +9,13 @@ const HowItWorks = () => {
       number: '1',
       icon: '✨',
       title: "JE M'INSCRIS & JE PUBLIE MON VOYAGE",
-      items: ['CRÉATION DE COMPTE', 'VÉRIFICATION DE PROFIL', "PUBLICATION D'UNE ANNONCE"],
+      items: [
+        'Création du compte',
+        "Vérification de l'identité obligatoire",
+        "Publication d'une annonce/souhait de voyage",
+      ],
       description:
-        'Tout commence par un profil vérifié et un trajet partagé. Vos données sont sécurisées.',
+        'Tout commence par un profil vérifié et un trajet partagé. Vos données sont traitées de manière strictement confidentielle.',
       numberPosition: 'right-[90%] top-[-30px] md:right-45 md:top-0',
       numbercirclePosition: 'right-0 top-0 md:right-[-80px] md:top-[-10px]',
     },
@@ -21,12 +25,12 @@ const HowItWorks = () => {
       icon: '🤝',
       title: "JE RÉSERVE & JE SÉCURISE L'ÉCHANGE",
       items: [
-        "RÉSERVATION D'UN ESPACE BAGAGE",
-        'ÉCHANGES VIA LA MESSAGERIE SÉCURISÉE',
-        'RENCONTRE PHYSIQUE OU ENVOI',
+        "Réservation d'un espace bagage",
+        'Échanges via la messagerie sécurisée/rencontre Physique',
+        "Selfie à 2 via l'application",
       ],
       description:
-        'La confiance se construit dans la transparence. La traçabilité de vos échanges est garantie.',
+        'La confiance se construit dans la transparence. La traçabilité de vos échanges et des transactions sont garanties.',
       numberPosition: 'left-4 top-[-30px] md:left-20 md:top-0',
       numbercirclePosition: 'right-0 top-0 md:right-[-25px] md:top-20',
     },
@@ -36,9 +40,9 @@ const HowItWorks = () => {
       icon: '💳',
       title: 'JE VOYAGE & JE SUIS PAYÉ EN TOUTE SÉCURITÉ',
       items: [
-        'ENREGISTREMENT DES BAGAGES',
-        'VOYAGE + VALIDATION DE RÉCEPTION',
-        "PAIEMENT DÉBLOQUÉ SUR L'APPLICATION",
+        'Enregistrement en commun des bagages',
+        'Voyage + validation de la réservation',
+        'Paiement debloqué automatiquement',
       ],
       description:
         "Le système de paiement est sécurisé et vous ne manipulez pas d'argent directement.",
@@ -48,10 +52,10 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
+    <div className="md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
 
-      <div className="relative w-full max-w-4xl mx-auto px-6 py-12 font-sans overflow-hidden ">
+      <div className="relative w-full max-w-4xl mx-auto px-6 py-12 font-sans overflow-hidden bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <h1 className="text-4xl md:text-5xl font-black text-blue-700 mb-16 leading-tight uppercase italic">
           COMMENT <br /> ÇA MARCHE ?
@@ -74,7 +78,7 @@ const HowItWorks = () => {
               {/* Contenu de l'étape */}
               <div className={`flex flex-col items-start ${index === 1 && 'md:items-end'}`}>
                 <div className="max-w-xl">
-                  <h2 className="flex items-center gap-3 text-xl md:text-2xl font-extrabold text-black mb-4">
+                  <h2 className="flex items-center  text-xl md:text-2xl font-extrabold text-black mb-4">
                     <span>{step.icon}</span>
                     {step.title}
                   </h2>
@@ -93,7 +97,7 @@ const HowItWorks = () => {
 
                   <div className="flex items-start gap-2">
                     <span className="text-orange-400 text-xl mt-1">👉</span>
-                    <p className="text-sm md:text-base font-bold text-gray-600 uppercase tracking-wide leading-snug">
+                    <p className="text-sm md:text-base font-bold text-gray-600 tracking-wide leading-snug">
                       {step.description}
                     </p>
                   </div>

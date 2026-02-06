@@ -44,10 +44,10 @@ const LeBonheur = () => {
   ];
 
   return (
-    <div className="bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
+    <div className="md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
 
-      <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans">
+      <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <header className="mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">
