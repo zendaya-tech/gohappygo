@@ -1317,7 +1317,12 @@ const PaymentsSection = ({
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-semibold text-gray-900">
-                        {transaction.amount.toFixed(2)} {transaction.currencyCode.toUpperCase()}
+                        {(
+                          transaction.travelPayment ??
+                          transaction.travelerPayment ??
+                          transaction.amount
+                        ).toFixed(2)}{' '}
+                        {transaction.currencyCode.toUpperCase()}
                       </div>
                       {transaction.showReleaseFundButton && (
                         <button
