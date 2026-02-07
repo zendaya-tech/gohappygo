@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
 
 export default function LoginDialog({
@@ -126,9 +127,9 @@ export default function LoginDialog({
                   />
                   <span className="ml-2 text-sm text-gray-600">Se souvenir de moi</span>
                 </label>
-                <a href="/forgot-password" className="text-sm text-blue-600 hover">
+                <Link to="/forgot-password" className="text-sm text-blue-600 hover">
                   Mot de passe oublié ?
-                </a>
+                </Link>
               </div>
 
               <button

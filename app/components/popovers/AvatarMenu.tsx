@@ -168,8 +168,9 @@ export default function AvatarMenu({
             <div className="border-t border-gray-100 my-1"></div>
 
             {/* Logout */}
-            <a
-              href="/logout"
+            <Link
+              to="/logout"
+              onClick={onClose}
               className="flex items-center w-full px-4 py-3 text-sm text-red-600 hover transition-colors duration-150"
               role="menuitem"
             >
@@ -187,7 +188,7 @@ export default function AvatarMenu({
                 />
               </svg>
               {t('header.logout')}
-            </a>
+            </Link>
 
             {/* Séparateur */}
             <div className="border-t border-gray-100 my-1"></div>
@@ -195,8 +196,9 @@ export default function AvatarMenu({
         )}
 
         {/* Section commune pour tous les utilisateurs */}
-        <a
-          href="/how-it-works"
+        <Link
+          to="/how-it-works"
+          onClick={onClose}
           className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
@@ -214,10 +216,11 @@ export default function AvatarMenu({
             />
           </svg>
           Fonctionnement de GoHappyGo
-        </a>
+        </Link>
 
-        <a
-          href="/contact"
+        <Link
+          to="/contact"
+          onClick={onClose}
           className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
@@ -235,10 +238,11 @@ export default function AvatarMenu({
             />
           </svg>
           Contacter le Service Clients
-        </a>
+        </Link>
 
-        <a
-          href="/legal"
+        <Link
+          to="/legal"
+          onClick={onClose}
           className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
@@ -256,10 +260,11 @@ export default function AvatarMenu({
             />
           </svg>
           Mentions légales
-        </a>
+        </Link>
 
-        <a
-          href="/assurance"
+        <Link
+          to="/assurance"
+          onClick={onClose}
           className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
@@ -277,10 +282,11 @@ export default function AvatarMenu({
             />
           </svg>
           Assurance et protection
-        </a>
+        </Link>
 
-        <a
-          href="/outils-voyageurs"
+        <Link
+          to="/outils-voyageurs"
+          onClick={onClose}
           className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"
         >
@@ -304,7 +310,7 @@ export default function AvatarMenu({
             />
           </svg>
           Outils pour les voyageurs
-        </a>
+        </Link>
       </div>
     </div>
   );

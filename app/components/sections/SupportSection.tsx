@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
 import { createSupportRequest } from '~/services/supportService';
 import SupportDialog from '~/components/dialogs/SupportDialog';
@@ -80,12 +81,12 @@ export default function SupportSection() {
           <p className="text-blue-100 text-2xl mb-6">
             {t('home.supportSection.support247.description')}
           </p>
-          <a
-            href="/support"
+          <Link
+            to="/support"
             className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover transition-colors text-center"
           >
             {t('home.supportSection.support247.cta')}
-          </a>
+          </Link>
         </div>
 
         <div className="bg-gray-900 flex flex-col justify-between text-white p-8 rounded-2xl min-h-[220px]">
@@ -181,12 +182,12 @@ export default function SupportSection() {
                 >
                   Besoin d'aide détaillée ?
                 </button>
-                <a
-                  href="/support"
+                <Link
+                  to="/support"
                   className="text-blue-600 hover text-sm font-medium transition-colors"
                 >
                   En savoir plus sur notre support →
-                </a>
+                </Link>
               </div>
             </form>
           )}

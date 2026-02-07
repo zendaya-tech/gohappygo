@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 export default function FooterMinimal() {
     const year = new Date().getFullYear();
     return (
@@ -8,14 +10,13 @@ export default function FooterMinimal() {
                     <span className="font-semibold text-gray-900">GoHappyGo</span>
                 </div>
                 <nav className="flex items-center gap-4">
-                    <a href="/annonces" className="hover">Annonces</a>
-                    <a href="/voyageurs" className="hover">HappyVoyageurs</a>
-                    <a href="/help-center" className="hover">Aide</a>
+                    <Link to="/annonces" className="hover">Annonces</Link>
+                    <Link to="/voyageurs" className="hover">HappyVoyageurs</Link>
+                    <Link to="/help-center" className="hover">Aide</Link>
                 </nav>
                 <p className="text-xs">© {year} GoHappyGo</p>
             </div>
         </footer>
     );
 }
-
 

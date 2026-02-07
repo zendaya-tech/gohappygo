@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SupportDialog from '~/components/dialogs/SupportDialog';
-import { useLocation } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -57,28 +57,28 @@ export default function Footer() {
               <h4 className="font-semibold mb-4 text-gray-900">{t('footer.knowUs.title')}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a
-                    href="/how-it-work"
+                  <Link
+                    to="/how-it-work"
                     className={`hover:text-blue-600 ${currentPath === '/how-it-work' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.knowUs.howItWorks')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/impact-ecologique"
+                  <Link
+                    to="/impact-ecologique"
                     className={`hover:text-blue-600 ${currentPath === '/impact-ecologique' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.knowUs.ecologicalImpact')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/what-is-happiness"
+                  <Link
+                    to="/what-is-happiness"
                     className={`hover:text-blue-600 ${currentPath === '/what-is-happiness' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.knowUs.whatIsHappiness')}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -88,20 +88,20 @@ export default function Footer() {
               <h4 className="font-semibold mb-4 text-gray-900">{t('footer.legal.title')}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a
-                    href="/terms-of-use"
+                  <Link
+                    to="/terms-of-use"
                     className={`hover:text-blue-600 ${currentPath === '/terms-of-use' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.legal.termsOfUse')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/privacy-policy"
+                  <Link
+                    to="/privacy-policy"
                     className={`hover:text-blue-600 ${currentPath === '/privacy-policy' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.legal.privacyPolicy')}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -113,28 +113,28 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a
-                    href="/become-transporter"
+                  <Link
+                    to="/become-transporter"
                     className={`hover:text-blue-600 ${currentPath === '/become-transporter' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.giveHappiness.becomeTransporter')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/security-rules"
+                  <Link
+                    to="/security-rules"
                     className={`hover:text-blue-600 ${currentPath === '/security-rules' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.giveHappiness.securityRules')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/insurance-protection"
+                  <Link
+                    to="/insurance-protection"
                     className={`hover:text-blue-600 ${currentPath === '/insurance-protection' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.giveHappiness.insuranceProtection')}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -144,12 +144,12 @@ export default function Footer() {
               <h4 className="font-semibold mb-4 text-gray-900">{t('footer.support.title')}</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a
-                    href="/faq"
+                  <Link
+                    to="/faq"
                     className={`hover:text-blue-600 ${currentPath === '/faq' ? 'text-blue-600' : ''}`}
                   >
                     Foire aux questions
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
@@ -160,12 +160,12 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="/download-app"
+                  <Link
+                    to="/download-app"
                     className={`hover:text-blue-600 ${currentPath === '/download-app' ? 'text-blue-600' : ''}`}
                   >
                     {t('footer.support.downloadApp')}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

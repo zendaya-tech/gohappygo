@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
+import { Link } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
 import CountryComboBox, {
   type Country,
@@ -319,13 +320,13 @@ export default function RegisterDialog({
                     />
                     <label htmlFor="terms" className="ml-2 text-xs sm text-gray-600">
                       En vous inscrivant, vous acceptez la{' '}
-                      <a href="/privacy" className="text-green-600 hover underline">
+                      <Link to="/privacy" className="text-green-600 hover underline">
                         Politique de confidentialité
-                      </a>{' '}
+                      </Link>{' '}
                       et les{' '}
-                      <a href="/terms" className="text-green-600 hover underline">
+                      <Link to="/terms" className="text-green-600 hover underline">
                         Conditions d'utilisation
-                      </a>
+                      </Link>
                       .
                     </label>
                   </div>

@@ -5,6 +5,7 @@ import SupportDialog from '~/components/dialogs/SupportDialog';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '~/hooks/useAuth';
 import { createSupportRequest } from '~/services/supportService';
+import { Link } from 'react-router';
 
 export default function Support() {
   const { t } = useTranslation();
@@ -212,9 +213,9 @@ export default function Support() {
                   </svg>
                   <div>
                     <p className="font-medium text-gray-900">FAQ</p>
-                    <a href="/faq" className="text-blue-600 hover:underline">
+                    <Link to="/faq" className="text-blue-600 hover:underline">
                       Consultez notre foire aux questions
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
