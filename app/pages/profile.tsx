@@ -356,7 +356,7 @@ const ReservationsSection = ({
                               ? () => handleCompleteRequest(request.id)
                               : () =>
                                   setErrorMessage(
-                                    "Impossible de terminer avant la date de départ du voyage."
+                                    'Impossible de terminer avant la date de départ du voyage.'
                                   ),
                             color: 'green' as const,
                           };
@@ -1190,7 +1190,7 @@ const PaymentsSection = ({
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Available Balance */}
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+            <div className="bg-gradient-to-r from-gray-400 to-gray-600 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium opacity-90">Solde disponible</h3>
                 <CurrencyDollarIcon className="h-6 w-6 opacity-75" />
@@ -1198,7 +1198,7 @@ const PaymentsSection = ({
               <div className="text-2xl font-bold">
                 {balance.available.toFixed(2)} {balance.currency.toUpperCase()}
               </div>
-              <p className="text-xs opacity-75 mt-1">Prêt à être retiré</p>
+              <p className="text-xs opacity-75 text-white mt-1">Prêt à être retiré</p>
             </div>
 
             {/* Pending Balance */}
@@ -1212,31 +1212,14 @@ const PaymentsSection = ({
               <div className="text-2xl font-bold">
                 {balance.pending.toFixed(2)} {balance.currency.toUpperCase()}
               </div>
-              <p className="text-xs opacity-75 mt-1">En cours de traitement</p>
-            </div>
-
-            {/* Total Balance */}
-            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium opacity-90">Solde total</h3>
-                <svg className="h-6 w-6 opacity-75" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
-                </svg>
-              </div>
-              <div className="text-2xl font-bold">
-                {(balance.available + balance.pending).toFixed(2)} {balance.currency.toUpperCase()}
-              </div>
-              <p className="text-xs opacity-75 mt-1">Disponible + En attente</p>
+              <p className="text-xs opacity-75 text-white mt-1">En cours de traitement</p>
             </div>
           </div>
 
           {/* Quick Actions */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover transition-colors cursor-pointer">
-              Retirer des fonds
-            </button>
-            <button className="flex-1 border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover transition-colors cursor-pointer">
-              Historique des retraits
+              Transférer
             </button>
           </div>
         </div>

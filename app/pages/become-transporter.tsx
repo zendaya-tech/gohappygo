@@ -82,9 +82,9 @@ const EtreHappyvoyageur = () => {
               {(section.intro || section.lines).map((line, lineIdx) => (
                 <p
                   key={lineIdx}
-                  className={`text-sm md:text-base font-bold leading-snug tracking-wide ${
-                    section.intro ? 'text-gray-500' : 'text-gray-600'
-                  }`}
+                  className={`text-sm md:text-base font-bold leading-snug tracking-wide
+                    text-gray-700
+                  `}
                   dangerouslySetInnerHTML={{ __html: line }}
                 />
               ))}
