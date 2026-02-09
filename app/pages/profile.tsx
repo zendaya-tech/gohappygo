@@ -323,7 +323,7 @@ const ReservationsSection = ({
                 flightNumber={flightNumber}
                 weight={weight}
                 price={price}
-                priceSubtext={`${currencySymbol}/Kg`}
+                priceSubtext={currencySymbol}
                 type="transporter" // For the proper airline logo styling
                 unreadCount={request.unReadMessages || 0}
                 // Logic for Status Badges vs Buttons
@@ -384,8 +384,7 @@ const ReservationsSection = ({
                           },
                           color: 'red',
                         }
-                      : request.currentStatus?.status === 'ACCEPTED' &&
-                          requester?.id.toString() === currentUser?.id
+                      : request.currentStatus?.status === 'ACCEPTED'
                         ? {
                             label: 'Annuler',
                             onClick: () => {

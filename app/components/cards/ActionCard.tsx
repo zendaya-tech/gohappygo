@@ -167,7 +167,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
                     onClick={primaryAction.onClick}
                     className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap cursor-pointer ${
                       primaryAction.color === 'green'
-                        ? 'bg-green-500 hover:bg-green-600'
+                        ? 'bg-green-600 hover:bg-green-700'
                         : 'bg-blue-600 hover:bg-blue-700'
                     }`}
                   >
