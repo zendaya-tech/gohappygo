@@ -1171,7 +1171,8 @@ export default function AnnounceDetail() {
                                 </span>
 
                                 <p
-                                  className={`text-gray-800 font-bold font-${q.fontFamily?.toLocaleLowerCase()} text-[${q.fontSize}px] leading-snug`}
+                                  className={`text-gray-800 font-bold font-${q.fontFamily?.toLocaleLowerCase()} leading-snug`}
+                                  style={{ fontSize: `${q.fontSize}px` }}
                                 >
                                   {q.quote}
                                 </p>
