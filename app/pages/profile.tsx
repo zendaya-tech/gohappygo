@@ -343,12 +343,24 @@ const ReservationsSection = ({
                       }
                     : request.currentStatus?.status === 'ACCEPTED'
                       ? (() => {
-                          // Check if travel date has passed
+                          // Check by calendar day only (ignore hour)
                           const travelDate = travel?.departureDatetime
                             ? new Date(travel.departureDatetime)
                             : null;
-                          const now = new Date();
-                          const canComplete = travelDate ? travelDate < now : false;
+                          const today = new Date();
+                          const todayStart = new Date(
+                            today.getFullYear(),
+                            today.getMonth(),
+                            today.getDate()
+                          );
+                          const travelDay = travelDate
+                            ? new Date(
+                                travelDate.getFullYear(),
+                                travelDate.getMonth(),
+                                travelDate.getDate()
+                              )
+                            : null;
+                          const canComplete = travelDay ? todayStart >= travelDay : false;
 
                           return {
                             label: 'Terminer',
@@ -356,7 +368,7 @@ const ReservationsSection = ({
                               ? () => handleCompleteRequest(request.id)
                               : () =>
                                   setErrorMessage(
-                                    "Impossible de terminer avant la date de départ du voyage."
+                                    "Impossible de terminer pour une date de voyage passée."
                                   ),
                             color: 'green' as const,
                           };
