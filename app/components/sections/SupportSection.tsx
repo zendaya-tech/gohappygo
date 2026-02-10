@@ -89,12 +89,15 @@ export default function SupportSection() {
           </Link>
         </div>
 
-        <div className="bg-gray-900 flex flex-col justify-between text-white p-8 rounded-2xl min-h-[220px]">
+        <Link
+          to="/assurance-colis"
+          className="bg-gray-900 flex flex-col justify-between text-white p-8 rounded-2xl min-h-[220px]"
+        >
           <h3 className="text-xl font-bold mb-4">{t('home.supportSection.insurance.title')}</h3>
           <p className="text-gray-300 text-2xl mb-6">
             {t('home.supportSection.insurance.description')}
           </p>
-        </div>
+        </Link>
 
         <div className="bg-gray-100 col-span-1 md:col-span-2 flex flex-col justify-between text-gray-900 p-6 md:p-8 rounded-2xl">
           <h3 className="text-xl font-bold mb-4 uppercase">

@@ -6,62 +6,59 @@ const EtreHappyvoyageur = () => {
   const manifestoSections = [
     {
       intro: [
-        "NOUS CROYONS QUE VOYAGER PEUT ÊTRE PLUS QU'UN DÉPLACEMENT.",
-        'NOUS CROYONS QUE CHAQUE TRAJET EST UNE OPPORTUNITÉ.',
-        "UNE OPPORTUNITÉ D'AIDER.",
-        'UNE OPPORTUNITÉ DE PARTAGER.',
-        'UNE OPPORTUNITÉ DE CRÉER DU LIEN.',
+        "Nous croyons que voyager peut être plus qu'un simple déplacement.",
+        'Nous croyons que chaque trajet est une opportunité.',
+        "Une opportunité d'aider.",
+        'Une opportunité de partager.',
+        'Une opportunité de créer du lien.',
       ],
     },
     {
       title: 'ÊTRE HAPPYVOYAGEUR,',
       lines: [
-        "C'EST CHOISIR DE VOYAGER AUTREMENT.",
-        "C'EST VOIR DANS UN ESPACE LIBRE UNE CHANCE DE RENDRE SERVICE.",
-        'DANS UNE RENCONTRE, UNE CONFIANCE À CONSTRUIRE.',
-        'DANS UN BAGAGE, UNE HISTOIRE À PORTER.',
-        'NOUS VOYAGEONS DÉJÀ.',
-        'ALORS AUTANT VOYAGER UTILE.',
-        "UTILE POUR QUELQU'UN QUI ATTEND.",
-        'UTILE POUR UNE PLANÈTE À PRÉSERVER.',
-        'UTILE POUR REDONNER DU SENS À NOS DÉPLACEMENTS.',
+        "C'est choisir de voyager autrement.",
+        "C'est voir dans un espace libre une chance de rendre service.",
+        'Dans une rencontre, une confiance à construire.',
+        'Dans un bagage, une histoire à porter.',
+        'Nous voyageons déjà.',
+        'Alors autant <b>voyager utile</b>.',
+        "Utile pour quelqu'un qui attend.",
+        'Utile pour une planète à préserver.',
+        'Utile pour redonner du sens à nos déplacements.',
       ],
     },
     {
       title: 'ÊTRE HAPPYVOYAGEUR,',
       lines: [
-        "C'EST CROIRE EN LA FORCE DES PETITS GESTES.",
-        'UN ACCORD.',
-        'UN SOURIRE.',
-        'UN BAGAGE QUI ARRIVE À DESTINATION.',
-        'ET SOUVENT, BIEN PLUS QUE ÇA.',
-        'NOUS AVANÇONS ENSEMBLE,',
-        'DANS UN CADRE SÛR, TRANSPARENT ET RESPECTUEUX.',
-        "PARCE QUE LA CONFIANCE N'EST PAS UNE OPTION.",
-        "C'EST NOTRE FONDATION.",
+        "C'est croire en la force des petits gestes.",
+        'Un accord.',
+        'Un sourire.',
+        'Un bagage qui arrive à destination.',
+        'Et souvent, bien plus que ça.',
+        'Nous avançons ensemble, dans un cadre sûr, transparent et respectueux.',
+        "Parce que la confiance n'est pas une option.",
+        "C'est notre fondation.",
       ],
     },
     {
       title: 'ÊTRE HAPPYVOYAGEUR,',
       lines: [
-        "C'EST UN ÉTAT D'ESPRIT.",
-        "CELUI DE CELLES ET CEUX QUI CHOISISSEST LA SOLIDARITÉ PLUTÔT QUE L'INDIFFÉRENCE,",
-        "LE LIEN PLUTÔT QUE L'ISOLEMENT,",
-        'LE SENS PLUTÔT QUE LA ROUTINE.',
-        'NOUS SOMMES LES HAPPYVOYAGEURS.',
-        'NOUS PORTONS PLUS QUE DES BAGAGES.',
-        'NOUS PORTONS DE LA BIENVEILLANCE.',
-        'NOUS PORTONS DE LA CONFIANCE.',
-        'NOUS PORTONS DU BONHEUR.',
+        "C'est un état d'esprit.",
+        "Celui de celles et ceux qui choisissent la solidarité plutôt que l'indifférence, le lien plutôt que l'isolement, le sens plutôt que la routine.",
+        'Nous sommes les HappyVoyageurs.',
+        'Nous portons plus que des bagages.',
+        'Nous portons de la bienveillance.',
+        'Nous portons de la confiance.',
+        'Nous portons du bonheur.',
       ],
     },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
 
-      <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans">
+      <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none ">
         {/* Titre Principal Manifeste */}
         <header className="mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">
@@ -73,10 +70,10 @@ const EtreHappyvoyageur = () => {
         {/* Corps du Manifeste */}
         <div className="space-y-16 max-w-4xl">
           {manifestoSections.map((section, idx) => (
-            <div key={idx} className="flex flex-col gap-1">
+            <div key={idx} className="flex flex-col gap-1 w-[65%]">
               {/* Titre de section "ÊTRE HAPPYVOYAGEUR," */}
               {section.title && (
-                <h2 className="text-xl md:text-2xl font-black text-black uppercase tracking-tight mb-2">
+                <h2 className="text-xl md:text-2xl font-black text-black  tracking-tight mb-2">
                   {section.title}
                 </h2>
               )}
@@ -85,12 +82,11 @@ const EtreHappyvoyageur = () => {
               {(section.intro || section.lines).map((line, lineIdx) => (
                 <p
                   key={lineIdx}
-                  className={`text-sm md:text-base font-bold uppercase leading-snug tracking-wide ${
-                    section.intro ? 'text-gray-500' : 'text-gray-600'
-                  }`}
-                >
-                  {line}
-                </p>
+                  className={`text-sm md:text-base font-bold leading-snug tracking-wide
+                    text-gray-700
+                  `}
+                  dangerouslySetInnerHTML={{ __html: line }}
+                />
               ))}
             </div>
           ))}

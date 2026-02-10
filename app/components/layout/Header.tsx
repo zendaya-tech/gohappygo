@@ -388,50 +388,11 @@ export default function Header() {
 
                 {/* Publier une annonce */}
                 <div className="space-y-1">
-                  <button
-                    onClick={() => setShowMobilePublishOptions((v) => !v)}
-                    className="flex items-center justify-between w-full px-4 py-3 text-blue-600 hover hover hover hover rounded-xl font-medium transition-all duration-200 group cursor-pointer"
-                  >
-                    <div className="flex items-center">
-                      <svg
-                        className="w-5 h-5 mr-3 text-blue-600 group-hover transition-colors"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 4v16m8-8H4"
-                        />
-                      </svg>
-                      <span>{t('header.publishAd')}</span>
-                    </div>
-                    <svg
-                      className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
-                        showMobilePublishOptions ? 'rotate-180' : ''
-                      }`}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-
                   {/* Submenu with smooth animation */}
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      showMobilePublishOptions ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
+                    className={`overflow-hidden transition-all duration-300 max-h-40 opacity-100`}
                   >
-                    <div className="pl-12 pr-4 space-y-1 py-1">
+                    <div className="pr-4 space-y-1 py-1">
                       <button
                         onClick={() => {
                           if (!isLoggedIn) {

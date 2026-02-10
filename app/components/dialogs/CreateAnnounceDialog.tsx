@@ -356,7 +356,9 @@ export default function CreateAnnounceDialog({
             <header className="mb-4 md:mb-6">
               <h2 className="text-lg md font-bold text-gray-900">
                 <span className="uppercase text-sm md">{t('dialogs.createAnnounce.title')}</span>{' '}
-                <span className="text-sm md">- Step {step} of 3</span>
+                <span className="text-sm md">
+                  - {t('common.step')} {step} {t('common.of')} 3
+                </span>
               </h2>
             </header>
 

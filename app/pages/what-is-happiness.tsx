@@ -7,47 +7,47 @@ const LeBonheur = () => {
     {
       id: 1,
       icon: '❤️',
-      title: "VOYAGER UTILE, C'EST VOYAGER HEUREUX",
+      title: "Voyager utile, c'est voyager heureux",
       content:
-        "LE BONHEUR, CE N'EST PAS SEULEMENT ARRIVER À DESTINATION. C'EST SAVOIR QUE, PENDANT VOTRE TRAJET, VOUS AVEZ AIDÉ QUELQU'UN.",
+        "Le bonheur, ce n'est pas seulement arriver à destination. C'est savoir que, pendant votre trajet, <b>vous avez aidé quelqu'un.</b>",
       items: [
-        'UN BAGAGE QUI ARRIVE À TEMPS',
-        "UN VOYAGE PLUS LÉGER POUR QUELQU'UN D'AUTRE",
-        'UN STRESS ÉVITÉ',
-        'UN SOURIRE AU BOUT DU CHEMIN',
+        'Un bagage qui arrive à temps',
+        "Un voyage plus léger pour quelqu'un d'autre",
+        'Un stress évité',
+        'Un sourire au bout du chemin',
       ],
-      footer: 'CHEZ GOHAPPYGO, CHAQUE TRAJET PEUT DEVENIR UNE BONNE ET BELLE ACTION.',
+      footer: 'Chez GoHappyGo, chaque trajet peut devenir <b>une bonne et belle action.</b>',
     },
     {
       id: 2,
       icon: '🌍',
-      title: 'LE BONHEUR DE FAIRE PARTIE DE QUELQUE CHOSE DE PLUS GRAND',
+      title: 'Le bonheur de faire partie de quelque chose de plus grand',
       content:
-        "EN UTILISANT GOHAPPYGO, VOUS N'ÊTES PAS JUSTE UN UTILISATEUR. VOUS FAITES PARTIE D'UNE COMMUNAUTÉ SOLIDAIRE DE VOYAGEURS QUI :",
+        "En utilisant GoHappyGo, vous n'êtes pas juste un utilisateur. Vous faites partie d'une <b>communauté solidaire de voyageurs</b> qui :",
       items: [
-        "S'ENTRAIDENT NATURELLEMENT",
-        'OPTIMISENT CE QUI EXISTE DÉJÀ',
-        'DONNENT DU SENS À LEURS DÉPLACEMENTS',
+        "S'entraident naturellement",
+        'Optimisent ce qui existe déjà',
+        'Donnent du sens à leurs déplacements',
       ],
-      footer: 'LE BONHEUR NAÎT SOUVENT QUAND ON SE SENT UTILE, CONNECTÉ ET ENGAGÉ.',
+      footer: 'Le bonheur naît souvent quand on se sent <b>utile, connecté et engagé.</b>',
     },
     {
       id: 3,
       icon: '✨',
-      title: 'DE PETITS GESTES. DE GRANDS EFFETS.',
+      title: 'De petits gestes. De grands effets.',
       content:
-        "PORTER UN BAGAGE, CE N'EST PAS GRAND-CHOSE. MAIS POUR QUELQU'UN D'AUTRE, C'EST PARFOIS :",
-      items: ['UNE SOLUTION À UN PROBLÈME', 'UN VOYAGE PLUS SEREIN', 'UNE CONFIANCE RETROUVÉE'],
+        "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
+      items: ['Une solution à un problème', 'Un voyage plus serein', 'Une confiance retrouvée'],
       footer:
-        'LE BONHEUR, CE SONT CES PETITS GESTES ORDINAIRES QUI CRÉENT DES EFFETS EXTRAORDINAIRES.',
+        'Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires.',
     },
   ];
 
   return (
-    <div className="bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
+    <div className="md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
 
-      <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans">
+      <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <header className="mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">
@@ -67,16 +67,17 @@ const LeBonheur = () => {
               </h2>
 
               {/* Texte d'introduction de section */}
-              <p className="text-sm md:text-base font-bold text-gray-500 mb-6 uppercase leading-relaxed">
-                {section.content}
-              </p>
+              <p
+                className="text-sm md:text-base font-bold text-gray-700 mb-6 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: section.content }}
+              />
 
               {/* Liste à puces */}
               <ul className="space-y-3 mb-8 ml-4">
                 {section.items.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-center gap-3 text-sm md:text-base font-extrabold text-gray-800 uppercase tracking-wide"
+                    className="flex items-center gap-3 text-sm md:text-bas font-bold text-gray-700 tracking-wide"
                   >
                     <span className="block w-1.5 h-1.5 bg-black rounded-full shrink-0"></span>
                     {item}
@@ -87,9 +88,10 @@ const LeBonheur = () => {
               {/* Conclusion de section (Ligne avec la main 👉) */}
               <div className="flex items-start gap-3 mt-6">
                 <span className="text-orange-400 text-xl shrink-0">👉</span>
-                <p className="text-sm md:text-base font-black text-gray-700 uppercase leading-snug tracking-tight">
-                  {section.footer}
-                </p>
+                <p
+                  className="text-sm md:text-base font-bold text-gray-700 leading-snug tracking-tight"
+                  dangerouslySetInnerHTML={{ __html: section.footer }}
+                />
               </div>
             </section>
           ))}
