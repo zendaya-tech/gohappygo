@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import { createReview } from '~/services/reviewService';
@@ -18,6 +19,7 @@ export default function ReviewDialog({
   requesterName,
   onSuccess,
 }: ReviewDialogProps) {
+  const { t } = useTranslation();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,7 +27,7 @@ export default function ReviewDialog({
 
   const handleSubmit = async () => {
     if (rating === 0) {
-      setError('Veuillez sélectionner une note');
+      setError(t('reviews.dialog.selectRatingError'));
       return;
     }
 
@@ -46,7 +48,7 @@ export default function ReviewDialog({
       onSuccess?.();
     } catch (err: any) {
       console.error('Error submitting review:', err);
-      setError(err?.message || "Erreur lors de la soumission de l'avis");
+      setError(err?.message || t('reviews.dialog.submitError'));
     } finally {
       setLoading(false);
     }
@@ -59,10 +61,10 @@ export default function ReviewDialog({
       <div className="bg-white rounded-2xl max-w-md w-full p-6 md:p-8 shadow-2xl">
         {/* Header */}
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Félicitations d'être un HappyVoyageur !
-          </h2>
-          <p className="text-gray-600 text-sm">Partagez votre expérience avec {requesterName}</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('reviews.dialog.title')}</h2>
+          <p className="text-gray-600 text-sm">
+            {t('reviews.dialog.subtitle', { name: requesterName })}
+          </p>
         </div>
 
         {/* Error Message */}
@@ -75,7 +77,7 @@ export default function ReviewDialog({
         {/* Rating Selection */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-900 mb-3 text-center">
-            Votre note
+            {t('reviews.dialog.rating')}
           </label>
           <div className="flex justify-center gap-2">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -97,12 +99,12 @@ export default function ReviewDialog({
         {/* Comment */}
         <div className="mb-6">
           <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Votre commentaire (optionnel)
+            {t('reviews.dialog.comment')}
           </label>
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="Partagez votre expérience..."
+            placeholder={t('reviews.dialog.commentPlaceholder')}
             className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus resize-none"
             rows={4}
           />
@@ -115,14 +117,14 @@ export default function ReviewDialog({
             disabled={loading}
             className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover transition-colors disabled:opacity-50 cursor-pointer"
           >
-            Annuler
+            {t('common.cancel')}
           </button>
           <button
             onClick={handleSubmit}
             disabled={loading}
             className="flex-1 px-4 py-3 bg-blue-500 text-white rounded-xl font-semibold hover transition-colors disabled:opacity-50 shadow-lg cursor-pointer"
           >
-            {loading ? 'Envoi...' : "Envoyer l'avis"}
+            {loading ? t('reviews.dialog.submitting') : t('reviews.dialog.submit')}
           </button>
         </div>
       </div>

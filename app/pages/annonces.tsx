@@ -2,6 +2,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import FooterMinimal from '~/components/layout/FooterMinimal';
 import AnnounceCard from '~/components/cards/AnnounceCard';
 import SearchFiltersBar, { type SearchFiltersBarRef } from '~/components/forms/SearchFiltersBar';
@@ -14,6 +15,7 @@ import CreateAlertDialog from '~/components/dialogs/CreateAlertDialog';
 import { useAuthStore } from '~/store/auth';
 
 export default function Annonces() {
+  const { t } = useTranslation();
   const location = useLocation();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const urlParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
@@ -52,12 +54,12 @@ export default function Annonces() {
   };
 
   const filters = [
-    { id: 'verified', label: 'Profil vérifié' },
-    { id: 'lowest-price', label: 'Prix le plus bas' },
-    { id: 'airline', label: 'Compagnie aérienne' },
-    { id: 'travel-date', label: 'Plus ancien' },
-    { id: 'travel-ad', label: 'Annonce de voyage' },
-    { id: 'transport-request', label: 'Demande de Voyage' },
+    { id: 'verified', label: t('pages.announces.filters.verified') },
+    { id: 'lowest-price', label: t('pages.announces.filters.lowestPrice') },
+    { id: 'airline', label: t('pages.announces.filters.airline') },
+    { id: 'travel-date', label: t('pages.announces.filters.oldest') },
+    { id: 'travel-ad', label: t('pages.announces.filters.travelAd') },
+    { id: 'transport-request', label: t('pages.announces.filters.transportRequest') },
   ];
   // Build filters object
   const buildFilters = useCallback(() => {
@@ -254,7 +256,7 @@ export default function Annonces() {
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 {results.length > 0 ? (
                   <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-xs md font-medium ">
-                    Filtrer par
+                    {t('pages.announces.filterBy')}
                   </button>
                 ) : (
                   <button
@@ -262,14 +264,14 @@ export default function Annonces() {
                     className="text-xs md text-gray-100"
                     disabled={true}
                   >
-                    Tout effacer
+                    {t('pages.announces.clearAll')}
                   </button>
                 )}
                 <button
                   onClick={clearAllFilters}
                   className="text-xs md text-gray-500 hover cursor-pointer"
                 >
-                  Tout effacer
+                  {t('pages.announces.clearAll')}
                 </button>
               </div>
 
@@ -277,7 +279,7 @@ export default function Annonces() {
               {results.length === 0 ? (
                 <div className="mb-3 md:mb-4">
                   <button className="w-full text-left px-3 md:px-4 py-2 text-xs md text-blue-600 border border-blue-200 rounded-lg hover/20 transition-colors">
-                    Filtre non disponible
+                    {t('pages.announces.filterUnavailable')}
                   </button>
                 </div>
               ) : (
@@ -294,7 +296,7 @@ export default function Annonces() {
                               onChange={(airline: Airline | null) => {
                                 setSelectedAirline(airline ? String(airline.id) : null);
                               }}
-                              placeholder="Rechercher une compagnie"
+                              placeholder={t('pages.announces.searchAirline')}
                             />
                           </div>
                         );
@@ -320,12 +322,12 @@ export default function Annonces() {
                   {/* Price Range Filter */}
                   <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
                     <h4 className="text-xs md font-medium text-gray-900 mb-2 md:mb-3">
-                      Prix par kg (€)
+                      {t('pages.announces.pricePerKg')}
                     </h4>
                     <div className="flex gap-2">
                       <input
                         type="number"
-                        placeholder="Min"
+                        placeholder={t('pages.announces.min')}
                         value={priceRange.min}
                         onChange={(e) =>
                           setPriceRange((prev) => ({
@@ -337,7 +339,7 @@ export default function Annonces() {
                       />
                       <input
                         type="number"
-                        placeholder="Max"
+                        placeholder={t('pages.announces.max')}
                         value={priceRange.max}
                         onChange={(e) =>
                           setPriceRange((prev) => ({
@@ -353,12 +355,12 @@ export default function Annonces() {
                   {/* Weight Range Filter */}
                   <div className="mt-3 md:mt-4">
                     <h4 className="text-xs md font-medium text-gray-900 mb-2 md:mb-3">
-                      Poids (kg)
+                      {t('pages.announces.weightKg')}
                     </h4>
                     <div className="flex gap-2">
                       <input
                         type="number"
-                        placeholder="Min"
+                        placeholder={t('pages.announces.min')}
                         value={weightRange.min}
                         onChange={(e) =>
                           setWeightRange((prev) => ({
@@ -370,7 +372,7 @@ export default function Annonces() {
                       />
                       <input
                         type="number"
-                        placeholder="Max"
+                        placeholder={t('pages.announces.max')}
                         value={weightRange.max}
                         onChange={(e) =>
                           setWeightRange((prev) => ({
@@ -389,7 +391,9 @@ export default function Annonces() {
 
           {/* Right Section - Results Grid */}
           <div className="flex-1 w-full">
-            {loading && <div className="text-sm text-gray-500 text-center py-8">Chargement…</div>}
+            {loading && (
+              <div className="text-sm text-gray-500 text-center py-8">{t('common.loading')}</div>
+            )}
             {error && <div className="text-sm text-red-600 text-center py-8">{error}</div>}
             {!loading && !error && results.length === 0 && (
               <div className="flex flex-col items-center justify-center py-16 px-4">
@@ -438,13 +442,13 @@ export default function Annonces() {
                 {/* Empty state text */}
                 <div className="text-center max-w-md px-4">
                   <h3 className="text-lg md font-semibold text-gray-900 mb-2">
-                    Nous n'avons trouvé aucun bagage disponible
+                    {t('pages.announces.noResultsTitle')}
                   </h3>
-                  <p className="text-base md text-gray-600 mb-1">pour ce vol... encore !</p>
+                  <p className="text-base md text-gray-600 mb-1">
+                    {t('pages.announces.noResultsSubtitle')}
+                  </p>
                   <p className="text-xs md text-gray-500 mb-6 md:mb-8">
-                    Activez une alerte, nous vous préviendrons
-                    <br />
-                    dès qu'une offre correspond.
+                    {t('pages.announces.alertDescription')}
                   </p>
 
                   {/* Alert button */}
@@ -452,7 +456,7 @@ export default function Annonces() {
                     onClick={handleAlertClick}
                     className="bg-blue-600 hover text-white px-4 md:px-6 py-2 md:py-3 rounded-lg text-sm md font-medium transition-colors cursor-pointer"
                   >
-                    Activer une alerte
+                    {t('pages.announces.createAlert')}
                   </button>
                 </div>
               </div>
@@ -537,7 +541,7 @@ export default function Annonces() {
                 {!hasMore && results.length > 0 && (
                   <div className="w-full py-8">
                     <p className="text-center text-sm text-gray-500">
-                      Vous avez vu toutes les annonces disponibles
+                      {t('pages.announces.allLoaded')}
                     </p>
                   </div>
                 )}

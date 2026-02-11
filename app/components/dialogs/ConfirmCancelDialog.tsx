@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 interface ConfirmCancelDialogProps {
@@ -18,10 +19,15 @@ export default function ConfirmCancelDialog({
   onConfirm,
   title,
   message,
-  confirmText = 'Confirmer',
-  cancelText = 'Annuler',
+  confirmText,
+  cancelText,
   type = 'danger',
 }: ConfirmCancelDialogProps) {
+  const { t } = useTranslation();
+
+  const finalConfirmText = confirmText || t('common.confirm');
+  const finalCancelText = cancelText || t('common.cancel');
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -80,12 +86,12 @@ export default function ConfirmCancelDialog({
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            {cancelText && (
+            {finalCancelText && (
               <button
                 onClick={onClose}
                 className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors cursor-pointer"
               >
-                {cancelText}
+                {finalCancelText}
               </button>
             )}
             <button
@@ -93,9 +99,9 @@ export default function ConfirmCancelDialog({
                 onConfirm();
                 onClose();
               }}
-              className={`${cancelText ? 'flex-1' : 'w-full'} px-4 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors cursor-pointer ${getConfirmButtonColor()}`}
+              className={`${finalCancelText ? 'flex-1' : 'w-full'} px-4 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors cursor-pointer ${getConfirmButtonColor()}`}
             >
-              {confirmText}
+              {finalConfirmText}
             </button>
           </div>
         </div>

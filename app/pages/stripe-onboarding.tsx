@@ -1,8 +1,10 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-import { CheckCircle, Luggage, Users, Euro } from "lucide-react";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { CheckCircle, Luggage, Users, Euro } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function StripeOnboarding() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -10,12 +12,11 @@ export default function StripeOnboarding() {
     // const timer = setTimeout(() => {
     //   navigate("/profile");
     // }, 20000);
-
     // return () => clearTimeout(timer);
   }, [navigate]);
 
   const handleDashboardClick = () => {
-    navigate("/profile");
+    navigate('/profile');
   };
 
   return (
@@ -36,11 +37,9 @@ export default function StripeOnboarding() {
             </div>
 
             <h1 className="text-2xl md font-bold text-gray-800 mb-2">
-              Configuration Stripe Terminé !
+              {t('pages.stripeOnboarding.title')}
             </h1>
-            <p className="text-gray-600 text-base">
-              Vous êtes prêt(e) à donner et recevoir du Bonheur.
-            </p>
+            <p className="text-gray-600 text-base">{t('pages.stripeOnboarding.subtitle')}</p>
           </div>
 
           {/* Hero Illustration Area */}
@@ -56,10 +55,10 @@ export default function StripeOnboarding() {
 
           {/* Status Badges */}
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 py-4 mb-6">
-            <StatusBadge label="Compte Vérifié" />
-            <StatusBadge label="Informations Remplies" />
-            <StatusBadge label="Paiements Activés" />
-            <StatusBadge label="Le Bonheur est simple" />
+            <StatusBadge label={t('pages.stripeOnboarding.badges.verified')} />
+            <StatusBadge label={t('pages.stripeOnboarding.badges.info')} />
+            <StatusBadge label={t('pages.stripeOnboarding.badges.payments')} />
+            <StatusBadge label={t('pages.stripeOnboarding.badges.happiness')} />
           </div>
 
           {/* Main Action */}
@@ -68,31 +67,31 @@ export default function StripeOnboarding() {
               onClick={handleDashboardClick}
               className="bg-green-500 hover text-white px-10 py-3 rounded-lg font-semibold transition-colors text-base"
             >
-              Accéder au Tableau de bord
+              {t('pages.stripeOnboarding.dashboard')}
             </button>
           </div>
 
           {/* Footer: What happens next? */}
           <div className="">
             <h3 className="text-center font-bold text-gray-800 mb-8 text-lg">
-              Et maintenant ?
+              {t('pages.stripeOnboarding.next')}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <NextStep
                 icon={<Luggage className="text-blue-500" size={24} />}
-                title="Publier une annonce"
-                desc="Déposez une annonce ou une demande de voyage."
+                title={t('pages.stripeOnboarding.steps.publish.title')}
+                desc={t('pages.stripeOnboarding.steps.publish.desc')}
               />
               <NextStep
                 icon={<Users className="text-blue-500" size={24} />}
-                title="Trouver/Recherchez un HappyVoyageur"
-                desc="pour un voyage dans le même avion pour la même destination"
+                title={t('pages.stripeOnboarding.steps.search.title')}
+                desc={t('pages.stripeOnboarding.steps.search.desc')}
               />
               <NextStep
                 icon={<Euro className="text-yellow-500" size={24} />}
-                title="Gagner des revenus/Donner du Bonheur"
-                desc="Commencez à gagner de l'argent grâce à vos voyages."
+                title={t('pages.stripeOnboarding.steps.earn.title')}
+                desc={t('pages.stripeOnboarding.steps.earn.desc')}
               />
             </div>
           </div>
@@ -111,23 +110,13 @@ function StatusBadge({ label }: { label: string }) {
   );
 }
 
-function NextStep({
-  icon,
-  title,
-  desc,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}) {
+function NextStep({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
     <div className="text-center space-y-3">
       <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto">
         {icon}
       </div>
-      <h4 className="font-bold text-gray-800 leading-tight px-2 text-sm">
-        {title}
-      </h4>
+      <h4 className="font-bold text-gray-800 leading-tight px-2 text-sm">{title}</h4>
       <p className="text-xs text-gray-600 leading-relaxed px-2">{desc}</p>
     </div>
   );

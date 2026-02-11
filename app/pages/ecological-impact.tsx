@@ -1,27 +1,22 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
+import { useTranslation, Trans } from 'react-i18next';
+
 const ImpactEcologique = () => {
+  const { t } = useTranslation();
   const sections = [
     {
       id: 1,
       icon: '♻️',
-      title: 'UNE ALTERNATIVE AUX SOLUTIONS LOGISTIQUES LOURDES',
-      intro: "L'ENVOI CLASSIQUE DE BAGAGES IMPLIQUE SOUVENT :",
-      items: [
-        'DES VÉHICULES DÉDIÉS',
-        'DES CENTRES DE TRI',
-        'DES EMBALLAGES SUPPLÉMENTAIRES',
-        'DES TRAJETS INDIRECTS',
-      ],
-      highlightTitle: 'GOHAPPYGO ADOPTE UNE LOGIQUE DIFFÉRENTE :',
-      highlights: [
-        'ZÉRO TRAJET SUPPLÉMENTAIRE',
-        'ZÉRO INFRASTRUCTURE LOURDE',
-        'ZÉRO EMBALLAGE SUPERFLU',
-      ],
-      footerText:
-        "LES BAGAGES VOYAGENT AVEC DES PERSONNES DÉJÀ EN DÉPLACEMENT. C'EST L'ESSENCE MÊME DE L'ÉCONOMIE COLLABORATIVE APPLIQUÉE AU VOYAGE.",
+      title: t('pages.ecologicalImpact.sections.0.title'),
+      intro: t('pages.ecologicalImpact.sections.0.intro'),
+      items: t('pages.ecologicalImpact.sections.0.items', { returnObjects: true }) as string[],
+      highlightTitle: t('pages.ecologicalImpact.sections.0.highlightTitle'),
+      highlights: t('pages.ecologicalImpact.sections.0.highlights', {
+        returnObjects: true,
+      }) as string[],
+      footerText: t('pages.ecologicalImpact.sections.0.footerText'),
       // Position de l'image de fond (Globe)
       bgImage: 'https://placehold.co/400x400/eef2ff/3b82f6?text=GLOBE',
       bgPos: 'right-[-5%] top-[0%]',
@@ -29,16 +24,10 @@ const ImpactEcologique = () => {
     {
       id: 2,
       icon: '🤝',
-      title: "L'ÉCONOMIE DU PARTAGE AU SERVICE DE L'ENVIRONNEMENT",
-      intro:
-        'EN UTILISANT GOHAPPYGO, CHAQUE UTILISATEUR DEVIENT UN ACTEUR DE LA TRANSITION ÉCOLOGIQUE :',
-      items: [
-        'LE PORTEUR OPTIMISE UN ESPACE VIDE',
-        'L’EXPÉDITEUR ÉVITE UNE SOLUTION POLLUANTE',
-        'LA COMMUNAUTÉ RÉDUIT SON EMPREINTE GLOBALE',
-      ],
-      footerText:
-        'UN PETIT GESTE INDIVIDUEL, MULTIPLIÉ PAR DES MILLIERS DE VOYAGEURS, PEUT AVOIR UN IMPACT COLLECTIF SIGNIFICATIF.',
+      title: t('pages.ecologicalImpact.sections.1.title'),
+      intro: t('pages.ecologicalImpact.sections.1.intro'),
+      items: t('pages.ecologicalImpact.sections.1.items', { returnObjects: true }) as string[],
+      footerText: t('pages.ecologicalImpact.sections.1.footerText'),
       // Position de l'image de fond (Avion)
       bgImage: 'https://placehold.co/300x300/eef2ff/3b82f6?text=AVION',
       bgPos: 'left-[-5%] top-[40%]',
@@ -46,11 +35,10 @@ const ImpactEcologique = () => {
     {
       id: 3,
       icon: '🌱',
-      title: 'GOHAPPYGO, PORTER PLUS QUE DES BAGAGES',
-      intro: 'EN CHOISISSANT GOHAPPYGO, VOUS NE TRANSPORTEZ PAS SEULEMENT UN BAGAGE. VOUS PORTEZ :',
-      items: ['UNE DÉMARCHE RESPONSABLE', 'UNE VISION SOLIDAIRE', 'UN FUTUR PLUS DURABLE'],
-      footerText:
-        "PARCE QUE VOYAGER MIEUX, CE N'EST PAS VOYAGER MOINS — C'EST VOYAGER PLUS INTELLIGEMMENT. 💙🌍",
+      title: t('pages.ecologicalImpact.sections.2.title'),
+      intro: t('pages.ecologicalImpact.sections.2.intro'),
+      items: t('pages.ecologicalImpact.sections.2.items', { returnObjects: true }) as string[],
+      footerText: t('pages.ecologicalImpact.sections.2.footerText'),
       // Position de l'image de fond (Ticket)
       bgImage: 'https://placehold.co/300x200/eef2ff/3b82f6?text=TICKET',
       bgPos: 'right-[-5%] bottom-[5%]',
@@ -65,9 +53,10 @@ const ImpactEcologique = () => {
         {/* Titre Principal */}
         <header className="relative z-10 mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">
-            VOTRE VOYAGE, <br />
-            VOTRE BAGAGE... <br />
-            <span className="text-blue-700">A UN IMPACT ECOLOGIQUE FORT</span>
+            <Trans
+              i18nKey="pages.ecologicalImpact.title"
+              components={{ span: <span className="text-blue-700" /> }}
+            />
           </h1>
         </header>
 

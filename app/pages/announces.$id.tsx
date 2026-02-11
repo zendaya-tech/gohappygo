@@ -3,6 +3,7 @@ import Footer from '../components/layout/Footer';
 import type { Route } from '../+types/root';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import FooterMinimal from '~/components/layout/FooterMinimal';
 import { ShareIcon } from '@heroicons/react/24/outline';
 import BookingDialog from '~/components/dialogs/BookingDialog';
@@ -23,9 +24,9 @@ import { addBookmark, removeBookmark, checkIfBookmarked } from '~/services/bookm
 
 // Reviews are now fetched from the API
 
-function formatDate(dateString: string) {
+function formatDate(dateString: string, locale: string = 'fr-FR') {
   const date = new Date(dateString);
-  return date.toLocaleDateString('fr-FR', {
+  return date.toLocaleDateString(locale, {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -33,6 +34,7 @@ function formatDate(dateString: string) {
 }
 
 export default function AnnounceDetail() {
+  const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const id = searchParams.get('id') ?? '';
@@ -105,8 +107,8 @@ export default function AnnounceDetail() {
     // If user is not logged in, show login prompt
     if (!isLoggedIn) {
       showAlert(
-        'Connexion requise',
-        'Vous devez être connecté pour ajouter aux favoris.',
+        t('pages.announceDetail.alerts.loginRequired'),
+        t('pages.announceDetail.alerts.loginToFavorite'),
         'warning'
       );
       return;
@@ -204,8 +206,8 @@ export default function AnnounceDetail() {
   // Update meta tags dynamically when listing data is loaded
   useEffect(() => {
     if (listing && typeof document !== 'undefined') {
-      const title = `${listing.departureAirport?.name || 'Départ'} → ${listing.arrivalAirport?.name || 'Arrivée'} - ${listing.pricePerKg} €/kg - GoHappyGo`;
-      const description = `${type === 'travel' ? 'Voyage' : 'Demande'} de ${userName} : ${listing.description || 'Transport de bagages disponible'}`;
+      const title = `${listing.departureAirport?.name || t('pages.announceDetail.departure')} → ${listing.arrivalAirport?.name || t('pages.announceDetail.arrival')} - ${listing.pricePerKg} ${listing.currency?.symbol || '€'}/kg - GoHappyGo`;
+      const description = `${type === 'travel' ? t('cards.action.travel') : t('cards.action.demand')} ${t('common.of')} ${userName} : ${listing.description || t('pages.announceDetail.descriptionUnavailable')}`;
       const imageUrl =
         listing.images?.[0]?.fileUrl ||
         listing.user?.profilePictureUrl ||
@@ -407,15 +409,15 @@ export default function AnnounceDetail() {
         <Header />
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-2xl p-8 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Annonce introuvable</h1>
-            <p className="text-gray-600 mb-6">
-              Vérifiez l'identifiant ou retournez à la liste des annonces.
-            </p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              {t('pages.announceDetail.notFoundTitle')}
+            </h1>
+            <p className="text-gray-600 mb-6">{t('pages.announceDetail.notFoundMessage')}</p>
             <Link
               to="/annonces"
               className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover"
             >
-              Retour aux annonces
+              {t('pages.announceDetail.backToAnnounces')}
             </Link>
           </div>
         </main>
@@ -439,8 +441,8 @@ export default function AnnounceDetail() {
     if (!currentUser) {
       setBookOpen(false);
       showAlert(
-        'Connexion requise',
-        'Vous devez être connecté pour réserver un voyage.',
+        t('pages.announceDetail.alerts.loginRequired'),
+        t('pages.announceDetail.alerts.loginToBook'),
         'warning'
       );
       setTimeout(() => navigate('/login'), 2000);
@@ -449,15 +451,20 @@ export default function AnnounceDetail() {
 
     if (type !== 'travel') {
       setBookOpen(false);
-      showAlert("Type d'annonce invalide", 'Vous ne pouvez réserver que des voyages.', 'error');
+      setBookOpen(false);
+      showAlert(
+        t('pages.announceDetail.alerts.invalidType'),
+        t('pages.announceDetail.alerts.onlyTravelBooking'),
+        'error'
+      );
       return;
     }
 
     if (kilos < 0) {
       setBookOpen(false);
       showAlert(
-        'Poids invalide',
-        'Veuillez entrer un poids valide supérieur ou égal à 0.',
+        t('pages.announceDetail.alerts.invalidWeight'),
+        t('pages.announceDetail.alerts.enterValidWeight'),
         'warning'
       );
       return;
@@ -466,8 +473,11 @@ export default function AnnounceDetail() {
     if (kilos > (availableWeight || 0)) {
       setBookOpen(false);
       showAlert(
-        'Capacité insuffisante',
-        `Le poids demandé (${kilos}kg) dépasse la capacité disponible (${availableWeight || 0}kg).`,
+        t('pages.announceDetail.alerts.insufficientCapacity'),
+        t('pages.announceDetail.alerts.capacityExceeded', {
+          weight: kilos,
+          available: availableWeight || 0,
+        }),
         'warning'
       );
       return;
@@ -486,8 +496,8 @@ export default function AnnounceDetail() {
 
       // Show success message
       showAlert(
-        'Réservation réussie!',
-        `Votre demande #${response.id} a été créée avec succès.`,
+        t('pages.announceDetail.alerts.bookingSuccess'),
+        t('pages.announceDetail.alerts.bookingCreated', { id: response.id }),
         'success'
       );
 
@@ -501,10 +511,10 @@ export default function AnnounceDetail() {
       }
     } catch (error: any) {
       console.error('Booking error:', error);
-      const errorMessage = error?.message || 'Une erreur est survenue lors de la réservation';
+      const errorMessage = error?.message || t('pages.announceDetail.alerts.defaultError');
       // Ne pas fermer le dialog en cas d'erreur pour que l'utilisateur puisse voir le message
       // et réessayer
-      showAlert('Erreur de réservation', errorMessage, 'error');
+      showAlert(t('pages.announceDetail.alerts.bookingError'), errorMessage, 'error');
       // Propager l'erreur pour que BookingDialog puisse l'afficher
       throw error;
     }
@@ -523,7 +533,7 @@ export default function AnnounceDetail() {
               onClick={() => setShareOpen(true)}
             >
               <ShareIcon className="h-4 w-4" />
-              Partager
+              {t('pages.announceDetail.share')}
             </button>
             {!isOwnAnnounce && (
               <button
@@ -568,13 +578,17 @@ export default function AnnounceDetail() {
                     />
                   </svg>
                 )}
-                {isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                {isFavorite
+                  ? t('pages.announceDetail.removeFromFavorites')
+                  : t('pages.announceDetail.addToFavorites')}
               </button>
             )}
 
             {isOwnAnnounce && (
               <div className="inline-flex items-center gap-2 text-gray-500">
-                <span className="text-sm font-medium">Votre annonce</span>
+                <span className="text-sm font-medium">
+                  {t('pages.announceDetail.yourAnnounce')}
+                </span>
               </div>
             )}
           </div>
@@ -654,8 +668,13 @@ export default function AnnounceDetail() {
                   <div>
                     <div className="font-semibold text-gray-900">{userName}</div>
                     <div className="text-xs text-gray-500">
-                      {averageRating > 0 ? `Note ${averageRating.toFixed(1)}` : 'Pas encore noté'} •{' '}
-                      {listing.user?.isVerified ? 'Vérifié' : 'Non vérifié'}
+                      {averageRating > 0
+                        ? `${t('pages.profile.stats.rating')} ${averageRating.toFixed(1)}`
+                        : t('pages.announceDetail.notRatedYet')}{' '}
+                      •{' '}
+                      {listing.user?.isVerified
+                        ? t('pages.announceDetail.verified')
+                        : t('pages.announceDetail.notVerified')}
                     </div>
                   </div>
                 </div>
@@ -680,7 +699,7 @@ export default function AnnounceDetail() {
                         : 'border-gray-300 bg-white text-gray-700 hover'
                     }`}
                   >
-                    Message
+                    {t('pages.announceDetail.message')}
                   </button>
                 </div>
               </div>
@@ -690,22 +709,24 @@ export default function AnnounceDetail() {
                 <div className="md:col-span-9">
                   <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-5 gap-y-2 text-gray-700">
                     <span className="font-medium">
-                      {listing.departureAirport?.name || 'Départ'} →{' '}
-                      {listing.arrivalAirport?.name || 'Arrivée'}
+                      {listing.departureAirport?.name || t('pages.announceDetail.departure')} →{' '}
+                      {listing.arrivalAirport?.name || t('pages.announceDetail.arrival')}
                     </span>
                     <span>
-                      Départ:{' '}
+                      {t('pages.announceDetail.departure')}:{' '}
                       {formatDate(
                         listing.departureDatetime ||
                           listing.travelDate ||
                           listing.deliveryDate ||
-                          new Date().toISOString()
+                          new Date().toISOString(),
+                        i18n.language
                       )}
                     </span>
                     {type === 'travel' && (
                       <>
                         <span className="font-medium">
-                          Vol N° {listing.flightNumber.toUpperCase()}
+                          {t('pages.announceDetail.flightNumber')}{' '}
+                          {listing.flightNumber.toUpperCase()}
                         </span>
                         {listing.airline?.name && (
                           <span className="text-gray-600">{listing.airline.name}</span>
@@ -713,8 +734,10 @@ export default function AnnounceDetail() {
                       </>
                     )}
                     <span className="text-blue-600">
-                      {type === 'travel' ? 'Espace disponible' : 'Espace demandé'}:{' '}
-                      {availableWeight}kg
+                      {type === 'travel'
+                        ? t('pages.announceDetail.availableSpace')
+                        : t('pages.announceDetail.requestedSpace')}
+                      : {availableWeight}kg
                     </span>
                   </div>
                 </div>
@@ -728,7 +751,7 @@ export default function AnnounceDetail() {
               {/* Description */}
               <div className="mt-12 mb-12">
                 <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                  {listing.description || 'Description non disponible'}
+                  {listing.description || t('pages.announceDetail.descriptionUnavailable')}
                 </p>
               </div>
 
@@ -744,8 +767,8 @@ export default function AnnounceDetail() {
                     />
                     <span className="flex-1">
                       {listing.isSharedWeight
-                        ? 'peut prendre des kilos de plusieurs voyageurs'
-                        : 'accepte une seul personne pour tous les kilos'}
+                        ? t('pages.announceDetail.badges.sharedWeight')
+                        : t('pages.announceDetail.badges.singleTraveler')}
                     </span>
                   </div>
 
@@ -757,7 +780,9 @@ export default function AnnounceDetail() {
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      {listing.punctualityLevel ? 'très ponctuel' : 'ponctuel'}
+                      {listing.punctualityLevel
+                        ? t('pages.announceDetail.badges.veryPunctual')
+                        : t('pages.announceDetail.badges.punctual')}
                     </span>
                   </div>
 
@@ -770,8 +795,8 @@ export default function AnnounceDetail() {
                     />
                     <span className="flex-1">
                       {listing.isAllowExtraWeight
-                        ? 'accepte quelques grammes en trop'
-                        : "n'accepte pas de grammes en trop"}
+                        ? t('pages.announceDetail.badges.allowExtra')
+                        : t('pages.announceDetail.badges.noExtra')}
                     </span>
                   </div>
 
@@ -783,8 +808,9 @@ export default function AnnounceDetail() {
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
-                      la réservation sera confirmée{' '}
-                      {listing.isInstant ? 'instantanément' : "par l'HappyVoyageur"}
+                      {listing.isInstant
+                        ? t('pages.announceDetail.badges.instantBooking')
+                        : t('pages.announceDetail.badges.manualBooking')}
                     </span>
                   </div>
                 </div>

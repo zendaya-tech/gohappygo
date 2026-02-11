@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
 import { createSupportRequest } from '~/services/supportService';
@@ -21,14 +21,14 @@ export default function SupportSection() {
     e.preventDefault();
 
     if (!quickFormData.email.trim() || !quickFormData.message.trim()) {
-      setQuickFormError('Veuillez remplir tous les champs.');
+      setQuickFormError(t('home.supportSection.errors.fillAll'));
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(quickFormData.email)) {
-      setQuickFormError('Veuillez entrer une adresse email valide.');
+      setQuickFormError(t('home.supportSection.errors.invalidEmail'));
       return;
     }
 
@@ -51,7 +51,7 @@ export default function SupportSection() {
         setQuickFormSuccess(false);
       }, 5000);
     } catch (error: any) {
-      setQuickFormError(error.message || "Erreur lors de l'envoi du message.");
+      setQuickFormError(error.message || t('home.supportSection.errors.sendError'));
     } finally {
       setQuickFormSubmitting(false);
     }
@@ -72,7 +72,10 @@ export default function SupportSection() {
   return (
     <section className="px-4 py-12 mx-auto">
       <h2 className="text-3xl font-bold text-gray-900 mb-8">
-        Nos <span className="text-blue-600">Garanties</span>
+        <Trans
+          i18nKey="home.supportSection.title"
+          components={{ span: <span className="text-blue-600" /> }}
+        />
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -124,8 +127,10 @@ export default function SupportSection() {
                   />
                 </svg>
               </div>
-              <p className="text-green-800 font-medium">Message envoyé avec succès !</p>
-              <p className="text-green-600 text-sm mt-1">Nous vous répondrons rapidement.</p>
+              <p className="text-green-800 font-medium">
+                {t('home.supportSection.successMessage')}
+              </p>
+              <p className="text-green-600 text-sm mt-1">{t('home.supportSection.successDesc')}</p>
             </div>
           ) : (
             <form onSubmit={handleQuickFormSubmit} className="flex flex-col gap-3">
@@ -173,7 +178,9 @@ export default function SupportSection() {
                       : 'bg-slate-800 text-white hover'
                   }`}
                 >
-                  {quickFormSubmitting ? 'Envoi...' : t('home.supportSection.online.send')}
+                  {quickFormSubmitting
+                    ? t('home.supportSection.submitting')
+                    : t('home.supportSection.online.send')}
                 </button>
               </div>
 
@@ -183,13 +190,13 @@ export default function SupportSection() {
                   onClick={() => setSupportDialogOpen(true)}
                   className="text-blue-600 hover text-sm font-medium transition-colors text-left cursor-pointer"
                 >
-                  Besoin d'aide détaillée ?
+                  {t('home.supportSection.detailedHelp')}
                 </button>
                 <Link
                   to="/support"
                   className="text-blue-600 hover text-sm font-medium transition-colors"
                 >
-                  En savoir plus sur notre support →
+                  {t('home.supportSection.learnMore')}
                 </Link>
               </div>
             </form>

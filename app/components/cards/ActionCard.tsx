@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ActionCardProps {
   id: string | number;
@@ -20,7 +21,7 @@ interface ActionCardProps {
   primaryAction?: {
     label: string;
     onClick: () => void;
-    color?: "blue" | "green";
+    color?: 'blue' | 'green';
     disabled?: boolean;
   };
   secondaryAction?: {
@@ -59,6 +60,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
   messageAction,
   tertiaryAction,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
       {/* 1. Image - Hauteur adaptée (plus petite sur mobile) */}
@@ -79,7 +81,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
               type === 'transporter' ? 'bg-blue-600/90 text-white' : 'bg-orange-500/90 text-white'
             }`}
           >
-            {type === 'transporter' ? 'Voyage' : 'Demande'}
+            {type === 'transporter' ? t('cards.action.travel') : t('cards.action.demand')}
           </div>
         )}
       </div>
@@ -102,7 +104,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
               className="relative px-3 py-1.5 md:px-5 md:py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-[10px] md:text-xs font-bold hover:bg-blue-50 transition-colors shrink-0 cursor-pointer"
               onClick={messageAction?.onClick}
             >
-              Message
+              {t('cards.action.message')}
               {/* Badge de messages non lus sur le bouton */}
               {!!unreadCount && unreadCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5 shadow-lg">
@@ -125,7 +127,9 @@ const ActionCard: React.FC<ActionCardProps> = ({
             </div>
             <div className="flex justify-between items-center text-[0.65rem] md:text-[0.7rem] text-gray-400 font-bold uppercase tracking-wider">
               <span>{dateLabel}</span>
-              <span className=" px-2 py-0.5 rounded text-gray-500">Vol {flightNumber}</span>
+              <span className=" px-2 py-0.5 rounded text-gray-500">
+                {t('cards.action.flight')} {flightNumber}
+              </span>
             </div>
           </div>
         </div>
@@ -133,7 +137,10 @@ const ActionCard: React.FC<ActionCardProps> = ({
         {/* 4. Footer - Prix & Boutons (Stack sur très petit écran si besoin) */}
         <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-1">
           <div className="text-sm font-medium  text-gray-900">
-            {price} <span className="text-sm  text-gray-900">{priceSubtext || '$/kg'}</span>
+            {price}{' '}
+            <span className="text-sm  text-gray-900">
+              {priceSubtext || t('cards.action.perKg')}
+            </span>
           </div>
 
           <div className="flex gap-2">

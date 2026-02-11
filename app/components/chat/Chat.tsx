@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSocketIO, type ChatMessage } from '~/hooks/useSocketIO';
 import { getMessageThread, markThreadAsRead, type ThreadMessage } from '~/services/messageService';
 import { useAuthStore } from '~/store/auth';
@@ -14,6 +15,7 @@ interface ChatProps {
 }
 
 export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
+  const { t, i18n } = useTranslation();
   const [messages, setMessages] = useState<ThreadMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
@@ -176,7 +178,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString('fr-FR', {
+    return date.toLocaleTimeString(i18n.language, {
       hour: '2-digit',
       minute: '2-digit',
     });
@@ -189,11 +191,11 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     yesterday.setDate(yesterday.getDate() - 1);
 
     if (date.toDateString() === today.toDateString()) {
-      return "Aujourd'hui";
+      return t('profile.messages.today');
     } else if (date.toDateString() === yesterday.toDateString()) {
-      return 'Hier';
+      return t('profile.messages.yesterday');
     } else {
-      return date.toLocaleDateString('fr-FR', {
+      return date.toLocaleDateString(i18n.language, {
         day: 'numeric',
         month: 'short',
       });
@@ -234,12 +236,12 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
               {isConnected ? (
                 <>
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>En ligne</span>
+                  <span>{t('profile.messages.online')}</span>
                 </>
               ) : (
                 <>
                   <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                  <span>Hors ligne</span>
+                  <span>{t('profile.messages.offline')}</span>
                 </>
               )}
             </div>
@@ -393,7 +395,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                     style={{ animationDelay: '0.2s' }}
                   ></div>
                 </div>
-                <span className="text-xs text-gray-500 ml-2">En train d'écrire...</span>
+                <span className="text-xs text-gray-500 ml-2">{t('profile.messages.typing')}</span>
               </div>
             </div>
           </div>
@@ -410,7 +412,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
               value={newMessage}
               onChange={(e) => handleInputChange(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Tapez votre message..."
+              placeholder={t('profile.messages.messagePlaceholder')}
               rows={1}
               className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus resize-none"
               disabled={sending || !isConnected}
@@ -444,7 +446,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
         {!isConnected && (
           <div className="mt-2 text-xs text-red-600 text-center">
-            Connexion perdue. Tentative de reconnexion...
+            {t('profile.messages.connectionLost')}
           </div>
         )}
       </div>

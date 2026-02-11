@@ -99,7 +99,7 @@ export default function Header() {
                     (downloadBtnRef as any).current = el;
                   }}
                 >
-                  Télécharger l'appli
+                  {t('header.downloadAppButton')}
                 </button>
                 <AppDownloadPopover
                   open={hoverDownload}
@@ -383,7 +383,7 @@ export default function Header() {
                       d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
                     />
                   </svg>
-                  <span>Télécharger l'appli</span>
+                  <span>{t('header.downloadAppButton')}</span>
                 </button>
 
                 {/* Publier une annonce */}
@@ -418,7 +418,7 @@ export default function Header() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        Je propose un espace bagage
+                        {t('demand.travel')}
                       </button>
                       <button
                         onClick={() => {
@@ -445,7 +445,7 @@ export default function Header() {
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
                           />
                         </svg>
-                        Je souhaite trouver un espace bagage
+                        {t('demand.package')}
                       </button>
                     </div>
                   </div>

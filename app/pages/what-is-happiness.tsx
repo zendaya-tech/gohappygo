@@ -1,45 +1,35 @@
 import React from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
 const LeBonheur = () => {
+  const { t } = useTranslation();
+
   const sections = [
     {
       id: 1,
       icon: '❤️',
-      title: "Voyager utile, c'est voyager heureux",
-      content:
-        "Le bonheur, ce n'est pas seulement arriver à destination. C'est savoir que, pendant votre trajet, <b>vous avez aidé quelqu'un.</b>",
-      items: [
-        'Un bagage qui arrive à temps',
-        "Un voyage plus léger pour quelqu'un d'autre",
-        'Un stress évité',
-        'Un sourire au bout du chemin',
-      ],
-      footer: 'Chez GoHappyGo, chaque trajet peut devenir <b>une bonne et belle action.</b>',
+      title: t('pages.whatIsHappiness.section1.title'),
+      content: t('pages.whatIsHappiness.section1.content'),
+      items: t('pages.whatIsHappiness.section1.items', { returnObjects: true }) as string[],
+      footer: t('pages.whatIsHappiness.section1.footer'),
     },
     {
       id: 2,
       icon: '🌍',
-      title: 'Le bonheur de faire partie de quelque chose de plus grand',
-      content:
-        "En utilisant GoHappyGo, vous n'êtes pas juste un utilisateur. Vous faites partie d'une <b>communauté solidaire de voyageurs</b> qui :",
-      items: [
-        "S'entraident naturellement",
-        'Optimisent ce qui existe déjà',
-        'Donnent du sens à leurs déplacements',
-      ],
-      footer: 'Le bonheur naît souvent quand on se sent <b>utile, connecté et engagé.</b>',
+      title: t('pages.whatIsHappiness.section2.title'),
+      content: t('pages.whatIsHappiness.section2.content'),
+      items: t('pages.whatIsHappiness.section2.items', { returnObjects: true }) as string[],
+      footer: t('pages.whatIsHappiness.section2.footer'),
     },
     {
       id: 3,
       icon: '✨',
-      title: 'De petits gestes. De grands effets.',
-      content:
-        "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
-      items: ['Une solution à un problème', 'Un voyage plus serein', 'Une confiance retrouvée'],
-      footer:
-        'Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires.',
+      title: t('pages.whatIsHappiness.section3.title'),
+      content: t('pages.whatIsHappiness.section3.content'),
+      items: t('pages.whatIsHappiness.section3.items', { returnObjects: true }) as string[],
+      footer: t('pages.whatIsHappiness.section3.footer'),
     },
   ];
 
@@ -50,9 +40,8 @@ const LeBonheur = () => {
       <main className="flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <header className="mb-20">
-          <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">
-            LE BONHEUR, <br />
-            ÇA SE PARTAGE AUSSI !
+          <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter whitespace-pre-line">
+            {t('pages.whatIsHappiness.title')}
           </h1>
         </header>
 
@@ -99,9 +88,8 @@ const LeBonheur = () => {
 
         {/* Message de clôture final */}
         <div className="mt-24 pt-12 border-t border-gray-100">
-          <p className="text-lg md:text-xl font-black text-blue-600 uppercase italic tracking-tighter leading-tight">
-            SOYEZ UN PORTEUR DE BONHEUR. <br />
-            POUR LES AUTRES. POUR VOUS. POUR LE VOYAGE AUTREMENT.
+          <p className="text-lg md:text-xl font-black text-blue-600 uppercase italic tracking-tighter leading-tight whitespace-pre-line">
+            {t('pages.whatIsHappiness.footer')}
           </p>
         </div>
       </main>

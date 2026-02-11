@@ -1,8 +1,10 @@
 import AnnounceCard from '~/components/cards/AnnounceCard';
 import { useEffect, useState } from 'react';
 import { getLatestTravels, type DemandTravelItem } from '~/services/announceService';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function VerifiedTravelers() {
+  const { t } = useTranslation();
   const [travels, setTravels] = useState<DemandTravelItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,9 +40,12 @@ export default function VerifiedTravelers() {
     return (
       <section className="pb-12 pt-4 px-4 mx-auto">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          HappyVoyageurs <span className="text-blue-600">vérifiés</span>
+          <Trans
+            i18nKey="home.verifiedTravelers.title"
+            components={{ span: <span className="text-blue-600" /> }}
+          />
         </h2>
-        <div className="text-center text-gray-500">Chargement des voyageurs vérifiés...</div>
+        <div className="text-center text-gray-500">{t('home.verifiedTravelers.loading')}</div>
       </section>
     );
   }
@@ -48,7 +53,10 @@ export default function VerifiedTravelers() {
   return (
     <section className="pb-12 pt-4 px-4 mx-auto">
       <h2 className="text-3xl font-bold text-gray-900 mb-8">
-        HappyVoyageurs <span className="text-blue-600">vérifiés</span>
+        <Trans
+          i18nKey="home.verifiedTravelers.title"
+          components={{ span: <span className="text-blue-600" /> }}
+        />
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {travels.map((travel) => {
@@ -93,9 +101,7 @@ export default function VerifiedTravelers() {
       </div>
 
       {travels.length === 0 && (
-        <div className="text-center text-gray-500">
-          Aucun voyageur vérifié disponible pour le moment
-        </div>
+        <div className="text-center text-gray-500">{t('home.verifiedTravelers.noTravelers')}</div>
       )}
     </section>
   );

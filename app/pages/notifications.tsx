@@ -1,31 +1,36 @@
-import { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router";
+import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router';
 import Header from '~/components/layout/Header';
 import FooterMinimal from '~/components/layout/FooterMinimal';
-import { notificationService, type Notification } from "~/services/notificationService";
-import { useInfiniteScroll } from "~/hooks/useInfiniteScroll";
+import { notificationService, type Notification } from '~/services/notificationService';
+import { useInfiniteScroll } from '~/hooks/useInfiniteScroll';
+import { useTranslation } from 'react-i18next';
 
-function formatTimeAgo(dateString: string): string {
+function formatTimeAgo(dateString: string, t: any): string {
   const date = new Date(dateString);
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  if (diffInSeconds < 60) return "à l'instant";
-  if (diffInSeconds < 3600) return `il y a ${Math.floor(diffInSeconds / 60)} min`;
-  if (diffInSeconds < 86400) return `il y a ${Math.floor(diffInSeconds / 3600)} h`;
-  if (diffInSeconds < 172800) return "hier";
-  if (diffInSeconds < 604800) return `il y a ${Math.floor(diffInSeconds / 86400)} j`;
-  return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+  if (diffInSeconds < 60) return t('pages.notifications.time.justNow');
+  if (diffInSeconds < 3600)
+    return t('pages.notifications.time.minAgo', { count: Math.floor(diffInSeconds / 60) });
+  if (diffInSeconds < 86400)
+    return t('pages.notifications.time.hourAgo', { count: Math.floor(diffInSeconds / 3600) });
+  if (diffInSeconds < 172800) return t('pages.notifications.time.yesterday');
+  if (diffInSeconds < 604800)
+    return t('pages.notifications.time.dayAgo', { count: Math.floor(diffInSeconds / 86400) });
+  return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 export default function NotificationsPage() {
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [filter, setFilter] = useState<"all" | "unread">("all");
+  const [filter, setFilter] = useState<'all' | 'unread'>('all');
 
   // Load initial notifications
   useEffect(() => {
@@ -40,12 +45,12 @@ export default function NotificationsPage() {
       }
 
       const query: any = { page, limit: 20 };
-      if (filter === "unread") {
+      if (filter === 'unread') {
         query.isRead = false;
       }
 
       const response = await notificationService.getNotifications(query);
-      
+
       if (reset) {
         setNotifications(response.items);
       } else {
@@ -57,7 +62,7 @@ export default function NotificationsPage() {
       setHasMore(hasNextPage);
       setError(null);
     } catch (err: any) {
-      setError(err?.message || "Erreur lors du chargement des notifications");
+      setError(err?.message || t('pages.notifications.error'));
     } finally {
       setLoading(false);
       setLoadingMore(false);
@@ -75,11 +80,9 @@ export default function NotificationsPage() {
   const handleMarkAsRead = async (id: number) => {
     try {
       await notificationService.markAsRead(id);
-      setNotifications((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, isRead: true } : n))
-      );
+      setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, isRead: true } : n)));
     } catch (error) {
-      console.error("Failed to mark notification as read:", error);
+      console.error('Failed to mark notification as read:', error);
     }
   };
 
@@ -88,7 +91,7 @@ export default function NotificationsPage() {
       await notificationService.markAllAsRead();
       setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
     } catch (error) {
-      console.error("Failed to mark all as read:", error);
+      console.error('Failed to mark all as read:', error);
     }
   };
 
@@ -97,7 +100,7 @@ export default function NotificationsPage() {
       await notificationService.deleteNotification(id);
       setNotifications((prev) => prev.filter((n) => n.id !== id));
     } catch (error) {
-      console.error("Failed to delete notification:", error);
+      console.error('Failed to delete notification:', error);
     }
   };
 
@@ -106,7 +109,7 @@ export default function NotificationsPage() {
       await notificationService.clearReadNotifications();
       setNotifications((prev) => prev.filter((n) => !n.isRead));
     } catch (error) {
-      console.error("Failed to clear read notifications:", error);
+      console.error('Failed to clear read notifications:', error);
     }
   };
 
@@ -128,18 +131,15 @@ export default function NotificationsPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                Notifications
-              </h1>
+              <h1 className="text-3xl font-bold text-gray-900">{t('pages.notifications.title')}</h1>
               <p className="text-sm text-gray-500 mt-1">
-                {unreadCount > 0 ? `${unreadCount} non lue${unreadCount > 1 ? "s" : ""}` : "Toutes vos notifications sont lues"}
+                {unreadCount > 0
+                  ? t('pages.notifications.subtitle.unread', { count: unreadCount })
+                  : t('pages.notifications.subtitle.allRead')}
               </p>
             </div>
-            <Link
-              to="/profile"
-              className="text-sm text-blue-600 hover font-medium"
-            >
-              ← Retour au profil
+            <Link to="/profile" className="text-sm text-blue-600 hover font-medium">
+              {t('pages.notifications.backProfile')}
             </Link>
           </div>
 
@@ -147,24 +147,20 @@ export default function NotificationsPage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white rounded-xl p-4 border border-gray-200">
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setFilter("all")}
+                onClick={() => setFilter('all')}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  filter === "all"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover"
+                  filter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover'
                 }`}
               >
-                Toutes
+                {t('pages.notifications.filter.all')}
               </button>
               <button
-                onClick={() => setFilter("unread")}
+                onClick={() => setFilter('unread')}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  filter === "unread"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover"
+                  filter === 'unread' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover'
                 }`}
               >
-                Non lues {unreadCount > 0 && `(${unreadCount})`}
+                {t('pages.notifications.filter.unread')} {unreadCount > 0 && `(${unreadCount})`}
               </button>
             </div>
 
@@ -174,14 +170,14 @@ export default function NotificationsPage() {
                   onClick={handleMarkAllAsRead}
                   className="px-4 py-2 rounded-lg text-sm font-medium text-blue-600 hover/20 transition-colors"
                 >
-                  Tout marquer lu
+                  {t('pages.notifications.actions.markAllRead')}
                 </button>
               )}
               <button
                 onClick={handleClearRead}
                 className="px-4 py-2 rounded-lg text-sm font-medium text-red-600 hover/20 transition-colors"
               >
-                Effacer les lues
+                {t('pages.notifications.actions.clearRead')}
               </button>
             </div>
           </div>
@@ -191,9 +187,18 @@ export default function NotificationsPage() {
         {loading ? (
           <div className="flex justify-center items-center py-16">
             <div className="flex gap-2">
-              <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-              <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-              <div className="w-3 h-3 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+              <div
+                className="w-3 h-3 bg-blue-600 rounded-full animate-bounce"
+                style={{ animationDelay: '0ms' }}
+              ></div>
+              <div
+                className="w-3 h-3 bg-blue-600 rounded-full animate-bounce"
+                style={{ animationDelay: '150ms' }}
+              ></div>
+              <div
+                className="w-3 h-3 bg-blue-600 rounded-full animate-bounce"
+                style={{ animationDelay: '300ms' }}
+              ></div>
             </div>
           </div>
         ) : error ? (
@@ -216,12 +221,12 @@ export default function NotificationsPage() {
               />
             </svg>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Aucune notification
+              {t('pages.notifications.empty.title')}
             </h3>
             <p className="text-gray-500">
-              {filter === "unread" 
-                ? "Vous n'avez aucune notification non lue"
-                : "Vous n'avez aucune notification pour le moment"}
+              {filter === 'unread'
+                ? t('pages.notifications.empty.unread')
+                : t('pages.notifications.empty.all')}
             </p>
           </div>
         ) : (
@@ -231,9 +236,7 @@ export default function NotificationsPage() {
                 <div
                   key={notification.id}
                   className={`bg-white rounded-xl border transition-all hover:shadow-md ${
-                    !notification.isRead
-                      ? "border-blue-200 bg-blue-50/30/10"
-                      : "border-gray-200"
+                    !notification.isRead ? 'border-blue-200 bg-blue-50/30/10' : 'border-gray-200'
                   }`}
                 >
                   <div className="p-4 sm:p-6">
@@ -242,7 +245,7 @@ export default function NotificationsPage() {
                       <div className="flex-shrink-0 mt-1">
                         <div
                           className={`w-3 h-3 rounded-full ${
-                            !notification.isRead ? "bg-blue-600" : "bg-gray-300"
+                            !notification.isRead ? 'bg-blue-600' : 'bg-gray-300'
                           }`}
                         />
                       </div>
@@ -250,16 +253,12 @@ export default function NotificationsPage() {
                       {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4 mb-2">
-                          <h3 className="font-semibold text-gray-900">
-                            {notification.title}
-                          </h3>
+                          <h3 className="font-semibold text-gray-900">{notification.title}</h3>
                           <span className="text-xs text-gray-500 whitespace-nowrap">
-                            {formatTimeAgo(notification.createdAt)}
+                            {formatTimeAgo(notification.createdAt, t)}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-3">
-                          {notification.message}
-                        </p>
+                        <p className="text-sm text-gray-600 mb-3">{notification.message}</p>
 
                         {/* Actions */}
                         <div className="flex items-center gap-3">
@@ -268,14 +267,14 @@ export default function NotificationsPage() {
                               onClick={() => handleMarkAsRead(notification.id)}
                               className="text-xs text-blue-600 hover font-medium"
                             >
-                              Marquer comme lu
+                              {t('pages.notifications.actions.markAsRead')}
                             </button>
                           )}
                           <button
                             onClick={() => handleDeleteNotification(notification.id)}
                             className="text-xs text-red-600 hover font-medium"
                           >
-                            Supprimer
+                            {t('pages.notifications.actions.delete')}
                           </button>
                         </div>
                       </div>
@@ -289,14 +288,23 @@ export default function NotificationsPage() {
             <div ref={sentinelRef} className="w-full py-8">
               {loadingMore && (
                 <div className="flex justify-center items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: "0ms" }}></div>
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: "150ms" }}></div>
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: "300ms" }}></div>
+                  <div
+                    className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+                    style={{ animationDelay: '0ms' }}
+                  ></div>
+                  <div
+                    className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+                    style={{ animationDelay: '150ms' }}
+                  ></div>
+                  <div
+                    className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+                    style={{ animationDelay: '300ms' }}
+                  ></div>
                 </div>
               )}
               {!hasMore && notifications.length > 0 && (
                 <p className="text-center text-sm text-gray-500">
-                  Vous avez vu toutes vos notifications
+                  {t('pages.notifications.allSeen')}
                 </p>
               )}
             </div>

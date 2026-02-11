@@ -4,28 +4,7 @@ import Footer from '../components/layout/Footer';
 
 type Faq = { q: string; a: string };
 
-const faqs: Faq[] = [
-  {
-    q: 'Comment fonctionne GoHappyGo ?',
-    a: 'Des voyageurs proposent l’espace disponible dans leurs bagages. Vous pouvez leur demander de transporter vos colis (au kilo).',
-  },
-  {
-    q: 'Quels objets sont interdits ?',
-    a: 'Tout objet dangereux, illégal ou interdit par les compagnies aériennes et les douanes est strictement prohibé.',
-  },
-  {
-    q: 'Comment payer ?',
-    a: 'Le prix est généralement fixé au kilo. Le paiement est sécurisé via la plateforme.',
-  },
-  {
-    q: 'Comment contacter un HappyVoyageur ?',
-    a: 'Depuis une annonce, utilisez les boutons ‘Demander un transport’ ou ‘Contacter’ pour envoyer votre message.',
-  },
-  {
-    q: 'Comment définir le poids à expédier ?',
-    a: 'Indiquez le poids estimé en kilogrammes. Le HappyVoyageur confirmera la disponibilité restante.',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 function highlight(text: string, query: string) {
   if (!query.trim()) return text;
@@ -43,7 +22,10 @@ function highlight(text: string, query: string) {
 }
 
 export default function HelpCenter() {
+  const { t } = useTranslation();
   const [query, setQuery] = useState('');
+
+  const faqs = useMemo(() => t('pages.helpCenter.faqs', { returnObjects: true }) as Faq[], [t]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -57,10 +39,8 @@ export default function HelpCenter() {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mx-auto max-w-3xl">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">Centre d’aide</h1>
-            <p className="mt-2 text-gray-600">
-              Recherchez une question ou parcourez les thèmes fréquents.
-            </p>
+            <h1 className="text-3xl font-bold text-gray-900">{t('pages.helpCenter.title')}</h1>
+            <p className="mt-2 text-gray-600">{t('pages.helpCenter.subtitle')}</p>
           </div>
 
           {/* Search */}
@@ -83,8 +63,8 @@ export default function HelpCenter() {
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Rechercher une question..."
-                aria-label="Rechercher une question dans le centre d’aide"
+                placeholder={t('pages.helpCenter.placeholder')}
+                aria-label={t('pages.helpCenter.ariaSearch')}
                 className="w-full bg-transparent text-sm outline-none placeholder"
               />
               {query && (
@@ -92,7 +72,7 @@ export default function HelpCenter() {
                   type="button"
                   onClick={() => setQuery('')}
                   className="rounded-full p-1 text-gray-500 hover"
-                  aria-label="Effacer la recherche"
+                  aria-label={t('pages.helpCenter.ariaClear')}
                 >
                   <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path
@@ -110,7 +90,7 @@ export default function HelpCenter() {
           {/* Results */}
           {filtered.length === 0 ? (
             <div className="rounded-2xl border border-gray-200 bg-white p-6 text-center text-gray-600">
-              Aucune question ne correspond à « {query} ».
+              {t('pages.helpCenter.noResults', { query })}
             </div>
           ) : (
             <div className="space-y-3">

@@ -69,7 +69,7 @@ export default function FeaturesSection() {
             className="w-35 h-15 object-cover hover:scale-105 transition-transform duration-300"
           />
           <span className="text-[#de179c] font-bold text-md lg:text-xl w-[55%] text-center">
-            Billets d'avion vérifiés et bien plus encore
+            {t('home.features.verifiedTickets')}
           </span>
         </div>
       </div>

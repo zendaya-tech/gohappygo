@@ -24,14 +24,14 @@ export default function Support() {
     e.preventDefault();
 
     if (!formData.email.trim() || !formData.message.trim()) {
-      setError('Veuillez remplir tous les champs obligatoires.');
+      setError(t('pages.support.form.errors.required'));
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError('Veuillez entrer une adresse email valide.');
+      setError(t('pages.support.form.errors.invalidEmail'));
       return;
     }
 
@@ -54,7 +54,7 @@ export default function Support() {
         setSuccess(false);
       }, 5000);
     } catch (error: any) {
-      setError(error.message || "Erreur lors de l'envoi du message.");
+      setError(error.message || t('pages.support.form.errors.sendError'));
     } finally {
       setSubmitting(false);
     }
@@ -81,11 +81,8 @@ export default function Support() {
       <main className="max-w-4xl mx-auto px-4 py-8 md:py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md font-bold text-gray-900 mb-4">Centre d'aide GoHappyGo</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Nous sommes là pour vous aider ! Trouvez des réponses à vos questions ou contactez notre
-            équipe de support.
-          </p>
+          <h1 className="text-4xl md font-bold text-gray-900 mb-4">{t('pages.support.title')}</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t('pages.support.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -93,7 +90,9 @@ export default function Support() {
           <div className="space-y-8">
             {/* Support Features */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Notre support 24/7</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                {t('pages.support.features.title')}
+              </h2>
 
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
@@ -113,10 +112,10 @@ export default function Support() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Disponible 24h/24, 7j/7</h3>
-                    <p className="text-gray-600">
-                      Notre équipe est toujours là pour vous aider, peu importe l'heure.
-                    </p>
+                    <h3 className="font-semibold text-gray-900">
+                      {t('pages.support.features.available.title')}
+                    </h3>
+                    <p className="text-gray-600">{t('pages.support.features.available.desc')}</p>
                   </div>
                 </div>
 
@@ -137,10 +136,10 @@ export default function Support() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Réponse rapide</h3>
-                    <p className="text-gray-600">
-                      Nous nous engageons à répondre à vos demandes dans les plus brefs délais.
-                    </p>
+                    <h3 className="font-semibold text-gray-900">
+                      {t('pages.support.features.fastResponse.title')}
+                    </h3>
+                    <p className="text-gray-600">{t('pages.support.features.fastResponse.desc')}</p>
                   </div>
                 </div>
 
@@ -161,10 +160,10 @@ export default function Support() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Support multilingue</h3>
-                    <p className="text-gray-600">
-                      Notre équipe parle plusieurs langues pour mieux vous servir.
-                    </p>
+                    <h3 className="font-semibold text-gray-900">
+                      {t('pages.support.features.multilingual.title')}
+                    </h3>
+                    <p className="text-gray-600">{t('pages.support.features.multilingual.desc')}</p>
                   </div>
                 </div>
               </div>
@@ -172,7 +171,9 @@ export default function Support() {
 
             {/* Contact Methods */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Autres moyens de contact</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                {t('pages.support.contactMethods.title')}
+              </h2>
 
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
@@ -190,7 +191,9 @@ export default function Support() {
                     />
                   </svg>
                   <div>
-                    <p className="font-medium text-gray-900">Email</p>
+                    <p className="font-medium text-gray-900">
+                      {t('pages.support.contactMethods.email')}
+                    </p>
                     <a href="mailto:support@gohappygo.fr" className="text-blue-600 hover:underline">
                       support@gohappygo.fr
                     </a>
@@ -212,9 +215,11 @@ export default function Support() {
                     />
                   </svg>
                   <div>
-                    <p className="font-medium text-gray-900">FAQ</p>
+                    <p className="font-medium text-gray-900">
+                      {t('pages.support.contactMethods.faq')}
+                    </p>
                     <Link to="/faq" className="text-blue-600 hover:underline">
-                      Consultez notre foire aux questions
+                      {t('pages.support.contactMethods.faqLink')}
                     </Link>
                   </div>
                 </div>
@@ -224,7 +229,9 @@ export default function Support() {
 
           {/* Right Column - Contact Form */}
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Contactez-nous</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              {t('pages.support.form.title')}
+            </h2>
 
             {success ? (
               <div className="bg-green-50/20 border border-green-200 rounded-lg p-6 text-center">
@@ -244,12 +251,9 @@ export default function Support() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-green-800 mb-2">
-                  Message envoyé avec succès !
+                  {t('pages.support.form.successMessage')}
                 </h3>
-                <p className="text-green-600">
-                  Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs
-                  délais.
-                </p>
+                <p className="text-green-600">{t('pages.support.form.successDesc')}</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -261,7 +265,7 @@ export default function Support() {
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Adresse email *
+                    {t('pages.support.form.emailLabel')}
                   </label>
                   <input
                     type="email"
@@ -280,7 +284,7 @@ export default function Support() {
                     htmlFor="category"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    Catégorie
+                    {t('pages.support.form.categoryLabel')}
                   </label>
                   <select
                     id="category"
@@ -289,18 +293,20 @@ export default function Support() {
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus"
                   >
-                    <option value="GENERAL">Question générale</option>
-                    <option value="TECHNICAL">Problème technique</option>
-                    <option value="BILLING">Facturation</option>
-                    <option value="ACCOUNT">Compte utilisateur</option>
-                    <option value="BOOKING">Réservation</option>
-                    <option value="OTHER">Autre</option>
+                    <option value="GENERAL">{t('pages.support.form.categories.general')}</option>
+                    <option value="TECHNICAL">
+                      {t('pages.support.form.categories.technical')}
+                    </option>
+                    <option value="BILLING">{t('pages.support.form.categories.billing')}</option>
+                    <option value="ACCOUNT">{t('pages.support.form.categories.account')}</option>
+                    <option value="BOOKING">{t('pages.support.form.categories.booking')}</option>
+                    <option value="OTHER">{t('pages.support.form.categories.other')}</option>
                   </select>
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message *
+                    {t('pages.support.form.messageLabel')}
                   </label>
                   <textarea
                     id="message"
@@ -309,7 +315,7 @@ export default function Support() {
                     onChange={handleInputChange}
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus resize-none"
-                    placeholder="Décrivez votre question ou problème en détail..."
+                    placeholder={t('pages.support.form.placeholder')}
                     required
                   />
                 </div>
@@ -323,7 +329,7 @@ export default function Support() {
                       : 'bg-blue-600 hover text-white'
                   }`}
                 >
-                  {submitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                  {submitting ? t('pages.support.form.submitting') : t('pages.support.form.submit')}
                 </button>
 
                 <div className="text-center">
@@ -332,7 +338,7 @@ export default function Support() {
                     onClick={() => setSupportDialogOpen(true)}
                     className="text-blue-600 hover text-sm font-medium transition-colors cursor-pointer"
                   >
-                    Préférez-vous utiliser notre formulaire avancé ?
+                    {t('pages.support.form.advancedForm')}
                   </button>
                 </div>
               </form>

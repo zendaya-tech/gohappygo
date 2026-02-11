@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import { addBookmark, removeBookmark, checkIfBookmarked } from '~/services/bookmarkService';
 import { useAuthStore, type AuthState } from '~/store/auth';
@@ -40,6 +41,7 @@ export default function AnnounceCard({
   userId,
   currencySymbol = '€', // Valeur par défaut Euro
 }: PropertyCardProps) {
+  const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isLoggedIn = useAuthStore((s: AuthState) => s.isLoggedIn);
@@ -129,7 +131,7 @@ export default function AnnounceCard({
         />
         {featured && (
           <div className="absolute top-4 left-4 bg-emerald-950/80 text-white px-4 py-1 rounded-full text-xs">
-            Vérifié
+            {t('cards.announce.verified')}
           </div>
         )}
         {type && (
@@ -138,7 +140,7 @@ export default function AnnounceCard({
               type === 'transporter' ? 'bg-blue-500/90 text-white' : 'bg-orange-500/90 text-white'
             }`}
           >
-            {type === 'transporter' ? 'Voyage' : 'Demande'}
+            {type === 'transporter' ? t('cards.action.travel') : t('cards.action.demand')}
           </div>
         )}
         {!isOwnAnnounce && (
@@ -197,10 +199,17 @@ export default function AnnounceCard({
         </p>
         {
           <p className="text-blue-600 text-sm font-medium mb-2">
-            {type === 'transporter' ? 'Espace disponible' : 'Espace demandé'}: {weight ?? '0 kg'}
+            {type === 'transporter'
+              ? t('cards.announce.availableSpace')
+              : t('cards.announce.requestedSpace')}
+            : {weight ?? '0 kg'}
           </p>
         }
-        {departure && <p className="text-gray-500 text-xs mb-2">Date : {departure}</p>}
+        {departure && (
+          <p className="text-gray-500 text-xs mb-2">
+            {t('cards.announce.date')} {departure}
+          </p>
+        )}
         {/* {airline && (
           <p className="text-gray-500 text-xs mb-4">
             Compagnie: {airline}

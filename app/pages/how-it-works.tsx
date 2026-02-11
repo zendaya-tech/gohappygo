@@ -2,20 +2,18 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import React from 'react';
 
+import { useTranslation, Trans } from 'react-i18next';
+
 const HowItWorks = () => {
+  const { t } = useTranslation();
   const steps = [
     {
       id: 1,
       number: '1',
       icon: '✨',
-      title: "JE M'INSCRIS & JE PUBLIE MON VOYAGE",
-      items: [
-        'Création du compte',
-        "Vérification de l'identité obligatoire",
-        "Publication d'une annonce/souhait de voyage",
-      ],
-      description:
-        'Tout commence par un profil vérifié et un trajet partagé. Vos données sont traitées de manière strictement confidentielle.',
+      title: t('pages.howItWorks.steps.0.title'),
+      items: t('pages.howItWorks.steps.0.items', { returnObjects: true }) as string[],
+      description: t('pages.howItWorks.steps.0.description'),
       numberPosition: 'right-[90%] top-[-30px] md:right-45 md:top-0',
       numbercirclePosition: 'right-0 top-0 md:right-[-80px] md:top-[-10px]',
     },
@@ -23,14 +21,9 @@ const HowItWorks = () => {
       id: 2,
       number: '2',
       icon: '🤝',
-      title: "JE RÉSERVE & JE SÉCURISE L'ÉCHANGE",
-      items: [
-        "Réservation d'un espace bagage",
-        'Échanges via la messagerie sécurisée/rencontre Physique',
-        "Selfie à 2 via l'application",
-      ],
-      description:
-        'La confiance se construit dans la transparence. La traçabilité de vos échanges et des transactions sont garanties.',
+      title: t('pages.howItWorks.steps.1.title'),
+      items: t('pages.howItWorks.steps.1.items', { returnObjects: true }) as string[],
+      description: t('pages.howItWorks.steps.1.description'),
       numberPosition: 'left-4 top-[-30px] md:left-20 md:top-0',
       numbercirclePosition: 'right-0 top-0 md:right-[-25px] md:top-20',
     },
@@ -38,14 +31,9 @@ const HowItWorks = () => {
       id: 3,
       number: '3',
       icon: '💳',
-      title: 'JE VOYAGE & JE SUIS PAYÉ EN TOUTE SÉCURITÉ',
-      items: [
-        'Enregistrement en commun des bagages',
-        'Voyage + validation de la réservation',
-        'Paiement debloqué automatiquement',
-      ],
-      description:
-        "Le système de paiement est sécurisé et vous ne manipulez pas d'argent directement.",
+      title: t('pages.howItWorks.steps.2.title'),
+      items: t('pages.howItWorks.steps.2.items', { returnObjects: true }) as string[],
+      description: t('pages.howItWorks.steps.2.description'),
       numberPosition: 'right-[90%] top-[-30px] md:right-45 md:top-0',
       numbercirclePosition: 'right-0 top-0 md:right-[-64px] md:top-[-10px]',
     },
@@ -58,7 +46,7 @@ const HowItWorks = () => {
       <div className="relative w-full max-w-4xl mx-auto px-6 py-12 font-sans overflow-hidden bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <h1 className="text-4xl md:text-5xl font-black text-blue-700 mb-16 leading-tight uppercase italic">
-          COMMENT <br /> ÇA MARCHE ?
+          <Trans i18nKey="pages.howItWorks.title" components={{ br: <br /> }} />
         </h1>
 
         <div className="space-y-24">

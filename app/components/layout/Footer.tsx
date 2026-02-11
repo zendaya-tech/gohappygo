@@ -148,7 +148,7 @@ export default function Footer() {
                     to="/faq"
                     className={`hover:text-blue-600 ${currentPath === '/faq' ? 'text-blue-600' : ''}`}
                   >
-                    Foire aux questions
+                    {t('footer.support.faq')}
                   </Link>
                 </li>
                 <li>

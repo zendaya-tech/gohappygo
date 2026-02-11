@@ -1,7 +1,7 @@
 {
-  "demande": {
-    "Colis": "Je souhaite trouver un espace bagage",
-    "Voyage": "Je propose un espace bagage"
+  "demand": {
+    "package": "Je souhaite trouver un espace bagage",
+    "travel": "Je propose un espace bagage"
   },
 
   "common": {
@@ -29,11 +29,49 @@
     "step": "Étape",
     "of": "sur",
     "as": "comme",
-    "unfinished": "inachevé"
+    "unfinished": "non terminé",
+    "completed": "Terminé",
+    "pending": "En attente",
+    "failed": "Échoué",
+    "user": "Utilisateur",
+    "ok": "OK",
+    "error": "Erreur"
+  },
+  "cards": {
+    "action": {
+      "travel": "Voyage",
+      "demand": "Demande",
+      "message": "Message",
+      "flight": "Vol",
+      "perKg": "/kg"
+    },
+    "announce": {
+      "verified": "Vérifié",
+      "availableSpace": "Espace disponible",
+      "requestedSpace": "Espace demandé",
+      "date": "Date :",
+      "airline": "Compagnie"
+    },
+    "profileTravel": {
+      "flightNumber": "Numéro de vol",
+      "edit": "Éditer",
+      "delete": "Supprimer"
+    },
+    "reservation": {
+      "approve": "Approuver",
+      "reject": "Rejeter",
+      "contact": "Contacter",
+      "customerDetails": "Détails du client",
+      "customerDataPending": "Les données seront disponibles après le paiement."
+    },
+    "travel": {
+      "removeFromFavorites": "Retirer des favoris"
+    }
   },
   "header": {
     "downloadApp": "Téléchargez l'appli +",
     "publishAd": "Publier une annonce +",
+    "downloadAppButton": "Télécharger l'appli",
     "notifications": "Notifications",
     "profile": "Profil",
     "settings": "Paramètres",
@@ -54,7 +92,9 @@
       "fromPlaceholder": "Aéroport de départ",
       "toPlaceholder": "Aéroport d'arrivée",
       "datePlaceholder": "Quand ?",
-      "flightPlaceholder": "Numéro de vol"
+      "flightPlaceholder": "Numéro de vol",
+      "searchByDestination": "Recherche par destination",
+      "searchByFlightNumber": "Recherche par Numéro de vol"
     },
     "features": {
       "title": "Pourquoi choisir GoHappyGo ?",
@@ -70,7 +110,8 @@
       "simplicity": {
         "title": "Le Bonheur est simple",
         "description": "Installez l'appli GoHappyGo est une révolution. C'est simple et bénéfique pour tous les voyageurs. Rejoignez une communauté foisonnante pour une mobilité heureuse et écologique."
-      }
+      },
+      "verifiedTickets": "Billets d'avion vérifiés et bien plus encore"
     },
     "recommendations": {
       "title": "Nos",
@@ -117,8 +158,16 @@
       }
     },
     "popularRoutes": {
-      "title": "Les trajets les plus populaires",
+      "title": "<span className=\"text-blue-600\">Voyages</span> les plus populaires",
       "startingFrom": "À partir de"
+    },
+    "becomeTransporter": {
+      "title": "Devenez <span className=\"text-blue-600\">HappyVoyageur</span>, et donnez du bonheur à d'autres voyageurs"
+    },
+    "verifiedTravelers": {
+      "title": "HappyVoyageurs <span className=\"text-blue-600\">vérifiés</span>",
+      "loading": "Chargement des voyageurs vérifiés...",
+      "noTravelers": "Aucun voyageur vérifié disponible pour le moment"
     },
     "hostSection": {
       "title": "Devenez HappyVoyageur et gagnez de l'argent",
@@ -126,6 +175,17 @@
       "cta": "Commencer maintenant"
     },
     "supportSection": {
+      "title": "Nos <span className=\"text-blue-600\">Garanties</span>",
+      "successMessage": "Message envoyé avec succès !",
+      "successDesc": "Nous vous répondrons rapidement.",
+      "submitting": "Envoi...",
+      "detailedHelp": "Besoin d'aide détaillée ?",
+      "learnMore": "En savoir plus sur notre support →",
+      "errors": {
+        "fillAll": "Veuillez remplir tous les champs.",
+        "invalidEmail": "Veuillez entrer une adresse email valide.",
+        "sendError": "Erreur lors de l'envoi du message."
+      },
       "support247": {
         "title": "Support 24/7",
         "description": "Comprenez l'essentiel avant de commencer!",
@@ -151,7 +211,8 @@
       "airline": "Compagnie aérienne",
       "travelDate": "Date du voyage",
       "travelAd": "Annonce de voyage",
-      "transportRequest": "Demande de Voyage"
+      "transportRequest": "Demande de Voyage",
+      "flight": "Vol"
     },
     "card": {
       "availableSpace": "Espace disponible",
@@ -167,11 +228,13 @@
     "editProfile": "Modifier le profil",
     "addInfo": "Veuillez ajouter des informations sur vous dans les paramètres de votre profil.",
     "sections": {
+      "messages": "Mes Messages",
+      "reservations": "Mes Réservations",
       "reviews": "Mes Avis",
-      "travelRequests": "Mes Demandes de Voyages",
+      "travelRequests": "Mes Souhaits de Voyages",
       "travels": "Mes Voyages",
       "favorites": "Mes Favoris",
-      "payments": "Paiements"
+      "payments": "Porte-monnaie"
     },
     "stats": {
       "rating": "Note",
@@ -193,6 +256,115 @@
       "phoneNote": "(Nous vous enverrons un code pour confirmer votre numéro.)",
       "aboutMe": "À propos de moi",
       "saveChanges": "Sauvegarder les modifications"
+    },
+    "tabs": {
+      "reservationsToConfirm": "Réservations à confirmer",
+      "reservationsPendingDelivery": "Réservations en attente de livraison",
+      "reservationsCompleted": "Réservations terminées",
+      "myReceivedReviews": "Mes avis reçus",
+      "receivedReviews": "Avis reçus",
+      "myGivenReviews": "Mes avis donnés",
+      "givenReviews": "Avis donnés",
+      "myAds": "Mes Annonces",
+      "sellSpace": "Vendre de l'espace",
+      "buySpace": "Acheter de l'espace",
+      "myTravels": "Mes voyages"
+    },
+    "actions": {
+      "approve": "Approuver",
+      "reject": "Rejeter",
+      "finish": "Terminer",
+      "rate": "Évaluer",
+      "rated": "Évalué",
+      "message": "Message",
+      "contact": "Contacter",
+      "proposeSpace": "Je propose un espace bagage",
+      "findSpace": "Je souhaite trouver un espace bagage"
+    },
+    "messages": {
+      "loadingReservations": "Chargement de vos réservations...",
+      "noReservations": "Aucune réservation",
+      "errorAccept": "Erreur lors de l'acceptation de la demande",
+      "errorComplete": "Erreur lors de la finalisation de la demande",
+      "noConversations": "Aucune conversation",
+      "conversationsDesc": "Vos conversations avec les voyageurs apparaîtront ici",
+      "messagesTitle": "Messages",
+      "online": "En ligne",
+      "offline": "Hors ligne",
+      "typing": "En train d'écrire...",
+      "today": "Aujourd'hui",
+      "yesterday": "Hier",
+      "connectionLost": "Connexion perdue. Tentative de reconnexion...",
+      "time": {
+        "minutesAgo": "Il y a quelques minutes",
+        "hoursAgo": "Il y a {{count}}h",
+        "daysAgo": "Il y a {{count}}j"
+      },
+      "errorCancel": "Erreur lors de l'annulation de la réservation",
+      "cancelReservationTitle": "Annuler la réservation",
+      "cancelReservationBody": "Êtes-vous sûr de vouloir annuler cette réservation ? Le montant du voyage sera remboursé, mais les frais de plateforme seront conservés.",
+      "confirmCancel": "Oui, annuler",
+      "keep": "Non, garder",
+      "impossibleFinish": "Impossible de terminer avant la date de départ du voyage.",
+      "loadingReviews": "Chargement des avis...",
+      "noReviewsYet": "Aucun avis pour le moment..",
+      "beFirstReview": "Soyez le premier à",
+      "shareExperience": "partager votre expérience",
+      "leaveReview": "Laisser un avis",
+      "reviewFrom": "Avis de {{name}}",
+      "reviewFor": "Avis pour {{name}}",
+      "dialog": {
+        "title": "Félicitations d'être un HappyTraveler !",
+        "subtitle": "Partagez votre expérience avec {{name}}",
+        "rating": "Votre note",
+        "comment": "Votre commentaire (optionnel)",
+        "commentPlaceholder": "Partagez votre expérience...",
+        "submit": "Envoyer l'avis",
+        "submitting": "Envoi...",
+        "selectRatingError": "Veuillez sélectionner une note",
+        "submitError": "Erreur lors de la soumission de l'avis"
+      },
+      "loadingDemands": "Chargement des demandes...",
+      "loadingFavorites": "Chargement de vos favoris...",
+      "noFavorites": "Aucun favori",
+      "selectConversation": "Sélectionnez une conversation",
+      "chooseInList": "Choisissez une conversation dans la liste pour commencer à discuter",
+      "loadingProfile": "Chargement du profil...",
+      "userNotFound": "Utilisateur introuvable",
+      "addBio": "Ajoutez une bio pour vous présenter aux autres utilisateurs",
+      "noBio": "Aucune bio disponible",
+      "noTravels": "Aucun voyage trouvé.",
+      "cancelTravelTitle": "Annuler l'annonce de voyage",
+      "cancelTravelBody": "Êtes-vous sûr de vouloir annuler cette annonce de voyage ? Cette action ne peut pas être annulée.",
+      "cancelDemandTitle": "Annuler la demande de voyage",
+      "cancelDemandBody": "Êtes-vous sûr de vouloir annuler cette demande de voyage ? Cette action ne peut pas être annulée."
+    },
+    "payments": {
+      "loadingPayments": "Chargement des données de paiement...",
+      "fundsReleased": "Fonds libérés avec succès",
+      "releaseError": "Erreur lors de la libération des fonds",
+      "config": "Configuration",
+      "balance": "Solde",
+      "transactions": "Transactions",
+      "availableBalance": "Solde disponible",
+      "readyToWithdraw": "Prêt à être retiré",
+      "pendingBalance": "Solde en attente",
+      "processing": "En cours de traitement",
+      "transfer": "Transférer",
+      "transactionHistory": "Historique des transactions",
+      "transaction": "transaction",
+      "transaction_plural": "transactions",
+      "release": "Libérer",
+      "loadMore": "Charger plus de transactions",
+      "loadMoreTransactions": "Charger plus de transactions",
+      "stripeAccount": "Compte Stripe Connect GoHappyGo",
+      "createStripeDesc": "Pour retirer vos gains de la plateforme, vous devez créer un compte Stripe.",
+      "clickToRegister": "Cliquez sur le bouton ci-dessous pour terminer votre inscription.",
+      "register": "S'inscrire",
+      "updateInfo": "Pour assurer le bon paiement/retrait de vos gains, vos informations Stripe doivent être à jour.",
+      "clickToUpdate": "Cliquez sur le bouton ci-dessous pour modifier ou compléter vos informations.",
+      "stripeUpdateActionDesc": "Cliquez sur le bouton ci-dessous pour modifier ou compléter vos informations.",
+      "update": "Mettre à jour"
     }
   },
   "dialogs": {
@@ -333,5 +505,590 @@
     "fil": "Filipino",
     "ja": "Japonais",
     "ko": "Coréen"
+  },
+  "pages": {
+    "announces": {
+      "title": "Annonces",
+      "filterBy": "Filtrer par",
+      "clearAll": "Tout effacer",
+      "filterUnavailable": "Filtre non disponible",
+      "searchAirline": "Rechercher une compagnie",
+      "pricePerKg": "Prix par kg (€)",
+      "weightKg": "Poids (kg)",
+      "min": "Min",
+      "max": "Max",
+      "noResultsTitle": "Nous n'avons trouvé aucun bagage disponible",
+      "noResultsSubtitle": "pour ce vol... encore !",
+      "alertDescription": "Activez une alerte, nous vous préviendrons dès qu'une offre correspond.",
+      "createAlert": "Activer une alerte",
+      "allLoaded": "Vous avez vu toutes les annonces disponibles",
+      "filters": {
+        "verified": "Profil vérifié",
+        "lowestPrice": "Prix le plus bas",
+        "airline": "Compagnie aérienne",
+        "oldest": "Plus ancien",
+        "travelAd": "Annonce de voyage",
+        "transportRequest": "Demande de Voyage"
+      }
+    },
+    "announceDetail": {
+      "notFoundTitle": "Annonce introuvable",
+      "notFoundMessage": "Vérifiez l'identifiant ou retournez à la liste des annonces.",
+      "backToAnnounces": "Retour aux annonces",
+      "share": "Partager",
+      "addToFavorites": "Ajouter aux favoris",
+      "removeFromFavorites": "Retirer des favoris",
+      "yourAnnounce": "Votre annonce",
+      "notRatedYet": "Pas encore noté",
+      "verified": "Vérifié",
+      "notVerified": "Non vérifié",
+      "profile": "Profil",
+      "message": "Message",
+      "departure": "Départ",
+      "arrival": "Arrivée",
+      "flightNumber": "Vol N°",
+      "availableSpace": "Espace disponible",
+      "requestedSpace": "Espace demandé",
+      "descriptionUnavailable": "Description non disponible",
+      "badges": {
+        "sharedWeight": "peut prendre des kilos de plusieurs voyageurs",
+        "singleTraveler": "accepte une seul personne pour tous les kilos",
+        "veryPunctual": "très ponctuel",
+        "punctual": "ponctuel",
+        "allowExtra": "accepte quelques grammes en trop",
+        "noExtra": "n'accepte pas de grammes en trop",
+        "instantBooking": "la réservation sera confirmée instantanément",
+        "manualBooking": "la réservation sera confirmée par l'HappyVoyageur"
+      },
+      "alerts": {
+        "loginRequired": "Connexion requise",
+        "loginToFavorite": "Vous devez être connecté pour ajouter aux favoris.",
+        "loginToBook": "Vous devez être connecté pour réserver un voyage.",
+        "invalidType": "Type d'annonce invalide",
+        "onlyTravelBooking": "Vous ne pouvez réserver que des voyages.",
+        "invalidWeight": "Poids invalide",
+        "enterValidWeight": "Veuillez entrer un poids valide supérieur ou égal à 0.",
+        "insufficientCapacity": "Capacité insuffisante",
+        "capacityExceeded": "Le poids demandé ({{weight}}kg) dépasse la capacité disponible ({{available}}kg).",
+        "bookingSuccess": "Réservation réussie!",
+        "bookingCreated": "Votre demande #{{id}} a été créée avec succès.",
+        "bookingError": "Erreur de réservation",
+        "defaultError": "Une erreur est survenue lors de la réservation"
+      }
+    },
+    "insurance": {
+      "title": "Assurance colis",
+      "subtitle": "Protégez vos envois grâce à notre couverture adaptée aux échanges entre particuliers.",
+      "coverage": {
+        "title": "Ce qui est couvert",
+        "items": [
+          "Perte ou vol durant le transport",
+          "Dommages matériels avérés",
+          "Retards entraînant un préjudice (selon conditions)"
+        ]
+      },
+      "exclusions": {
+        "title": "Exclusions",
+        "items": [
+          "Objets interdits ou dangereux",
+          "Emballage insuffisant",
+          "Vices propres de l'objet"
+        ]
+      },
+      "claims": {
+        "title": "Comment déclarer un sinistre",
+        "items": [
+          "Conservez les preuves (photos, messages, reçu)",
+          "Contactez le support via la plateforme sous 48h",
+          "Remplissez le formulaire dédié avec les pièces justificatives"
+        ]
+      },
+      "meta": {
+        "title": "Assurance colis - GoHappyGo",
+        "description": "Informations sur l'assurance et la couverture des colis."
+      }
+    },
+    "becomeTransporter": {
+      "header": "ÊTRE HAPPYVOYAGEUR,\nÊTRE SIMPLEMENT HEUREUX",
+      "footer": "SOYEZ UN PORTEUR DE BONHEUR.",
+      "section1": {
+        "intro": [
+          "Nous croyons que voyager peut être plus qu'un simple déplacement.",
+          "Nous croyons que chaque trajet est une opportunité.",
+          "Une opportunité d'aider.",
+          "Une opportunité de partager.",
+          "Une opportunité de créer du lien."
+        ]
+      },
+      "section2": {
+        "title": "ÊTRE HAPPYVOYAGEUR,",
+        "lines": [
+          "C'est choisir de voyager autrement.",
+          "C'est voir dans un espace libre une chance de rendre service.",
+          "Dans une rencontre, une confiance à construire.",
+          "Dans un bagage, une histoire à porter.",
+          "Nous voyageons déjà.",
+          "Alors autant <b>voyager utile</b>.",
+          "Utile pour quelqu'un qui attend.",
+          "Utile pour une planète à préserver.",
+          "Utile pour redonner du sens à nos déplacements."
+        ]
+      },
+      "section3": {
+        "title": "ÊTRE HAPPYVOYAGEUR,",
+        "lines": [
+          "C'est croire en la force des petits gestes.",
+          "Un accord.",
+          "Un sourire.",
+          "Un bagage qui arrive à destination.",
+          "Et souvent, bien plus que ça.",
+          "Nous avançons ensemble, dans un cadre sûr, transparent et respectueux.",
+          "Parce que la confiance n'est pas une option.",
+          "C'est notre fondation."
+        ]
+      },
+      "section4": {
+        "title": "ÊTRE HAPPYVOYAGEUR,",
+        "lines": [
+          "C'est un état d'esprit.",
+          "Celui de celles et ceux qui choisissent la solidarité plutôt que l'indifférence, le lien plutôt que l'isolement, le sens plutôt que la routine.",
+          "Nous sommes les HappyVoyageurs.",
+          "Nous portons plus que des bagages.",
+          "Nous portons de la bienveillance.",
+          "Nous portons de la confiance.",
+          "Nous portons du bonheur."
+        ]
+      }
+    },
+    "downloadApp": {
+      "title": "Téléchargez GoHappyGo",
+      "subtitle": "Rejoignez notre communauté de voyageurs",
+      "stores": {
+        "ios": {
+          "title": "Télécharger sur l'App Store",
+          "subtitle": "Disponible pour iPhone et iPad",
+          "name": "App Store"
+        },
+        "android": {
+          "title": "Télécharger sur Google Play",
+          "subtitle": "Disponible pour Android",
+          "name": "Google Play"
+        },
+        "desktop": {
+          "title": "Installer l'extension Chrome",
+          "subtitle": "Disponible pour navigateur",
+          "name": "Chrome Web Store"
+        },
+        "unknown": {
+          "title": "Télécharger l'application",
+          "subtitle": "Choisissez votre plateforme",
+          "name": "Store"
+        }
+      },
+      "button": {
+        "downloadOn": "Télécharger sur {{storeName}}",
+        "redirecting": "Redirection en cours..."
+      },
+      "autoRedirect": "Redirection automatique dans 3 secondes...",
+      "features": {
+        "title": "Pourquoi télécharger GoHappyGo ?",
+        "secure": {
+          "title": "Transport sécurisé",
+          "desc": "Profils vérifiés et assurance incluse pour tous vos transports"
+        },
+        "competitive": {
+          "title": "Prix compétitifs",
+          "desc": "Économisez jusqu'à 80% sur vos frais de bagages excédentaires"
+        },
+        "community": {
+          "title": "Communauté active",
+          "desc": "Rejoignez des milliers de voyageurs dans le monde entier"
+        },
+        "support": {
+          "title": "Support 24/7",
+          "desc": "Assistance disponible à tout moment pour vous accompagner"
+        }
+      }
+    },
+    "ecologicalImpact": {
+      "title": "VOTRE VOYAGE,\nVOTRE BAGAGE...\n<span className=\"text-blue-700\">A UN IMPACT ECOLOGIQUE FORT</span>",
+      "sections": [
+        {
+          "title": "UNE ALTERNATIVE AUX SOLUTIONS LOGISTIQUES LOURDES",
+          "intro": "L'ENVOI CLASSIQUE DE BAGAGES IMPLIQUE SOUVENT :",
+          "items": [
+            "DES VÉHICULES DÉDIÉS",
+            "DES CENTRES DE TRI",
+            "DES EMBALLAGES SUPPLÉMENTAIRES",
+            "DES TRAJETS INDIRECTS"
+          ],
+          "highlightTitle": "GOHAPPYGO ADOPTE UNE LOGIQUE DIFFÉRENTE :",
+          "highlights": [
+            "ZÉRO TRAJET SUPPLÉMENTAIRE",
+            "ZÉRO INFRASTRUCTURE LOURDE",
+            "ZÉRO EMBALLAGE SUPERFLU"
+          ],
+          "footerText": "LES BAGAGES VOYAGENT AVEC DES PERSONNES DÉJÀ EN DÉPLACEMENT. C'EST L'ESSENCE MÊME DE L'ÉCONOMIE COLLABORATIVE APPLIQUÉE AU VOYAGE."
+        },
+        {
+          "title": "L'ÉCONOMIE DU PARTAGE AU SERVICE DE L'ENVIRONNEMENT",
+          "intro": "EN UTILISANT GOHAPPYGO, CHAQUE UTILISATEUR DEVIENT UN ACTEUR DE LA TRANSITION ÉCOLOGIQUE :",
+          "items": [
+            "LE PORTEUR OPTIMISE UN ESPACE VIDE",
+            "L’EXPÉDITEUR ÉVITE UNE SOLUTION POLLUANTE",
+            "LA COMMUNAUTÉ RÉDUIT SON EMPREINTE GLOBALE"
+          ],
+          "footerText": "UN PETIT GESTE INDIVIDUEL, MULTIPLIÉ PAR DES MILLIERS DE VOYAGEURS, PEUT AVOIR UN IMPACT COLLECTIF SIGNIFICATIF."
+        },
+        {
+          "title": "GOHAPPYGO, PORTER PLUS QUE DES BAGAGES",
+          "intro": "EN CHOISISSANT GOHAPPYGO, VOUS NE TRANSPORTEZ PAS SEULEMENT UN BAGAGE. VOUS PORTEZ :",
+          "items": ["UNE DÉMARCHE RESPONSABLE", "UNE VISION SOLIDAIRE", "UN FUTUR PLUS DURABLE"],
+          "footerText": "PARCE QUE VOYAGER MIEUX, CE N'EST PAS VOYAGER MOINS — C'EST VOYAGER PLUS INTELLIGEMMENT. 💙🌍"
+        }
+      ]
+    },
+    "faqPage": {
+      "title": "FOIRE AUX\nQUESTIONS",
+      "questions": [
+        {
+          "question": "Qui Peut Utiliser Gohappygo ?",
+          "answer": "Toute personne majeure disposant d'un compte vérifié peut utiliser Gohappygo pour proposer ou réserver un espace bagage."
+        },
+        {
+          "question": "Les Profils Sont-Ils Vérifiés ?",
+          "answer": "Oui. Tous les utilisateurs passent par une vérification d'identité lors de l'inscription afin de garantir une communauté de confiance."
+        },
+        {
+          "question": "Qu'est-Ce Qu'Un Happyvoyageur ?",
+          "answer": "Un Happyvoyageur est un utilisateur qui choisit de voyager en aidant les autres, ou d'utiliser le service Gohappygo, dans un esprit de confiance, de partage et de bienveillance."
+        },
+        {
+          "question": "Qui Choisisit Le Porteur Du Bagage ?",
+          "answer": "Qu'on réserve ou propose un espace bagage, on peut choisir librement son Happyvoyageur, après avoir consulté son profil, et échangé avec lui. Une annulation est possible à tout moment avant le voyage. Toute transaction doit commencer et se terminer sur Gohappygo pour bénéficier de notre protection juridique."
+        },
+        {
+          "question": "Comment S'Assure-T-On De La Traçabilité De La Rencontre ?",
+          "answer": "Lors de la rencontre à l'aéroport, et avant l'enregistrement, les 2 voyageurs effectuent une prise de selfie via l'application, ce qui permet de confirmer leur identité et confirmer la rencontre; ces données ne sont détenues par aucun des voyageurs."
+        },
+        {
+          "question": "Quel Type De Bagage Peut-On Faire Voyager ?",
+          "answer": "Seuls les bagages autorisés par la réglementation (valises, sacs personnels, effets non dangereux) peuvent être confiés via Gohappygo."
+        },
+        {
+          "question": "Que Se Passe-T-Il En Cas De Problème Pendant Le Voyage ?",
+          "answer": "Gohappygo est un cadre sécurisé, et de traçabilité. La plateforme prévoit une assistance technique et juridique 24/7, quelque soit l'endroit du globe."
+        },
+        {
+          "question": "Comment Fonctionne Le Paiement ?",
+          "answer": "Le paiement est 100 % sécurisé et conservé sous séquestre par la plateforme pendant toute la durée du voyage et viré automatiquement dès validation des 2 Happyvoyageurs."
+        },
+        {
+          "question": "Puis-Je Être À La Fois Réserver Et Proposer Un Espace Bagage ?",
+          "answer": "Oui. Gohappygo permet d'endosser les deux rôles, selon vos besoins et vos voyages."
+        },
+        {
+          "question": "Comment Contacter Gohappygo ?",
+          "answer": "Un service d'assistance est accessible directement via l'application pour accompagner les utilisateurs à chaque étape."
+        }
+      ]
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié",
+      "subtitle": "Saisissez votre adresse email pour recevoir un code de réinitialisation.",
+      "sentMessage": "Un code de réinitialisation a été envoyé à <strong>{{email}}</strong>. Vérifiez votre boîte de réception.",
+      "resetLink": "Réinitialiser mon mot de passe",
+      "emailLabel": "Email",
+      "emailPlaceholder": "vous@exemple.com",
+      "submit": "Envoyer le code",
+      "submitting": "Envoi en cours...",
+      "backHome": "Retour à l'accueil",
+      "errorDefault": "Une erreur s'est produite. Veuillez réessayer."
+    },
+    "helpCenter": {
+      "title": "Centre d’aide",
+      "subtitle": "Recherchez une question ou parcourez les thèmes fréquents.",
+      "placeholder": "Rechercher une question...",
+      "noResults": "Aucune question ne correspond à « {{query}} ».",
+      "ariaSearch": "Rechercher une question dans le centre d’aide",
+      "ariaClear": "Effacer la recherche",
+      "faqs": [
+        {
+          "q": "Comment fonctionne GoHappyGo ?",
+          "a": "Des voyageurs proposent l’espace disponible dans leurs bagages. Vous pouvez leur demander de transporter vos colis (au kilo)."
+        },
+        {
+          "q": "Quels objets sont interdits ?",
+          "a": "Tout objet dangereux, illégal ou interdit par les compagnies aériennes et les douanes est strictement prohibé."
+        },
+        {
+          "q": "Comment payer ?",
+          "a": "Le prix est généralement fixé au kilo. Le paiement est sécurisé via la plateforme."
+        },
+        {
+          "q": "Comment contacter un HappyVoyageur ?",
+          "a": "Depuis une annonce, utilisez les boutons ‘Demander un transport’ ou ‘Contacter’ pour envoyer votre message."
+        },
+        {
+          "q": "Comment définir le poids à expédier ?",
+          "a": "Indiquez le poids estimé en kilogrammes. Le HappyVoyageur confirmera la disponibilité restante."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "COMMENT <br /> ÇA MARCHE ?",
+      "steps": [
+        {
+          "title": "JE M'INSCRIS & JE PUBLIE MON VOYAGE",
+          "items": [
+            "Création du compte",
+            "Vérification de l'identité obligatoire",
+            "Publication d'une annonce/souhait de voyage"
+          ],
+          "description": "Tout commence par un profil vérifié et un trajet partagé. Vos données sont traitées de manière strictement confidentielle."
+        },
+        {
+          "title": "JE RÉSERVE & JE SÉCURISE L'ÉCHANGE",
+          "items": [
+            "Réservation d'un espace bagage",
+            "Échanges via la messagerie sécurisée/rencontre Physique",
+            "Selfie à 2 via l'application"
+          ],
+          "description": "La confiance se construit dans la transparence. La traçabilité de vos échanges et des transactions sont garanties."
+        },
+        {
+          "title": "JE VOYAGE & JE SUIS PAYÉ EN TOUTE SÉCURITÉ",
+          "items": [
+            "Enregistrement en commun des bagages",
+            "Voyage + validation de la réservation",
+            "Paiement debloqué automatiquement"
+          ],
+          "description": "Le système de paiement est sécurisé et vous ne manipulez pas d'argent directement."
+        }
+      ]
+    },
+    "logos": {
+      "title": "Logos GoHappyGo",
+      "main": "Logo principal",
+      "monochrome": "Monochrome",
+      "outline": "Contour"
+    },
+    "logout": {
+      "title": "À bientôt !",
+      "message": "Déconnexion en cours..."
+    },
+
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": {
+        "unread": "{{count}} non lue",
+        "unread_plural": "{{count}} non lues",
+        "allRead": "Toutes vos notifications sont lues"
+      },
+      "backProfile": "← Retour au profil",
+      "filter": {
+        "all": "Toutes",
+        "unread": "Non lues"
+      },
+      "actions": {
+        "markAllRead": "Tout marquer lu",
+        "clearRead": "Effacer les lues",
+        "markAsRead": "Marquer comme lu",
+        "delete": "Supprimer"
+      },
+      "empty": {
+        "title": "Aucune notification",
+        "unread": "Vous n'avez aucune notification non lue",
+        "all": "Vous n'avez aucune notification pour le moment"
+      },
+      "allSeen": "Vous avez vu toutes vos notifications",
+      "error": "Erreur lors du chargement des notifications",
+      "time": {
+        "justNow": "à l'instant",
+        "minAgo": "il y a {{count}} min",
+        "hourAgo": "il y a {{count}} h",
+        "yesterday": "hier",
+        "dayAgo": "il y a {{count}} j"
+      }
+    },
+    "resetPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Entrez le code reçu par email et votre nouveau mot de passe.",
+      "successTitle": "Mot de passe réinitialisé avec succès !",
+      "successDesc": "Vous allez être redirigé vers la page d'accueil...",
+      "codeLabel": "Code de réinitialisation",
+      "codePlaceholder": "Entrez le code reçu par email",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "newPasswordPlaceholder": "Minimum 8 caractères",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+      "submit": "Réinitialiser le mot de passe",
+      "submitting": "Réinitialisation...",
+      "resendCode": "Renvoyer un code",
+      "backHome": "Retour à l'accueil",
+      "errors": {
+        "codeRequired": "Le code de réinitialisation est requis.",
+        "passwordLength": "Le mot de passe doit contenir au moins 8 caractères.",
+        "passwordMismatch": "Les mots de passe ne correspondent pas.",
+        "invalidCode": "Code invalide ou expiré. Veuillez réessayer."
+      }
+    },
+    "stripeOnboarding": {
+      "title": "Configuration Stripe Terminé !",
+      "subtitle": "Vous êtes prêt(e) à donner et recevoir du Bonheur.",
+      "badges": {
+        "verified": "Compte Vérifié",
+        "info": "Informations Remplies",
+        "payments": "Paiements Activés",
+        "happiness": "Le Bonheur est simple"
+      },
+      "dashboard": "Accéder au Tableau de bord",
+      "next": "Et maintenant ?",
+      "steps": {
+        "publish": {
+          "title": "Publier une annonce",
+          "desc": "Déposez une annonce ou une demande de voyage."
+        },
+        "search": {
+          "title": "Trouver/Recherchez un HappyVoyageur",
+          "desc": "pour un voyage dans le même avion pour la même destination"
+        },
+        "earn": {
+          "title": "Gagner des revenus/Donner du Bonheur",
+          "desc": "Commencez à gagner de l'argent grâce à vos voyages."
+        }
+      }
+    },
+    "whatIsHappiness": {
+      "title": "LE BONHEUR,\nÇA SE PARTAGE AUSSI !",
+      "section1": {
+        "title": "Voyager utile, c'est voyager heureux",
+        "content": "Le bonheur, ce n'est pas seulement arriver à destination. C'est savoir que, pendant votre trajet, <b>vous avez aidé quelqu'un.</b>",
+        "items": [
+          "Un bagage qui arrive à temps",
+          "Un voyage plus léger pour quelqu'un d'autre",
+          "Un stress évité",
+          "Un sourire au bout du chemin"
+        ],
+        "footer": "Chez GoHappyGo, chaque trajet peut devenir <b>une bonne et belle action.</b>"
+      },
+      "section2": {
+        "title": "Le bonheur de faire partie de quelque chose de plus grand",
+        "content": "En utilisant GoHappyGo, vous n'êtes pas juste un utilisateur. Vous faites partie d'une <b>communauté solidaire de voyageurs</b> qui :",
+        "items": [
+          "S'entraident naturellement",
+          "Optimisent ce qui existe déjà",
+          "Donnent du sens à leurs déplacements"
+        ],
+        "footer": "Le bonheur naît souvent quand on se sent <b>utile, connecté et engagé.</b>"
+      },
+      "section3": {
+        "title": "De petits gestes. De grands effets.",
+        "content": "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
+        "items": ["Une solution à un problème", "Un voyage plus serein", "Une confiance retrouvée"],
+        "footer": "Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires."
+      },
+      "footer": "SOYEZ UN PORTEUR DE BONHEUR.\nPOUR LES AUTRES. POUR VOUS. POUR LE VOYAGE AUTREMENT."
+    },
+    "terms": {
+      "title": "Conditions d’utilisation",
+      "description": "En utilisant GoHappyGo, vous acceptez nos conditions générales. Merci de lire attentivement ces informations pour comprendre vos droits et responsabilités.",
+      "section1": "1. GoHappyGo met en relation des personnes disposant d’espace disponible dans leurs bagages et des personnes souhaitant expédier des objets. Les utilisateurs sont responsables du contenu transporté.",
+      "section2": "2. Les HappyVoyageurs s’engagent à respecter les lois en vigueur et à refuser tout objet dangereux ou interdit. Les expéditeurs doivent décrire précisément le contenu et le poids.",
+      "section3": "3. Les paiements et remboursements suivent les modalités indiquées au moment de la demande.",
+      "privacyTitle": "Politique de confidentialité",
+      "privacyDescription": "Nous respectons votre vie privée. Cette politique explique quelles données nous collectons, comment nous les utilisons et vos droits.",
+      "privacySection1": "1. Nous collectons des informations de compte (nom, email), des données de profil et des informations techniques pour améliorer le service.",
+      "privacySection2": "2. Vos données ne sont partagées qu’avec votre consentement ou lorsque la loi l’exige.",
+      "privacySection3": "3. Vous pouvez demander l’accès, la rectification ou la suppression de vos données."
+    },
+    "transporters": {
+      "title": "HappyVoyageurs",
+      "subtitle": "Trouvez un voyageur pour expédier vos colis.",
+      "available": "Disponible",
+      "routes": "Trajets",
+      "requestTransport": "Demander un transport",
+      "contact": "Contacter"
+    },
+    "support": {
+      "title": "Centre d'aide GoHappyGo",
+      "subtitle": "Nous sommes là pour vous aider ! Trouvez des réponses à vos questions ou contactez notre équipe de support.",
+      "features": {
+        "title": "Notre support 24/7",
+        "available": {
+          "title": "Disponible 24h/24, 7j/7",
+          "desc": "Notre équipe est toujours là pour vous aider, peu importe l'heure."
+        },
+        "fastResponse": {
+          "title": "Réponse rapide",
+          "desc": "Nous nous engageons à répondre à vos demandes dans les plus brefs délais."
+        },
+        "multilingual": {
+          "title": "Support multilingue",
+          "desc": "Notre équipe parle plusieurs langues pour mieux vous servir."
+        }
+      },
+      "contactMethods": {
+        "title": "Autres moyens de contact",
+        "email": "Email",
+        "faq": "FAQ",
+        "faqLink": "Consultez notre foire aux questions"
+      },
+      "form": {
+        "title": "Contactez-nous",
+        "successMessage": "Message envoyé avec succès !",
+        "successDesc": "Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.",
+        "emailLabel": "Adresse email *",
+        "categoryLabel": "Catégorie",
+        "messageLabel": "Message *",
+        "placeholder": "Décrivez votre question ou problème en détail...",
+        "submit": "Envoyer le message",
+        "submitting": "Envoi en cours...",
+        "advancedForm": "Préférez-vous utiliser notre formulaire avancé ?",
+        "categories": {
+          "general": "Question générale",
+          "technical": "Problème technique",
+          "billing": "Facturation",
+          "account": "Compte utilisateur",
+          "booking": "Réservation",
+          "other": "Autre"
+        },
+        "errors": {
+          "required": "Veuillez remplir tous les champs obligatoires.",
+          "invalidEmail": "Veuillez entrer une adresse email valide.",
+          "sendError": "Erreur lors de l'envoi du message."
+        }
+      }
+    },
+    "security": {
+      "title": "Règles de sécurité",
+      "subtitle": "Nos bonnes pratiques pour des échanges sûrs entre voyageurs et expéditeurs.",
+      "items": {
+        "allowedItems": {
+          "title": "1. Objets autorisés et interdits",
+          "desc": "Respectez la réglementation aérienne. Sont interdits: matières inflammables, armes, produits illégaux, et tout objet dangereux. En cas de doute, contactez notre support."
+        },
+        "identityVerification": {
+          "title": "2. Vérification d'identité",
+          "desc": "Complétez votre profil avec des informations exactes. Nous recommandons une pièce d'identité vérifiée avant tout échange."
+        },
+        "packaging": {
+          "title": "3. Remise et scellage des colis",
+          "desc": "Prenez des photos du contenu, scellez le colis en présence des deux parties et ajoutez une étiquette claire (nom, numéro, destination)."
+        },
+        "payment": {
+          "title": "4. Paiement sécurisé",
+          "desc": "Effectuez les paiements uniquement via la plateforme. N'envoyez jamais d'argent en dehors du système."
+        },
+        "communication": {
+          "title": "5. Communication sur la plateforme",
+          "desc": "Privilégiez la messagerie intégrée pour garder une trace des échanges et signaler tout comportement suspect."
+        }
+      },
+      "meta": {
+        "title": "Règles de sécurité - GoHappyGo",
+        "description": "Consignes et bonnes pratiques de sécurité pour les échanges sur GoHappyGo."
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { useAuthStore, type AuthState } from '~/store/auth';
 
 export default function BecomeTransporterSection() {
@@ -14,8 +14,10 @@ export default function BecomeTransporterSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
           <div className="p-12 text-white">
             <h2 className="text-4xl font-bold mb-6">
-              Devenez <span className="text-blue-600">HappyVoyageur</span>, et donnez du bonheur à
-              d'autres voyageurs
+              <Trans
+                i18nKey="home.becomeTransporter.title"
+                components={{ span: <span className="text-blue-600" /> }}
+              />
             </h2>
             <p className="text-blue-100 mb-8">{t('home.hostSection.description')}</p>
             <button

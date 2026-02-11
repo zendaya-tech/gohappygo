@@ -97,7 +97,7 @@ export default function AnnounceTypeDropdown({
             }}
             className="w-full bg-blue-600 hover text-nowrap text-white px-4 py-2 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
           >
-            {t('demande.' + type.title)}
+            {t('demand.' + type.id)}
           </button>
         ))}
       </div>
