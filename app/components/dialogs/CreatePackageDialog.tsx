@@ -38,7 +38,7 @@ export default function CreatePackageDialog({
   const [flightNumber, setFlightNumber] = useState('');
   const [travelDate, setTravelDate] = useState('');
   const [packageNature, setPackageNature] = useState<
-    'FRAGILE' | 'URGENT' | 'STANDARD' | 'MORE_THAN_3000'
+    'FRAGILE' | 'URGENT' | 'STANDARD'
   >('STANDARD');
 
   const today = new Date().toISOString().split('T')[0];
@@ -400,14 +400,6 @@ export default function CreatePackageDialog({
                         onChange={() => setPackageNature('URGENT')}
                       />
                       Urgent
-                    </label>
-                    <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
-                      <input
-                        type="radio"
-                        checked={packageNature === 'MORE_THAN_3000'}
-                        onChange={() => setPackageNature('MORE_THAN_3000')}
-                      />
-                      Valeur supérieure à 3000 €
                     </label>
                   </div>
                 </div>

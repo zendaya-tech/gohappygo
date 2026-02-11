@@ -527,7 +527,7 @@ export default function CreateAnnounceDialog({
                         checked={reservationType === 'single'}
                         onChange={() => setReservationType('single')}
                       />
-                      Tous mes kilos pour une personne
+                      Tous mes kilos pour un seul et unique voyageur
                     </label>
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
@@ -638,9 +638,12 @@ export default function CreateAnnounceDialog({
                       <input
                         type="number"
                         min={0}
+                        max={3000}
                         value={pricePerKg}
                         onChange={(e) =>
-                          setPricePerKg(e.target.value === '' ? '' : Number(e.target.value))
+                          setPricePerKg(
+                            e.target.value === '' ? '' : Math.min(Number(e.target.value), 3000)
+                          )
                         }
                         placeholder="Entrez votre prix par kilo"
                         className={`w-full rounded-xl border ${
