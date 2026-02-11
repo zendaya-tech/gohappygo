@@ -57,6 +57,7 @@ export default function AvatarMenu({
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
+              <img src="/images/loginIcon.png" alt="login" className="w-5 h-5 mr-3" />
               Connexion
             </button>
             <button
@@ -64,14 +65,20 @@ export default function AvatarMenu({
                 onClose();
                 onOpenRegister?.();
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150 cursor-pointer"
+              className="flex items-center w-full px-5 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
+              <img src="/images/signinIcon.png" alt="signIn" className="w-5 h-5 mr-3" />
               Inscription
             </button>
 
             {/* Séparateur */}
-            <div className="border-t border-gray-100 my-1"></div>
+            <div
+              className="flex justify-center items-center
+            "
+            >
+              <div className="border-t border-black-100 my-1 w-[50%]" />
+            </div>
           </>
         ) : (
           <>

@@ -1351,7 +1351,7 @@ const PaymentsSection = ({
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuration</h3>
 
           {/* Stripe Account Alert - Show for users with pending Stripe account */}
-          {(displayUser?.stripeAccountStatus === 'pending' || !displayUser?.stripeAccountId) && (
+          {displayUser?.stripeAccountStatus === 'pending' || !displayUser?.stripeAccountId ? (
             <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
               <div className="flex flex-col justify-center items-center text-center">
                 <div className="flex gap-2 justify-center">
@@ -1395,6 +1395,51 @@ const PaymentsSection = ({
                   className="w-[40%] bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {processingOnboarding ? 'Ouverture...' : 'Inscription'}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
+              <div className="flex flex-col justify-center items-center text-center">
+                <div className="flex gap-2 justify-center mb-4">
+                  <svg
+                    className="w-6 h-6"
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="50" cy="50" r="45" fill="#F4D951" />
+                    <circle cx="50" cy="50" r="45" stroke="#E6C13E" strokeWidth="8" />
+                    <path
+                      d="M30 52L43 65L72 36"
+                      stroke="#22A925"
+                      strokeWidth="10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <h3 className="text-sm font-semibold text-yellow-800">
+                    Mise à jour Stripe Connect GoHappyGo
+                  </h3>
+                </div>
+
+                <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
+                  <p className="text-xs text-yellow-800">
+                    Pour garantir le bon versement de vos gains, vos informations Stripe doivent
+                    être à jour.
+                  </p>
+                  <p className="text-sm text-yellow-800">
+                    Cliquez sur le bouton ci-dessous pour modifier ou compléter vos informations.
+                  </p>
+                </div>
+
+                <button
+                  onClick={handleStripeOnboarding}
+                  disabled={processingOnboarding}
+                  className="w-fit min-w-[40%] bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {processingOnboarding ? 'Ouverture...' : 'Mettre à jour mes informations'}
                 </button>
               </div>
             </div>
