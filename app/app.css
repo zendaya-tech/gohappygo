@@ -65,6 +65,8 @@
   --font-cinzel: 'Cinzel', serif;
   --font-sacramento: 'Sacramento', cursive;
   --font-playfair: 'Playfair Display', serif;
+  --color-blue-500: #066eb9;
+  --color-blue-600: #055a98;
 }
 
 /* Font family utility classes */

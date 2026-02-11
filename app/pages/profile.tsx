@@ -59,7 +59,7 @@ interface ProfileSection {
   id: string;
   label: string;
   icon: React.ReactNode;
-  count: number;
+  count: number | string;
 }
 
 interface Conversation {
@@ -1399,7 +1399,7 @@ const PaymentsSection = ({
               </div>
             </div>
           ) : (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 md:p-6">
               <div className="flex flex-col justify-center items-center text-center">
                 <div className="flex gap-2 justify-center mb-4">
                   <svg
@@ -1419,17 +1419,17 @@ const PaymentsSection = ({
                     />
                   </svg>
 
-                  <h3 className="text-sm font-semibold text-yellow-800">
-                    Mise à jour Stripe Connect GoHappyGo
+                  <h3 className="text-sm font-semibold text-blue-900">
+                    Compte Stripe Connect GoHappyGo
                   </h3>
                 </div>
 
-                <div className="flex flex-col gap-2 bg-yellow-100 rounded-lg p-3 mb-4">
-                  <p className="text-xs text-yellow-800">
-                    Pour garantir le bon versement de vos gains, vos informations Stripe doivent
-                    être à jour.
+                <div className="flex flex-col gap-2 rounded-lg p-3 mb-4">
+                  <p className="text-xs text-blue-900">
+                    Pour garantir le bon versement/retrait de vos gains, vos informations Stripe
+                    doivent être à jour.
                   </p>
-                  <p className="text-sm text-yellow-800">
+                  <p className="text-sm text-blue-900">
                     Cliquez sur le bouton ci-dessous pour modifier ou compléter vos informations.
                   </p>
                 </div>
@@ -1437,9 +1437,9 @@ const PaymentsSection = ({
                 <button
                   onClick={handleStripeOnboarding}
                   disabled={processingOnboarding}
-                  className="w-fit min-w-[40%] bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-fit min-w-[40%] bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {processingOnboarding ? 'Ouverture...' : 'Mettre à jour mes informations'}
+                  {processingOnboarding ? 'Ouverture...' : 'Mettre à jour'}
                 </button>
               </div>
             </div>
@@ -1770,7 +1770,7 @@ export default function Profile() {
       id: 'payments',
       label: 'Porte-monnaie',
       icon: <CurrencyDollarIcon className="h-5 w-5" />,
-      count: profileStats?.transactionsCompletedCount || 0,
+      count: profileUser?.stripeAvailableBalance || 0,
     },
   ];
 

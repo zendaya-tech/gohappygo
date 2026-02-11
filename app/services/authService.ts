@@ -133,8 +133,8 @@ export const forgotPassword = async (email: string) => {
 
 export const resetPassword = async (code: string, password: string) => {
   try {
-    const response = await api.post(`/auth/reset-password?code=${code}`, { 
-      password 
+    const response = await api.post(`/auth/reset-password?code=${code}`, {
+      password,
     });
     return response.data;
   } catch (error) {
@@ -253,4 +253,5 @@ export type GetMeResponse = {
   profileStats?: ProfileStats;
   stripeAccountId?: string | null;
   stripeAccountStatus?: 'uninitiated' | 'pending' | 'active' | 'restricted';
+  stripeAvailableBalance?: string;
 };
