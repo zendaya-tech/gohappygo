@@ -117,3 +117,32 @@ export const cancelRequest = async (requestId: number): Promise<RequestResponse>
     throw error?.response?.data || error;
   }
 };
+
+const callRequestAction = async (requestId: number, endpoint: string): Promise<any> => {
+  try {
+    const response = await api.patch(`/request/${requestId}/${endpoint}`);
+    return response.data;
+  } catch (error: any) {
+    const status = error?.response?.status;
+    if (status !== 404 && status !== 405) {
+      console.error(`Error calling ${endpoint}:`, error);
+      throw error?.response?.data || error;
+    }
+  }
+
+  try {
+    const response = await api.post(`/request/${requestId}/${endpoint}`);
+    return response.data;
+  } catch (error: any) {
+    console.error(`Error calling ${endpoint}:`, error);
+    throw error?.response?.data || error;
+  }
+};
+
+export const confirmCancellation = async (requestId: number): Promise<any> => {
+  return callRequestAction(requestId, 'confirm-cancellation');
+};
+
+export const disputeCancellation = async (requestId: number): Promise<any> => {
+  return callRequestAction(requestId, 'dispute-cancellation');
+};

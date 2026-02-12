@@ -28,6 +28,7 @@ interface ActionCardProps {
     label: string;
     onClick: () => void;
     color?: 'red' | 'outline';
+    disabled?: boolean;
   };
   statusBadge?: string;
   messageAction?: {
@@ -172,10 +173,13 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {primaryAction && (
                   <button
                     onClick={primaryAction.onClick}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap cursor-pointer ${
-                      primaryAction.color === 'green'
-                        ? 'bg-green-600 hover:bg-green-700'
-                        : 'bg-blue-600 hover:bg-blue-700'
+                    disabled={primaryAction.disabled}
+                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap ${
+                      primaryAction.disabled
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-70'
+                        : primaryAction.color === 'green'
+                          ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
+                          : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
                     }`}
                   >
                     {primaryAction.label}
@@ -184,10 +188,13 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {secondaryAction && (
                   <button
                     onClick={secondaryAction.onClick}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md font-bold rounded-xl transition-colors border-2 whitespace-nowrap cursor-pointer ${
-                      secondaryAction.color === 'red'
-                        ? 'border-red-500 text-red-500 hover:bg-red-50'
-                        : 'border-gray-200 text-gray-500 hover:bg-gray-50'
+                    disabled={secondaryAction.disabled}
+                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
+                      secondaryAction.disabled
+                        ? 'border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-80'
+                        : secondaryAction.color === 'red'
+                          ? 'border-red-500 text-red-500 hover:bg-red-50 cursor-pointer'
+                          : 'border-gray-200 text-gray-500 hover:bg-gray-50 cursor-pointer'
                     }`}
                   >
                     {secondaryAction.label}

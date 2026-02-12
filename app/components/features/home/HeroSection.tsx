@@ -14,7 +14,7 @@ export default function HeroSection() {
     <section className="py-8 sm:py-12 md:py-16 px-4 mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="order-2 lg:order-1">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 font-poppins leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
             {t('home.hero.subtitle')}
           </h1>
           <p className="text-blue-600 text-xl sm:text-2xl mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-2 font-black mt-10">

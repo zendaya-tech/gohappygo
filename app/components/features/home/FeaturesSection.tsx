@@ -32,21 +32,21 @@ export default function FeaturesSection() {
             const IconComponent = feature.image;
             return (
               <div key={feature.id} className="group relative h-full">
-                <div className=" rounded-2xl p-8  transition-all duration-300 transform hover:-translate-y-2  h-full flex flex-col">
+                <div className="rounded-2xl p-8  transition-all duration-300 transform hover:-translate-y-2  h-full flex flex-col">
                   <div className="relative text-gray-900 hover:text-blue-600">
                     <div className="mb-8">
-                      <div className={` relative text-center`}>
+                      <div className={`relative text-center`}>
                         <img
                           src={feature.image}
                           alt={feature.title}
-                          className=" text-white h-36 m-auto  object-cover"
+                          className="text-white h-36 m-auto  object-cover"
                         />
 
                         {/* Petites icônes flottantes */}
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold mb-4 group-hover transition-colors duration-300">
+                    <h3 className="text-xl font-bold mb-4 transition-colors duration-300">
                       {feature.title}
                     </h3>
 

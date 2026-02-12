@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from './Api';
 
 export interface Notification {
   id: number;
@@ -13,7 +13,7 @@ export interface Notification {
 }
 
 export interface NotificationCounts {
-  unreadCount: SetStateAction<number>;
+  unreadCount: number;
   unread: number;
   total: number;
 }
@@ -38,17 +38,17 @@ export interface FindNotificationsQuery {
 export const notificationService = {
   async getNotifications(query?: FindNotificationsQuery): Promise<PaginatedNotifications> {
     const params = new URLSearchParams();
-    if (query?.page) params.append("page", query.page.toString());
-    if (query?.limit) params.append("limit", query.limit.toString());
-    if (query?.isRead !== undefined) params.append("isRead", query.isRead.toString());
-    if (query?.type) params.append("type", query.type);
+    if (query?.page) params.append('page', query.page.toString());
+    if (query?.limit) params.append('limit', query.limit.toString());
+    if (query?.isRead !== undefined) params.append('isRead', query.isRead.toString());
+    if (query?.type) params.append('type', query.type);
 
     const response = await api.get(`/notification?${params.toString()}`);
     return response.data;
   },
 
   async getNotificationCounts(): Promise<NotificationCounts> {
-    const response = await api.get("/notification/counts");
+    const response = await api.get('/notification/counts');
     return response.data;
   },
 
@@ -58,7 +58,7 @@ export const notificationService = {
   },
 
   async markAllAsRead(): Promise<{ affected: number }> {
-    const response = await api.patch("/notification/mark-all-read");
+    const response = await api.patch('/notification/mark-all-read');
     return response.data;
   },
 
@@ -67,7 +67,7 @@ export const notificationService = {
   },
 
   async clearReadNotifications(): Promise<{ affected: number }> {
-    const response = await api.delete("/notification/clear-read");
+    const response = await api.delete('/notification/clear-read');
     return response.data;
   },
 };

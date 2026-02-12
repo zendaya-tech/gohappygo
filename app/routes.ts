@@ -18,6 +18,8 @@ export default [
   route('/notifications', 'pages/notifications.tsx'),
   route('/stripe-onboarding', 'pages/stripe-onboarding.tsx'),
   route('/support', 'pages/support.tsx'),
+  route('/requests/:id/confirm-cancellation', 'pages/request-confirm-cancellation.tsx'),
+  route('/requests/:id/dispute-cancellation', 'pages/request-dispute-cancellation.tsx'),
   route('/how-it-work', 'pages/how-it-works.tsx'),
   route('/impact-ecologique', 'pages/ecological-impact.tsx'),
   route('/faq', 'pages/faq.tsx'),

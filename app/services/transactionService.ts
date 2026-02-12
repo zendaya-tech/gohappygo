@@ -1,4 +1,4 @@
-import api from "./Api";
+import api from './Api';
 
 export interface Transaction {
   id: number;
@@ -58,11 +58,11 @@ export interface Balance {
 export const getTransactions = async (page = 1, limit = 10): Promise<TransactionResponse> => {
   try {
     const response = await api.get('/transaction', {
-      params: { page, limit }
+      params: { page, limit },
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching transactions:", error);
+    console.error('Error fetching transactions:', error);
     return {
       items: [],
       meta: {
@@ -81,7 +81,7 @@ export const releaseFunds = async (transactionId: number): Promise<void> => {
   try {
     await api.post(`/transaction/${transactionId}/release-funds`);
   } catch (error: any) {
-    console.error("Error releasing funds:", error);
+    console.error('Error releasing funds:', error);
     throw error?.response?.data || error;
   }
 };
@@ -91,7 +91,7 @@ export const getBalance = async (): Promise<Balance> => {
     const response = await api.get('/transaction/balance');
     return response.data;
   } catch (error: any) {
-    console.error("Error fetching balance:", error);
+    console.error('Error fetching balance:', error);
     throw error?.response?.data || error;
   }
 };
