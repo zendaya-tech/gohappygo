@@ -40,6 +40,8 @@ import {
   acceptRequest,
   completeRequest,
   cancelRequest,
+  confirmCancellation,
+  disputeCancellation,
   type RequestResponse,
 } from '~/services/requestService';
 import { getMe, type GetMeResponse } from '~/services/authService';
@@ -166,6 +168,28 @@ const ReservationsSection = ({
     }
   };
 
+  const handleConfirmCancellation = async (requestId: number) => {
+    try {
+      await confirmCancellation(requestId);
+      const response = await getRequests();
+      setRequests(response.items || []);
+    } catch (error) {
+      console.error('Error confirming cancellation:', error);
+      setErrorMessage("Erreur lors de la confirmation de l'annulation");
+    }
+  };
+
+  const handleDisputeCancellation = async (requestId: number) => {
+    try {
+      await disputeCancellation(requestId);
+      const response = await getRequests();
+      setRequests(response.items || []);
+    } catch (error) {
+      console.error('Error disputing cancellation:', error);
+      setErrorMessage("Erreur lors de la contestation de l'annulation");
+    }
+  };
+
   const handleContactRequester = (
     requesterName: string,
     requesterAvatar: string,
@@ -235,7 +259,7 @@ const ReservationsSection = ({
   const filtered = requests.filter((r) => {
     const status = r.currentStatus?.status?.toUpperCase();
     if (tab === 'pending') return status === 'NEGOTIATING' || status === 'PENDING';
-    if (tab === 'accepted') return status === 'ACCEPTED';
+    if (tab === 'accepted') return status === 'ACCEPTED' || status === 'PENDING_CANCELLATION';
     if (tab === 'completed') return status === 'COMPLETED';
     if (tab === 'cancelled') return status === 'CANCELLED';
     return false;
@@ -381,6 +405,19 @@ const ReservationsSection = ({
                             color: 'green' as const,
                           };
                         })()
+                      : request.currentStatus?.status === 'PENDING_CANCELLATION'
+                        ? requester?.id.toString() === currentUser?.id
+                          ? {
+                              label: 'Terminer',
+                              onClick: () => {},
+                              color: 'green' as const,
+                              disabled: true,
+                            }
+                          : {
+                              label: 'Accepter',
+                              onClick: () => handleConfirmCancellation(request.id),
+                              color: 'green' as const,
+                            }
                       : undefined
                 }
                 secondaryAction={
@@ -413,6 +450,19 @@ const ReservationsSection = ({
                             },
                             color: 'red',
                           }
+                        : request.currentStatus?.status === 'PENDING_CANCELLATION'
+                          ? requester?.id.toString() === currentUser?.id
+                            ? {
+                                label: 'Annuler',
+                                onClick: () => {},
+                                color: 'outline',
+                                disabled: true,
+                              }
+                            : {
+                                label: 'Contester',
+                                onClick: () => handleDisputeCancellation(request.id),
+                                color: 'red',
+                              }
                         : undefined
                 }
                 tertiaryAction={
