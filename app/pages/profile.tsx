@@ -222,6 +222,16 @@ const ReservationsSection = ({
     });
   };
 
+  const formatDisplayName = (fullName?: string) => {
+    if (!fullName?.trim()) return 'Utilisateur';
+
+    return fullName
+      .trim()
+      .split(/\s+/)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   const filtered = requests.filter((r) => {
     const status = r.currentStatus?.status?.toUpperCase();
     if (tab === 'pending') return status === 'NEGOTIATING' || status === 'PENDING';
@@ -302,7 +312,7 @@ const ReservationsSection = ({
             // Get currency symbol from request
             const currencySymbol = request.currency?.symbol || travel?.currency?.symbol || '€';
 
-            const displayUserName = displayUser?.fullName?.trim() || 'Utilisateur';
+            const displayUserName = formatDisplayName(displayUser?.fullName);
 
             const displayUserAvatar = (displayUser as any)?.profilePictureUrl || '/favicon.ico';
 

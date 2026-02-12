@@ -144,5 +144,5 @@ export const confirmCancellation = async (requestId: number): Promise<any> => {
 };
 
 export const disputeCancellation = async (requestId: number): Promise<any> => {
-  return callRequestAction(requestId, 'dispute-cancelation');
+  return callRequestAction(requestId, 'dispute-cancellation');
 };
