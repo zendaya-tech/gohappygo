@@ -302,9 +302,7 @@ const ReservationsSection = ({
             // Get currency symbol from request
             const currencySymbol = request.currency?.symbol || travel?.currency?.symbol || '€';
 
-            const displayUserName = displayUser
-              ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
-              : 'Utilisateur';
+            const displayUserName = displayUser?.fullName?.trim() || 'Utilisateur';
 
             const displayUserAvatar = (displayUser as any)?.profilePictureUrl || '/favicon.ico';
 
