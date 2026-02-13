@@ -143,6 +143,16 @@ export const resetPassword = async (code: string, password: string) => {
   }
 };
 
+export const getStripeRequirements = async (): Promise<StripeRequirements> => {
+  try {
+    const response = await api.get('/auth/check-stripe-requirement');
+    return response.data;
+  } catch (error: any) {
+    console.error('Error fetching stripe requirements:', error);
+    throw error?.response?.data || error;
+  }
+};
+
 export type LoginResponse = {
   access_token: string;
   refresh_token?: string;
@@ -255,3 +265,10 @@ export type GetMeResponse = {
   stripeAccountStatus?: 'uninitiated' | 'pending' | 'active' | 'restricted';
   stripeAvailableBalance?: string;
 };
+
+export interface StripeRequirements {
+  hasRequirements: boolean;
+  currentlyDue: string[];
+  pastDue: string[];
+  eventuallyDue: string[];
+}

@@ -40,7 +40,12 @@ import {
   disputeCancellation,
   type RequestResponse,
 } from '~/services/requestService';
-import { getMe, type GetMeResponse } from '~/services/authService';
+import {
+  getMe,
+  getStripeRequirements,
+  type GetMeResponse,
+  type StripeRequirements,
+} from '~/services/authService';
 import { getOnboardingLink } from '~/services/stripeService';
 import { getUnreadCount } from '~/services/messageService';
 import ActionCard from '~/components/cards/ActionCard';
@@ -1124,6 +1129,7 @@ const PaymentsSection = ({
   const [releasingFunds, setReleasingFunds] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [stripeRequiments, setStripeRequirements] = useState<StripeRequirements | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1137,6 +1143,10 @@ const PaymentsSection = ({
         const transactionData = await getTransactions(1, 10);
         setTransactions(transactionData.items);
         setHasMore(transactionData.items.length === 10);
+
+        // Fetch stripe requirements
+        const stripeRequimentsData = await getStripeRequirements();
+        setStripeRequirements(stripeRequimentsData);
       } catch (error) {
         console.error('Error fetching payment data:', error);
       } finally {
@@ -1504,11 +1514,11 @@ const PaymentsSection = ({
                   className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {processingOnboarding ? 'Ouverture...' : 'Mettre à jour'}
-                  {
+                  {stripeRequiments?.hasRequirements && (
                     <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
                       !
                     </span>
-                  }
+                  )}
                 </button>
               </div>
             </div>

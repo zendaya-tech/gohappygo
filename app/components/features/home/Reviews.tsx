@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import ReviewCard from "./ReviewCard";
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ReviewCard from './ReviewCard';
 
 export default function Reviews() {
   const { t } = useTranslation();
@@ -8,66 +8,66 @@ export default function Reviews() {
 
   const reviews = [
     {
-      review: t("home.reviews.france.review"),
-      name: t("home.reviews.france.name"),
+      review: t('home.reviews.france.review'),
+      name: t('home.reviews.france.name'),
       avatar:
-        "https://images.unsplash.com/photo-1699220274995-a37956b7e43e?w=100&h=100&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1699220274995-a37956b7e43e?w=100&h=100&fit=crop&crop=face',
       rating: 5,
-      location: "france",
+      location: 'france',
     },
     {
-      review: t("home.reviews.usa_west.review"),
-      name: t("home.reviews.usa_west.name"),
+      review: t('home.reviews.usa_west.review'),
+      name: t('home.reviews.usa_west.name'),
       avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
       rating: 5,
-      location: "usa_west",
+      location: 'usa_west',
     },
     {
-      review: t("home.reviews.usa_east.review"),
-      name: t("home.reviews.usa_east.name"),
+      review: t('home.reviews.usa_east.review'),
+      name: t('home.reviews.usa_east.name'),
       avatar:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
       rating: 5,
-      location: "usa_east",
+      location: 'usa_east',
     },
     {
-      review: t("home.reviews.australia.review"),
-      name: t("home.reviews.australia.name"),
+      review: t('home.reviews.australia.review'),
+      name: t('home.reviews.australia.name'),
       avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
       rating: 5,
-      location: "australia",
+      location: 'australia',
     },
     {
-      review: t("home.reviews.south_africa.review"),
-      name: t("home.reviews.south_africa.name"),
+      review: t('home.reviews.south_africa.review'),
+      name: t('home.reviews.south_africa.name'),
       avatar:
-        "https://images.unsplash.com/photo-1531727991582-cfd25ce79613?w=100&h=100&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1531727991582-cfd25ce79613?w=100&h=100&fit=crop&crop=face',
       rating: 5,
-      location: "south_africa",
+      location: 'south_africa',
     },
     {
-      review: t("home.reviews.brazil.review"),
-      name: t("home.reviews.brazil.name"),
+      review: t('home.reviews.brazil.review'),
+      name: t('home.reviews.brazil.name'),
       avatar:
-        "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=100&h=100&fit=crop&crop=face",
+        'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=100&h=100&fit=crop&crop=face',
       rating: 5,
-      location: "brazil",
+      location: 'brazil',
     },
   ];
 
   // Helper pour positionner les visages sur la carte (en %)
   const getPosition = (location: string) => {
     const coords: Record<string, { top: string; left: string }> = {
-      france: { top: "35%", left: "48%" },
-      usa_west: { top: "38%", left: "15%" },
-      usa_east: { top: "40%", left: "25%" },
-      australia: { top: "75%", left: "85%" },
-      south_africa: { top: "78%", left: "52%" },
-      brazil: { top: "65%", left: "32%" },
+      france: { top: '35%', left: '48%' },
+      usa_west: { top: '38%', left: '15%' },
+      usa_east: { top: '40%', left: '25%' },
+      australia: { top: '75%', left: '85%' },
+      south_africa: { top: '78%', left: '52%' },
+      brazil: { top: '65%', left: '32%' },
     };
-    return coords[location] || { top: "0%", left: "0%" };
+    return coords[location] || { top: '0%', left: '0%' };
   };
 
   return (
@@ -78,8 +78,8 @@ export default function Reviews() {
           <img
             src="/images/map.svg"
             alt="world map"
-            className="w-full h-auto opacity-80"
-            style={{ filter: "brightness(0.6)" }}
+            className="w-full h-auto opacity-70"
+            style={{ filter: 'brightness(0.6)' }}
           />
 
           {reviews.map((review, index) => {
@@ -89,21 +89,17 @@ export default function Reviews() {
                 key={index}
                 className={`size-10 sm:size-12 overflow-hidden border-2 rounded-full absolute cursor-pointer transition-all duration-300 hover:scale-125 z-10 ${
                   selectedReview === index
-                    ? "border-blue-500 shadow-2xl scale-110 z-20"
-                    : "border-white/50 shadow-md"
+                    ? 'border-blue-500 shadow-2xl scale-110 z-20'
+                    : 'border-white/50 shadow-md'
                 }`}
                 style={{
                   top: pos.top,
                   left: pos.left,
-                  transform: "translate(-50%, -50%)", // Centre l'image sur le point exact
+                  transform: 'translate(-50%, -50%)', // Centre l'image sur le point exact
                 }}
                 onClick={() => setSelectedReview(index)}
               >
-                <img
-                  src={review.avatar}
-                  className="size-full object-cover"
-                  alt={review.name}
-                />
+                <img src={review.avatar} className="size-full object-cover" alt={review.name} />
               </div>
             );
           })}
@@ -111,8 +107,8 @@ export default function Reviews() {
 
         {/* Review Card Display */}
         <div className="w-full lg:w-96 flex flex-col justify-center animate-in fade-in slide-in-from-right duration-500">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            {t("home.reviews.title", "Ce que disent nos voyageurs")}
+          <h2 className="text-2xl font-bold mb-6 text-gray-700">
+            {t('home.reviews.title', 'Ce que disent nos voyageurs')}
           </h2>
           <ReviewCard {...reviews[selectedReview]} />
         </div>
