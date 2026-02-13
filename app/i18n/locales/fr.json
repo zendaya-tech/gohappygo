@@ -609,7 +609,7 @@
       }
     },
     "becomeTransporter": {
-      "header": "ÊTRE HAPPYVOYAGEUR,\nÊTRE SIMPLEMENT HEUREUX",
+      "header": "ÊTRE HAPPYVOYAGEUR,<br><span>ÊTRE SIMPLEMENT HEUREUX</span>",
       "footer": "SOYEZ UN PORTEUR DE BONHEUR.",
       "section1": {
         "intro": [
@@ -711,45 +711,45 @@
       }
     },
     "ecologicalImpact": {
-      "title": "VOTRE VOYAGE,\nVOTRE BAGAGE...\n<span className=\"text-blue-700\">A UN IMPACT ECOLOGIQUE FORT</span>",
+      "title": "VOTRE VOYAGE, VOTRE BAGAGE...<br><span>A UN IMPACT ECOLOGIQUE FORT</span>",
       "sections": [
         {
-          "title": "UNE ALTERNATIVE AUX SOLUTIONS LOGISTIQUES LOURDES",
-          "intro": "L'ENVOI CLASSIQUE DE BAGAGES IMPLIQUE SOUVENT :",
+          "title": "Une alternative aux solutions logistiques lourdes",
+          "intro": "L'envoi classique de bagages implique souvent :",
           "items": [
-            "DES VÉHICULES DÉDIÉS",
-            "DES CENTRES DE TRI",
-            "DES EMBALLAGES SUPPLÉMENTAIRES",
-            "DES TRAJETS INDIRECTS"
+            "Des véhicules dédiés",
+            "Des centres de tri",
+            "Des emballages supplémentaires",
+            "Des trajets indirects"
           ],
-          "highlightTitle": "GOHAPPYGO ADOPTE UNE LOGIQUE DIFFÉRENTE :",
+          "highlightTitle": "Gohappygo adopte une logique différente :",
           "highlights": [
-            "ZÉRO TRAJET SUPPLÉMENTAIRE",
-            "ZÉRO INFRASTRUCTURE LOURDE",
-            "ZÉRO EMBALLAGE SUPERFLU"
+            "Zéro trajet supplémentaire",
+            "Zéro infrastructure lourde",
+            "Zéro emballage superflu"
           ],
-          "footerText": "LES BAGAGES VOYAGENT AVEC DES PERSONNES DÉJÀ EN DÉPLACEMENT. C'EST L'ESSENCE MÊME DE L'ÉCONOMIE COLLABORATIVE APPLIQUÉE AU VOYAGE."
+          "footerText": "Les bagages voyagent avec des personnes déjà en déplacement. C'est l'essence même de l'économie collaborative appliquée au voyage."
         },
         {
-          "title": "L'ÉCONOMIE DU PARTAGE AU SERVICE DE L'ENVIRONNEMENT",
-          "intro": "EN UTILISANT GOHAPPYGO, CHAQUE UTILISATEUR DEVIENT UN ACTEUR DE LA TRANSITION ÉCOLOGIQUE :",
+          "title": "L'économie du partage au service de l'environnement",
+          "intro": "En utilisant Gohappygo, chaque utilisateur devient un acteur de la transition écologique :",
           "items": [
-            "LE PORTEUR OPTIMISE UN ESPACE VIDE",
-            "L’EXPÉDITEUR ÉVITE UNE SOLUTION POLLUANTE",
-            "LA COMMUNAUTÉ RÉDUIT SON EMPREINTE GLOBALE"
+            "Le porteur optimise un espace vide",
+            "L’expéditeur évite une solution polluante",
+            "La communauté réduit son empreinte globale"
           ],
-          "footerText": "UN PETIT GESTE INDIVIDUEL, MULTIPLIÉ PAR DES MILLIERS DE VOYAGEURS, PEUT AVOIR UN IMPACT COLLECTIF SIGNIFICATIF."
+          "footerText": "Un petit geste individuel, multiplié par des milliers de voyageurs, peut avoir un impact collectif significatif."
         },
         {
-          "title": "GOHAPPYGO, PORTER PLUS QUE DES BAGAGES",
-          "intro": "EN CHOISISSANT GOHAPPYGO, VOUS NE TRANSPORTEZ PAS SEULEMENT UN BAGAGE. VOUS PORTEZ :",
-          "items": ["UNE DÉMARCHE RESPONSABLE", "UNE VISION SOLIDAIRE", "UN FUTUR PLUS DURABLE"],
-          "footerText": "PARCE QUE VOYAGER MIEUX, CE N'EST PAS VOYAGER MOINS — C'EST VOYAGER PLUS INTELLIGEMMENT. 💙🌍"
+          "title": "Gohappygo, porter plus que des bagages",
+          "intro": "En choisissant Gohappygo, vous ne transportez pas seulement un bagage. Vous portez :",
+          "items": ["Une démarche responsable", "Une vision solidaire", "Un futur plus durable"],
+          "footerText": "Parce que voyager mieux, ce n'est pas voyager moins — c'est voyager plus intelligemment. 💙🌍"
         }
       ]
     },
     "faqPage": {
-      "title": "FOIRE AUX\nQUESTIONS",
+      "title": "FOIRE AUX <br><span>QUESTIONS</span>",
       "questions": [
         {
           "question": "Qui Peut Utiliser Gohappygo ?",
@@ -836,7 +836,7 @@
       ]
     },
     "howItWorks": {
-      "title": "COMMENT <br /> ÇA MARCHE ?",
+      "title": "COMMENT <br><span>ÇA MARCHE ?</span>",
       "steps": [
         {
           "title": "JE M'INSCRIS & JE PUBLIE MON VOYAGE",
@@ -960,7 +960,7 @@
       }
     },
     "whatIsHappiness": {
-      "title": "LE BONHEUR,\nÇA SE PARTAGE AUSSI !",
+      "title": "LE BONHEUR,<br><span>ÇA SE PARTAGE AUSSI !</span>",
       "section1": {
         "title": "Voyager utile, c'est voyager heureux",
         "content": "Le bonheur, ce n'est pas seulement arriver à destination. C'est savoir que, pendant votre trajet, <b>vous avez aidé quelqu'un.</b>",
@@ -983,12 +983,12 @@
         "footer": "Le bonheur naît souvent quand on se sent <b>utile, connecté et engagé.</b>"
       },
       "section3": {
-        "title": "De petits gestes. De grands effets.",
+        "title": "De petits gestes, De grands effets.",
         "content": "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
         "items": ["Une solution à un problème", "Un voyage plus serein", "Une confiance retrouvée"],
         "footer": "Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires."
       },
-      "footer": "SOYEZ UN PORTEUR DE BONHEUR.\nPOUR LES AUTRES. POUR VOUS. POUR LE VOYAGE AUTREMENT."
+      "footer": "SOYEZ UN PORTEUR DE BONHEUR.\nPOUR LES AUTRES.\nPOUR VOUS.\nPOUR LE VOYAGE AUTREMENT."
     },
     "terms": {
       "title": "Conditions d’utilisation",

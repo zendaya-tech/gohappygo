@@ -82,7 +82,7 @@
   "home": {
     "hero": {
       "title": "Ship your packages safely",
-      "subtitle": "Connect with trusted travelers to send your packages worldwide",
+      "subtitle": "Have your excess baggage checked in by other travelers on the same flight as you, to the same destination",
       "searchFrom": "From",
       "searchTo": "To",
       "searchDate": "Date",
@@ -609,7 +609,7 @@
       }
     },
     "becomeTransporter": {
-      "header": "BE A HAPPYTRAVELER,\nSIMPLY BE HAPPY",
+      "header": "BE A HAPPYTRAVELER,<br><span>SIMPLY BE HAPPY</span>",
       "footer": "BE A HAPPINESS CARRIER.",
       "section1": {
         "intro": [
@@ -711,40 +711,40 @@
       }
     },
     "ecologicalImpact": {
-      "title": "YOUR TRIP,\nYOUR LUGGAGE...\n<span className=\"text-blue-700\">HAS A STRONG ECOLOGICAL IMPACT</span>",
+      "title": "YOUR TRIP, YOUR LUGGAGE...<br><span>HAS A STRONG ECOLOGICAL</span><br><span>IMPACT</span>",
       "sections": [
         {
-          "title": "AN ALTERNATIVE TO HEAVY LOGISTICS SOLUTIONS",
-          "intro": "CLASSIC LUGGAGE SHIPPING OFTEN IMPLIES:",
-          "items": ["DEDICATED VEHICLES", "SORTING CENTERS", "EXTRA PACKAGING", "INDIRECT ROUTES"],
-          "highlightTitle": "GOHAPPYGO ADOPTS A DIFFERENT LOGIC:",
+          "title": "An alternative to heavy logistics solutions",
+          "intro": "Classic luggage shipping often implies:",
+          "items": ["Dedicated vehicles", "Sorting centers", "Extra packaging", "Indirect routes"],
+          "highlightTitle": "Gohappygo adopts a different logic:",
           "highlights": [
-            "ZERO EXTRA TRIP",
-            "ZERO HEAVY INFRASTRUCTURE",
-            "ZERO SUPERFLUOUS PACKAGING"
+            "Zero extra trip",
+            "Zero heavy infrastructure",
+            "Zero superfluous packaging"
           ],
-          "footerText": "LUGGAGE TRAVELS WITH PEOPLE ALREADY ON THE MOVE. THIS IS THE VERY ESSENCE OF THE SHARING ECONOMY APPLIED TO TRAVEL."
+          "footerText": "Luggage travels with people already on the move. This is the very essence of the sharing economy applied to travel."
         },
         {
-          "title": "SHARING ECONOMY SERVING THE ENVIRONMENT",
-          "intro": "BY USING GOHAPPYGO, EACH USER BECOMES AN ACTOR OF THE ECOLOGICAL TRANSITION:",
+          "title": "Sharing economy serving the environment",
+          "intro": "By using Gohappygo, each user becomes an actor of the ecological transition:",
           "items": [
-            "THE CARRIER OPTIMIZES AN EMPTY SPACE",
-            "THE SENDER AVOIDS A POLLUTING SOLUTION",
-            "THE COMMUNITY REDUCES ITS GLOBAL FOOTPRINT"
+            "The carrier optimizes an empty space",
+            "The sender avoids a polluting solution",
+            "The community reduces its global footprint"
           ],
-          "footerText": "A SMALL INDIVIDUAL GESTURE, MULTIPLIED BY THOUSANDS OF TRAVELERS, CAN HAVE A SIGNIFICANT COLLECTIVE IMPACT."
+          "footerText": "A small individual gesture, multiplied by thousands of travelers, can have a significant collective impact."
         },
         {
-          "title": "GOHAPPYGO, CARRY MORE THAN LUGGAGE",
-          "intro": "BY CHOOSING GOHAPPYGO, YOU DON'T JUST TRANSPORT A LUGGAGE. YOU CARRY:",
-          "items": ["A RESPONSIBLE APPROACH", "A SOLIDARY VISION", "A MORE SUSTAINABLE FUTURE"],
-          "footerText": "BECAUSE TRAVELING BETTER IS NOT TRAVELING LESS — IT IS TRAVELING MORE INTELLIGENTLY. 💙🌍"
+          "title": "Gohappygo, carry more than luggage",
+          "intro": "By choosing Gohappygo, you don't just transport a luggage. You carry:",
+          "items": ["A responsible approach", "A solidary vision", "A more sustainable future"],
+          "footerText": "Because traveling better is not traveling less — it is traveling more intelligently. 💙🌍"
         }
       ]
     },
     "faqPage": {
-      "title": "FREQUENTLY ASKED\nQUESTIONS",
+      "title": "FREQUENTLY ASKED<br><span>QUESTIONS</span>",
       "questions": [
         {
           "question": "Who Can Use Gohappygo?",
@@ -831,7 +831,7 @@
       ]
     },
     "howItWorks": {
-      "title": "HOW <br /> IT WORKS",
+      "title": "HOW <br/><span>IT WORKS</span>",
       "steps": [
         {
           "title": "I SIGN UP & I PUBLISH MY TRIP",
@@ -955,7 +955,7 @@
     },
 
     "whatIsHappiness": {
-      "title": "HAPPINESS,\nIT'S ALSO SHARED!",
+      "title": "HAPPINESS,<br><span> IT'S ALSO SHARED!</span>",
       "section1": {
         "title": "Traveling usefully is traveling happily",
         "content": "Happiness is not just arriving at the destination. It's knowing that, during your journey, <b>you helped someone.</b>",

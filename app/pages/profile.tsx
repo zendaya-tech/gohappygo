@@ -1261,7 +1261,7 @@ const PaymentsSection = ({
       {/* Balance Tab */}
       {tab === 'balance' && balance && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Available Balance */}
             <div className="bg-gradient-to-r from-gray-400 to-gray-600 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-2">
@@ -1290,8 +1290,8 @@ const PaymentsSection = ({
           </div>
 
           {/* Quick Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover transition-colors cursor-pointer">
+          <div className="mt-8 w-full flex flex-col justify-center sm:flex-row gap-4">
+            <button className="w-[40%] bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover transition-colors cursor-pointer">
               Transférer
             </button>
           </div>
@@ -1412,7 +1412,7 @@ const PaymentsSection = ({
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuration</h3>
 
           {/* Stripe Account Alert - Show for users with pending Stripe account */}
-          {(displayUser?.stripeAccountStatus === 'pending' || !displayUser?.stripeAccountId) && (
+          {displayUser?.stripeAccountStatus === 'pending' || !displayUser?.stripeAccountId ? (
             <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 md:p-6">
               <div className="flex flex-col justify-center items-center text-center">
                 <div className="flex gap-2 justify-center">
@@ -1456,6 +1456,59 @@ const PaymentsSection = ({
                   className="w-[40%] bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {processingOnboarding ? 'Ouverture...' : 'Inscription'}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 md:p-6">
+              <div className="flex flex-col justify-center items-center text-center">
+                <div className="flex gap-2 justify-center">
+                  <svg
+                    className="w-6 h-6 "
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* Le cercle de fond jaune (plus clair) */}
+                    <circle cx="50" cy="50" r="45" fill="#F4D951" />
+
+                    {/* La bordure extérieure (jaune plus foncé/doré) */}
+                    <circle cx="50" cy="50" r="45" stroke="#E6C13E" strokeWidth="8" />
+
+                    {/* La coche verte avec des extrémités arrondies */}
+                    <path
+                      d="M30 52L43 65L72 36"
+                      stroke="#22A925"
+                      strokeWidth="10"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+
+                  <h3 className="text-sm font-semibold text-blue-800">
+                    Compte Stripe Connect GoHappyGo
+                  </h3>
+                </div>
+                <div className="flex flex-col gap-2 bg-blue-100 rounded-lg p-3 mb-4">
+                  <p className="text-xs text-blue-800">
+                    Pour retirer vos gains de la plateforme, vous devez mettre à jour vos
+                    informations.
+                  </p>
+                  <p className="text-sm text-blue-800">
+                    Cliquez sur le bouton ci-dessous pour mettre vos informations à jour.
+                  </p>
+                </div>
+                <button
+                  onClick={handleStripeOnboarding}
+                  disabled={processingOnboarding}
+                  className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {processingOnboarding ? 'Ouverture...' : 'Mettre à jour'}
+                  {
+                    <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
+                      !
+                    </span>
+                  }
                 </button>
               </div>
             </div>
@@ -1972,18 +2025,18 @@ export default function Profile() {
               </div>
 
               {/* User Name */}
-              <div className="mb-4">
+              <div>
                 <h2 className="text-xl font-bold text-gray-900 truncate">
-                  {profileUser.firstName} {profileUser.lastName?.charAt(0)}.
-                  {isOwnProfile && ` (${t('common.user')})`}
+                  {profileUser.firstName} {profileUser.lastName}
+                  {/* {isOwnProfile && ` (${t('common.user')})`} */}
                 </h2>
-                <p className="text-sm text-gray-500 mt-1">
+                {/* <p className="text-sm text-gray-500 mt-1">
                   {t('profile.stats.rating')}: {profileStats?.averageRating?.toFixed(1) || '0.0'} ★
-                </p>
+                </p> */}
               </div>
 
               {/* Bio snippet */}
-              <div className="mt-6 border-t border-gray-100 pt-6">
+              {/* <div className="mt-6 border-t border-gray-100 pt-6">
                 <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
                   Bio
                 </h3>
@@ -1991,7 +2044,7 @@ export default function Profile() {
                   {profileUser.bio ||
                     (isOwnProfile ? t('profile.messages.addBio') : t('profile.messages.noBio'))}
                 </p>
-              </div>
+              </div> */}
 
               {/* Edit Profile Button - Only show for own profile */}
               {isOwnProfile && (

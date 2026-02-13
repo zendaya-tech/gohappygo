@@ -1,7 +1,7 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 const FAQ = () => {
   const { t } = useTranslation();
@@ -18,7 +18,10 @@ const FAQ = () => {
         {/* Titre Principal - Style identique aux autres pages */}
         <header className="mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter whitespace-pre-line">
-            {t('pages.faqPage.title')}
+            <Trans
+              i18nKey="pages.faqPage.title"
+              components={{ br: <br />, span: <span className="ml-6" /> }}
+            />
           </h1>
         </header>
 

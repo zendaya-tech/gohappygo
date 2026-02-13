@@ -17,9 +17,9 @@ export default function HeroSection() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
             {t('home.hero.subtitle')}
           </h1>
-          <p className="text-blue-600 text-xl sm:text-2xl mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-2 font-black mt-10">
+          <p className="text-blue-600 text-xl sm:text-2xl mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-2 font-regular mt-10">
             Emportez autant de bagages que vous le desirez avec{' '}
-            <span className="text-[#de179c] font-black">GoHappyGo</span> lors de votre voyage
+            <span className="text-[#de179c] font-regular">GoHappyGo</span> lors de votre voyage
           </p>
         </div>
 
@@ -30,14 +30,14 @@ export default function HeroSection() {
               <img
                 src="/images/history-converted.webp"
                 alt="Avion en vol"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover "
               />
             </div>
             <div className="bg-gray-200 rounded-xl sm:rounded-2xl h-28 sm:h-36 md:h-42 overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/images/rencontre2-converted.webp"
                 alt="Valise"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover "
               />
             </div>
           </div>
@@ -46,14 +46,14 @@ export default function HeroSection() {
               <img
                 src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400&h=200&fit=crop"
                 alt="Colis"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover "
               />
             </div>
             <div className="bg-gray-200 rounded-xl sm:rounded-2xl h-32 sm:h-38 md:h-44 overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src="/images/rencontre1-converted.webp"
                 alt="Aéroport"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover "
               />
             </div>
           </div>
@@ -63,7 +63,7 @@ export default function HeroSection() {
       {/* Search Form */}
       <div className="mt-8 sm:mt-10 md:mt-12 relative">
         <SearchFiltersBar />
-        <div className="hidden md:flex absolute top-18 justify-around gap-[5%] lg:gap-[45%] w-full">
+        <div className="hidden md:flex absolute top-18 justify-around gap-[5%] lg:gap-[45%] w-full ">
           <div className="flex flex-col items-center mt-4">
             <img
               src="/images/arrowBlue.png"
@@ -74,7 +74,7 @@ export default function HeroSection() {
               Recherche par destination
             </span>
           </div>
-          <div className="flex flex-col lg:flex-row justify-center items-center ">
+          <div className="flex flex-col lg:flex-row justify-center items-center  ">
             <img
               src="/images/arrowYelow.png"
               alt="Aéroport"

@@ -55,7 +55,7 @@ const ImpactEcologique = () => {
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">
             <Trans
               i18nKey="pages.ecologicalImpact.title"
-              components={{ span: <span className="text-blue-700" /> }}
+              components={{ br: <br />, span: <span className="ml-6" /> }}
             />
           </h1>
         </header>
@@ -66,12 +66,12 @@ const ImpactEcologique = () => {
             <section key={section.id} className="relative">
               <div className="max-w-3xl">
                 {/* Header Section avec Icône */}
-                <h2 className="flex items-center gap-3 text-xl md:text-2xl font-black text-black mb-6 uppercase">
+                <h2 className="flex items-center gap-3 text-xl md:text-2xl font-black text-black mb-6">
                   <span className="text-3xl">{section.icon}</span>
                   {section.title}
                 </h2>
 
-                <p className="text-sm md:text-base font-bold text-gray-500 mb-4 uppercase tracking-wide">
+                <p className="text-sm md:text-base font-bold text-gray-500 mb-4 tracking-wide">
                   {section.intro}
                 </p>
 
@@ -91,7 +91,7 @@ const ImpactEcologique = () => {
                 {/* Sous-section optionnelle (pour la section 1) */}
                 {section.highlights && (
                   <div className="mt-8 mb-6">
-                    <p className="text-sm md:text-base font-bold text-gray-500 mb-4 uppercase">
+                    <p className="text-sm md:text-base font-bold text-gray-500 mb-4">
                       {section.highlightTitle}
                     </p>
                     <ul className="space-y-2 ml-4">
@@ -111,7 +111,7 @@ const ImpactEcologique = () => {
                 {/* Conclusion de section (Texte avec la main 👉) */}
                 <div className="flex items-start gap-3 mt-8 p-4 bg-gray-50/50 rounded-2xl">
                   <span className="text-orange-400 text-xl">👉</span>
-                  <p className="text-sm md:text-base font-black text-gray-700 uppercase leading-snug tracking-tight">
+                  <p className="text-sm md:text-base font-black text-gray-700 leading-snug tracking-tight">
                     {section.footerText}
                   </p>
                 </div>

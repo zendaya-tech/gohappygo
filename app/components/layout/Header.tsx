@@ -94,7 +94,7 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setHoverDownload((v) => !v)}
-                  className="bg-blue-600 hover text-nowrap text-white px-4 py-2 rounded-2xl font-medium text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
+                  className="bg-blue-600 hover text-nowrap text-white px-4 py-2 rounded-2xl font-semibold text-sm transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                   ref={(el) => {
                     (downloadBtnRef as any).current = el;
                   }}
@@ -368,7 +368,7 @@ export default function Header() {
                     setHoverDownload((v) => !v);
                     setIsMenuOpen(false);
                   }}
-                  className="flex items-center w-full text-left px-4 py-3 text-blue-600 hover hover hover hover rounded-xl font-medium transition-all duration-200 group"
+                  className="flex items-center w-full text-left px-4 py-3 text-blue-600 hover hover hover hover rounded-xl font-semibold transition-all duration-200 group"
                 >
                   <svg
                     className="w-5 h-5 mr-3 text-blue-600 group-hover transition-colors"

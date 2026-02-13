@@ -45,8 +45,11 @@ const HowItWorks = () => {
 
       <div className="relative w-full max-w-4xl mx-auto px-6 py-12 font-sans overflow-hidden bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
-        <h1 className="text-4xl md:text-5xl font-black text-blue-700 mb-16 leading-tight uppercase italic">
-          <Trans i18nKey="pages.howItWorks.title" components={{ br: <br /> }} />
+        <h1 className="text-4xl md:text-5xl font-black text-blue-600 mb-16 leading-tight uppercase italic">
+          <Trans
+            i18nKey="pages.howItWorks.title"
+            components={{ br: <br />, span: <span className="ml-6" /> }}
+          />
         </h1>
 
         <div className="space-y-24">

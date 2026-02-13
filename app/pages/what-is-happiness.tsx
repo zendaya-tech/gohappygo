@@ -41,7 +41,10 @@ const LeBonheur = () => {
         {/* Titre Principal */}
         <header className="mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter whitespace-pre-line">
-            {t('pages.whatIsHappiness.title')}
+            <Trans
+              i18nKey="pages.whatIsHappiness.title"
+              components={{ br: <br />, span: <span className="ml-6" /> }}
+            />
           </h1>
         </header>
 

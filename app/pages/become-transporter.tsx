@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 const EtreHappyvoyageur = () => {
   const { t } = useTranslation();
@@ -32,7 +32,10 @@ const EtreHappyvoyageur = () => {
         {/* Titre Principal Manifeste */}
         <header className="mb-20">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter whitespace-pre-wrap">
-            {t('pages.becomeTransporter.header')}
+            <Trans
+              i18nKey="pages.becomeTransporter.header"
+              components={{ br: <br />, span: <span className="ml-6" /> }}
+            />
           </h1>
         </header>
 
