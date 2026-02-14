@@ -55,7 +55,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://gohappygo.netlify.app/" />
         <meta property="og:title" content="GoHappyGo - faites plus qu'un voyage" />
-        <meta property="og:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Solution économique et écologique pour vos envois internationaux. ✈️" />
+        <meta
+          property="og:description"
+          content="🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Un voyageur propose et vend l'espace libre de ses bagages sur un trajet. Vous voyagez ensemble : partagez des kilos et du bonheur, en toute sécurité avec GoHappyGo. ✈️"
+        />
         <meta property="og:image" content="https://gohappygo.netlify.app/images/og.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -68,7 +71,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://gohappygo.netlify.app/" />
         <meta property="twitter:title" content="GoHappyGo - faites plus q'un voyage" />
-        <meta property="twitter:description" content="🧳 Faites plus qu'un voyage, faites des bagages heureux ! Solution économique et écologique pour vos envois internationaux. ✈️" />
+        <meta
+          property="twitter:description"
+          content="🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Un voyageur propose et vend l'espace libre de ses bagages sur un trajet. Vous voyagez ensemble : partagez des kilos et du bonheur, en toute sécurité avec GoHappyGo. ✈️"
+        />
         <meta property="twitter:image" content="https://gohappygo.netlify.app/og-image.jpg" />
         <meta property="twitter:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />
         <meta property="twitter:creator" content="@gohappygo" />
