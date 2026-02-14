@@ -221,17 +221,17 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Chat Header */}
-      <div className="p-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img
-            src={otherUser.avatar}
-            alt={otherUser.name}
-            className="w-8 h-8 rounded-full object-cover"
-          />
-          <div>
-            <p className="font-medium text-gray-900">{otherUser.name}</p>
+      <div className="flex flex-col h-full">
+        {/* Chat Header */}
+        <div className="px-4 py-3 min-h-[72px] border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img
+              src={otherUser.avatar}
+              alt={otherUser.name}
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <div>
+              <p className="font-medium text-gray-900">{otherUser.name}</p>
             <div className="flex items-center gap-2 text-xs text-gray-500">
               {isConnected ? (
                 <>

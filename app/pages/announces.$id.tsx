@@ -431,6 +431,34 @@ export default function AnnounceDetail() {
   const total = pricingData?.totalAmount || 0;
   const currencySymbol = listing?.currency?.symbol || '€'; // Fallback to Euro if no currency
 
+  const travelDateValue =
+    type === 'travel'
+      ? listing.departureDatetime || listing.travelDate || listing.deliveryDate
+      : undefined;
+  const isPastTravelDate = (() => {
+    if (!travelDateValue) return false;
+
+    const toLocalDayStart = (value: string): Date | null => {
+      // Handle date-only strings (YYYY-MM-DD) without timezone shifting
+      if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        const [y, m, d] = value.split('-').map((n) => Number(n));
+        if (!y || !m || !d) return null;
+        return new Date(y, m - 1, d);
+      }
+
+      const dt = new Date(value);
+      if (Number.isNaN(dt.getTime())) return null;
+      return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    };
+
+    const travelStart = toLocalDayStart(travelDateValue);
+    if (!travelStart) return false;
+
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return travelStart < todayStart;
+  })();
+
   const availableWeight = type === 'travel' ? listing.weightAvailable : listing.weight;
 
   // Vérifier si l'annonce n'accepte qu'un seul voyageur pour tous les kilos
@@ -1220,6 +1248,7 @@ export default function AnnounceDetail() {
                     onClick={() => setBookOpen(true)}
                     disabled={
                       isOwnAnnounce ||
+                      isPastTravelDate ||
                       !pricingData ||
                       kilos > (availableWeight || 0) ||
                       hasInvalidKilosForSingleTraveler
@@ -1227,6 +1256,8 @@ export default function AnnounceDetail() {
                     className={`mt-6 w-full rounded-lg px-4 py-4 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
                       isOwnAnnounce
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                        : isPastTravelDate
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         : !pricingData ||
                             kilos > (availableWeight || 0) ||
                             hasInvalidKilosForSingleTraveler
@@ -1236,6 +1267,8 @@ export default function AnnounceDetail() {
                   >
                     {isOwnAnnounce
                       ? 'Votre voyage'
+                      : isPastTravelDate
+                        ? 'Voyage déjà effectué'
                       : kilos > (availableWeight || 0)
                         ? 'Poids insuffisant'
                         : hasInvalidKilosForSingleTraveler

@@ -194,8 +194,8 @@ export default function ConversationList({
   return (
     <div className="h-full overflow-y-auto">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
-        <div className="flex items-center justify-between">
+      <div className="px-4 py-3 min-h-[72px] flex items-center border-b border-gray-200 bg-white sticky top-0 z-10">
+        <div className="flex items-center justify-between w-full">
           <h3 className="font-semibold text-gray-900">{t('profile.messages.messagesTitle')}</h3>
           {totalUnreadCount > 0 && (
             <span className="bg-red-500 text-white text-xs font-medium px-2 py-1 rounded-full">
