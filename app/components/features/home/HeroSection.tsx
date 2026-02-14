@@ -17,9 +17,9 @@ export default function HeroSection() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
             {t('home.hero.subtitle')}
           </h1>
-          <p className="text-blue-600 text-xl sm:text-2xl mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-2 font-regular mt-10">
+          <p className="text-blue-600 text-xl sm:text-2xl mb-6 sm:mb-8 line-clamp-3 sm:line-clamp-2 font-bold mt-10">
             Emportez autant de bagages que vous le desirez avec{' '}
-            <span className="text-[#de179c] font-regular">GoHappyGo</span> lors de votre voyage
+            <span className="text-[#de179c]">GoHappyGo</span> lors de votre voyage
           </p>
         </div>
 
