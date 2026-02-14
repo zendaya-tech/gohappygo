@@ -57,7 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="og:title" content="GoHappyGo - faites plus qu'un voyage" />
         <meta
           property="og:description"
-          content="🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Un voyageur propose et vend l'espace libre de ses bagages sur un trajet. Vous voyagez ensemble : partagez des kilos et du bonheur, en toute sécurité avec GoHappyGo. ✈️"
+          content="🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Choisissez de voyager autrement, Partager votre franchise de bagage, et faites un voyage Utile"
         />
         <meta property="og:image" content="https://gohappygo.netlify.app/images/og.webp" />
         <meta property="og:image:width" content="1200" />
@@ -73,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta property="twitter:title" content="GoHappyGo - faites plus q'un voyage" />
         <meta
           property="twitter:description"
-          content="🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Un voyageur propose et vend l'espace libre de ses bagages sur un trajet. Vous voyagez ensemble : partagez des kilos et du bonheur, en toute sécurité avec GoHappyGo. ✈️"
+          content="🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Choisissez de voyager autrement, Partager votre franchise de bagage, et faites un voyage Utile"
         />
         <meta property="twitter:image" content="https://gohappygo.netlify.app/og-image.jpg" />
         <meta property="twitter:image:alt" content="GoHappyGo - Plateforme de transport de bagages" />
