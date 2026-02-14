@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 export default function AssuranceColis() {
   const { t } = useTranslation();
   return (
-    <div className="min-h-screen bg-gray-50 md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
+    <div className="min-h-screen bg-gray-50 md:bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('pages.insurance.title')}</h1>
           <p className="text-gray-600 mb-8">{t('pages.insurance.subtitle')}</p>

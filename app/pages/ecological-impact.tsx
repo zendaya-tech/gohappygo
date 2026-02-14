@@ -46,10 +46,10 @@ const ImpactEcologique = () => {
   ];
 
   return (
-    <div className="md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
+    <div className="md:bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
 
-      <main className="relative flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans overflow-hidden bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
+      <main className="relative flex-grow w-full max-w-5xl mx-auto px-6 py-16 font-sans overflow-hidden bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <header className="relative z-10 mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-blue-600 leading-tight uppercase italic tracking-tighter">

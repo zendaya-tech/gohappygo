@@ -40,10 +40,10 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="md:bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
+    <div className="md:bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
 
-      <div className="relative w-full max-w-4xl mx-auto px-6 py-12 font-sans overflow-hidden bg-[url('./images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
+      <div className="relative w-full max-w-4xl mx-auto px-6 py-12 font-sans overflow-hidden bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover md:bg-none">
         {/* Titre Principal */}
         <h1 className="text-4xl md:text-5xl font-black text-blue-600 mb-16 leading-tight uppercase italic">
           <Trans
