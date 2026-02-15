@@ -46,6 +46,15 @@ npm run start
 - `npm run typecheck` - Route types + TS
 - `npm run check` - Format check + lint + typecheck
 
+## CI/CD (GitHub Actions)
+
+Workflows live in `.github/workflows/`.
+
+- `CI` (`ci.yml`): runs `npm ci`, `npm run check`, `npm run build` on pull requests and pushes to `main`.
+- `Docker publish` (`docker-publish.yml`): builds the Docker image and pushes it to GitHub Container Registry (GHCR) on pushes to `main`.
+  - Image: `ghcr.io/<owner>/<repo>`
+  - Tags: `latest` and the commit SHA (short)
+
 ## Environment Variables
 
 Defined in `.env.example`:

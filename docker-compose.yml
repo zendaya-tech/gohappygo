@@ -1,0 +1,7 @@
+services:
+  gohappygo-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4302:80"
