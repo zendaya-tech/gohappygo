@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { getStripeRequirements, type StripeRequirements } from '~/services/authService';
 import {
-  getTransactions,
-  releaseFunds,
-  getBalance,
   type Transaction,
   type Balance,
+  getBalance,
+  getTransactions,
+  releaseFunds,
 } from '~/services/transactionService';
 
-export function PaymentsSection({
+export const PaymentsSection = ({
   profileStats,
   displayUser,
   processingOnboarding,
@@ -19,8 +20,8 @@ export function PaymentsSection({
   displayUser?: any;
   processingOnboarding: boolean;
   handleStripeOnboarding: () => void;
-}) {
-  const { t, i18n } = useTranslation();
+}) => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<'balance' | 'transactions' | 'earnings'>('earnings');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance | null>(null);
@@ -30,6 +31,7 @@ export function PaymentsSection({
   const [releasingFunds, setReleasingFunds] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [stripeRequiments, setStripeRequirements] = useState<StripeRequirements | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +45,10 @@ export function PaymentsSection({
         const transactionData = await getTransactions(1, 10);
         setTransactions(transactionData.items);
         setHasMore(transactionData.items.length === 10);
+
+        // Fetch stripe requirements
+        const stripeRequimentsData = await getStripeRequirements();
+        setStripeRequirements(stripeRequimentsData);
       } catch (error) {
         console.error('Error fetching payment data:', error);
       } finally {
@@ -74,13 +80,13 @@ export function PaymentsSection({
       setBalance(balanceData);
       const transactionData = await getTransactions(1, 10);
       setTransactions(transactionData.items);
-      setSuccessMessage(t('profile.payments.fundsReleased'));
+      setSuccessMessage(t('profile.messages.fundsReleased'));
       // Clear success message after 3 seconds
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error: any) {
       console.error('Error releasing funds:', error);
       const errorMsg =
-        error?.message || error?.error?.message || t('profile.payments.releaseError');
+        error?.message || error?.error?.message || t('profile.messages.releaseError');
       setErrorMessage(errorMsg);
       // Clear error message after 5 seconds
       setTimeout(() => setErrorMessage(null), 5000);
@@ -91,7 +97,7 @@ export function PaymentsSection({
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
+    return date.toLocaleDateString(t('languages.fr') === 'French' ? 'en-US' : 'fr-FR', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -129,7 +135,7 @@ export function PaymentsSection({
   if (loading) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <div className="text-center text-gray-500">{t('profile.payments.loadingPayments')}</div>
+        <div className="text-center text-gray-500">{t('profile.messages.loadingPayments')}</div>
       </div>
     );
   }
@@ -140,19 +146,25 @@ export function PaymentsSection({
       <div className="flex items-center gap-6 mb-6">
         <button
           onClick={() => setTab('earnings')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'earnings' ? 'text-blue-600' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'earnings' ? 'text-blue-600' : 'text-gray-500'
+          }`}
         >
           | {t('profile.payments.config')}
         </button>
         <button
           onClick={() => setTab('balance')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'balance' ? 'text-blue-600' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'balance' ? 'text-blue-600' : 'text-gray-500'
+          }`}
         >
           | {t('profile.payments.balance')}
         </button>
         <button
           onClick={() => setTab('transactions')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'transactions' ? 'text-blue-600' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'transactions' ? 'text-blue-600' : 'text-gray-500'
+          }`}
         >
           | {t('profile.payments.transactions')}
         </button>
@@ -161,7 +173,7 @@ export function PaymentsSection({
       {/* Balance Tab */}
       {tab === 'balance' && balance && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Available Balance */}
             <div className="bg-gradient-to-r from-gray-400 to-gray-600 rounded-xl p-6 text-white">
               <div className="flex items-center justify-between mb-2">
@@ -198,8 +210,8 @@ export function PaymentsSection({
           </div>
 
           {/* Quick Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover transition-colors cursor-pointer">
+          <div className="mt-8 w-full flex flex-col justify-center sm:flex-row gap-4">
+            <button className="w-[40%] bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover transition-colors cursor-pointer">
               {t('profile.payments.transfer')}
             </button>
           </div>
@@ -262,11 +274,12 @@ export function PaymentsSection({
                         </div>
                         <div>
                           <h4 className="font-medium text-gray-900">
-                            Transaction #{transaction.id}
+                            {t('profile.payments.transaction')} #{transaction.id}
                           </h4>
                           {transaction.request && (
                             <p className="text-sm text-gray-500">
-                              Demande #{transaction.request.id} - {transaction.request.weight}kg
+                              {t('cards.action.demand')} #{transaction.request.id} -{' '}
+                              {transaction.request.weight}kg
                             </p>
                           )}
                         </div>
@@ -310,7 +323,7 @@ export function PaymentsSection({
                   onClick={loadMoreTransactions}
                   className="w-full py-3 text-blue-600 hover font-medium"
                 >
-                  {t('profile.payments.loadMore')}
+                  {t('profile.payments.loadMoreTransactions')}
                 </button>
               )}
             </div>
@@ -321,7 +334,9 @@ export function PaymentsSection({
       {/* Earnings Tab */}
       {tab === 'earnings' && balance && (
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuration</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">
+            {t('profile.payments.config')}
+          </h3>
 
           {/* Stripe Account Alert - Show for users with pending Stripe account */}
           {displayUser?.stripeAccountStatus === 'pending' || !displayUser?.stripeAccountId ? (
@@ -365,22 +380,27 @@ export function PaymentsSection({
                   disabled={processingOnboarding}
                   className="w-[40%] bg-green-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {processingOnboarding ? t('common.loading') : t('profile.payments.register')}
+                  {processingOnboarding ? '...' : t('profile.payments.register')}
                 </button>
               </div>
             </div>
           ) : (
             <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 md:p-6">
               <div className="flex flex-col justify-center items-center text-center">
-                <div className="flex gap-2 justify-center mb-4">
+                <div className="flex gap-2 justify-center">
                   <svg
-                    className="w-6 h-6"
+                    className="w-6 h-6 "
                     viewBox="0 0 100 100"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
+                    {/* Le cercle de fond jaune (plus clair) */}
                     <circle cx="50" cy="50" r="45" fill="#F4D951" />
+
+                    {/* La bordure extérieure (jaune plus foncé/doré) */}
                     <circle cx="50" cy="50" r="45" stroke="#E6C13E" strokeWidth="8" />
+
+                    {/* La coche verte avec des extrémités arrondies */}
                     <path
                       d="M30 52L43 65L72 36"
                       stroke="#22A925"
@@ -390,68 +410,31 @@ export function PaymentsSection({
                     />
                   </svg>
 
-                  <h3 className="text-sm font-semibold text-blue-900">
+                  <h3 className="text-sm font-semibold text-blue-800">
                     {t('profile.payments.stripeAccount')}
                   </h3>
                 </div>
-
-                <div className="flex flex-col gap-2 rounded-lg p-3 mb-4">
-                  <p className="text-xs text-blue-900">{t('profile.payments.updateInfo')}</p>
-                  <p className="text-sm text-blue-900">{t('profile.payments.clickToUpdate')}</p>
+                <div className="flex flex-col gap-2 bg-blue-100 rounded-lg p-3 mb-4">
+                  <p className="text-xs text-blue-800">{t('profile.payments.updateInfo')}</p>
+                  <p className="text-sm text-blue-800">{t('profile.payments.clickToUpdate')}</p>
                 </div>
-
                 <button
                   onClick={handleStripeOnboarding}
                   disabled={processingOnboarding}
-                  className="w-fit min-w-[40%] bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {processingOnboarding ? t('common.loading') : t('profile.payments.update')}
+                  {processingOnboarding ? '...' : t('profile.payments.update')}
+                  {stripeRequiments?.hasRequirements && (
+                    <span className="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full bg-red-500 text-white text-xs font-medium">
+                      !
+                    </span>
+                  )}
                 </button>
               </div>
             </div>
           )}
-          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> /*}
-                                {/* Earnings Chart Placeholder */}
-          {/*<div className="bg-gray-50 rounded-xl p-6 h-64 flex items-center justify-center">
-                                  <div className="text-center text-gray-500">
-                                    <svg className="h-12 w-12 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
-                                      <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L3.5 15.9l.01 2.59z" />
-                                    </svg>
-                                    <p>Graphique des gains</p>
-                                    <p className="text-sm">Bientôt disponible</p>
-                                  </div>
-                                </div> /*}
-
-                                {/* Earnings Summary */}
-          {/*<div className="space-y-4">
-                                  <div className="bg-blue-50 rounded-xl p-4">
-                                    <h4 className="font-medium text-blue-900 mb-2">Solde disponible</h4>
-                                    <div className="text-2xl font-bold text-blue-600">
-                                      {balance.available.toFixed(2)} {balance.currency.toUpperCase()}
-                                    </div>
-                                    <p className="text-sm text-blue-700">Prêt à être retiré</p>
-                                  </div>
-
-                                  <div className="bg-green-50 rounded-xl p-4">
-                                    <h4 className="font-medium text-green-900 mb-2">Solde en attente</h4>
-                                    <div className="text-2xl font-bold text-green-600">
-                                      {balance.pending.toFixed(2)} {balance.currency.toUpperCase()}
-                                    </div>
-                                    <p className="text-sm text-green-700">En cours de traitement</p>
-                                  </div>
-
-                                  <div className="bg-purple-50 rounded-xl p-4">
-                                    <h4 className="font-medium text-purple-900 mb-2">Solde total</h4>
-                                    <div className="text-2xl font-bold text-purple-600">
-                                      {(balance.available + balance.pending).toFixed(2)}{' '}
-                                      {balance.currency.toUpperCase()}
-                                    </div>
-                                    <p className="text-sm text-purple-700">Disponible + En attente</p>
-                                  </div>
-                                </div>
-                              </div> */}
         </div>
       )}
     </div>
   );
-}
+};

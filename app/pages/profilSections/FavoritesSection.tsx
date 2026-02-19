@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import TravelCard from '~/components/cards/TravelCard';
 import { getBookmarks, type BookmarkItem } from '~/services/announceService';
 import { removeBookmark } from '~/services/bookmarkService';
+import TravelCard from '~/components/cards/TravelCard';
 
-export function FavoritesSection() {
-  const { t, i18n } = useTranslation();
+export const FavoritesSection = () => {
+  const { t } = useTranslation();
   const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,18 +26,10 @@ export function FavoritesSection() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
+    return date.toLocaleDateString('fr-FR', {
       day: 'numeric',
       month: 'short',
     });
-  };
-
-  const formatName = (fullName: string) => {
-    const parts = fullName.split(' ');
-    if (parts.length >= 2) {
-      return `${parts[0]} ${parts[1].charAt(0)}.`;
-    }
-    return fullName;
   };
 
   const handleRemoveBookmark = async (bookmarkType: 'TRAVEL' | 'DEMAND', itemId: number) => {
@@ -65,13 +57,17 @@ export function FavoritesSection() {
     <div className="bg-white rounded-2xl ">
       {bookmarks.length === 0 ? (
         <div className="text-center text-gray-500 py-8 flex flex-col items-center">
-          <img src="/images/noFavorites.jpeg" alt="No favorites" className="w-[50%] h-[50%]" />
+          <img
+            src="/images/noFavorites.jpeg"
+            alt={t('profile.messages.noFavorites')}
+            className="w-[50%] h-[50%]"
+          />
         </div>
       ) : (
         <div>
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900">
-              {t('profile.sections.favorites')} ({bookmarks.length})
+              {t('profile.sections.favoritesWithCount', { count: bookmarks.length })}
             </h3>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
@@ -89,7 +85,7 @@ export function FavoritesSection() {
               const id =
                 (isTravel ? bookmark.travelId : bookmark.demandId)?.toString() ||
                 bookmark.id.toString();
-              const name = item.user ? `${item.user.fullName}`.trim() : t('common.user');
+              const name = item.user ? `${item.user.fullName}`.trim() : t('common.userDefault');
 
               const avatar =
                 item.user?.profilePictureUrl || item.images?.[0]?.fileUrl || '/favicon.ico';
@@ -120,50 +116,27 @@ export function FavoritesSection() {
               const type = isTravel ? 'transporter' : 'traveler';
 
               return (
-                <>
-                  <TravelCard
-                    id={id}
-                    fullName={name}
-                    avatar={avatar}
-                    location={location}
-                    price={`${pricePerKg}`}
-                    rating={rating}
-                    image={image}
-                    featured={featured}
-                    weight={availableWeight ? `${availableWeight}kg` : undefined}
-                    departure={departure}
-                    airline={airline}
-                    type={type as any}
-                    onRemove={() =>
-                      handleRemoveBookmark(
-                        bookmark.bookmarkType,
-                        isTravel ? bookmark.travelId! : bookmark.demandId!
-                      )
-                    }
-                  />
-                  {/* Remove from favorites button */}
-                  {/* <button
-                                                onClick={() => handleRemoveBookmark(
-                                                  bookmark.bookmarkType,
-                                                  isTravel ? bookmark.travelId! : bookmark.demandId!
-                                                )}
-                                                className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover transition-colors z-10"
-                                              >
-                                                <svg
-                                                  className="w-4 h-4"
-                                                  fill="none"
-                                                  stroke="currentColor"
-                                                  viewBox="0 0 24 24"
-                                                >
-                                                  <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M6 18L18 6M6 6l12 12"
-                                                  />
-                                                </svg>
-                                              </button> */}
-                </>
+                <TravelCard
+                  key={id}
+                  id={id}
+                  fullName={name}
+                  avatar={avatar}
+                  location={location}
+                  price={`${pricePerKg}`}
+                  rating={rating}
+                  image={image}
+                  featured={featured}
+                  weight={availableWeight ? `${availableWeight}kg` : undefined}
+                  departure={departure}
+                  airline={airline}
+                  type={type as any}
+                  onRemove={() =>
+                    handleRemoveBookmark(
+                      bookmark.bookmarkType,
+                      isTravel ? bookmark.travelId! : bookmark.demandId!
+                    )
+                  }
+                />
               );
             })}
           </div>
@@ -171,4 +144,4 @@ export function FavoritesSection() {
       )}
     </div>
   );
-}
+};

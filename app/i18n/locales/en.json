@@ -34,7 +34,8 @@
     "failed": "Failed",
     "user": "User",
     "ok": "OK",
-    "error": "Error"
+    "error": "Error",
+    "userDefault": "User"
   },
   "cards": {
     "action": {
@@ -233,6 +234,7 @@
       "travelRequests": "My Travel Requests",
       "travels": "My Travels",
       "favorites": "My Favorites",
+      "favoritesWithCount": "My Favorites ({{count}})",
       "payments": "Wallet"
     },
     "stats": {
@@ -276,16 +278,28 @@
       "rate": "Rate",
       "rated": "Rated",
       "message": "Message",
-      "contact": "Contact",
+      "contact": "Contact {{name}}",
       "proposeSpace": "I offer baggage space",
-      "findSpace": "I want to find baggage space"
+      "findSpace": "I want to find baggage space",
+      "cancel": "Cancel",
+      "edit": "Edit"
     },
     "messages": {
+      "loadingProfile": "Loading profile...",
+      "userNotFound": "User not found",
+      "addBio": "Add a bio to tell others about yourself",
+      "noBio": "No bio provided",
       "loadingReservations": "Loading your reservations...",
+      "loadingPayments": "Loading payment data...",
+      "fundsReleased": "Funds released successfully",
+      "releaseError": "Error while releasing funds",
       "noReservations": "No reservations",
       "noConversations": "No conversations",
       "conversationsDesc": "Your conversations with travelers will appear here",
+      "selectConversation": "Select a conversation",
+      "selectConversationDesc": "Choose a conversation from the list to start chatting",
       "messagesTitle": "Messages",
+      "messagePlaceholder": "Type a message...",
       "online": "Online",
       "offline": "Offline",
       "typing": "Typing...",
@@ -297,14 +311,31 @@
         "hoursAgo": "{{count}}h ago",
         "daysAgo": "{{count}}d ago"
       },
-      "errorAccept": "Error accepting request",
-      "errorComplete": "Error completing request",
-      "errorCancel": "Error canceling reservation",
-      "cancelReservationTitle": "Cancel reservation",
-      "cancelReservationBody": "Are you sure you want to cancel this reservation? The travel amount will be refunded, but platform fees will be retained.",
       "confirmCancel": "Yes, cancel",
       "keep": "No, keep",
       "impossibleFinish": "Cannot finish before the travel departure date.",
+      "errorAccept": "Error accepting request",
+      "errorComplete": "Error completing request",
+      "errorCancel": "Error canceling reservation",
+      "errorConfirmCancel": "Error confirming cancellation",
+      "errorDisputeCancel": "Error disputing cancellation",
+      "cancelReservationTitle": "Cancel reservation",
+      "cancelReservationBody": "Are you sure you want to cancel this reservation? The travel amount will be refunded, but platform fees will be retained.",
+      "cancelTravelTitle": "Cancel travel",
+      "cancelTravelBody": "Are you sure you want to cancel this travel?",
+      "cancelDemandTitle": "Cancel demand",
+      "cancelDemandBody": "Are you sure you want to cancel this travel demand? This action cannot be undone.",
+      "loadingFavorites": "Loading your favorites...",
+      "noFavorites": "No favorites yet",
+      "reservedSpace": "Reserved space",
+      "requiredWeight": "Required weight",
+      "loadingDemands": "Loading demands...",
+      "loadingTravels": "Loading travels...",
+      "noTravelsFound": "No travels found",
+      "noDemandsFound": "No demands found",
+      "flight": "Flight"
+    },
+    "reviews": {
       "loadingReviews": "Loading reviews...",
       "noReviewsYet": "No reviews yet..",
       "beFirstReview": "Be the first to",
@@ -323,20 +354,8 @@
         "selectRatingError": "Please select a rating",
         "submitError": "Error while submitting review"
       },
-      "loadingDemands": "Loading demands...",
-      "loadingFavorites": "Loading your favorites...",
-      "noFavorites": "No favorites",
-      "selectConversation": "Select a conversation",
-      "chooseInList": "Choose a conversation from the list to start chatting",
-      "loadingProfile": "Loading profile...",
-      "userNotFound": "User not found",
-      "addBio": "Add a bio to introduce yourself to other users",
-      "noBio": "No bio available",
-      "noTravels": "No travels found",
-      "cancelTravelTitle": "Cancel travel announce",
-      "cancelTravelBody": "Are you sure you want to cancel this travel announce? This action cannot be undone.",
-      "cancelDemandTitle": "Cancel travel demand",
-      "cancelDemandBody": "Are you sure you want to cancel this travel demand? This action cannot be undone."
+      "myReceivedReviews": "My received reviews",
+      "myGivenReviews": "My given reviews"
     },
     "payments": {
       "loadingPayments": "Loading payment data...",
@@ -1084,6 +1103,33 @@
         "title": "Security Rules - GoHappyGo",
         "description": "Safety instructions and best practices for exchanges on GoHappyGo."
       }
+    }
+  },
+  "reviews": {
+    "loadingReviews": "Loading reviews...",
+    "noReviewsYet": "No reviews yet..",
+    "beFirstReview": "Be the first to",
+    "shareExperience": "share your experience",
+    "leaveReview": "Leave a review",
+    "reviewFrom": "Review from {{name}}",
+    "reviewFor": "Review for {{name}}",
+    "noCommentProvided": "No comment provided",
+    "reviewsWithCount": "reviews",
+    "myReceivedReviews": "My received reviews",
+    "receivedReviews": "Received reviews",
+    "myGivenReviews": "My given reviews",
+    "givenReviews": "Given reviews",
+    "flight": "Flight",
+    "dialog": {
+      "title": "Congratulations on being a HappyTraveler!",
+      "subtitle": "Share your experience with {{name}}",
+      "rating": "Your rating",
+      "comment": "Your comment (optional)",
+      "commentPlaceholder": "Share your experience...",
+      "submit": "Send review",
+      "submitting": "Sending...",
+      "selectRatingError": "Please select a rating",
+      "submitError": "Error while submitting review"
     }
   }
 }

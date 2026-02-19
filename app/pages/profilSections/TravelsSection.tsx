@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
-import EditAnnounceDialog from '~/components/dialogs/EditAnnounceDialog';
-import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
 import { useAuth } from '~/hooks/useAuth';
-import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
-import { getUserTravels, deleteTravel, type TravelItem } from '~/services/travelService';
 import ActionCard from '~/components/cards/ActionCard';
+import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
+import EditAnnounceDialog from '~/components/dialogs/EditAnnounceDialog';
+import { getUserTravels, deleteTravel, type TravelItem } from '~/services/travelService';
 
-export function TravelsSection() {
-  const { t, i18n } = useTranslation();
+export const TravelsSection = () => {
+  const { t } = useTranslation();
   const [travels, setTravels] = useState<TravelItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingTravel, setEditingTravel] = useState<TravelItem | null>(null);
@@ -62,7 +61,7 @@ export function TravelsSection() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
+    return date.toLocaleDateString(t('languages.fr') === 'French' ? 'en-US' : 'fr-FR', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -79,38 +78,15 @@ export function TravelsSection() {
 
   return (
     <>
-      <div className="flex items-center gap-6 mb-6">
-        <button onClick={() => {}} className={`text-sm font-semibold cursor-pointer text-blue-600`}>
-          | {t('profile.tabs.myAds')}
-        </button>
-      </div>
-
       <div className="bg-white rounded-2xl">
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">| {t('profile.tabs.myTravels')}</h3>
-        </div>
-
         {travels.length === 0 ? (
           <div className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <PaperAirplaneIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg">
-                {isOwnProfile
-                  ? t('profile.messages.noTravels')
-                  : t('profile.messages.noPublicTravels')}
-              </p>
-              <p className="text-gray-400 text-sm mt-2">
-                {isOwnProfile
-                  ? t('profile.messages.publishTravelPrompt')
-                  : t('profile.messages.noPublicTravelsDesc')}
-              </p>
-              <div className="text-center text-gray-500 py-8 flex flex-col items-center">
-                <img
-                  src="/images/noTravelAnnounces.jpeg"
-                  alt="No travel announces"
-                  className="w-[50%] h-[50%]"
-                />
-              </div>
+            <div className="text-center text-gray-500 py-8 flex flex-col items-center">
+              <img
+                src="/images/noTravelAnnounces.jpeg"
+                alt={t('profile.messages.noTravelsFound')}
+                className="w-[50%] h-[50%]"
+              />
             </div>
           </div>
         ) : (
@@ -122,7 +98,7 @@ export function TravelsSection() {
                 // Image Priority: Travel Upload -> Airline Logo -> User Avatar -> Default
                 image={travel.airline?.logoUrl || '/favicon.ico'}
                 title={`${travel?.departureAirport?.name || 'N/A'} → ${travel?.arrivalAirport?.name || 'N/A'}`}
-                subtitle={t('announcements.card.availableSpace')}
+                subtitle={t('profile.messages.reservedSpace')}
                 type={type}
                 weight={travel.weightAvailable || 0}
                 dateLabel={travel.departureDatetime ? formatDate(travel.departureDatetime) : ''}
@@ -133,7 +109,7 @@ export function TravelsSection() {
                 user={
                   !isOwnProfile
                     ? {
-                        name: travel.user?.fullName || t('common.user'),
+                        name: travel.user?.fullName || t('common.userDefault'),
                         avatar: travel.user?.profilePictureUrl || '/favicon.ico',
                       }
                     : undefined
@@ -142,7 +118,7 @@ export function TravelsSection() {
                 primaryAction={
                   isOwnProfile && travel.isEditable
                     ? {
-                        label: t('common.edit'),
+                        label: t('profile.actions.edit'),
                         onClick: () => setEditingTravel(travel),
                         color: 'blue',
                       }
@@ -151,7 +127,7 @@ export function TravelsSection() {
                 secondaryAction={
                   isOwnProfile
                     ? {
-                        label: t('common.cancel'),
+                        label: t('profile.actions.cancel'),
                         onClick: () => {
                           setTravelToCancel(travel);
                           setCancelConfirmOpen(true);
@@ -194,4 +170,4 @@ export function TravelsSection() {
       )}
     </>
   );
-}
+};

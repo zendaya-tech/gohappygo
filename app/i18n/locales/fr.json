@@ -35,7 +35,8 @@
     "failed": "Échoué",
     "user": "Utilisateur",
     "ok": "OK",
-    "error": "Erreur"
+    "error": "Erreur",
+    "userDefault": "Utilisateur"
   },
   "cards": {
     "action": {
@@ -234,6 +235,7 @@
       "travelRequests": "Mes Souhaits de Voyages",
       "travels": "Mes Voyages",
       "favorites": "Mes Favoris",
+      "favoritesWithCount": "Mes Favoris ({{count}})",
       "payments": "Porte-monnaie"
     },
     "stats": {
@@ -277,18 +279,30 @@
       "rate": "Évaluer",
       "rated": "Évalué",
       "message": "Message",
-      "contact": "Contacter",
+      "contact": "Contacter {{name}}",
       "proposeSpace": "Je propose un espace bagage",
-      "findSpace": "Je souhaite trouver un espace bagage"
+      "findSpace": "Je souhaite trouver un espace bagage",
+      "cancel": "Annuler",
+      "edit": "Modifier"
     },
     "messages": {
+      "loadingProfile": "Chargement du profil...",
+      "userNotFound": "Utilisateur non trouvé",
+      "addBio": "Ajoutez une bio pour vous présenter",
+      "noBio": "Aucune bio fournie",
       "loadingReservations": "Chargement de vos réservations...",
+      "loadingPayments": "Chargement des données de paiement...",
+      "fundsReleased": "Fonds libérés avec succès",
+      "releaseError": "Erreur lors de la libération des fonds",
       "noReservations": "Aucune réservation",
       "errorAccept": "Erreur lors de l'acceptation de la demande",
       "errorComplete": "Erreur lors de la finalisation de la demande",
       "noConversations": "Aucune conversation",
       "conversationsDesc": "Vos conversations avec les voyageurs apparaîtront ici",
+      "selectConversation": "Sélectionnez une conversation",
+      "selectConversationDesc": "Choisissez une conversation dans la liste pour commencer à discuter",
       "messagesTitle": "Messages",
+      "messagePlaceholder": "Écrivez un message...",
       "online": "En ligne",
       "offline": "Hors ligne",
       "typing": "En train d'écrire...",
@@ -306,38 +320,21 @@
       "confirmCancel": "Oui, annuler",
       "keep": "Non, garder",
       "impossibleFinish": "Impossible de terminer avant la date de départ du voyage.",
-      "loadingReviews": "Chargement des avis...",
-      "noReviewsYet": "Aucun avis pour le moment..",
-      "beFirstReview": "Soyez le premier à",
-      "shareExperience": "partager votre expérience",
-      "leaveReview": "Laisser un avis",
-      "reviewFrom": "Avis de {{name}}",
-      "reviewFor": "Avis pour {{name}}",
-      "dialog": {
-        "title": "Félicitations d'être un HappyTraveler !",
-        "subtitle": "Partagez votre expérience avec {{name}}",
-        "rating": "Votre note",
-        "comment": "Votre commentaire (optionnel)",
-        "commentPlaceholder": "Partagez votre expérience...",
-        "submit": "Envoyer l'avis",
-        "submitting": "Envoi...",
-        "selectRatingError": "Veuillez sélectionner une note",
-        "submitError": "Erreur lors de la soumission de l'avis"
-      },
-      "loadingDemands": "Chargement des demandes...",
+      "errorConfirmCancel": "Erreur lors de la confirmation de l'annulation",
+      "errorDisputeCancel": "Erreur lors de la contestation de l'annulation",
+      "cancelTravelTitle": "Annuler le voyage",
+      "cancelTravelBody": "Êtes-vous sûr de vouloir annuler ce voyage ?",
+      "cancelDemandTitle": "Annuler la demande",
+      "cancelDemandBody": "Êtes-vous sûr de vouloir annuler cette demande de voyage ? Cette action ne peut pas être annulée.",
       "loadingFavorites": "Chargement de vos favoris...",
-      "noFavorites": "Aucun favori",
-      "selectConversation": "Sélectionnez une conversation",
-      "chooseInList": "Choisissez une conversation dans la liste pour commencer à discuter",
-      "loadingProfile": "Chargement du profil...",
-      "userNotFound": "Utilisateur introuvable",
-      "addBio": "Ajoutez une bio pour vous présenter aux autres utilisateurs",
-      "noBio": "Aucune bio disponible",
-      "noTravels": "Aucun voyage trouvé.",
-      "cancelTravelTitle": "Annuler l'annonce de voyage",
-      "cancelTravelBody": "Êtes-vous sûr de vouloir annuler cette annonce de voyage ? Cette action ne peut pas être annulée.",
-      "cancelDemandTitle": "Annuler la demande de voyage",
-      "cancelDemandBody": "Êtes-vous sûr de vouloir annuler cette demande de voyage ? Cette action ne peut pas être annulée."
+      "noFavorites": "Aucun favori pour le moment",
+      "reservedSpace": "Espace réservé",
+      "requiredWeight": "Poids requis",
+      "loadingDemands": "Chargement des demandes...",
+      "loadingTravels": "Chargement des voyages...",
+      "noTravelsFound": "Aucun voyage trouvé.",
+      "noDemandsFound": "Aucune demande trouvée",
+      "flight": "Vol"
     },
     "payments": {
       "loadingPayments": "Chargement des données de paiement...",
@@ -1089,6 +1086,33 @@
         "title": "Règles de sécurité - GoHappyGo",
         "description": "Consignes et bonnes pratiques de sécurité pour les échanges sur GoHappyGo."
       }
+    }
+  },
+  "reviews": {
+    "loadingReviews": "Chargement des avis...",
+    "noReviewsYet": "Aucun avis pour le moment..",
+    "beFirstReview": "Soyez le premier à",
+    "shareExperience": "partager votre expérience",
+    "leaveReview": "Laisser un avis",
+    "reviewFrom": "Avis de {{name}}",
+    "reviewFor": "Avis pour {{name}}",
+    "noCommentProvided": "Aucun commentaire fourni",
+    "reviewsWithCount": "avis",
+    "myReceivedReviews": "Mes avis reçus",
+    "receivedReviews": "Avis reçus",
+    "myGivenReviews": "Mes avis donnés",
+    "givenReviews": "Avis donnés",
+    "flight": "Vol",
+    "dialog": {
+      "title": "Félicitations d'être un HappyTraveler !",
+      "subtitle": "Partagez votre expérience avec {{name}}",
+      "rating": "Votre note",
+      "comment": "Votre commentaire (optionnel)",
+      "commentPlaceholder": "Partagez votre expérience...",
+      "submit": "Envoyer l'avis",
+      "submitting": "Envoi...",
+      "selectRatingError": "Veuillez sélectionner une note",
+      "submitError": "Erreur lors de la soumission de l'avis"
     }
   }
 }

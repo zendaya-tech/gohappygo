@@ -250,7 +250,7 @@ export default function ConversationList({
                   {conversation.travel.departureAirport?.name} →{' '}
                   {conversation.travel.arrivalAirport?.name}
                   {conversation.travel.flightNumber &&
-                    ` • ${t('announcements.filters.flight')} ${conversation.travel.flightNumber}`}
+                    ` • ${t('profile.messages.flight')} ${conversation.travel.flightNumber}`}
                 </p>
 
                 {/* Last message */}

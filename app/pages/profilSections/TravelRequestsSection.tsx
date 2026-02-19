@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
-import EditPackageDialog from '~/components/dialogs/EditPackageDialog';
-import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
 import { useAuth } from '~/hooks/useAuth';
-import { getUserDemands, deleteDemand, type DemandItem } from '~/services/demandService';
 import ActionCard from '~/components/cards/ActionCard';
+import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
+import { getUserDemands, type DemandItem } from '~/services/demandService';
+import { deleteDemand } from '~/services/announceService';
 
-export function TravelRequestsSection() {
-  const { t, i18n } = useTranslation();
+export const TravelRequestsSection = () => {
+  const { t } = useTranslation();
   const [demands, setDemands] = useState<DemandItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingDemand, setEditingDemand] = useState<DemandItem | null>(null);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
   const [demandToCancel, setDemandToCancel] = useState<DemandItem | null>(null);
   const { user: currentUser } = useAuth();
@@ -23,7 +22,10 @@ export function TravelRequestsSection() {
   const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
   const fetchDemands = async () => {
-    if (!targetUserId) return;
+    if (!targetUserId) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await getUserDemands(Number(targetUserId));
@@ -47,19 +49,15 @@ export function TravelRequestsSection() {
       // Refresh the list
       await fetchDemands();
       setDemandToCancel(null);
+      setCancelConfirmOpen(true);
     } catch (error) {
       console.error('Error canceling demand:', error);
     }
   };
 
-  const handleEditSuccess = () => {
-    setEditingDemand(null);
-    fetchDemands(); // Refresh the list
-  };
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
+    return date.toLocaleDateString(t('languages.fr') === 'French' ? 'en-US' : 'fr-FR', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -81,8 +79,8 @@ export function TravelRequestsSection() {
           <div className="flex items-center justify-center h-64">
             <div className="text-center text-gray-500 py-8 flex flex-col items-center">
               <img
-                src="/images/noTravelDemandes.jpeg"
-                alt="No demands"
+                src="/images/noTravelDemands.jpeg"
+                alt={t('profile.messages.noDemandsFound')}
                 className="w-[50%] h-[50%]"
               />
             </div>
@@ -92,37 +90,46 @@ export function TravelRequestsSection() {
             {demands.map((demand) => (
               <ActionCard
                 key={demand.id}
-                id={demand.id.toString()}
+                id={demand.id}
+                // Use user avatar if viewing someone else's profile, else default demand image
                 image={
-                  demand.images?.[0]?.fileUrl || demand.user?.profilePictureUrl || '/favicon.ico'
+                  !isOwnProfile
+                    ? demand.user?.profilePictureUrl || '/favicon.ico'
+                    : '/images/demand-placeholder.png'
                 }
                 title={`${demand.departureAirport?.name || 'N/A'} → ${demand.arrivalAirport?.name || 'N/A'}`}
-                subtitle={t('announcements.card.requestedSpace')}
-                dateLabel={
-                  demand.travelDate
-                    ? formatDate(demand.travelDate)
-                    : demand.deliveryDate
-                      ? formatDate(demand.deliveryDate)
-                      : '—'
-                }
-                flightNumber={demand.flightNumber}
-                weight={demand.weight || 0}
-                price={demand.pricePerKg}
+                subtitle={t('profile.messages.requiredWeight')}
                 type="traveler"
+                weight={demand.weight || 0}
+                dateLabel={demand.deliveryDate ? formatDate(demand.deliveryDate) : ''}
+                price={demand.pricePerKg}
                 priceSubtext={`${demand.currency?.symbol || '€'}/Kg`}
-                // Buttons for Demands
+                flightNumber={demand.flightNumber || 'N/A'}
+                // Optional: Include user info if viewing someone else's profile
+                user={
+                  !isOwnProfile
+                    ? {
+                        name: demand.user?.fullName || t('common.userDefault'),
+                        avatar: demand.user?.profilePictureUrl || '/favicon.ico',
+                      }
+                    : undefined
+                }
+                // Actions for your own demands
                 primaryAction={
                   isOwnProfile
                     ? {
-                        label: t('common.edit'),
-                        onClick: () => setEditingDemand(demand),
+                        label: t('profile.actions.edit'),
+                        onClick: () => {
+                          /* handle edit */
+                        },
+                        color: 'blue',
                       }
                     : undefined
                 }
                 secondaryAction={
                   isOwnProfile
                     ? {
-                        label: t('common.cancel'),
+                        label: t('profile.actions.cancel'),
                         onClick: () => {
                           setDemandToCancel(demand);
                           setCancelConfirmOpen(true);
@@ -137,32 +144,20 @@ export function TravelRequestsSection() {
         )}
       </div>
 
-      {/* Edit Package Dialog - Only show for own profile */}
-      {isOwnProfile && editingDemand && (
-        <EditPackageDialog
-          open={!!editingDemand}
-          onClose={() => setEditingDemand(null)}
-          demand={editingDemand as any} // Type conversion for compatibility
-          onSuccess={handleEditSuccess}
-        />
-      )}
-
-      {/* Cancel Confirmation Dialog - Only show for own profile */}
-      {isOwnProfile && (
-        <ConfirmCancelDialog
-          open={cancelConfirmOpen}
-          onClose={() => {
-            setCancelConfirmOpen(false);
-            setDemandToCancel(null);
-          }}
-          onConfirm={handleCancelDemand}
-          title={t('profile.messages.cancelDemandTitle')}
-          message={t('profile.messages.cancelDemandBody')}
-          confirmText={t('profile.messages.confirmCancel')}
-          cancelText={t('profile.messages.keep')}
-          type="danger"
-        />
-      )}
+      {/* Cancel Confirmation Dialog */}
+      <ConfirmCancelDialog
+        open={cancelConfirmOpen}
+        onClose={() => {
+          setCancelConfirmOpen(false);
+          setDemandToCancel(null);
+        }}
+        onConfirm={handleCancelDemand}
+        title={t('profile.messages.cancelDemandTitle')}
+        message={t('profile.messages.cancelDemandBody')}
+        confirmText={t('profile.messages.confirmCancel')}
+        cancelText={t('profile.messages.keep')}
+        type="danger"
+      />
     </>
   );
-}
+};

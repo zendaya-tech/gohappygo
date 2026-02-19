@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
-import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
-import MessageDialog from '~/components/dialogs/MessageDialog';
-import ReviewDialog from '~/components/dialogs/ReviewDialog';
 import { useAuth } from '~/hooks/useAuth';
+import ActionCard from '~/components/cards/ActionCard';
+import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
+import ReviewDialog from '~/components/dialogs/ReviewDialog';
+import MessageDialog from '~/components/dialogs/MessageDialog';
 import {
   getRequests,
   acceptRequest,
   completeRequest,
   cancelRequest,
+  confirmCancellation,
+  disputeCancellation,
   type RequestResponse,
 } from '~/services/requestService';
-import ActionCard from '~/components/cards/ActionCard';
 
-export function ReservationsSection({
+export const ReservationsSection = ({
   onNavigateToMessages,
 }: {
   onNavigateToMessages?: (requestId: number) => void;
-}) {
-  const { t, i18n } = useTranslation();
+}) => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<'pending' | 'accepted' | 'completed' | 'cancelled'>('pending');
   const [requests, setRequests] = useState<RequestResponse[]>([]);
   const [loading, setLoading] = useState(true);
@@ -98,6 +100,28 @@ export function ReservationsSection({
     }
   };
 
+  const handleConfirmCancellation = async (requestId: number) => {
+    try {
+      await confirmCancellation(requestId);
+      const response = await getRequests();
+      setRequests(response.items || []);
+    } catch (error) {
+      console.error('Error confirming cancellation:', error);
+      setErrorMessage(t('profile.messages.errorConfirmCancel'));
+    }
+  };
+
+  const handleDisputeCancellation = async (requestId: number) => {
+    try {
+      await disputeCancellation(requestId);
+      const response = await getRequests();
+      setRequests(response.items || []);
+    } catch (error) {
+      console.error('Error disputing cancellation:', error);
+      setErrorMessage(t('profile.messages.errorDisputeCancel'));
+    }
+  };
+
   const handleContactRequester = (
     requesterName: string,
     requesterAvatar: string,
@@ -129,7 +153,9 @@ export function ReservationsSection({
     const isCurrentUserRequester = requester?.id.toString() === currentUser?.id;
     const reviewee = isCurrentUserRequester ? travelOwner : requester;
 
-    return reviewee ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.` : t('common.user');
+    return reviewee
+      ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.`
+      : t('common.userDefault');
   };
 
   const handleReviewSuccess = () => {
@@ -147,17 +173,27 @@ export function ReservationsSection({
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(i18n.language, {
+    return date.toLocaleDateString(t('languages.fr') === 'French' ? 'en-US' : 'fr-FR', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
     });
   };
 
+  const formatDisplayName = (fullName?: string) => {
+    if (!fullName?.trim()) return t('common.userDefault');
+
+    return fullName
+      .trim()
+      .split(/\s+/)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+      .join(' ');
+  };
+
   const filtered = requests.filter((r) => {
     const status = r.currentStatus?.status?.toUpperCase();
     if (tab === 'pending') return status === 'NEGOTIATING' || status === 'PENDING';
-    if (tab === 'accepted') return status === 'ACCEPTED';
+    if (tab === 'accepted') return status === 'ACCEPTED' || status === 'PENDING_CANCELLATION';
     if (tab === 'completed') return status === 'COMPLETED';
     if (tab === 'cancelled') return status === 'CANCELLED';
     return false;
@@ -176,19 +212,25 @@ export function ReservationsSection({
       <div className="flex items-center gap-6 mb-6">
         <button
           onClick={() => setTab('pending')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'pending' ? 'text-blue-600' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'pending' ? 'text-blue-600' : 'text-gray-500'
+          }`}
         >
           | {t('profile.tabs.reservationsToConfirm')}
         </button>
         <button
           onClick={() => setTab('accepted')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'accepted' ? 'text-blue-600' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'accepted' ? 'text-blue-600' : 'text-gray-500'
+          }`}
         >
           | {t('profile.tabs.reservationsPendingDelivery')}
         </button>
         <button
           onClick={() => setTab('completed')}
-          className={`text-sm font-semibold cursor-pointer ${tab === 'completed' ? 'text-blue-600' : 'text-gray-500'}`}
+          className={`text-sm font-semibold cursor-pointer ${
+            tab === 'completed' ? 'text-blue-600' : 'text-gray-500'
+          }`}
         >
           | {t('profile.tabs.reservationsCompleted')}
         </button>
@@ -198,7 +240,7 @@ export function ReservationsSection({
         <div className="text-center text-gray-500 py-8 flex flex-col items-center">
           <img
             src="/images/noReservations.jpeg"
-            alt="No reservations"
+            alt={t('profile.messages.noReservations')}
             className="w-[50%] h-[50%]"
           />
         </div>
@@ -214,8 +256,8 @@ export function ReservationsSection({
             const displayUser = isCurrentUserRequester ? travelOwner : requester;
 
             // Data Preparation
-            const departureCity = travel?.departureAirport?.name || '...';
-            const arrivalCity = travel?.arrivalAirport?.name || '...';
+            const departureCity = travel?.departureAirport?.name || '';
+            const arrivalCity = travel?.arrivalAirport?.name || '';
             const travelDate = travel?.departureDatetime
               ? formatDate(travel.departureDatetime)
               : '';
@@ -232,9 +274,7 @@ export function ReservationsSection({
             // Get currency symbol from request
             const currencySymbol = request.currency?.symbol || travel?.currency?.symbol || '€';
 
-            const displayUserName = displayUser
-              ? `${displayUser.firstName} ${displayUser.lastName.charAt(0)}.`
-              : t('common.user');
+            const displayUserName = formatDisplayName(displayUser?.fullName);
 
             const displayUserAvatar = (displayUser as any)?.profilePictureUrl || '/favicon.ico';
 
@@ -248,7 +288,7 @@ export function ReservationsSection({
                 }}
                 image={request.travel?.airline?.logoUrl}
                 title={`${departureCity} → ${arrivalCity}`}
-                subtitle={t('announcements.card.requestedSpace')}
+                subtitle={t('profile.messages.reservedSpace')}
                 dateLabel={travelDate}
                 flightNumber={flightNumber}
                 weight={weight}
@@ -259,7 +299,7 @@ export function ReservationsSection({
                 // Logic for Status Badges vs Buttons
                 statusBadge={
                   request.currentStatus?.status === 'COMPLETED'
-                    ? t('profile.actions.finish')
+                    ? t('common.completed')
                     : request.currentStatus?.status === 'CANCELLED'
                       ? t('common.cancel')
                       : undefined
@@ -300,7 +340,20 @@ export function ReservationsSection({
                             color: 'green' as const,
                           };
                         })()
-                      : undefined
+                      : request.currentStatus?.status === 'PENDING_CANCELLATION'
+                        ? requester?.id.toString() === currentUser?.id
+                          ? {
+                              label: t('profile.actions.finish'),
+                              onClick: () => {},
+                              color: 'green' as const,
+                              disabled: true,
+                            }
+                          : {
+                              label: t('profile.actions.approve'),
+                              onClick: () => handleConfirmCancellation(request.id),
+                              color: 'green' as const,
+                            }
+                        : undefined
                 }
                 secondaryAction={
                   request.currentStatus?.status === 'NEGOTIATING' &&
@@ -316,7 +369,7 @@ export function ReservationsSection({
                     : request.currentStatus?.status === 'NEGOTIATING' &&
                         requester?.id.toString() === currentUser?.id
                       ? {
-                          label: t('common.cancel'),
+                          label: t('profile.actions.cancel'),
                           onClick: () => {
                             setRequestToCancel(request);
                             setCancelConfirmOpen(true);
@@ -325,14 +378,27 @@ export function ReservationsSection({
                         }
                       : request.currentStatus?.status === 'ACCEPTED'
                         ? {
-                            label: t('common.cancel'),
+                            label: t('profile.actions.cancel'),
                             onClick: () => {
                               setRequestToCancel(request);
                               setCancelConfirmOpen(true);
                             },
                             color: 'red',
                           }
-                        : undefined
+                        : request.currentStatus?.status === 'PENDING_CANCELLATION'
+                          ? requester?.id.toString() === currentUser?.id
+                            ? {
+                                label: t('profile.actions.cancel'),
+                                onClick: () => {},
+                                color: 'outline',
+                                disabled: true,
+                              }
+                            : {
+                                label: t('common.clear'), // or 'Contester' -> dispute?
+                                onClick: () => handleDisputeCancellation(request.id),
+                                color: 'red',
+                              }
+                          : undefined
                 }
                 tertiaryAction={
                   request.currentStatus?.status === 'COMPLETED' && request.canReview
@@ -426,4 +492,4 @@ export function ReservationsSection({
       )}
     </div>
   );
-}
+};
