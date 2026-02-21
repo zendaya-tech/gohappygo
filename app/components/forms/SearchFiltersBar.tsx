@@ -196,12 +196,12 @@ function SearchFiltersBar(
             onClick={handleSearch}
             disabled={isLoading}
             className={`
-              relative bg-blue-600 border-4 md:border-8 border-white text-white p-3 md:p-3 rounded-full
+              relative bg-gray-100 border-4 md:border-8 border-white text-white rounded-full
               transition-all duration-300 ease-in-out transform cursor-pointer
               ${
                 isLoading
                   ? 'bg-blue-500 scale-95 cursor-not-allowed'
-                  : 'hover:bg-blue-700 hover:scale-110 active:scale-95'
+                  : 'hover:scale-110 active:scale-95'
               }
               ${isLoading ? 'animate-pulse' : 'hover:shadow-lg'}
               shadow-xl
@@ -232,9 +232,11 @@ function SearchFiltersBar(
                 </svg>
               </div>
             ) : (
-              <span className="text-xl md:text-2xl font-bold transition-transform duration-200">
-                GO
-              </span>
+              <img
+                src="/images/searchFilterGoButton.png"
+                className="w-13 h-13 object-cover"
+                alt="go button"
+              />
             )}
 
             {/* Ripple effect */}
