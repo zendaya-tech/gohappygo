@@ -109,7 +109,7 @@ export default function TravelCard({
         {departure && (
           <div className="flex items-center justify-between">
             <span className="font-semibold text-gray-900">
-              {price} €{t('cards.action.perKg')}
+              {t('cards.common.currencyPerKg', { symbol: `${price} €` })}
             </span>
             <div className="flex items-center space-x-1">
               <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">

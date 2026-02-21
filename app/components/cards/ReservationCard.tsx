@@ -26,9 +26,9 @@ export default function ReservationCard({
   onReject?: (id: string) => void;
   onContact?: (id: string) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const route = `${reservation.originCity} → ${reservation.destinationCity}`;
-  const date = new Date(reservation.travelDate).toLocaleDateString('fr-FR', {
+  const date = new Date(reservation.travelDate).toLocaleDateString(i18n.language, {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
@@ -55,10 +55,10 @@ export default function ReservationCard({
 
         <div className="mt-3 flex items-center gap-3">
           <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-blue-50 text-blue-700 text-sm">
-            {reservation.weightKg.toString().padStart(2, '0')} Kg
+            {reservation.weightKg.toString().padStart(2, '0')} {t('cards.common.kg')}
           </span>
           <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-gray-100 text-gray-800 text-sm">
-            {reservation.priceEuro} €
+            {t('cards.common.currency', { amount: reservation.priceEuro, symbol: '€' })}
           </span>
         </div>
 

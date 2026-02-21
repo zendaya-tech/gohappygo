@@ -202,7 +202,7 @@ export default function AnnounceCard({
             {type === 'transporter'
               ? t('cards.announce.availableSpace')
               : t('cards.announce.requestedSpace')}
-            : {weight ?? '0 kg'}
+            : {weight ? `${weight} ${t('cards.common.kg')}` : `0 ${t('cards.common.kg')}`}
           </p>
         }
         {departure && (
@@ -219,7 +219,7 @@ export default function AnnounceCard({
         {departure && (
           <div className="flex items-center justify-between">
             <span className="font-semibold text-gray-900">
-              {price} {currencySymbol}/kg
+              {t('cards.common.currencyPerKg', { symbol: `${price} ${currencySymbol}` })}
             </span>
             <div className="flex items-center space-x-1">
               {Number(rating) > 0 ? (

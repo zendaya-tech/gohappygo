@@ -21,9 +21,9 @@ export default function ProfileTravelCard({
   onEdit?: (id: string) => void;
   onDelete?: (id: string) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const route = `${travel.originCity} → ${travel.destinationCity}`;
-  const date = new Date(travel.travelDate).toLocaleDateString('fr-FR', {
+  const date = new Date(travel.travelDate).toLocaleDateString(i18n.language, {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
@@ -53,12 +53,12 @@ export default function ProfileTravelCard({
           <div className="mt-3 flex items-center gap-3">
             {typeof travel.availableWeightKg === 'number' && (
               <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-blue-50 text-blue-700 text-sm">
-                {travel.availableWeightKg} Kg
+                {travel.availableWeightKg} {t('cards.common.kg')}
               </span>
             )}
             {typeof travel.pricePerKg === 'number' && (
               <span className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-gray-100 text-gray-800 text-sm">
-                {travel.pricePerKg} €/Kg
+                {t('cards.common.currencyPerKg', { symbol: '€' })}
               </span>
             )}
           </div>

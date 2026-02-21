@@ -39,6 +39,11 @@
     "userDefault": "Utilisateur"
   },
   "cards": {
+    "common": {
+      "kg": "Kg",
+      "currency": "{{amount}} {{symbol}}",
+      "currencyPerKg": "{{symbol}}/Kg"
+    },
     "action": {
       "travel": "Voyage",
       "demand": "Demande",
