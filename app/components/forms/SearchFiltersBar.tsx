@@ -171,7 +171,7 @@ function SearchFiltersBar(
               console.log(e.target.value);
               emit({ date: e.target.value });
             }}
-            className="w-full text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300 rounded-lg  px-3 py-2 outline-none truncate focus:border-blue-500 md:focus:border-none transition-colors cursor-pointer"
+            className="w-full text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300 rounded-lg  px-3 py-2 outline-none truncate focus:border-blue-500 transition-colors cursor-pointer"
           />
         </div>
 
@@ -186,7 +186,7 @@ function SearchFiltersBar(
               emit({ flight: e.target.value });
             }}
             placeholder="N° de vol"
-            className="w-full uppercase text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300  rounded-lg  px-3 py-2   outline-none truncate focus:border-blue-500 md:focus:border-none transition-colors"
+            className="w-full uppercase text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300  rounded-lg  px-3 py-2   outline-none truncate focus:border-blue-500 transition-colors"
           />
         </div>
 
@@ -234,7 +234,7 @@ function SearchFiltersBar(
             ) : (
               <img
                 src="/images/searchFilterGoButton.png"
-                className="w-13 h-13 object-cover"
+                className="w-15 h-15 object-cover"
                 alt="go button"
               />
             )}
