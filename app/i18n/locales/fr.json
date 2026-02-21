@@ -84,7 +84,7 @@
   "home": {
     "hero": {
       "title": "Emportez autant de bagages que vous le désirez avec GoHappyGo lors de votre voyage",
-      "subtitle": "Faites enregistrer vos excédents de bagages par d'autres voyageurs effectuant le même vol que vous, pour la même destination",
+      "subtitle": "Faites enregistrer vos excédents de bagages par d'autres voyageurs sur le même vol que vous, pour la même destination",
       "searchFrom": "Départ",
       "searchTo": "Arrivée",
       "searchDate": "Date",
@@ -416,7 +416,43 @@
       "confirmPassword": "Confirmer le mot de passe",
       "register": "S'inscrire",
       "hasAccount": "Vous avez déjà un compte ?",
-      "login": "Se connecter"
+      "login": "Se connecter",
+      "validation": {
+        "minLength": "Le mot de passe doit contenir au moins 8 caractères",
+        "uppercase": "Au moins une lettre majuscule",
+        "lowercase": "Au moins une lettre minuscule",
+        "number": "Au moins un chiffre",
+        "special": "Au moins un caractère spécial",
+        "notMatch": "Les mots de passe ne correspondent pas",
+        "incompleteCode": "Veuillez saisir le code de vérification complet"
+      },
+      "subtitle": "Inscrivez-vous et profitez de toutes les possibilités",
+      "verificationTitle": "Vérification",
+      "verificationSubtitle": "Saisissez le code de vérification",
+      "verificationPlaceholder": "Saisissez le code envoyé à votre email",
+      "verificationCodeSent": "Un code de vérification à 6 chiffres a été envoyé à {{email}}.",
+      "resendCode": "Renvoyer le code",
+      "next": "Suivant",
+      "submit": "Soumettre",
+      "submitting": "En cours…",
+      "back": "Retour",
+      "phoneLabel": "Numéro de téléphone",
+      "phonePlaceholder": "Numéro de téléphone",
+      "phoneHelper": "Le code pays est automatiquement défini selon votre pays de résidence",
+      "countryLabel": "Pays de résidence",
+      "countryPlaceholder": "Sélectionnez votre pays",
+      "firstNameHelper": "(Uniquement votre prénom apparaît sur la plateforme)",
+      "termsPrefix": "En vous inscrivant, vous acceptez la",
+      "privacyPolicy": "Politique de confidentialité",
+      "termsAnd": "et les",
+      "termsOfUse": "Conditions d'utilisation",
+      "orContinueWith": "Ou continuer avec",
+      "countryRequired": "Veuillez sélectionner votre pays de résidence",
+      "error": {
+        "registrationFailed": "Échec de l'inscription. Veuillez réessayer.",
+        "invalidCode": "Code de vérification invalide. Veuillez réessayer.",
+        "resendCodeFailed": "Échec du renvoi du code de vérification. Veuillez réessayer."
+      }
     }
   },
   "requests": {

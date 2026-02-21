@@ -437,7 +437,43 @@
       "confirmPassword": "Confirm password",
       "register": "Register",
       "hasAccount": "Already have an account?",
-      "login": "Login"
+      "login": "Login",
+      "orContinueWith": "Or continue with",
+      "countryRequired": "Please select your country of residence",
+      "error": {
+        "registrationFailed": "Registration failed. Please try again.",
+        "invalidCode": "Invalid verification code. Please try again.",
+        "resendCodeFailed": "Failed to resend verification code. Please try again."
+      },
+      "validation": {
+        "minLength": "Password must be at least 8 characters long",
+        "uppercase": "At least one uppercase letter",
+        "lowercase": "At least one lowercase letter",
+        "number": "At least one number",
+        "special": "At least one special character",
+        "notMatch": "Passwords do not match",
+        "incompleteCode": "Please enter the complete verification code"
+      },
+      "subtitle": "Join us and enjoy all the possibilities",
+      "verificationTitle": "Verification",
+      "verificationSubtitle": "Enter the verification code",
+      "verificationPlaceholder": "Enter the code sent to your email",
+      "verificationCodeSent": "A 6-digit verification code has been sent to {{email}}.",
+      "resendCode": "Resend the code",
+      "next": "Next",
+      "submit": "Submit",
+      "submitting": "In progress...",
+      "back": "Back",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "Phone number",
+      "phoneHelper": "The country code is automatically set according to your country of residence",
+      "countryLabel": "Country of residence",
+      "countryPlaceholder": "Select your country",
+      "firstNameHelper": "(Only your first name appears on the platform)",
+      "termsPrefix": "By registering, you accept the",
+      "privacyPolicy": "Privacy Policy",
+      "termsAnd": "and the",
+      "termsOfUse": "Terms of Use"
     }
   },
   "requests": {

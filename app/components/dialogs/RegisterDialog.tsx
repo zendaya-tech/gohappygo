@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '~/hooks/useAuth';
 import CountryComboBox, {
   type Country,
@@ -17,6 +18,7 @@ export default function RegisterDialog({
   onClose: () => void;
   onSwitchToLogin: () => void;
 }) {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
   const [form, setForm] = useState({
@@ -40,6 +42,7 @@ export default function RegisterDialog({
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
   const handleCountryChange = (country: Country | null) => {
     setSelectedCountry(country);
     // Reset phone number when country changes
@@ -78,12 +81,26 @@ export default function RegisterDialog({
     e.preventDefault();
 
     if (step === 1) {
+      const passwordValidation = {
+        minLength: form.password.length >= 8,
+        hasUpper: /[A-Z]/.test(form.password),
+        hasLower: /[a-z]/.test(form.password),
+        hasNumber: /[0-9]/.test(form.password),
+        hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(form.password),
+      };
+
+      if (!Object.values(passwordValidation).every(Boolean)) {
+        setError(t('dialogs.register.validation.minLength')); // Or more specific error
+        setShowPasswordRequirements(true);
+        return;
+      }
+
       if (form.password !== form.confirmPassword) {
-        setError('Les mots de passe ne correspondent pas');
+        setError(t('dialogs.register.validation.notMatch'));
         return;
       }
       if (!selectedCountry) {
-        setError('Veuillez sélectionner votre pays de résidence');
+        setError(t('dialogs.register.countryRequired'));
         return;
       }
       setSubmitting(true);
@@ -102,7 +119,7 @@ export default function RegisterDialog({
         setMessage(res.message);
         setStep(2);
       } catch (err: any) {
-        setError(err.response?.data?.message || "Échec de l'inscription. Réessayez.");
+        setError(err.response?.data?.message || t('dialogs.register.error.registrationFailed'));
       } finally {
         setSubmitting(false);
       }
@@ -112,7 +129,7 @@ export default function RegisterDialog({
     if (step === 2) {
       const verification = code.join('');
       if (verification.length !== 6) {
-        setError('Veuillez saisir le code de vérification complet');
+        setError(t('dialogs.register.validation.incompleteCode'));
         return;
       }
       setSubmitting(true);
@@ -132,7 +149,7 @@ export default function RegisterDialog({
           }, 1500);
         }
       } catch (err: any) {
-        setError(err.message || 'Code de vérification invalide. Réessayez.');
+        setError(err.message || t('dialogs.register.error.invalidCode'));
       } finally {
         setSubmitting(false);
       }
@@ -149,7 +166,7 @@ export default function RegisterDialog({
       const res = await resendEmailVerification(form.email);
       setMessage(res.message);
     } catch (err: any) {
-      setError(err.message || 'Échec de renvoi du code de vérification. Réessayez.');
+      setError(err.message || t('dialogs.register.error.resendCodeFailed'));
     }
     return;
   };
@@ -165,12 +182,12 @@ export default function RegisterDialog({
           <div className="w-full md:w-2/3 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[90vh]">
             <div className="mb-4">
               <h1 className="text-xl sm font-bold text-gray-900 mb-2">
-                {step === 1 ? 'Inscription' : 'Vérification'}
+                {step === 1 ? t('dialogs.register.title') : t('dialogs.register.verificationTitle')}
               </h1>
               <p className="text-sm sm text-gray-600">
                 {step === 1
-                  ? 'et profitez de toutes les possibilités'
-                  : 'Saisissez le code de vérification'}
+                  ? t('dialogs.register.subtitle')
+                  : t('dialogs.register.verificationSubtitle')}
               </p>
             </div>
 
@@ -185,19 +202,19 @@ export default function RegisterDialog({
                       htmlFor="firstName"
                       className="mb-2 block text-sm font-semibold text-gray-900"
                     >
-                      Prénom
+                      {t('dialogs.register.firstName')}
                     </label>
                     <input
                       type="text"
                       id="firstName"
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder="Saisissez votre prénom tel que sur la pièce d'identité"
+                      placeholder={t('dialogs.register.firstName')}
                       required
                       value={form.firstName}
                       onChange={(e) => setForm((p) => ({ ...p, firstName: e.target.value }))}
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      (Uniquement votre prénom apparaît sur la plateforme)
+                      {t('dialogs.register.firstNameHelper')}
                     </p>
                   </div>
                   <div>
@@ -205,13 +222,13 @@ export default function RegisterDialog({
                       htmlFor="lastName"
                       className="mb-2 block text-sm font-semibold text-gray-900"
                     >
-                      Nom de famille
+                      {t('dialogs.register.lastName')}
                     </label>
                     <input
                       type="text"
                       id="lastName"
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder="Saisissez votre nom tel que sur la pièce d'identité"
+                      placeholder={t('dialogs.register.lastName')}
                       required
                       value={form.lastName}
                       onChange={(e) => setForm((p) => ({ ...p, lastName: e.target.value }))}
@@ -220,16 +237,16 @@ export default function RegisterDialog({
 
                   <div>
                     <CountryComboBox
-                      label="Pays de résidence"
+                      label={t('dialogs.register.countryLabel')}
                       selectedCountry={selectedCountry}
                       onChange={handleCountryChange}
-                      placeholder="Sélectionnez votre pays"
+                      placeholder={t('dialogs.register.countryPlaceholder')}
                     />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-gray-900">
-                      Numéro de téléphone
+                      {t('dialogs.register.phoneLabel')}
                     </label>
                     <PhoneInput
                       key={selectedCountry?.code || 'default'} // Force re-render when country changes
@@ -242,14 +259,14 @@ export default function RegisterDialog({
                           'border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus pointer-events-none opacity-75',
                       }}
                       inputProps={{
-                        placeholder: 'Numéro de téléphone',
+                        placeholder: t('dialogs.register.phonePlaceholder'),
                         required: true,
                       }}
                       disableCountryGuess
                       forceDialCode
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      Le code pays est automatiquement défini selon votre pays de résidence
+                      {t('dialogs.register.phoneHelper')}
                     </p>
                   </div>
                   <div>
@@ -257,35 +274,83 @@ export default function RegisterDialog({
                       htmlFor="email"
                       className="mb-2 block text-sm font-semibold text-gray-900"
                     >
-                      Adresse email
+                      {t('dialogs.register.email')}
                     </label>
                     <input
                       type="email"
                       id="email"
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder="Votre email"
+                      placeholder={t('dialogs.register.email')}
                       required
                       value={form.email}
                       onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                     />
                   </div>
-
                   <div>
                     <label
                       htmlFor="password"
                       className="mb-2 block text-sm font-semibold text-gray-900"
                     >
-                      Mot de passe
+                      {t('dialogs.register.password')}
                     </label>
                     <input
                       type="password"
                       id="password"
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder="Votre mot de passe"
+                      placeholder={t('dialogs.register.password')}
                       required
                       value={form.password}
+                      onFocus={() => setShowPasswordRequirements(true)}
                       onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
                     />
+                    {showPasswordRequirements && (
+                      <div className="mt-2 space-y-1">
+                        <p
+                          className={`text-xs flex items-center ${
+                            form.password.length >= 8 ? 'text-green-600' : 'text-gray-500'
+                          }`}
+                        >
+                          <span className="mr-1">{form.password.length >= 8 ? '✓' : '○'}</span>
+                          {t('dialogs.register.validation.minLength')}
+                        </p>
+                        <p
+                          className={`text-xs flex items-center ${
+                            /[A-Z]/.test(form.password) ? 'text-green-600' : 'text-gray-500'
+                          }`}
+                        >
+                          <span className="mr-1">{/[A-Z]/.test(form.password) ? '✓' : '○'}</span>
+                          {t('dialogs.register.validation.uppercase')}
+                        </p>
+                        <p
+                          className={`text-xs flex items-center ${
+                            /[a-z]/.test(form.password) ? 'text-green-600' : 'text-gray-500'
+                          }`}
+                        >
+                          <span className="mr-1">{/[a-z]/.test(form.password) ? '✓' : '○'}</span>
+                          {t('dialogs.register.validation.lowercase')}
+                        </p>
+                        <p
+                          className={`text-xs flex items-center ${
+                            /[0-9]/.test(form.password) ? 'text-green-600' : 'text-gray-500'
+                          }`}
+                        >
+                          <span className="mr-1">{/[0-9]/.test(form.password) ? '✓' : '○'}</span>
+                          {t('dialogs.register.validation.number')}
+                        </p>
+                        <p
+                          className={`text-xs flex items-center ${
+                            /[!@#$%^&*(),.?":{}|<>]/.test(form.password)
+                              ? 'text-green-600'
+                              : 'text-gray-500'
+                          }`}
+                        >
+                          <span className="mr-1">
+                            {/[!@#$%^&*(),.?":{}|<>]/.test(form.password) ? '✓' : '○'}
+                          </span>
+                          {t('dialogs.register.validation.special')}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -293,13 +358,13 @@ export default function RegisterDialog({
                       htmlFor="confirmPassword"
                       className="mb-2 block text-sm font-semibold text-gray-900"
                     >
-                      Confirmer le mot de passe
+                      {t('dialogs.register.confirmPassword')}
                     </label>
                     <input
                       type="password"
                       id="confirmPassword"
                       className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder="Confirmez votre mot de passe"
+                      placeholder={t('dialogs.register.confirmPassword')}
                       required
                       value={form.confirmPassword}
                       onChange={(e) =>
@@ -319,13 +384,13 @@ export default function RegisterDialog({
                       required
                     />
                     <label htmlFor="terms" className="ml-2 text-xs sm text-gray-600">
-                      En vous inscrivant, vous acceptez la{' '}
+                      {t('dialogs.register.termsPrefix')}{' '}
                       <Link to="/privacy" className="text-green-600 hover underline">
-                        Politique de confidentialité
+                        {t('dialogs.register.privacyPolicy')}
                       </Link>{' '}
-                      et les{' '}
+                      {t('dialogs.register.termsAnd')}{' '}
                       <Link to="/terms" className="text-green-600 hover underline">
-                        Conditions d'utilisation
+                        {t('dialogs.register.termsOfUse')}
                       </Link>
                       .
                     </label>
@@ -334,8 +399,7 @@ export default function RegisterDialog({
               ) : (
                 <>
                   <p className="text-xs sm text-gray-600">
-                    Un code de vérification à 6 chiffres a été envoyé à{' '}
-                    <span className="font-medium break-all">{form.email}</span>.
+                    {t('dialogs.register.verificationCodeSent', { email: form.email })}
                   </p>
                   <div
                     className="flex justify-between gap-1.5 sm:gap-2"
@@ -377,7 +441,7 @@ export default function RegisterDialog({
                     className="text-xs sm text-green-600 hover cursor-pointer"
                     onClick={onResendEmailVerification}
                   >
-                    Renvoyer le code
+                    {t('dialogs.register.resendCode')}
                   </button>
                 </>
               )}
@@ -389,7 +453,11 @@ export default function RegisterDialog({
                   submitting ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-600 hover'
                 }`}
               >
-                {submitting ? 'En cours…' : step === 1 ? 'Suivant' : 'Valider'}
+                {submitting
+                  ? t('dialogs.register.submitting')
+                  : step === 1
+                    ? t('dialogs.register.next')
+                    : t('dialogs.register.submit')}
               </button>
 
               {step === 2 && (
@@ -398,7 +466,7 @@ export default function RegisterDialog({
                   onClick={() => setStep(1)}
                   className="w-full inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 sm:py-2.5 text-xs sm font-medium text-gray-700 hover cursor-pointer"
                 >
-                  Retour
+                  {t('dialogs.register.back')}
                 </button>
               )}
             </form>
@@ -408,7 +476,9 @@ export default function RegisterDialog({
                 {/* Séparateur */}
                 <div className="my-4 sm:my-6 flex items-center">
                   <div className="flex-1 border-t border-gray-300"></div>
-                  <span className="px-2 sm:px-4 text-xs sm text-gray-500">Ou continuer avec</span>
+                  <span className="px-2 sm:px-4 text-xs sm text-gray-500">
+                    {t('dialogs.register.orContinueWith')}
+                  </span>
                   <div className="flex-1 border-t border-gray-300"></div>
                 </div>
 
@@ -449,12 +519,14 @@ export default function RegisterDialog({
 
                 {/* Lien vers connexion */}
                 <div className="mt-4 sm:mt-6 text-center">
-                  <span className="text-xs sm text-gray-600">Vous avez déjà un compte ? </span>
+                  <span className="text-xs sm text-gray-600">
+                    {t('dialogs.register.hasAccount')}{' '}
+                  </span>
                   <button
                     onClick={onSwitchToLogin}
                     className="text-xs sm text-green-600 hover font-medium cursor-pointer"
                   >
-                    Se connecter
+                    {t('dialogs.register.login')}
                   </button>
                 </div>
               </>
