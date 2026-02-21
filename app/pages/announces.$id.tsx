@@ -187,13 +187,6 @@ export default function AnnounceDetail() {
       try {
         const announce = await getAnnounceByIdAndType(id, type);
         setListing(announce);
-
-        // Si c'est un voyage qui n'accepte qu'un seul voyageur pour tous les kilos,
-        // initialiser le poids à tous les kilos disponibles
-        if (announce && type === 'travel' && !announce.isSharedWeight) {
-          const availableKg = announce.weightAvailable || 0;
-          setKilos(availableKg);
-        }
       } catch (error) {
         console.error('Error fetching announce:', error);
       } finally {
@@ -984,14 +977,13 @@ export default function AnnounceDetail() {
                         }
                       }}
                       placeholder="0"
-                      disabled={requiresAllKilos}
                       className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
                         kilos > (availableWeight || 0)
                           ? 'border-red-500 focus:ring-red-500'
                           : hasInvalidKilosForSingleTraveler
                             ? 'border-orange-500 focus:ring-orange-500'
                             : 'border-gray-300 focus:ring-indigo-500'
-                      } ${requiresAllKilos ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                      }`}
                     />
 
                     {/* Alert when weight exceeds available capacity */}
@@ -1039,8 +1031,8 @@ export default function AnnounceDetail() {
                             Tous les kilos requis
                           </p>
                           <p className="text-xs text-orange-700 mt-1">
-                            Ce voyage n'accepte qu'un seul voyageur pour tous les kilos disponibles
-                            ({availableWeight || 0}kg).
+                            Le HappyVoyageur n'accepte qu'une seule personne pour tous les kilos.
+                            Vous devez entrer exactement {availableWeight || 0}kg.
                           </p>
                         </div>
                       </div>
@@ -1142,7 +1134,7 @@ export default function AnnounceDetail() {
                               <img
                                 src="/images/axa-logo.svg"
                                 alt="AXA"
-                                className="h-6 w-6 rounded object-contain"
+                                className="h-9 w-9 rounded object-contain"
                                 onError={(e) => {
                                   // Fallback if image doesn't exist
                                   e.currentTarget.style.display = 'none';
@@ -1258,22 +1250,22 @@ export default function AnnounceDetail() {
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
                         : isPastTravelDate
                           ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : !pricingData ||
-                            kilos > (availableWeight || 0) ||
-                            hasInvalidKilosForSingleTraveler
-                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                          : 'bg-blue-600 text-white hover'
+                          : !pricingData ||
+                              kilos > (availableWeight || 0) ||
+                              hasInvalidKilosForSingleTraveler
+                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            : 'bg-blue-600 text-white hover'
                     }`}
                   >
                     {isOwnAnnounce
                       ? 'Votre voyage'
                       : isPastTravelDate
                         ? 'Voyage déjà effectué'
-                      : kilos > (availableWeight || 0)
-                        ? 'Poids insuffisant'
-                        : hasInvalidKilosForSingleTraveler
-                          ? `Tous les kilos requis (${availableWeight}kg)`
-                          : `Payer ${total.toFixed(2)} ${currencySymbol}`}
+                        : kilos > (availableWeight || 0)
+                          ? 'Poids insuffisant'
+                          : hasInvalidKilosForSingleTraveler
+                            ? `Tous les kilos requis (${availableWeight}kg)`
+                            : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
