@@ -129,7 +129,7 @@ function SearchFiltersBar(
   };
 
   return (
-    <div className="bg-white max-w-7xl mx-auto border border-gray-200 rounded-2xl md:rounded-r-full px-3 md:px-4 py-3 md:py-4 shadow-lg">
+    <div className="bg-white max-w-7xl mx-auto border-2 border-gray-200 rounded-2xl md:rounded-r-full px-3 md:px-4 py-3 md:py-4 shadow-lg">
       {/* Mobile: 2x2 Grid + Button | Desktop: 5 columns */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-2">
         {/* From */}
@@ -171,7 +171,7 @@ function SearchFiltersBar(
               console.log(e.target.value);
               emit({ date: e.target.value });
             }}
-            className="w-full text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300 md:border-none rounded-lg md:rounded-none px-3 py-2 md:px-0 md:py-0 outline-none truncate focus:border-blue-500 md:focus:border-none transition-colors cursor-pointer"
+            className="w-full text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300 rounded-lg  px-3 py-2 outline-none truncate focus:border-blue-500 md:focus:border-none transition-colors cursor-pointer"
           />
         </div>
 
@@ -186,7 +186,7 @@ function SearchFiltersBar(
               emit({ flight: e.target.value });
             }}
             placeholder="N° de vol"
-            className="w-full uppercase text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300 md:border-none rounded-lg md:rounded-none px-3 py-2 md:px-0 md:py-0 outline-none truncate focus:border-blue-500 md:focus:border-none transition-colors"
+            className="w-full uppercase text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300  rounded-lg  px-3 py-2   outline-none truncate focus:border-blue-500 md:focus:border-none transition-colors"
           />
         </div>
 
