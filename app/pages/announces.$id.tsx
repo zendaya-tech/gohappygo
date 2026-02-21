@@ -1142,7 +1142,7 @@ export default function AnnounceDetail() {
                               <img
                                 src="/images/axa-logo.svg"
                                 alt="AXA"
-                                className="h-6 w-6 rounded object-contain"
+                                className="h-9 w-9 rounded object-contain"
                                 onError={(e) => {
                                   // Fallback if image doesn't exist
                                   e.currentTarget.style.display = 'none';
@@ -1258,22 +1258,22 @@ export default function AnnounceDetail() {
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
                         : isPastTravelDate
                           ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : !pricingData ||
-                            kilos > (availableWeight || 0) ||
-                            hasInvalidKilosForSingleTraveler
-                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                          : 'bg-blue-600 text-white hover'
+                          : !pricingData ||
+                              kilos > (availableWeight || 0) ||
+                              hasInvalidKilosForSingleTraveler
+                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            : 'bg-blue-600 text-white hover'
                     }`}
                   >
                     {isOwnAnnounce
                       ? 'Votre voyage'
                       : isPastTravelDate
                         ? 'Voyage déjà effectué'
-                      : kilos > (availableWeight || 0)
-                        ? 'Poids insuffisant'
-                        : hasInvalidKilosForSingleTraveler
-                          ? `Tous les kilos requis (${availableWeight}kg)`
-                          : `Payer ${total.toFixed(2)} ${currencySymbol}`}
+                        : kilos > (availableWeight || 0)
+                          ? 'Poids insuffisant'
+                          : hasInvalidKilosForSingleTraveler
+                            ? `Tous les kilos requis (${availableWeight}kg)`
+                            : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
                   !isOwnAnnounce && (
