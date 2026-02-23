@@ -202,7 +202,7 @@ export default function AnnounceCard({
             {type === 'transporter'
               ? t('cards.announce.availableSpace')
               : t('cards.announce.requestedSpace')}
-            : {weight ? `${weight} ${t('cards.common.kg')}` : `0 ${t('cards.common.kg')}`}
+            : {weight ? `${weight}` : `0 ${t('cards.common.kg')}`}
           </p>
         }
         {departure && (

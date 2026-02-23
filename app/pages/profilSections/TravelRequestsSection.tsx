@@ -4,15 +4,18 @@ import { useSearchParams } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
 import ActionCard from '~/components/cards/ActionCard';
 import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
-import { getUserDemands, type DemandItem } from '~/services/demandService';
-import { deleteDemand } from '~/services/announceService';
+import EditPackageDialog from '~/components/dialogs/EditPackageDialog';
+
+import { getUserDemands } from '~/services/demandService';
+import { deleteDemand, type DemandTravelItem } from '~/services/announceService';
 
 export const TravelRequestsSection = () => {
   const { t } = useTranslation();
-  const [demands, setDemands] = useState<DemandItem[]>([]);
+  const [demands, setDemands] = useState<DemandTravelItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
-  const [demandToCancel, setDemandToCancel] = useState<DemandItem | null>(null);
+  const [demandToCancel, setDemandToCancel] = useState<DemandTravelItem | null>(null);
+  const [editingDemand, setEditingDemand] = useState<DemandTravelItem | null>(null);
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get('user');
@@ -55,6 +58,11 @@ export const TravelRequestsSection = () => {
     }
   };
 
+  const handleEditSuccess = () => {
+    setEditingDemand(null);
+    fetchDemands(); // Refresh the list
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(t('languages.fr') === 'French' ? 'en-US' : 'fr-FR', {
@@ -92,11 +100,7 @@ export const TravelRequestsSection = () => {
                 key={demand.id}
                 id={demand.id}
                 // Use user avatar if viewing someone else's profile, else default demand image
-                image={
-                  !isOwnProfile
-                    ? demand.user?.profilePictureUrl || '/favicon.ico'
-                    : '/images/demand-placeholder.png'
-                }
+                image={demand.images?.[0]?.fileUrl || demand.user?.selfieImage || '/favicon.ico'}
                 title={`${demand.departureAirport?.name || 'N/A'} → ${demand.arrivalAirport?.name || 'N/A'}`}
                 subtitle={t('profile.messages.requiredWeight')}
                 type="traveler"
@@ -109,8 +113,11 @@ export const TravelRequestsSection = () => {
                 user={
                   !isOwnProfile
                     ? {
-                        name: demand.user?.fullName || t('common.userDefault'),
-                        avatar: demand.user?.profilePictureUrl || '/favicon.ico',
+                        name: `${demand.user?.firstName} ${demand.user?.lastName.charAt(0)}.`,
+                        avatar:
+                          demand.user?.profilePictureUrl ||
+                          demand.user?.selfieImage ||
+                          '/favicon.ico',
                       }
                     : undefined
                 }
@@ -118,10 +125,9 @@ export const TravelRequestsSection = () => {
                 primaryAction={
                   isOwnProfile
                     ? {
-                        label: t('profile.actions.edit'),
-                        onClick: () => {
-                          /* handle edit */
-                        },
+                        label: t('common.edit'),
+                        onClick: () => setEditingDemand(demand),
+
                         color: 'blue',
                       }
                     : undefined
@@ -143,6 +149,16 @@ export const TravelRequestsSection = () => {
           </div>
         )}
       </div>
+
+      {/* Edit Package Dialog - Only show for own profile */}
+      {isOwnProfile && editingDemand && (
+        <EditPackageDialog
+          open={!!editingDemand}
+          onClose={() => setEditingDemand(null)}
+          demand={editingDemand as any} // Type conversion for compatibility
+          onSuccess={handleEditSuccess}
+        />
+      )}
 
       {/* Cancel Confirmation Dialog */}
       <ConfirmCancelDialog

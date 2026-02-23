@@ -122,12 +122,9 @@ const ActionCard: React.FC<ActionCardProps> = ({
             {title}
           </h3>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex justify-between items-center">
             <div className="text-blue-600 font-medium text-xs md">
-              {subtitle}:{' '}
-              <span className="ml-1">
-                {weight} {t('cards.common.kg')}
-              </span>
+              {subtitle}: <span className="ml-1">{weight}</span>
             </div>
             <div className="flex justify-between items-center text-[0.65rem] md:text-[0.7rem] text-gray-400 font-bold uppercase tracking-wider">
               <span>{dateLabel}</span>
