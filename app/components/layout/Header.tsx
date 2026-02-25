@@ -9,6 +9,7 @@ import CreateAnnounceDialog from '~/components/dialogs/CreateAnnounceDialog';
 import AnnounceTypeDropdown from '~/components/popovers/AnnounceTypeDropdown';
 import LoginDialog from '~/components/dialogs/LoginDialog';
 import RegisterDialog from '~/components/dialogs/RegisterDialog';
+import EmailVerificationDialog from '~/components/dialogs/EmailVerificationDialog';
 import { Link } from 'react-router';
 import { useAuthStore, type AuthState } from '~/store/auth';
 import LanguageDropdown from '~/components/popovers/LanguageDropdown';
@@ -33,6 +34,7 @@ export default function Header() {
   const [showCreatePackage, setShowCreatePackage] = useState(false);
   const [showAnnounceTypeDropdown, setShowAnnounceTypeDropdown] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [showMobilePublishOptions, setShowMobilePublishOptions] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const handleAnnounceTypeSelect = (type: 'travel' | 'package') => {
@@ -456,6 +458,24 @@ export default function Header() {
         </div>
       </header>
 
+      {isLoggedIn && uqer && uqer.isEmailVerified === false && (
+        <div className="bg-amber-50 border-b border-amber-200">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8 py-2.5 text-sm text-amber-900 flex items-center justify-between gap-3">
+            <span>
+              Votre email n'est pas encore verifie. Merci d'activer votre compte pour acceder a
+              toutes les fonctionnalites.
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowEmailVerification(true)}
+              className="shrink-0 rounded-md border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100"
+            >
+              Activer mon compte
+            </button>
+          </div>
+        </div>
+      )}
+
       <CreatePackageDialog open={showCreatePackage} onClose={() => setShowCreatePackage(false)} />
       <CreateAnnounceDialog
         open={showCreateAnnounce}
@@ -476,6 +496,11 @@ export default function Header() {
           closeRegister();
           setShowLogin(true);
         }}
+      />
+      <EmailVerificationDialog
+        open={showEmailVerification}
+        email={uqer?.email}
+        onClose={() => setShowEmailVerification(false)}
       />
     </>
   );
