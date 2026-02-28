@@ -12,12 +12,14 @@ export default function EmailVerificationDialog({
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
+  const autoSendTriggeredRef = useRef(false);
   const [code, setCode] = useState<string[]>(['', '', '', '', '', '']);
   const [submitting, setSubmitting] = useState(false);
   const [resending, setResending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const { verifyEmail, resendEmailVerification, authenticate } = useAuth();
+  const emailValue = email?.trim();
 
   useEffect(() => {
     if (!open) return;
@@ -42,9 +44,43 @@ export default function EmailVerificationDialog({
     setMessage(null);
   }, [open]);
 
-  if (!open) return null;
+  useEffect(() => {
+    if (!open) {
+      autoSendTriggeredRef.current = false;
+      return;
+    }
 
-  const emailValue = email?.trim();
+    if (!emailValue || autoSendTriggeredRef.current) return;
+
+    autoSendTriggeredRef.current = true;
+    let cancelled = false;
+
+    const autoSendVerificationCode = async () => {
+      setResending(true);
+      try {
+        const res = await resendEmailVerification(emailValue);
+        if (!cancelled) {
+          setMessage(res.message || 'Code de verification envoye.');
+        }
+      } catch (err: any) {
+        if (!cancelled) {
+          setError(err?.message || "Impossible d'envoyer le code pour l'instant.");
+        }
+      } finally {
+        if (!cancelled) {
+          setResending(false);
+        }
+      }
+    };
+
+    autoSendVerificationCode();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, emailValue, resendEmailVerification]);
+
+  if (!open) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
