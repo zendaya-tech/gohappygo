@@ -1,3 +1,4 @@
+import type { DemandTravelItem } from './announceService';
 import api from './Api';
 
 export interface CreateDemandDto {
@@ -68,42 +69,6 @@ export interface Currency {
   symbol: string;
 }
 
-export interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  fullName: string;
-  email: string;
-  profilePictureUrl?: string;
-  isVerified?: boolean;
-}
-
-export interface DemandItem {
-  id: number;
-  title?: string;
-  description: string;
-  flightNumber: string;
-  departureAirportId: number;
-  arrivalAirportId: number;
-  departureAirport: Airport;
-  arrivalAirport: Airport;
-  airline: Airline;
-  currency?: Currency;
-  userId: number;
-  status: string;
-  deliveryDate: string;
-  travelDate?: string;
-  createdAt: string;
-  updatedAt: string;
-  weight: number;
-  pricePerKg: number;
-  packageKind?: string;
-  isSharedWeight?: boolean;
-  isInstant?: boolean;
-  user: User;
-  images: DemandImage[];
-}
-
 export interface FindDemandsQuery {
   page?: number;
   limit?: number;
@@ -118,7 +83,7 @@ export interface FindDemandsQuery {
 }
 
 export interface PaginatedDemandResponse {
-  items: DemandItem[];
+  items: DemandTravelItem[];
   meta: {
     currentPage: number;
     itemsPerPage: number;
@@ -130,79 +95,36 @@ export interface PaginatedDemandResponse {
 }
 
 // Get demands with filtering
-export const getDemands = async (query: FindDemandsQuery = {}): Promise<PaginatedDemandResponse> => {
+export const getDemands = async (
+  query: FindDemandsQuery = {}
+): Promise<PaginatedDemandResponse> => {
   try {
     const response = await api.get('/demand', { params: query });
     return response.data;
   } catch (error: any) {
-    console.error("Error fetching demands:", error);
+    console.error('Error fetching demands:', error);
     throw error?.response?.data || error;
   }
 };
 
 // Get demand by ID
-export const getDemandById = async (id: number): Promise<DemandItem> => {
+export const getDemandById = async (id: number): Promise<DemandTravelItem> => {
   try {
     const response = await api.get(`/demand/${id}`);
     return response.data;
   } catch (error: any) {
-    console.error("Error fetching demand:", error);
-    throw error?.response?.data || error;
-  }
-};
-
-// Create demand
-export const createDemand = async (
-  demandData: CreateDemandDto,
-  image1: File,
-  image2: File,
-  image3: File
-): Promise<DemandItem> => {
-  try {
-    const formData = new FormData();
-    
-    // Add demand data
-    Object.entries(demandData).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        formData.append(key, value.toString());
-      }
-    });
-    
-    // Add images
-    formData.append('image1', image1);
-    formData.append('image2', image2);
-    formData.append('image3', image3);
-    
-    const response = await api.post('/demand', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response.data;
-  } catch (error: any) {
-    console.error("Error creating demand:", error);
-    throw error?.response?.data || error;
-  }
-};
-
-// Update demand
-export const updateDemand = async (id: number, demandData: UpdateDemandDto): Promise<DemandItem> => {
-  try {
-    const response = await api.patch(`/demand/${id}`, demandData);
-    return response.data;
-  } catch (error: any) {
-    console.error("Error updating demand:", error);
+    console.error('Error fetching demand:', error);
     throw error?.response?.data || error;
   }
 };
 
 // Delete/Cancel demand
-export const deleteDemand = async (id: number): Promise<DemandItem> => {
+export const deleteDemand = async (id: number): Promise<DemandTravelItem> => {
   try {
     const response = await api.delete(`/demand/${id}`);
     return response.data;
   } catch (error: any) {
-    console.error("Error deleting demand:", error);
+    console.error('Error deleting demand:', error);
     throw error?.response?.data || error;
   }
 };
@@ -216,7 +138,7 @@ export const getUserDemands = async (userId?: number): Promise<PaginatedDemandRe
     }
     return await getDemands(query);
   } catch (error: any) {
-    console.error("Error fetching user demands:", error);
+    console.error('Error fetching user demands:', error);
     throw error?.response?.data || error;
   }
 };
