@@ -150,7 +150,7 @@ export default function SupportSection() {
                   type="email"
                   value={quickFormData.email}
                   onChange={handleInputChange}
-                  placeholder="Votre email"
+                  placeholder={t('common.email')}
                   className="w-full px-4 py-3 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   required
                 />

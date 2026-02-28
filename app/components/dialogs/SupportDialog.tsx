@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { createSupportRequest, type CreateSupportRequestData } from '~/services/supportService';
 import { useAuth } from '~/hooks/useAuth';
 import { XMarkIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 
 interface SupportDialogProps {
   open: boolean;
@@ -10,6 +11,7 @@ interface SupportDialogProps {
 
 export default function SupportDialog({ open, onClose }: SupportDialogProps) {
   const { isAuthenticated, user } = useAuth();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<CreateSupportRequestData>({
     email: '',
     message: '',
@@ -60,14 +62,14 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
 
     // Basic validation
     if (!formData.email.trim() || !formData.message.trim()) {
-      setError('Veuillez remplir tous les champs obligatoires.');
+      setError(t('pages.support.form.errors.required'));
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError('Veuillez entrer une adresse email valide.');
+      setError(t('pages.support.form.errors.invalidEmail'));
       return;
     }
 
@@ -83,7 +85,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
         onClose();
       }, 3000);
     } catch (err: any) {
-      setError(err.message || "Erreur lors de l'envoi de votre demande.");
+      setError(err.message || t('pages.support.form.errors.sendError'));
     } finally {
       setSubmitting(false);
     }
@@ -100,7 +102,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
       <div className="relative z-10 w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/10">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Contactez notre support</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{t('dialogs.support.title')}</h2>
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover hover rounded-lg transition-colors cursor-pointer"
@@ -116,13 +118,10 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
             <div className="text-center py-8">
               <CheckCircleIcon className="w-16 h-16 text-green-500 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Message envoyé avec succès !
+                {t('pages.support.form.successMessage')}
               </h3>
-              <p className="text-gray-600 mb-4">
-                Votre demande de support a été envoyée. Nous vous répondrons dans les plus brefs
-                délais à l'adresse email fournie.
-              </p>
-              <p className="text-sm text-gray-500">Cette fenêtre se fermera automatiquement...</p>
+              <p className="text-gray-600 mb-4">{t('pages.support.form.successDesc')}</p>
+              <p className="text-sm text-gray-500">{t('dialogs.support.autoCloseHint')}</p>
             </div>
           ) : (
             // Form
@@ -137,7 +136,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Adresse email *
+                  {t('pages.support.form.emailLabel')}
                 </label>
                 <input
                   type="email"
@@ -147,7 +146,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
-                  placeholder="votre@email.com"
+                  placeholder={t('pages.support.form.emailPlaceholder')}
                 />
               </div>
 
@@ -157,7 +156,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   htmlFor="supportCategory"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  Catégorie
+                  {t('pages.support.form.categoryLabel')}
                 </label>
                 <select
                   id="supportCategory"
@@ -166,19 +165,31 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
                 >
-                  <option value="GENERAL">Question générale</option>
-                  <option value="TECHNICAL">Problème technique</option>
-                  <option value="BILLING">Facturation</option>
-                  <option value="FINANCIAL">Financier</option>
-                  <option value="INFORMATIONAL">Information</option>
-                  <option value="OTHER">Autre</option>
+                  <option value="GENERAL">
+                    {t('pages.support.form.categories.general')}
+                  </option>
+                  <option value="TECHNICAL">
+                    {t('pages.support.form.categories.technical')}
+                  </option>
+                  <option value="BILLING">
+                    {t('pages.support.form.categories.billing')}
+                  </option>
+                  <option value="FINANCIAL">
+                    {t('pages.support.form.categories.financial')}
+                  </option>
+                  <option value="INFORMATIONAL">
+                    {t('pages.support.form.categories.account')}
+                  </option>
+                  <option value="OTHER">
+                    {t('pages.support.form.categories.other')}
+                  </option>
                 </select>
               </div>
 
               {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
+                  {t('pages.support.form.messageLabel')}
                 </label>
                 <textarea
                   id="message"
@@ -188,10 +199,13 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   required
                   rows={6}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors resize-none"
-                  placeholder="Décrivez votre demande en détail..."
+                  placeholder={t('pages.support.form.placeholder')}
                 />
                 <p className="mt-1 text-sm text-gray-500">
-                  {formData.message.length}/1000 caractères
+                  {t('dialogs.support.charactersCount', {
+                    count: formData.message.length,
+                    max: 1000,
+                  })}
                 </p>
               </div>
 
@@ -202,7 +216,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                   onClick={onClose}
                   className="px-6 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors cursor-pointer"
                 >
-                  Annuler
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="submit"
@@ -211,7 +225,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
                     submitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover'
                   }`}
                 >
-                  {submitting ? 'Envoi en cours...' : 'Envoyer'}
+                  {submitting ? t('pages.support.form.submitting') : t('pages.support.form.submit')}
                 </button>
               </div>
             </form>

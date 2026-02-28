@@ -7,6 +7,7 @@ import {
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '~/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 interface ProfileDialogProps {
   open: boolean;
@@ -15,6 +16,7 @@ interface ProfileDialogProps {
 
 export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
   const { updateProfile, changePassword, deleteAccount, user } = useAuth();
+  const { t } = useTranslation();
 
   // Parse firstName and lastName from user.name
   const nameParts = user?.name?.split(' ') || [];
@@ -136,7 +138,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
         setProfileImage(profileImage); // Keep the preview image
       }
 
-      setSuccess('Profil mis à jour avec succès!');
+      setSuccess(t('profile.dialog.updateSuccess'));
       setTimeout(() => {
         onClose();
       }, 1000);
@@ -145,7 +147,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
         onClose();
       }, 4000);
     } catch (err: any) {
-      setError(err.message || 'Erreur lors de la mise à jour du profil');
+      setError(err.message || t('profile.dialog.updateError'));
     } finally {
       setSubmitting(false);
     }
@@ -163,7 +165,9 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
         <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
-            <h2 className="text-xl font-bold text-gray-900">Paramètres du profil</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              {t('profile.dialog.settingsTitle')}
+            </h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover transition-colors cursor-pointer"
@@ -182,7 +186,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   : 'text-gray-500 hover'
               }`}
             >
-              Profil
+              {t('profile.dialog.tabs.profile')}
             </button>
             <button
               onClick={() => setActiveTab('password')}
@@ -192,7 +196,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   : 'text-gray-500 hover'
               }`}
             >
-              Mot de passe
+              {t('profile.dialog.tabs.password')}
             </button>
             <button
               onClick={() => setActiveTab('account')}
@@ -202,7 +206,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   : 'text-gray-500 hover'
               }`}
             >
-              Compte
+              {t('profile.dialog.tabs.account')}
             </button>
           </div>
 
@@ -236,7 +240,9 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       ) : (
                         <div className="text-center">
                           <PhotoIcon className="h-8 w-8 text-gray-400 mx-auto mb-1" />
-                          <p className="text-xs text-gray-500">Upload profile picture</p>
+                          <p className="text-xs text-gray-500">
+                            {t('profile.dialog.uploadProfilePicture')}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -256,13 +262,13 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   <div>
                     <input
                       type="text"
-                      placeholder="Prénom (tel que sur la pièce d'identité)"
+                      placeholder={t('profile.dialog.firstName')}
                       value={formData.firstName}
                       onChange={(e) => handleInputChange('firstName', e.target.value)}
                       className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      (Seul votre prénom apparaît sur la plateforme)
+                      {t('profile.dialog.firstNameNote')}
                     </p>
                   </div>
 
@@ -270,7 +276,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   <div>
                     <input
                       type="text"
-                      placeholder="Nom de famille (tel que sur la pièce d'identité)"
+                      placeholder={t('profile.dialog.lastName')}
                       value={formData.lastName}
                       onChange={(e) => handleInputChange('lastName', e.target.value)}
                       className="text-gray-500 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
@@ -281,20 +287,20 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   <div>
                     <input
                       type="tel"
-                      placeholder="Numéro de téléphone"
+                      placeholder={t('profile.dialog.phoneNumber')}
                       value={formData.phoneNumber}
                       disabled
                       className="text-gray-400 w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
                     />
                     <p className="text-xs text-gray-500 mt-1">
-                      Le numéro de téléphone ne peut pas être modifié
+                      {t('profile.dialog.phoneImmutable')}
                     </p>
                   </div>
 
                   {/* About Me */}
                   <div>
                     <textarea
-                      placeholder="About me"
+                      placeholder={t('profile.dialog.aboutMePlaceholder')}
                       value={formData.aboutMe}
                       onChange={(e) => handleInputChange('aboutMe', e.target.value)}
                       rows={4}
@@ -313,7 +319,9 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       : 'bg-blue-600 text-white hover'
                   }`}
                 >
-                  {submitting ? 'Sauvegarde en cours...' : 'Sauvegarder les modifications'}
+                  {submitting
+                    ? t('profile.dialog.saving')
+                    : t('profile.dialog.saveChanges')}
                 </button>
               </form>
             )}
@@ -332,7 +340,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       newPassword: passwordData.newPassword,
                     });
 
-                    setSuccess('Mot de passe modifié avec succès!');
+                    setSuccess(t('profile.dialog.passwordUpdateSuccess'));
                     setPasswordData({
                       currentPassword: '',
                       newPassword: '',
@@ -342,7 +350,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       setSuccess(null);
                     }, 4000);
                   } catch (err: any) {
-                    setError(err.message || 'Erreur lors du changement de mot de passe');
+                    setError(err.message || t('profile.dialog.passwordUpdateError'));
                   } finally {
                     setSubmitting(false);
                   }
@@ -363,12 +371,12 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   {/* Current Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mot de passe actuel
+                      {t('profile.dialog.currentPasswordLabel')}
                     </label>
                     <div className="relative">
                       <input
                         type={showPasswords.current ? 'text' : 'password'}
-                        placeholder="Entrez votre mot de passe actuel"
+                        placeholder={t('profile.dialog.currentPasswordPlaceholder')}
                         value={passwordData.currentPassword}
                         onChange={(e) => handlePasswordChange('currentPassword', e.target.value)}
                         className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
@@ -390,12 +398,12 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   {/* New Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Nouveau mot de passe
+                      {t('profile.dialog.newPasswordLabel')}
                     </label>
                     <div className="relative">
                       <input
                         type={showPasswords.new ? 'text' : 'password'}
-                        placeholder="Entrez votre nouveau mot de passe"
+                        placeholder={t('profile.dialog.newPasswordPlaceholder')}
                         value={passwordData.newPassword}
                         onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
                         className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
@@ -413,19 +421,19 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       </button>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
-                      Le mot de passe doit contenir au moins 8 caractères
+                      {t('dialogs.register.validation.minLength')}
                     </p>
                   </div>
 
                   {/* Confirm Password */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Confirmer le nouveau mot de passe
+                      {t('profile.dialog.confirmPasswordLabel')}
                     </label>
                     <div className="relative">
                       <input
                         type={showPasswords.confirm ? 'text' : 'password'}
-                        placeholder="Confirmez votre nouveau mot de passe"
+                        placeholder={t('profile.dialog.confirmPasswordPlaceholder')}
                         value={passwordData.confirmPassword}
                         onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
                         className="text-gray-500 w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus"
@@ -463,7 +471,9 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       : 'bg-blue-600 text-white hover'
                   }`}
                 >
-                  {submitting ? 'Mise à jour en cours...' : 'Mettre à jour le mot de passe'}
+                  {submitting
+                    ? t('profile.dialog.passwordUpdating')
+                    : t('profile.dialog.passwordUpdate')}
                 </button>
               </form>
             )}
@@ -484,10 +494,11 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                   <div className="flex items-start">
                     <ExclamationTriangleIcon className="h-5 w-5 text-red-400 mt-0.5 mr-3 flex-shrink-0" />
                     <div>
-                      <h3 className="text-sm font-medium text-red-800">Suppression du compte</h3>
+                      <h3 className="text-sm font-medium text-red-800">
+                        {t('profile.dialog.deleteAccount.title')}
+                      </h3>
                       <p className="text-sm text-red-700 mt-1">
-                        Cette action est irréversible. Toutes vos données seront définitivement
-                        supprimées.
+                        {t('profile.dialog.deleteAccount.description')}
                       </p>
                       {hasActiveTransactions && (
                         <p className="text-sm text-red-700 mt-2 font-medium">
@@ -500,21 +511,20 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 </div>
 
                 {!showDeleteConfirm ? (
-                  <button
-                    onClick={() => setShowDeleteConfirm(true)}
-                    disabled={hasActiveTransactions}
-                    className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled cursor-pointer disabled:cursor-not-allowed"
-                  >
-                    {hasActiveTransactions
-                      ? 'Suppression impossible (transactions en cours)'
-                      : 'Supprimer mon compte'}
-                  </button>
+                    <button
+                      onClick={() => setShowDeleteConfirm(true)}
+                      disabled={hasActiveTransactions}
+                      className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled cursor-pointer disabled:cursor-not-allowed"
+                    >
+                      {hasActiveTransactions
+                        ? t('profile.dialog.deleteAccount.impossibleWithActiveTransactions')
+                        : t('profile.dialog.deleteAccount.cta')}
+                    </button>
                 ) : (
                   <div className="space-y-4">
                     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                       <p className="text-sm text-yellow-800">
-                        Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas
-                        être annulée.
+                        {t('profile.dialog.deleteAccount.confirmMessage')}
                       </p>
                     </div>
                     <div className="flex gap-3">
@@ -522,7 +532,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                         onClick={() => setShowDeleteConfirm(false)}
                         className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium hover transition-colors cursor-pointer"
                       >
-                        Annuler
+                        {t('common.cancel')}
                       </button>
                       <button
                         onClick={async () => {
@@ -532,14 +542,16 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
 
                           try {
                             await deleteAccount();
-                            setSuccess('Compte supprimé avec succès!');
+                            setSuccess(t('profile.dialog.deleteAccount.success'));
                             setTimeout(() => {
                               onClose();
                               // Redirect to home page or login page
                               window.location.href = '/';
                             }, 2000);
                           } catch (err: any) {
-                            setError(err.message || 'Erreur lors de la suppression du compte');
+                            setError(
+                              err.message || t('profile.dialog.deleteAccount.error')
+                            );
                           } finally {
                             setSubmitting(false);
                           }
@@ -551,7 +563,9 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                             : 'bg-red-600 text-white hover'
                         }`}
                       >
-                        {submitting ? 'Suppression en cours...' : 'Confirmer la suppression'}
+                        {submitting
+                          ? t('profile.dialog.deleteAccount.submitting')
+                          : t('profile.dialog.deleteAccount.confirmCta')}
                       </button>
                     </div>
                   </div>
@@ -559,15 +573,15 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
 
                 <div className="border-t border-gray-200 pt-6">
                   <h4 className="text-sm font-medium text-gray-900 mb-3">
-                    Informations sur les données
+                    {t('profile.dialog.dataInfo.title')}
                   </h4>
                   <div className="space-y-2 text-sm text-gray-600">
-                    <p>• Vos données personnelles seront supprimées dans les 30 jours</p>
-                    <p>• Les messages et transactions seront anonymisés</p>
-                    <p>• Vous pouvez télécharger vos données avant suppression</p>
+                    <p>{t('profile.dialog.dataInfo.line1')}</p>
+                    <p>{t('profile.dialog.dataInfo.line2')}</p>
+                    <p>{t('profile.dialog.dataInfo.line3')}</p>
                   </div>
                   <button className="mt-3 text-sm text-blue-600 hover cursor-pointer">
-                    Télécharger mes données
+                    {t('profile.dialog.dataInfo.downloadCta')}
                   </button>
                 </div>
               </div>

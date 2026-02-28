@@ -17,7 +17,7 @@ export default function Footer() {
             {/* Brand */}
             <div className="col-span-1 sm:col-span-2 md:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/logo.png" alt="GoHappyGo logo" className="h-10" />
+                <img src="/logo.png" alt={t('common.accessibility.logo')} className="h-10" />
                 <span className="font-bold text-lg text-gray-900">GoHappyGo</span>
               </div>
               <p className="text-sm mb-4">{t('footer.description')}</p>

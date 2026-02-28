@@ -258,7 +258,7 @@ export default function EditAnnounceDialog({
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
               <h2 className="text-lg md font-bold text-gray-900">
-                <span className="uppercase text-sm md">Modifier l'annonce de voyage</span>
+                <span className="uppercase text-sm md">{t('dialogs.editAnnounce.title')}</span>
               </h2>
             </header>
 

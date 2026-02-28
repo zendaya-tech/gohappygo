@@ -274,7 +274,7 @@ export default function Support() {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500 focus"
-                    placeholder="votre@email.com"
+                    placeholder={t('common.email')}
                     required
                   />
                 </div>

@@ -37,9 +37,7 @@ export default function CreatePackageDialog({
   const [currency, setCurrency] = useState<Currency | null>(null);
   const [flightNumber, setFlightNumber] = useState('');
   const [travelDate, setTravelDate] = useState('');
-  const [packageNature, setPackageNature] = useState<
-    'FRAGILE' | 'URGENT' | 'STANDARD'
-  >('STANDARD');
+  const [packageNature, setPackageNature] = useState<'FRAGILE' | 'URGENT' | 'STANDARD'>('STANDARD');
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -96,20 +94,27 @@ export default function CreatePackageDialog({
 
     switch (currentStep) {
       case 1:
-        if (!departureAirportId) errors.departure = 'Veuillez sélectionner un aéroport de départ';
-        if (!arrivalAirportId) errors.arrival = "Veuillez sélectionner un aéroport d'arrivée";
-        if (!baggageDescription.trim()) errors.description = 'Veuillez décrire votre baggage';
+        if (!departureAirportId)
+          errors.departure = t('dialogs.createPackage.errors.departureRequired');
+        if (!arrivalAirportId)
+          errors.arrival = t('dialogs.createPackage.errors.arrivalRequired');
+        if (!baggageDescription.trim())
+          errors.description = t('dialogs.createPackage.errors.descriptionRequired');
         if (baggageDescription.length > 500)
-          errors.description = 'La description ne peut pas dépasser 500 caractères';
-        if (!flightNumber.trim()) errors.flightNumber = 'Veuillez saisir le numéro de vol';
-        if (!travelDate) errors.travelDate = 'Veuillez sélectionner une date de voyage';
+          errors.description = t('dialogs.createPackage.errors.descriptionTooLong');
+        if (!flightNumber.trim())
+          errors.flightNumber = t('dialogs.createPackage.errors.flightNumberRequired');
+        if (!travelDate)
+          errors.travelDate = t('dialogs.createPackage.errors.travelDateRequired');
         break;
       case 2:
-        if (photos.length < 3) errors.photos = 'Veuillez ajouter 3 images de votre baggage';
-        if (!weight || parseFloat(weight) <= 0) errors.weight = 'Veuillez saisir un poids valide';
+        if (photos.length < 3)
+          errors.photos = t('dialogs.createPackage.errors.photosMinimum');
+        if (!weight || parseFloat(weight) <= 0)
+          errors.weight = t('dialogs.createPackage.errors.weightInvalid');
         if (!pricePerKilo || parseFloat(pricePerKilo) <= 0)
-          errors.price = 'Veuillez saisir un prix valide';
-        if (!currency) errors.currency = 'Veuillez sélectionner une devise';
+          errors.price = t('dialogs.createPackage.errors.priceInvalid');
+        if (!currency) errors.currency = t('dialogs.createPackage.errors.currencyRequired');
         break;
     }
 
@@ -171,7 +176,7 @@ export default function CreatePackageDialog({
     }
 
     if (photos.length < 3) {
-      setError('Veuillez ajouter 3 images');
+      setError(t('dialogs.createPackage.errors.photosMinimum'));
       return;
     }
 
@@ -181,13 +186,13 @@ export default function CreatePackageDialog({
 
     try {
       if (!departureAirportId || !arrivalAirportId) {
-        setError("Veuillez sélectionner les aéroports de départ et d'arrivée");
+        setError(t('dialogs.createPackage.errors.bothAirportsRequired'));
         setSubmitting(false);
         return;
       }
 
       if (!currency) {
-        setError('Veuillez sélectionner une devise');
+        setError(t('dialogs.createPackage.errors.currencyRequired'));
         setSubmitting(false);
         return;
       }
@@ -210,19 +215,17 @@ export default function CreatePackageDialog({
       const result = await createDemand(demandData);
 
       if (result) {
-        setSuccess('Demande de voyage créée avec succès!');
+        setSuccess(t('dialogs.createPackage.success'));
         setTimeout(() => {
           onClose();
         }, 2000);
       } else {
-        setError('Erreur lors de la création de la demande. Veuillez réessayer.');
+        setError(t('dialogs.createPackage.errors.createFailed'));
       }
     } catch (err: any) {
       // Check if it's a 401 error (user not authenticated)
       if (err?.response?.status === 401 || err?.status === 401) {
-        setError(
-          'Vous devez être connecté pour créer une demande de voyage. Veuillez vous connecter.'
-        );
+        setError(t('dialogs.createPackage.errors.authRequired'));
       } else {
         // Handle validation errors from backend
         if (err?.response?.data?.message) {
@@ -232,7 +235,7 @@ export default function CreatePackageDialog({
             setError(err.response.data.message);
           }
         } else {
-          setError('Erreur lors de la création de la demande. Veuillez réessayer.');
+          setError(t('dialogs.createPackage.errors.createFailed'));
         }
       }
     } finally {
@@ -375,7 +378,9 @@ export default function CreatePackageDialog({
                 </Field>
 
                 <div>
-                  <div className="mb-2 text-sm font-semibold text-gray-900">Nature du bagage</div>
+                  <div className="mb-2 text-sm font-semibold text-gray-900">
+                    {t('dialogs.createPackage.packageNature')}
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input

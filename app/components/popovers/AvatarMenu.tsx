@@ -43,7 +43,7 @@ export default function AvatarMenu({
       ref={ref}
       className="absolute right-0 top-full mt-2 w-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl ring-1 ring-black/5"
       role="menu"
-      aria-label="Menu du compte"
+      aria-label={t('header.avatarMenu.menuAriaLabel')}
     >
       <div className="py-1">
         {!isLoggedIn ? (
@@ -57,8 +57,12 @@ export default function AvatarMenu({
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
-              <img src="/images/loginIcon.png" alt="login" className="w-5 h-5 mr-3" />
-              Connexion
+              <img
+                src="/images/loginIcon.png"
+                alt={t('header.avatarMenu.login')}
+                className="w-5 h-5 mr-3"
+              />
+              {t('header.avatarMenu.login')}
             </button>
             <button
               onClick={() => {
@@ -68,8 +72,12 @@ export default function AvatarMenu({
               className="flex items-center w-full px-5 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
-              <img src="/images/signinIcon.png" alt="signIn" className="w-5 h-5 mr-3" />
-              Inscription
+              <img
+                src="/images/signinIcon.png"
+                alt={t('header.avatarMenu.register')}
+                className="w-5 h-5 mr-3"
+              />
+              {t('header.avatarMenu.register')}
             </button>
 
             {/* Séparateur */}
@@ -102,7 +110,7 @@ export default function AvatarMenu({
                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 />
               </svg>
-              Mon Profil
+              {t('header.avatarMenu.profile')}
             </Link>
 
             <Link
@@ -124,7 +132,7 @@ export default function AvatarMenu({
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                 />
               </svg>
-              Mes Messages
+              {t('header.avatarMenu.messages')}
             </Link>
 
             <Link
@@ -146,7 +154,7 @@ export default function AvatarMenu({
                   d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                 />
               </svg>
-              Mes Voyages
+              {t('header.avatarMenu.travels')}
             </Link>
 
             <Link
@@ -168,7 +176,7 @@ export default function AvatarMenu({
                   d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              Mes Souhaits de Voyages
+              {t('header.avatarMenu.wishes')}
             </Link>
 
             {/* Séparateur */}
@@ -222,7 +230,7 @@ export default function AvatarMenu({
               d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
             />
           </svg>
-          Fonctionnement de GoHappyGo
+          {t('header.avatarMenu.howItWorks')}
         </Link>
 
         <Link
@@ -244,7 +252,7 @@ export default function AvatarMenu({
               d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z"
             />
           </svg>
-          Contacter le Service Clients
+          {t('header.avatarMenu.contact')}
         </Link>
 
         <Link
@@ -266,7 +274,7 @@ export default function AvatarMenu({
               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-          Mentions légales
+          {t('header.avatarMenu.legal')}
         </Link>
 
         <Link
@@ -288,7 +296,7 @@ export default function AvatarMenu({
               d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
             />
           </svg>
-          Assurance et protection
+          {t('header.avatarMenu.insurance')}
         </Link>
 
         <Link
@@ -316,7 +324,7 @@ export default function AvatarMenu({
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          Outils pour les voyageurs
+          {t('header.avatarMenu.travelerTools')}
         </Link>
       </div>
     </div>

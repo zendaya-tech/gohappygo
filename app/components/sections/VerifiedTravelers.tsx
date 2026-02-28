@@ -4,7 +4,7 @@ import { getLatestTravels, type DemandTravelItem } from '~/services/announceServ
 import { useTranslation, Trans } from 'react-i18next';
 
 export default function VerifiedTravelers() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [travels, setTravels] = useState<DemandTravelItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +25,7 @@ export default function VerifiedTravelers() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
+    return date.toLocaleDateString(i18n.language === 'fr' ? 'fr-FR' : 'en-US', {
       day: 'numeric',
       month: 'short',
     });
@@ -61,7 +61,7 @@ export default function VerifiedTravelers() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {travels.map((travel) => {
           const id = travel.id?.toString() || Math.random().toString(36).slice(2);
-          const name = formatName(travel.user?.fullName || 'Voyageur');
+          const name = formatName(travel.user?.fullName || t('common.userDefault'));
           const avatar = travel.user?.selfieImage || '/favicon.ico';
           const originName = travel.departureAirport?.name || '';
           const destName = travel.arrivalAirport?.name || '';

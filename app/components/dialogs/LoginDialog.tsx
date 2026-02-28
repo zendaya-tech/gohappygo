@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
 
 export default function LoginDialog({
   open,
@@ -30,6 +31,7 @@ export default function LoginDialog({
   }, [open, onClose]);
 
   const { login } = useAuth();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -47,7 +49,7 @@ export default function LoginDialog({
       await login(formData.email, formData.password);
       onClose();
     } catch (err: any) {
-      setError(err.message || 'Une erreur est survenue. Réessayez.');
+      setError(err.message || t('dialogs.login.errorDefault'));
     } finally {
       setSubmitting(false);
     }
@@ -73,8 +75,10 @@ export default function LoginDialog({
           {/* Côté gauche - Formulaire */}
           <div className="w-full md:w-1/2 p-6 md:p-8">
             <div className="mb-6 md:mb-8">
-              <h1 className="text-2xl md font-bold text-gray-900 mb-2">Connexion</h1>
-              <p className="text-sm md text-gray-600">et profitez de toutes les possibilités</p>
+              <h1 className="text-2xl md font-bold text-gray-900 mb-2">
+                {t('dialogs.login.title')}
+              </h1>
+              <p className="text-sm md text-gray-600">{t('dialogs.login.subtitle')}</p>
             </div>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {error && <div className="text-sm text-red-600">{error}</div>}
@@ -83,14 +87,14 @@ export default function LoginDialog({
                   htmlFor="email"
                   className="block text-xs md font-medium text-gray-700 mb-1 md:mb-2"
                 >
-                  Email
+                  {t('dialogs.login.email')}
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
-                  placeholder="Votre email"
+                  placeholder={t('dialogs.login.emailPlaceholder')}
                   required
                   value={formData.email}
                   onChange={handleChange}
@@ -102,14 +106,14 @@ export default function LoginDialog({
                   htmlFor="password"
                   className="block text-xs md font-medium text-gray-700 mb-1 md:mb-2"
                 >
-                  Mot de passe
+                  {t('dialogs.login.password')}
                 </label>
                 <input
                   type="password"
                   id="password"
                   name="password"
                   className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
-                  placeholder="Votre mot de passe"
+                  placeholder={t('dialogs.login.passwordPlaceholder')}
                   required
                   value={formData.password}
                   onChange={handleChange}
@@ -125,10 +129,12 @@ export default function LoginDialog({
                     checked={formData.rememberMe}
                     onChange={handleChange}
                   />
-                  <span className="ml-2 text-sm text-gray-600">Se souvenir de moi</span>
+                  <span className="ml-2 text-sm text-gray-600">
+                    {t('dialogs.login.rememberMe')}
+                  </span>
                 </label>
                 <Link to="/forgot-password" className="text-sm text-blue-600 hover">
-                  Mot de passe oublié ?
+                  {t('dialogs.login.forgotPassword')}
                 </Link>
               </div>
 
@@ -139,14 +145,16 @@ export default function LoginDialog({
                   submitting ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover'
                 }`}
               >
-                {submitting ? 'Connexion…' : 'Se connecter'}
+                {submitting ? t('dialogs.login.submitting') : t('dialogs.login.login')}
               </button>
             </form>
 
             {/* Séparateur */}
             <div className="my-4 md:my-6 flex items-center">
               <div className="flex-1 border-t border-gray-300"></div>
-              <span className="px-3 md:px-4 text-xs md text-gray-500">Ou continuer avec</span>
+              <span className="px-3 md:px-4 text-xs md text-gray-500">
+                {t('dialogs.register.orContinueWith')}
+              </span>
               <div className="flex-1 border-t border-gray-300"></div>
             </div>
 
@@ -187,12 +195,14 @@ export default function LoginDialog({
 
             {/* Lien vers inscription */}
             <div className="mt-4 md:mt-6 text-center">
-              <span className="text-xs md text-gray-600">Pas encore de compte ? </span>
+              <span className="text-xs md text-gray-600">
+                {t('dialogs.login.noAccount')}{' '}
+              </span>
               <button
                 onClick={onSwitchToRegister}
                 className="text-xs md text-blue-600 hover font-medium cursor-pointer"
               >
-                S'inscrire
+                {t('dialogs.login.register')}
               </button>
             </div>
           </div>

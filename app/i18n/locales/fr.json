@@ -5,6 +5,8 @@
   },
 
   "common": {
+    "copyright": "© 2024 GoHappyGo. Tous droits réservés.",
+    "email": "Votre email",
     "loading": "Chargement...",
     "save": "Sauvegarder",
     "cancel": "Annuler",
@@ -36,7 +38,40 @@
     "user": "Utilisateur",
     "ok": "OK",
     "error": "Erreur",
-    "userDefault": "Utilisateur"
+    "userDefault": "Utilisateur",
+    "accessibility": {
+      "close": "Fermer",
+      "success": "Demande envoyée avec succès !",
+      "error": "Erreur lors de l'envoi de la demande",
+      "ariaLabels": {
+        "openChat": "Ouvrir le chat",
+        "closeChat": "Fermer le chat"
+      },
+      "logo": "Logo GoHappyGo",
+      "toggleDropdown": "Basculer le menu",
+      "image": "Image",
+      "profile": "Profil",
+      "avatar": "Avatar",
+      "loading": "Chargement"
+    },
+    "refresh": "Actualiser",
+    "traveler": "Voyageur",
+    "anonymous": "Anonyme",
+    "info": "Infos",
+    "writeMessage": "Écrire un message...",
+    "new": "Nouvelle",
+    "conversation": "conversation",
+    "chat": {
+      "title": "Messages",
+      "selectConversation": "Sélectionnez une conversation",
+      "newConversation": "Nouvelle conversation",
+      "search": "Rechercher...",
+      "openChat": "Ouvrir le chat",
+      "closeChat": "Fermer le chat",
+      "info": "Infos",
+      "writeMessage": "Écrire un message...",
+      "send": "Envoyer"
+    }
   },
   "cards": {
     "common": {
@@ -75,6 +110,20 @@
     }
   },
   "header": {
+    "avatarMenu": {
+      "howItWorks": "Comment ça marche",
+      "travelerTools": "Outils voyageurs",
+      "login": "Connexion",
+      "register": "Inscription",
+      "profile": "Mon Profil",
+      "messages": "Mes Messages",
+      "travels": "Mes Voyages",
+      "wishes": "Mes Souhaits de Voyages",
+      "contact": "Contacter le Service Clients",
+      "legal": "Mentions légales",
+      "insurance": "Assurance et protection",
+      "menuAriaLabel": "Menu du compte"
+    },
     "downloadApp": "Téléchargez l'appli +",
     "publishAd": "Publier une annonce +",
     "downloadAppButton": "Télécharger l'appli",
@@ -84,12 +133,59 @@
     "logout": "Déconnexion",
     "login": "Connexion",
     "register": "S'inscrire",
-    "language": "Langue"
+    "language": "Langue",
+    "ariaLabels": {
+      "openAvatarMenu": "Ouvrir le menu du compte",
+      "openMobileMenu": "Ouvrir le menu mobile",
+      "closeMobileMenu": "Fermer le menu mobile",
+      "notifications": "Notifications"
+    },
+    "popovers": {
+      "notifications": {
+        "title": "Notifications",
+        "unread_one": "{{count}} non lue",
+        "unread_other": "{{count}} non lues",
+        "markAllAsRead": "✓ Tout marquer comme lu",
+        "loading": "Chargement...",
+        "empty": "Aucune notification",
+        "upToDate": "Vous êtes à jour !",
+        "viewAll": "Voir toutes les notifications →",
+        "closeLabel": "Fermer",
+        "timeAgo": {
+          "justNow": "à l'instant",
+          "ago": "il y a {{count}} {{units}}",
+          "yesterday": "hier",
+          "units": {
+            "min": "min",
+            "hour": "h",
+            "day": "j"
+          }
+        }
+      },
+      "download": {
+        "ariaLabel": "Télécharger l'application",
+        "qrAlt": "QR Code pour télécharger l'application",
+        "scanText": "Scannez pour télécharger"
+      },
+      "announceType": {
+        "ariaLabel": "Types d'annonces",
+        "travel": {
+          "title": "Voyage",
+          "desc": "Publier un trajet pour faire voyager des colis"
+        },
+        "package": {
+          "title": "Colis",
+          "desc": "Demander le voyage d'un baggage"
+        }
+      }
+    }
   },
   "home": {
     "hero": {
       "title": "Emportez autant de bagages que vous le désirez avec GoHappyGo lors de votre voyage",
       "subtitle": "Faites enregistrer vos excédents de bagages par d'autres voyageurs sur le même vol que vous, pour la même destination",
+      "titlePart1": "Emportez autant de bagages que vous le desirez avec",
+      "titlePart2": "lors de votre voyage",
       "searchFrom": "Départ",
       "searchTo": "Arrivée",
       "searchDate": "Date",
@@ -101,6 +197,42 @@
       "flightPlaceholder": "Numéro de vol",
       "searchByDestination": "Recherche par destination",
       "searchByFlightNumber": "Recherche par Numéro de vol"
+    },
+    "heroAlt": {
+      "airplane": "Avion en vol",
+      "suitcase": "Valise",
+      "package": "Colis",
+      "airport": "Aéroport",
+      "arrow": "Flèche directionnelle"
+    },
+    "meta": {
+      "title": "GoHappyGo - Faites plus qu'un voyage, Faites des bagages Heureux",
+      "description": "Deux besoins, une entraide : les voyageurs avec des kilos en moins aident ceux qui en ont en plus. Expédiez à petit prix pendant que les voyageurs monétisent leur espace libre, en toute sécurité et simplicité."
+    },
+    "latestDemands": {
+      "noDemands": "Aucune demande disponible pour le moment",
+      "subtitle": "HappyVoyageurs souhaitant trouver un espace de bagage",
+      "title": "Dernières demandes",
+      "loading": "Chargement des dernières demandes...",
+      "priority": {
+        "urgent": "Urgent",
+        "fragile": "Fragile",
+        "priority": "Priorité",
+        "standard": "Standard"
+      }
+    },
+    "packageCategories": {
+      "title": "Types de colis",
+      "categories": {
+        "documents": "Documents",
+        "clothing": "Vêtements",
+        "electronics": "Électronique",
+        "medicine": "Médicaments",
+        "gifts": "Cadeaux",
+        "books": "Livres",
+        "samples": "Échantillons",
+        "urgent": "Urgent"
+      }
     },
     "features": {
       "title": "Pourquoi choisir GoHappyGo ?",
@@ -234,61 +366,99 @@
     "editProfile": "Modifier le profil",
     "addInfo": "Veuillez ajouter des informations sur vous dans les paramètres de votre profil.",
     "sections": {
+      "favorites": "Mes Favoris",
+      "favoritesWithCount": "Mes Favoris ({{count}})",
       "messages": "Mes Messages",
+      "payments": "Porte-monnaie",
       "reservations": "Mes Réservations",
       "reviews": "Mes Avis",
       "travelRequests": "Mes Souhaits de Voyages",
-      "travels": "Mes Voyages",
-      "favorites": "Mes Favoris",
-      "favoritesWithCount": "Mes Favoris ({{count}})",
-      "payments": "Porte-monnaie"
+      "travels": "Mes Voyages"
     },
     "stats": {
-      "rating": "Note",
-      "success": "Réussite",
-      "response": "Réponse",
+      "distance": "Distance",
       "earnings": "Gains",
       "packagesCarried": "Colis en voyage",
-      "distance": "Distance",
-      "packagesSent": "Colis envoyés"
+      "packagesSent": "Colis envoyés",
+      "rating": "Note",
+      "response": "Réponse",
+      "success": "Réussite"
     },
     "dialog": {
-      "title": "Profil",
-      "uploadProfilePicture": "Téléverser une photo de profil",
+      "aboutMe": "À propos de moi",
+      "aboutMePlaceholder": "Parlez un peu plus de vous",
+      "currentPasswordLabel": "Mot de passe actuel",
+      "currentPasswordPlaceholder": "Entrez votre mot de passe actuel",
+      "deleteAccount": {
+        "confirmCta": "Confirmer la suppression",
+        "confirmMessage": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action ne peut pas être annulée.",
+        "cta": "Supprimer mon compte",
+        "description": "Cette action est irréversible. Toutes vos données seront définitivement supprimées.",
+        "error": "Erreur lors de la suppression du compte",
+        "impossibleWithActiveTransactions": "Suppression impossible (transactions en cours)",
+        "submitting": "Suppression en cours...",
+        "success": "Compte supprimé avec succès!",
+        "title": "Suppression du compte"
+      },
       "firstName": "Prénom",
       "firstNameNote": "(Seul votre prénom apparaît sur la plateforme)",
       "lastName": "Nom de famille",
-      "countryCode": "Indicatif du Pays",
-      "phoneNumber": "Numéro de téléphone",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "newPasswordPlaceholder": "Entrez votre nouveau mot de passe",
+      "phoneImmutable": "Le numéro de téléphone ne peut pas être modifié",
       "phoneNote": "(Nous vous enverrons un code pour confirmer votre numéro.)",
-      "aboutMe": "À propos de moi",
-      "saveChanges": "Sauvegarder les modifications"
+      "phoneNumber": "Numéro de téléphone",
+      "saveChanges": "Sauvegarder les modifications",
+      "settingsTitle": "Paramètres du profil",
+      "tabs": {
+        "account": "Compte",
+        "password": "Mot de passe",
+        "profile": "Profil"
+      },
+      "title": "Profil",
+      "updateError": "Erreur lors de la mise à jour du profil",
+      "updateSuccess": "Profil mis à jour avec succès!",
+      "passwordUpdate": "Mettre à jour le mot de passe",
+      "passwordUpdateError": "Erreur lors du changement de mot de passe",
+      "passwordUpdateSuccess": "Mot de passe modifié avec succès!",
+      "passwordUpdating": "Mise à jour en cours...",
+      "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez votre nouveau mot de passe",
+      "countryCode": "Indicatif du Pays",
+      "dataInfo": {
+        "downloadCta": "Télécharger mes données",
+        "line1": "• Vos données personnelles seront supprimées dans les 30 jours",
+        "line2": "• Les messages et transactions seront anonymisés",
+        "line3": "• Vous pouvez télécharger vos données avant suppression",
+        "title": "Informations sur les données"
+      },
+      "saving": "Sauvegarde en cours...",
+      "uploadProfilePicture": "Téléverser une photo de profil"
     },
     "tabs": {
-      "reservationsToConfirm": "Réservations à confirmer",
-      "reservationsPendingDelivery": "Réservations en attente de livraison",
-      "reservationsCompleted": "Réservations terminées",
-      "myReceivedReviews": "Mes avis reçus",
-      "receivedReviews": "Avis reçus",
-      "myGivenReviews": "Mes avis donnés",
+      "buySpace": "Acheter de l'espace",
       "givenReviews": "Avis donnés",
       "myAds": "Mes Annonces",
-      "sellSpace": "Vendre de l'espace",
-      "buySpace": "Acheter de l'espace",
-      "myTravels": "Mes voyages"
+      "myGivenReviews": "Mes avis donnés",
+      "myReceivedReviews": "Mes avis reçus",
+      "myTravels": "Mes voyages",
+      "reservationsCompleted": "Réservations terminées",
+      "reservationsPendingDelivery": "Réservations en attente de livraison",
+      "reservationsToConfirm": "Réservations à confirmer",
+      "sellSpace": "Vendre de l'espace"
     },
     "actions": {
       "approve": "Approuver",
-      "reject": "Rejeter",
+      "cancel": "Annuler",
+      "contact": "Contacter {{name}}",
+      "edit": "Modifier",
+      "findSpace": "Je souhaite trouver un espace bagage",
       "finish": "Terminer",
+      "message": "Message",
+      "proposeSpace": "Je propose un espace bagage",
       "rate": "Évaluer",
       "rated": "Évalué",
-      "message": "Message",
-      "contact": "Contacter {{name}}",
-      "proposeSpace": "Je propose un espace bagage",
-      "findSpace": "Je souhaite trouver un espace bagage",
-      "cancel": "Annuler",
-      "edit": "Modifier"
+      "reject": "Rejeter"
     },
     "messages": {
       "loadingProfile": "Chargement du profil...",
@@ -300,6 +470,9 @@
       "fundsReleased": "Fonds libérés avec succès",
       "releaseError": "Erreur lors de la libération des fonds",
       "noReservations": "Aucune réservation",
+      "noPayments": "Aucun paiement",
+      "noReservationsSubImageText": "Vos prochaines Réservations apparaîtront ici...",
+      "noPaymentsSubImageText": "Vos prochains Paiements apparaîtront ici...",
       "errorAccept": "Erreur lors de l'acceptation de la demande",
       "errorComplete": "Erreur lors de la finalisation de la demande",
       "noConversations": "Aucune conversation",
@@ -333,12 +506,15 @@
       "cancelDemandBody": "Êtes-vous sûr de vouloir annuler cette demande de voyage ? Cette action ne peut pas être annulée.",
       "loadingFavorites": "Chargement de vos favoris...",
       "noFavorites": "Aucun favori pour le moment",
+      "noFavoritesSubImageText": "Vos prochains Favoris apparaîtront ici...",
       "reservedSpace": "Espace réservé",
       "requiredWeight": "Poids requis",
       "loadingDemands": "Chargement des demandes...",
       "loadingTravels": "Chargement des voyages...",
       "noTravelsFound": "Aucun voyage trouvé.",
+      "noTravelsFoundSubImageText": "Vos prochains Voyages apparaîtront ici...",
       "noDemandsFound": "Aucune demande trouvée",
+      "noDemandsFoundSubImageText": "Vos prochains Souhaits de Voyages apparaîtront ici...",
       "flight": "Vol"
     },
     "payments": {
@@ -370,94 +546,238 @@
     }
   },
   "dialogs": {
+    "announceType": {
+      "cancel": "Annuler",
+      "iHavePackage": "J'ai un colis à faire voyager",
+      "iTravel": "Je voyage et j'ai de l'espace",
+      "title": "Type d'annonce"
+    },
+    "booking": {
+      "cardInfoLabel": "Informations de carte",
+      "errors": {
+        "createPaymentMethod": "Impossible de créer la méthode de paiement",
+        "generic": "Une erreur est survenue",
+        "loadForm": "Erreur lors du chargement du formulaire de paiement",
+        "processPayment": "Erreur lors du traitement du paiement"
+      },
+      "payCta": "Payer {{amount}} {{currency}}",
+      "securedBy": "Paiement sécurisé par",
+      "submitting": "Traitement...",
+      "tagline": "Soyez un porteur du bonheur"
+    },
+    "createAlert": {
+      "alertType": {
+        "both": "Voyages et demandes",
+        "demandOnly": "Demandes uniquement",
+        "travelOnly": "Voyages uniquement"
+      },
+      "alertTypeLabel": "Type d'alerte",
+      "arrivalAirportLabel": "Aéroport d'arrivée *",
+      "arrivalAirportPlaceholder": "Rechercher un aéroport d'arrivée",
+      "departureAirportLabel": "Aéroport de départ *",
+      "departureAirportPlaceholder": "Rechercher un aéroport de départ",
+      "errors": {
+        "airportsRequired": "Les aéroports de départ et d'arrivée sont obligatoires.",
+        "createFailed": "Erreur lors de la création de l'alerte"
+      },
+      "flightNumberLabel": "Numéro de vol (optionnel)",
+      "flightNumberPlaceholder": "Ex: AF123",
+      "submit": "Créer l'alerte",
+      "successMessage": "Alerte créée avec succès ! Vous serez notifié dès qu'une offre correspond.",
+      "submitting": "Création...",
+      "title": "Créer une alerte",
+      "travelDateLabel": "Date de voyage (optionnel)"
+    },
     "createAnnounce": {
-      "title": "Je propose un espace bagage",
+      "allowExtraGrams": "Autoriser les grammes en trop",
+      "arrival": "Arrivée",
+      "arrivalAirportLabel": "Sélectionnez votre aéroport d'arrivée",
+      "arrivalAirportPlaceholder": "Choisir un aéroport",
+      "airlineEnterFlightFirst": "Entrez d'abord le numéro de vol",
+      "airlineHelper": "La compagnie aérienne est détectée automatiquement à partir du numéro de vol",
+      "airlineLabel": "Compagnie aérienne",
+      "airlineSearching": "Recherche en cours...",
+      "airlineDetected": "Détectée automatiquement",
+      "bookingPreference": "Quel type de réservation préférez-vous pour ce voyage ?",
+      "bookingType": "Type de réservation",
+      "create": "Créer",
+      "departure": "Départ",
+      "departureAirportLabel": "Sélectionnez votre aéroport de départ",
+      "departureAirportPlaceholder": "Choisir un aéroport",
+      "flightNumber": "Numéro de vol",
+      "flightNumberPlaceholder": "Ajoutez le numéro de vol sur votre billet d’avion",
+      "instant": "Instantanée",
+      "lateTax": "Taxe de retard",
+      "noSmileTax": "Taxe sans sourire",
+      "nonInstant": "Non instantanée",
+      "nonInstantDetailed": "Non-instantané (vous souhaitez valider la réservation avant confirmation)",
+      "paymentConfigTitle": "Configuration des paiements",
+      "paymentEmailLabel": "Email de paiement (Stripe)",
+      "paymentEmailPlaceholder": "nom@email.com",
+      "ibanLabel": "IBAN / Compte bancaire",
+      "ibanPlaceholder": "FR76....",
+      "accountHolderName": "Nom du titulaire du compte",
+      "accountHolderPlaceholder": "John Doe",
+      "photos": "Photos",
+      "photosHelper": "Téléchargez au moins 2 photos de votre voyage",
+      "photosUploadCta": "Cliquez pour télécharger des fichiers ({{count}}/{{max}})",
+      "punctual": "Ponctuel",
+      "veryPunctual": "Très ponctuel",
+      "punctualityQuestion": "Quelle ponctualité attendez-vous lors de la rencontre avec votre HappyVoyageur ?",
+      "pricePerKilo": "Prix par kilo",
+      "pricePerKiloPlaceholder": "Entrez votre prix par kilo",
+      "pricePerKiloQuestion": "Quel est votre prix par kilo ?",
+      "currencyLabel": "Devise",
+      "currencyPlaceholder": "EUR",
+      "allowExtraGramsQuestion": "Tolérez-vous quelques grammes de trop ?",
+      "reservationType": "Type de réservation",
+      "sharedKilos": "Kilos partagés avec différents voyageurs",
+      "singlePerson": "Tous mes kilos pour une personne",
+      "singlePersonDetailed": "Tous mes kilos pour un seul et unique voyageur",
       "step1": "Informations de base",
       "step2": "Photos",
       "step3": "Prix et conditions",
-      "departure": "Départ",
-      "arrival": "Arrivée",
-      "travelDate": "Date de votre Voyage",
-      "flightNumber": "Numéro de vol",
-      "reservationType": "Type de réservation",
-      "singlePerson": "Tous mes kilos pour une personne",
-      "sharedKilos": "Kilos partagés avec différents voyageurs",
-      "bookingType": "Type de réservation",
-      "instant": "Instantanée",
-      "nonInstant": "Non instantanée",
       "story": "Votre histoire",
-      "photos": "Photos",
+      "storyPlaceholder": "Parlez un peu plus de votre voyage",
+      "storyCounter": "{{count}}/500 caractères",
+      "storyOverflow": "Dépassement de {{count}} caractères",
+      "title": "Je propose un espace bagage",
+      "travelDate": "Date de votre Voyage",
       "weight": "Poids (kg)",
-      "pricePerKilo": "Prix par kilo",
-      "lateTax": "Taxe de retard",
-      "noSmileTax": "Taxe sans sourire",
-      "allowExtraGrams": "Autoriser les grammes en trop",
-      "create": "Créer"
+      "weightPlaceholder": "Entrez le nombre de kilos",
+      "weightQuestion": "Combien de kilos proposez-vous ?",
+      "errors": {
+        "airportsMustDiffer": "L'aéroport d'arrivée doit être différent de l'aéroport de départ",
+        "arrivalRequired": "Veuillez sélectionner un aéroport d'arrivée",
+        "authRequired": "Vous devez être connecté pour créer une annonce. Veuillez vous connecter.",
+        "bothAirportsRequired": "Veuillez sélectionner les aéroports de départ et d'arrivée",
+        "currencyRequired": "Veuillez sélectionner une devise",
+        "departureRequired": "Veuillez sélectionner un aéroport de départ",
+        "flightNumberInvalid": "Veuillez entrer un numéro de vol valide",
+        "kilosInvalid": "Veuillez saisir un nombre de kilos valide",
+        "photosMinimum": "Veuillez ajouter au moins 2 images",
+        "pricePerKiloInvalid": "Veuillez saisir un prix valide",
+        "storyRequired": "Veuillez décrire votre voyage",
+        "storyTooLong": "La description ne peut pas dépasser 500 caractères",
+        "travelDatePast": "La date ne peut pas être dans le passé"
+      },
+      "success": "Annonce de voyage créée avec succès!",
+      "publishing": "Publication en cours...",
+      "publish": "Publier"
     },
     "createPackage": {
-      "title": "Je souhaite trouver un espace bagage",
-      "description": "Description",
-      "weight": "Poids (kg)",
-      "maxDeliveryDate": "Date max de livraison",
+      "arrivalPlaceholder": "Sélectionnez votre aéroport d'arrivée",
       "create": "Créer",
       "departurePlaceholder": "Sélectionnez votre aéroport de départ",
-      "arrivalPlaceholder": "Sélectionnez votre aéroport d'arrivée"
+      "description": "Description",
+      "maxDeliveryDate": "Date max de livraison",
+      "packageNature": "Nature du bagage",
+      "title": "Je souhaite trouver un espace bagage",
+      "weight": "Poids (kg)",
+      "errors": {
+        "arrivalRequired": "Veuillez sélectionner un aéroport d'arrivée",
+        "authRequired": "Vous devez être connecté pour créer une demande de voyage. Veuillez vous connecter.",
+        "bothAirportsRequired": "Veuillez sélectionner les aéroports de départ et d'arrivée",
+        "currencyRequired": "Veuillez sélectionner une devise",
+        "departureRequired": "Veuillez sélectionner un aéroport de départ",
+        "descriptionRequired": "Veuillez décrire votre baggage",
+        "descriptionTooLong": "La description ne peut pas dépasser 500 caractères",
+        "flightNumberRequired": "Veuillez saisir le numéro de vol",
+        "photosMinimum": "Veuillez ajouter 3 images de votre baggage",
+        "priceInvalid": "Veuillez saisir un prix valide",
+        "travelDateRequired": "Veuillez sélectionner une date de voyage",
+        "weightInvalid": "Veuillez saisir un poids valide"
+      },
+      "success": "Demande de voyage créée avec succès!"
+    },
+    "editAnnounce": {
+      "title": "Modifier l'annonce de voyage"
     },
     "login": {
-      "title": "Connexion",
+      "confirmPassword": "Confirmer le mot de passe",
       "email": "Email",
-      "password": "Mot de passe",
+      "emailPlaceholder": "Votre email",
+      "errorDefault": "Une erreur est survenue. Réessayez.",
       "forgotPassword": "Mot de passe oublié ?",
       "login": "Se connecter",
       "noAccount": "Vous n'avez pas de compte ?",
-      "register": "S'inscrire"
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Votre mot de passe",
+      "register": "S'inscrire",
+      "rememberMe": "Se souvenir de moi",
+      "submitting": "Connexion…",
+      "title": "Connexion",
+      "subtitle": "et profitez de toutes les possibilités"
     },
     "register": {
-      "title": "Inscription",
-      "firstName": "Prénom",
-      "lastName": "Nom de famille",
-      "email": "Email",
-      "password": "Mot de passe",
-      "confirmPassword": "Confirmer le mot de passe",
-      "register": "S'inscrire",
-      "hasAccount": "Vous avez déjà un compte ?",
-      "login": "Se connecter",
-      "validation": {
-        "minLength": "Le mot de passe doit contenir au moins 8 caractères",
-        "uppercase": "Au moins une lettre majuscule",
-        "lowercase": "Au moins une lettre minuscule",
-        "number": "Au moins un chiffre",
-        "special": "Au moins un caractère spécial",
-        "notMatch": "Les mots de passe ne correspondent pas",
-        "incompleteCode": "Veuillez saisir le code de vérification complet"
-      },
-      "subtitle": "Inscrivez-vous et profitez de toutes les possibilités",
-      "verificationTitle": "Vérification",
-      "verificationSubtitle": "Saisissez le code de vérification",
-      "verificationPlaceholder": "Saisissez le code envoyé à votre email",
-      "verificationCodeSent": "Un code de vérification à 6 chiffres a été envoyé à {{email}}.",
-      "resendCode": "Renvoyer le code",
-      "next": "Suivant",
-      "submit": "Soumettre",
-      "submitting": "En cours…",
       "back": "Retour",
-      "phoneLabel": "Numéro de téléphone",
-      "phonePlaceholder": "Numéro de téléphone",
-      "phoneHelper": "Le code pays est automatiquement défini selon votre pays de résidence",
+      "confirmPassword": "Confirmer le mot de passe",
       "countryLabel": "Pays de résidence",
       "countryPlaceholder": "Sélectionnez votre pays",
+      "countryRequired": "Veuillez sélectionner votre pays de résidence",
+      "email": "Email",
+      "error": {
+        "invalidCode": "Code de vérification invalide. Veuillez réessayer.",
+        "registrationFailed": "Échec de l'inscription. Veuillez réessayer.",
+        "resendCodeFailed": "Échec du renvoi du code de vérification. Veuillez réessayer."
+      },
+      "firstName": "Prénom",
       "firstNameHelper": "(Uniquement votre prénom apparaît sur la plateforme)",
-      "termsPrefix": "En vous inscrivant, vous acceptez la",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "lastName": "Nom de famille",
+      "login": "Se connecter",
+      "next": "Suivant",
+      "orContinueWith": "Ou continuer avec",
+      "password": "Mot de passe",
+      "phoneHelper": "Le code pays est automatiquement défini selon votre pays de résidence",
+      "phoneLabel": "Numéro de téléphone",
+      "phonePlaceholder": "Numéro de téléphone",
       "privacyPolicy": "Politique de confidentialité",
+      "register": "S'inscrire",
+      "submitting": "En cours…",
+      "submit": "Soumettre",
+      "subtitle": "Inscrivez-vous et profitez de toutes les possibilités",
       "termsAnd": "et les",
       "termsOfUse": "Conditions d'utilisation",
-      "orContinueWith": "Ou continuer avec",
-      "countryRequired": "Veuillez sélectionner votre pays de résidence",
-      "error": {
-        "registrationFailed": "Échec de l'inscription. Veuillez réessayer.",
-        "invalidCode": "Code de vérification invalide. Veuillez réessayer.",
-        "resendCodeFailed": "Échec du renvoi du code de vérification. Veuillez réessayer."
-      }
+      "termsPrefix": "En vous inscrivant, vous acceptez la",
+      "title": "Inscription",
+      "validation": {
+        "incompleteCode": "Veuillez saisir le code de vérification complet",
+        "lowercase": "Au moins une lettre minuscule",
+        "minLength": "Le mot de passe doit contenir au moins 8 caractères",
+        "notMatch": "Les mots de passe ne correspondent pas",
+        "number": "Au moins un chiffre",
+        "special": "Au moins un caractère spécial",
+        "uppercase": "Au moins une lettre majuscule"
+      },
+      "verificationCodeSent": "Un code de vérification à 6 chiffres a été envoyé à {{email}}.",
+      "verificationPlaceholder": "Saisissez le code envoyé à votre email",
+      "verificationSubtitle": "Saisissez le code de vérification",
+      "verificationTitle": "Vérification",
+      "resendCode": "Renvoyer le code"
+    },
+    "share": {
+      "copySuccess": "Lien copié avec succès ! ✓",
+      "facebookQuote": "Allez sur GoHappyGo pour réagir à cette annonce !",
+      "options": {
+        "copyLink": "Copier le lien",
+        "email": "E-mail",
+        "embed": "Intégrer",
+        "messages": "Messages",
+        "more": "Plus d'options"
+      },
+      "title": "Partager cette annonce"
+    },
+    "support": {
+      "autoCloseHint": "Cette fenêtre se fermera automatiquement...",
+      "charactersCount": "{{count}}/{{max}} caractères",
+      "title": "Contactez notre support"
+    },
+    "cookieConsent": {
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "description": "Pour améliorer votre expérience, mesurer l'audience et personnaliser le contenu. En cliquant sur « Accepter », vous consentez au stockage des cookies sur votre appareil.",
+      "title": "Nous utilisons des cookies"
     }
   },
   "requests": {
@@ -570,6 +890,15 @@
       }
     },
     "announceDetail": {
+      "meta": {
+        "title": "{{type}} #{{id}} - GoHappyGo",
+        "description": "Découvrez cette {{typeLabel}} sur GoHappyGo. faites plus q'un voyage.",
+        "keywords": "transport bagages, voyage, {{typeKey}}, GoHappyGo"
+      },
+      "metaTypeTravel": "voyage",
+      "metaTypeDemand": "demande",
+      "metaTypeLabelTravel": "annonce de voyage",
+      "metaTypeLabelDemand": "demande de transport",
       "notFoundTitle": "Annonce introuvable",
       "notFoundMessage": "Vérifiez l'identifiant ou retournez à la liste des annonces.",
       "backToAnnounces": "Retour aux annonces",
@@ -577,6 +906,33 @@
       "addToFavorites": "Ajouter aux favoris",
       "removeFromFavorites": "Retirer des favoris",
       "yourAnnounce": "Votre annonce",
+      "booking": {
+        "allKilosRequired": "Tous les kilos requis",
+        "oversizeWeight": "Le poids demandé ({{kilos}}kg) dépasse la capacité disponible ({{available}}kg).",
+        "pricing": {
+          "serviceFees": "Frais de service",
+          "serviceFeesTooltipTitle": "Frais de service GoHappyGo",
+          "serviceFeesTooltipDesc": "Ces frais couvrent le traitement sécurisé de votre paiement, le support client 24/7, et la garantie de transaction.",
+          "vatLabel": "TVA 20%",
+          "vatTooltipTitle": "Taxe sur la Valeur Ajoutée",
+          "vatTooltipDesc": "TVA française de 20% appliquée conformément à la réglementation fiscale en vigueur sur les services numériques.",
+          "axaTitle": "Assurance Protection Juridique Internationale",
+          "axaTitlePart1": "Assurance Protection",
+          "axaTitlePart2": "Juridique Internationale",
+          "axaOffered": "Offert !",
+          "axaTooltipTitle": "Assurance Protection Juridique AXA",
+          "axaTooltipDesc": "Protection juridique internationale offerte par AXA. Couvre les litiges liés au transport, assistance juridique 24/7, et remboursement des frais de justice jusqu'à 15 000€.",
+          "totalLabel": "Total taxes incluses",
+          "loadingPricing": "Chargement du calcul des prix...",
+          "remainingCapacity": "Capacité restante: {{available}}kg / {{max}}kg ({{percent}}%)"
+        },
+        "createSimilar": "Créer ce voyage",
+        "exactKilosRequired": "Vous devez entrer exactement {{weight}}kg.",
+        "lowWeight": "Poids disponible insuffisant",
+        "ownAnnounce": "Votre voyage",
+        "pastTravel": "Voyage déjà effectué",
+        "singleTravelerOnly": "Le HappyVoyageur n'accepte qu'une seule personne pour tous les kilos."
+      },
       "notRatedYet": "Pas encore noté",
       "verified": "Vérifié",
       "notVerified": "Non vérifié",
@@ -615,6 +971,10 @@
       }
     },
     "insurance": {
+      "meta": {
+        "description": "Informations sur l'assurance et la couverture des colis.",
+        "title": "Assurance colis - GoHappyGo"
+      },
       "title": "Assurance colis",
       "subtitle": "Protégez vos envois grâce à notre couverture adaptée aux échanges entre particuliers.",
       "coverage": {
@@ -640,10 +1000,6 @@
           "Contactez le support via la plateforme sous 48h",
           "Remplissez le formulaire dédié avec les pièces justificatives"
         ]
-      },
-      "meta": {
-        "title": "Assurance colis - GoHappyGo",
-        "description": "Informations sur l'assurance et la couverture des colis."
       }
     },
     "becomeTransporter": {
@@ -1152,8 +1508,14 @@
       "commentPlaceholder": "Partagez votre expérience...",
       "submit": "Envoyer l'avis",
       "submitting": "Envoi...",
-      "selectRatingError": "Veuillez sélectionner une note",
-      "submitError": "Erreur lors de la soumission de l'avis"
+      "selectRatingError": "Veuillez sélectionner une note"
     }
+  },
+  "seo": {
+    "description": "Faites plus qu'un voyage, faites des bagages heureux ! GoHappyGo est la plateforme de référence pour le faites plus q'un voyage. Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Économique, sécurisé et écologique.",
+    "keywords": "transport bagages, voyage, transporteur, livraison, bagages voyage, transport collaboratif, colis voyage, transporteur bagages, livraison internationale, GoHappyGo",
+    "ogDescription": "🧳 Faites plus qu'un voyage, Faites des bagages heureux ! Choisissez de voyager autrement, Partager votre franchise de bagage, et faites un voyage Utile",
+    "ogImageAlt": "GoHappyGo - Plateforme de transport de bagages",
+    "title": "GoHappyGo - faites plus q'un voyage"
   }
 }

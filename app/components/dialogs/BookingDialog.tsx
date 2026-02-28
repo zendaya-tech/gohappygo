@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useTranslation } from 'react-i18next';
 
 // Remplace par ta clé publique Stripe
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || 'pk_test_your_key_here');
@@ -29,6 +30,7 @@ function CheckoutForm({
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +44,7 @@ function CheckoutForm({
 
     const cardElement = elements.getElement(CardElement);
     if (!cardElement) {
-      setError('Erreur lors du chargement du formulaire de paiement');
+      setError(t('dialogs.booking.errors.loadForm'));
       setIsSubmitting(false);
       return;
     }
@@ -55,13 +57,13 @@ function CheckoutForm({
       });
 
       if (stripeError) {
-        setError(stripeError.message || 'Erreur lors du traitement du paiement');
+        setError(stripeError.message || t('dialogs.booking.errors.processPayment'));
         setIsSubmitting(false);
         return;
       }
 
       if (!paymentMethod) {
-        setError('Impossible de créer la méthode de paiement');
+        setError(t('dialogs.booking.errors.createPaymentMethod'));
         setIsSubmitting(false);
         return;
       }
@@ -75,7 +77,7 @@ function CheckoutForm({
       }
     } catch (err: any) {
       // En cas d'erreur, afficher le message et ne PAS appeler onSuccess
-      setError(err.message || 'Une erreur est survenue');
+      setError(err.message || t('dialogs.booking.errors.generic'));
       setIsSubmitting(false);
       // Ne pas appeler onSuccess ici
     }
@@ -97,7 +99,7 @@ function CheckoutForm({
       <div className="px-6 py-5">
         <div className="mb-4">
           <label className="block text-xs font-medium text-gray-700 mb-2">
-            Informations de carte
+            {t('dialogs.booking.cardInfoLabel')}
           </label>
           <div className="rounded-lg border border-gray-300 px-3 py-3 focus-within:ring-2 focus-within:ring-indigo-500">
             <CardElement
@@ -135,8 +137,8 @@ function CheckoutForm({
               clipRule="evenodd"
             />
           </svg>
-          <span>Paiement sécurisé par</span>
-          <div className="border border-black border-2 px-0.5 py-1 rounded text-[10px] text-black font-bold tracking-tighter">
+          <span>{t('dialogs.booking.securedBy')}</span>
+          <div className=" border-black border-2 px-0.5 py-1 rounded text-[10px] text-black font-bold tracking-tighter">
             stripe
           </div>
         </div>
@@ -150,7 +152,12 @@ function CheckoutForm({
             !stripe || isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover'
           }`}
         >
-          {isSubmitting ? 'Traitement...' : `Payer ${amount.toFixed(2)} ${currencySymbol}`}
+          {isSubmitting
+            ? t('dialogs.booking.submitting')
+            : t('dialogs.booking.payCta', {
+                amount: amount.toFixed(2),
+                currency: currencySymbol,
+              })}
         </button>
       </div>
     </form>
@@ -175,6 +182,7 @@ export default function BookingDialog({
   onSuccess?: () => void;
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!open) return;
@@ -223,7 +231,7 @@ export default function BookingDialog({
 
         {/* Header */}
         <div className="pt-10 text-center px-6">
-          <p className="mt-1 text-[8px] text-gray-500">Soyez un porteur du bonheur</p>
+          <p className="mt-1 text-[8px] text-gray-500">{t('dialogs.booking.tagline')}</p>
         </div>
 
         {/* Stripe Elements Provider */}

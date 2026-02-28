@@ -135,7 +135,7 @@ export default function Header() {
                   <button
                     className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
-                    aria-label="Notifications"
+                    aria-label={t('header.ariaLabels.notifications')}
                     onMouseDown={(e) => e.preventDefault()}
                     onClickCapture={(e) => {
                       e.stopPropagation();
@@ -168,7 +168,7 @@ export default function Header() {
                 <button
                   className="flex items-center gap-2 rounded-lg p-1.5 hover transition-colors duration-200 cursor-pointer"
                   onClick={() => setShowAvatarMenuDesktop((v) => !v)}
-                  aria-label="Ouvrir le menu du compte"
+                  aria-label={t('header.ariaLabels.openAvatarMenu')}
                 >
                   {isLoggedIn ? (
                     <img
@@ -235,7 +235,7 @@ export default function Header() {
                   <button
                     className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative"
                     onClick={() => setShowNotif((v) => !v)}
-                    aria-label="Notifications"
+                    aria-label={t('header.ariaLabels.notifications')}
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -269,7 +269,7 @@ export default function Header() {
                 <button
                   className="flex items-center hover rounded-lg p-2 transition-colors duration-200"
                   onClick={() => setShowAvatarMenuMobile((v) => !v)}
-                  aria-label="Ouvrir le menu du compte"
+                  aria-label={t('header.ariaLabels.openAvatarMenu')}
                 >
                   {isLoggedIn ? (
                     <img
@@ -317,7 +317,11 @@ export default function Header() {
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="relative w-10 h-10 rounded-lg hover transition-all duration-300 flex items-center justify-center group"
-                aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                aria-label={
+                  isMenuOpen
+                    ? t('header.ariaLabels.closeMobileMenu')
+                    : t('header.ariaLabels.openMobileMenu')
+                }
               >
                 <div className="w-5 h-4 flex flex-col justify-between">
                   <span
