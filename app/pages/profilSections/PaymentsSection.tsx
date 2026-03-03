@@ -424,7 +424,7 @@ export const PaymentsSection = ({
                 <button
                   onClick={handleStripeOnboarding}
                   disabled={processingOnboarding}
-                  className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {processingOnboarding ? '...' : t('profile.payments.update')}
                   {stripeRequiments?.hasRequirements && (

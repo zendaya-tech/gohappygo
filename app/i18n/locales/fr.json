@@ -906,6 +906,7 @@
           "axaTooltipDesc": "Protection juridique internationale offerte par AXA. Couvre les litiges liés au transport, assistance juridique 24/7, et remboursement des frais de justice jusqu'à 15 000€.",
           "axaTooltipTitle": "Assurance Protection Juridique AXA",
           "loadingPricing": "Chargement du calcul des prix...",
+          "pricePerKg": "Prix par kilogramme",
           "remainingCapacity": "Capacité restante: {{available}}kg / {{max}}kg ({{percent}}%)",
           "serviceFees": "Frais de service",
           "serviceFeesTooltipDesc": "Ces frais couvrent le traitement sécurisé de votre paiement, le support client 24/7, et la garantie de transaction.",
@@ -1105,11 +1106,7 @@
         {
           "title": "Gohappygo, porter plus que des bagages",
           "intro": "En choisissant Gohappygo, vous ne transportez pas seulement un bagage. Vous portez :",
-          "items": [
-            "Une démarche responsable",
-            "Une vision solidaire",
-            "Un futur plus durable"
-          ],
+          "items": ["Une démarche responsable", "Une vision solidaire", "Un futur plus durable"],
           "footerText": "Parce que voyager mieux, ce n'est pas voyager moins — c'est voyager plus intelligemment. 💙🌍"
         }
       ],
@@ -1483,11 +1480,7 @@
       "section3": {
         "content": "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
         "footer": "Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires.",
-        "items": [
-          "Une solution à un problème",
-          "Un voyage plus serein",
-          "Une confiance retrouvée"
-        ],
+        "items": ["Une solution à un problème", "Un voyage plus serein", "Une confiance retrouvée"],
         "title": "De petits gestes, De grands effets."
       },
       "title": "LE BONHEUR,<br><span>ÇA SE PARTAGE AUSSI !</span>"

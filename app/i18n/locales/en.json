@@ -906,6 +906,7 @@
           "axaTooltipDesc": "International legal protection offered by AXA. Covers disputes related to transport, 24/7 legal assistance, and reimbursement of legal costs up to €15,000.",
           "axaTooltipTitle": "AXA Legal Protection Insurance",
           "loadingPricing": "Loading pricing calculation...",
+          "pricePerKg": "Price per kilogramme",
           "remainingCapacity": "Remaining capacity: {{available}}kg / {{max}}kg ({{percent}}%)",
           "serviceFees": "Service fees",
           "serviceFeesTooltipDesc": "These fees cover the secure processing of your payment, 24/7 customer support, and the transaction guarantee.",
@@ -1078,12 +1079,7 @@
         {
           "title": "An alternative to heavy logistics solutions",
           "intro": "Classic luggage shipping often implies:",
-          "items": [
-            "Dedicated vehicles",
-            "Sorting centers",
-            "Extra packaging",
-            "Indirect routes"
-          ],
+          "items": ["Dedicated vehicles", "Sorting centers", "Extra packaging", "Indirect routes"],
           "highlightTitle": "Gohappygo adopts a different logic:",
           "highlights": [
             "Zero extra trip",
@@ -1105,11 +1101,7 @@
         {
           "title": "Gohappygo, carry more than luggage",
           "intro": "By choosing Gohappygo, you don't just transport a luggage. You carry:",
-          "items": [
-            "A responsible approach",
-            "A solidary vision",
-            "A more sustainable future"
-          ],
+          "items": ["A responsible approach", "A solidary vision", "A more sustainable future"],
           "footerText": "Because traveling better is not traveling less — it is traveling more intelligently. 💙🌍"
         }
       ],
@@ -1483,11 +1475,7 @@
       "section3": {
         "content": "Carrying a package is not much. But for someone else, it is sometimes:",
         "footer": "Happiness is these <b>ordinary little gestures</b> that create extraordinary effects.",
-        "items": [
-          "A solution to a problem",
-          "A more serene trip",
-          "Regained confidence"
-        ],
+        "items": ["A solution to a problem", "A more serene trip", "Regained confidence"],
         "title": "Small gestures. Big effects."
       },
       "title": "HAPPINESS,<br><span> IT'S ALSO SHARED!</span>"
