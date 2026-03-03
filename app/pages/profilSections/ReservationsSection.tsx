@@ -192,8 +192,9 @@ export const ReservationsSection = ({
 
   const filtered = requests.filter((r) => {
     const status = r.currentStatus?.status?.toUpperCase();
-    if (tab === 'pending') return status === 'NEGOTIATING' || status === 'PENDING';
-    if (tab === 'accepted') return status === 'ACCEPTED' || status === 'PENDING_CANCELLATION';
+    if (tab === 'pending') return status === 'NEGOTIATING';
+    if (tab === 'accepted')
+      return status === 'ACCEPTED' || status === 'PENDING_CANCELLATION_CONFIRMATION';
     if (tab === 'completed') return status === 'COMPLETED';
     if (tab === 'cancelled') return status === 'CANCELLED';
     return false;
@@ -343,7 +344,7 @@ export const ReservationsSection = ({
                             color: 'green' as const,
                           };
                         })()
-                      : request.currentStatus?.status === 'PENDING_CANCELLATION'
+                    : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
                         ? requester?.id.toString() === currentUser?.id
                           ? {
                               label: t('profile.actions.finish'),
@@ -388,7 +389,7 @@ export const ReservationsSection = ({
                             },
                             color: 'red',
                           }
-                        : request.currentStatus?.status === 'PENDING_CANCELLATION'
+                        : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
                           ? requester?.id.toString() === currentUser?.id
                             ? {
                                 label: t('profile.actions.cancel'),

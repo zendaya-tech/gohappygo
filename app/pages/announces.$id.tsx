@@ -50,6 +50,7 @@ export default function AnnounceDetail() {
   const [listing, setListing] = useState<DemandTravelItem | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [kilos, setKilos] = useState<number>(0);
+  const [hasTouchedKilosInput, setHasTouchedKilosInput] = useState(false);
   const [shareOpen, setShareOpen] = useState<boolean>(false);
   const [bookOpen, setBookOpen] = useState<boolean>(false);
   const [sliderOpen, setSliderOpen] = useState<boolean>(false);
@@ -181,6 +182,8 @@ export default function AnnounceDetail() {
   const totalReviews = reviews.length;
 
   useEffect(() => {
+    setHasTouchedKilosInput(false);
+
     const fetchAnnounce = async () => {
       if (!id || !type) {
         setLoading(false);
@@ -460,6 +463,12 @@ export default function AnnounceDetail() {
   // Vérifier si l'annonce n'accepte qu'un seul voyageur pour tous les kilos
   const requiresAllKilos = type === 'travel' && !listing.isSharedWeight;
   const hasInvalidKilosForSingleTraveler = requiresAllKilos && kilos !== availableWeight;
+  const hasOverCapacityError = kilos > (availableWeight || 0);
+  const hasSingleTravelerWeightError =
+    hasInvalidKilosForSingleTraveler && kilos <= (availableWeight || 0);
+  const shouldShowOverCapacityError = hasTouchedKilosInput && hasOverCapacityError;
+  const shouldShowSingleTravelerWeightError =
+    hasTouchedKilosInput && hasSingleTravelerWeightError;
 
   const handleBookingConfirm = async (cardData: BookingCardData) => {
     if (!currentUser) {
@@ -527,6 +536,7 @@ export default function AnnounceDetail() {
 
       // Reset kilos
       setKilos(0);
+      setHasTouchedKilosInput(false);
 
       // Optionally refresh the listing to update available weight
       const updatedListing = await getAnnounceByIdAndType(id, type);
@@ -974,7 +984,9 @@ export default function AnnounceDetail() {
                       type="number"
                       min={0}
                       value={kilos === 0 ? '' : kilos}
+                      onBlur={() => setHasTouchedKilosInput(true)}
                       onChange={(e) => {
+                        setHasTouchedKilosInput(true);
                         const value = e.target.value;
                         if (value === '' || value === '0') {
                           setKilos(0);
@@ -989,16 +1001,16 @@ export default function AnnounceDetail() {
                       }}
                       placeholder="0"
                       className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
-                        kilos > (availableWeight || 0)
+                        shouldShowOverCapacityError
                           ? 'border-red-500 focus:ring-red-500'
-                          : hasInvalidKilosForSingleTraveler
+                          : shouldShowSingleTravelerWeightError
                             ? 'border-orange-500 focus:ring-orange-500'
                             : 'border-gray-300 focus:ring-indigo-500'
                       }`}
                     />
 
                     {/* Alert when weight exceeds available capacity */}
-                    {kilos > (availableWeight || 0) && (
+                    {shouldShowOverCapacityError && (
                       <div className="mt-2 mb-4 flex items-start gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
                         <svg
                           className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5"
@@ -1026,7 +1038,7 @@ export default function AnnounceDetail() {
                     )}
 
                     {/* Alert when single traveler mode requires all kilos */}
-                    {hasInvalidKilosForSingleTraveler && kilos <= (availableWeight || 0) && (
+                    {shouldShowSingleTravelerWeightError && (
                       <div className="mt-2 mb-4 flex items-start gap-2 p-3 bg-orange-50 border border-orange-200 rounded-lg">
                         <svg
                           className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5"
@@ -1053,7 +1065,9 @@ export default function AnnounceDetail() {
                       </div>
                     )}
 
-                    {!kilos && !hasInvalidKilosForSingleTraveler && <div className="mb-6" />}
+                    {!shouldShowOverCapacityError && !shouldShowSingleTravelerWeightError && (
+                      <div className="mb-6" />
+                    )}
 
                     {pricingLoading ? (
                       <div className="flex items-center justify-center py-8">

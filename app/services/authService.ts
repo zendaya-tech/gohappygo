@@ -170,6 +170,7 @@ export type LoginResponse = {
       code: string;
       description: string;
     };
+    isEmailVerified?: boolean;
     isPhoneVerified?: boolean;
     isVerified?: boolean;
     isAwaitingVerification?: boolean;
@@ -214,6 +215,7 @@ export type VerifyEmailResponse = {
       description: string;
     };
     isDeactivated: boolean;
+    isEmailVerified?: boolean;
     isPhoneVerified: boolean;
     isVerified: boolean;
     isAwaitingVerification: boolean;
@@ -254,6 +256,7 @@ export type GetMeResponse = {
     description: string;
   };
   isDeactivated: boolean;
+  isEmailVerified?: boolean;
   isPhoneVerified: boolean;
   isVerified: boolean;
   isAwaitingVerification: boolean;

@@ -41,6 +41,7 @@ export type AuthState = {
     profilePictureUrl?: string;
     bio?: string;
     role?: UserRole;
+    isEmailVerified?: boolean;
     isPhoneVerified?: boolean;
     isVerified?: boolean;
     isAwaitingVerification?: boolean;
