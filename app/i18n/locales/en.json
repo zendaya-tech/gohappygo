@@ -79,6 +79,7 @@
       "success": "Request sent successfully!",
       "successIllustration": "Success illustration",
       "toggleDropdown": "Toggle dropdown",
+      "verification": "Verification illustration",
       "worldMap": "World map"
     },
     "actions": {
@@ -411,6 +412,23 @@
       "success": "Transport request updated successfully!",
       "title": "Edit transport request"
     },
+    "emailVerification": {
+      "codeResent": "Verification code resent.",
+      "codeSent": "A verification code has been sent to {{email}}",
+      "errors": {
+        "emailNotFound": "Email address not found. Please log in again.",
+        "incompleteCode": "Please enter the complete 6-digit code.",
+        "invalidCode": "Invalid code. Please try again.",
+        "resendFailed": "Unable to resend code at this time."
+      },
+      "resendCode": "Resend Code",
+      "resending": "Resending...",
+      "subtitle": "Activate your account to access all features.",
+      "success": "Email verified successfully.",
+      "title": "Email Verification",
+      "verifyButton": "Verify my email",
+      "verifying": "Verifying..."
+    },
     "login": {
       "confirmPassword": "Confirm password",
       "email": "Email",
@@ -584,6 +602,7 @@
     }
   },
   "header": {
+    "activateAccount": "Activate my account",
     "ariaLabels": {
       "closeMobileMenu": "Close mobile menu",
       "notifications": "Notifications",
@@ -606,6 +625,7 @@
     },
     "downloadApp": "Download app +",
     "downloadAppButton": "Download App",
+    "emailNotVerified": "Your email is not yet verified. Please activate your account to access all features.",
     "language": "Language",
     "login": "Login",
     "logout": "Logout",
@@ -1058,7 +1078,12 @@
         {
           "title": "An alternative to heavy logistics solutions",
           "intro": "Classic luggage shipping often implies:",
-          "items": ["Dedicated vehicles", "Sorting centers", "Extra packaging", "Indirect routes"],
+          "items": [
+            "Dedicated vehicles",
+            "Sorting centers",
+            "Extra packaging",
+            "Indirect routes"
+          ],
           "highlightTitle": "Gohappygo adopts a different logic:",
           "highlights": [
             "Zero extra trip",
@@ -1080,7 +1105,11 @@
         {
           "title": "Gohappygo, carry more than luggage",
           "intro": "By choosing Gohappygo, you don't just transport a luggage. You carry:",
-          "items": ["A responsible approach", "A solidary vision", "A more sustainable future"],
+          "items": [
+            "A responsible approach",
+            "A solidary vision",
+            "A more sustainable future"
+          ],
           "footerText": "Because traveling better is not traveling less — it is traveling more intelligently. 💙🌍"
         }
       ],
@@ -1454,7 +1483,11 @@
       "section3": {
         "content": "Carrying a package is not much. But for someone else, it is sometimes:",
         "footer": "Happiness is these <b>ordinary little gestures</b> that create extraordinary effects.",
-        "items": ["A solution to a problem", "A more serene trip", "Regained confidence"],
+        "items": [
+          "A solution to a problem",
+          "A more serene trip",
+          "Regained confidence"
+        ],
         "title": "Small gestures. Big effects."
       },
       "title": "HAPPINESS,<br><span> IT'S ALSO SHARED!</span>"

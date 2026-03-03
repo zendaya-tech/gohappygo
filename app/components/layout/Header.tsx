@@ -465,16 +465,13 @@ export default function Header() {
       {isLoggedIn && uqer && uqer.isEmailVerified === false && (
         <div className="bg-amber-50 border-b border-amber-200">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 py-2.5 text-sm text-amber-900 flex items-center justify-between gap-3">
-            <span>
-              Votre email n'est pas encore verifie. Merci d'activer votre compte pour acceder a
-              toutes les fonctionnalites.
-            </span>
+            <span>{t('header.emailNotVerified')}</span>
             <button
               type="button"
               onClick={() => setShowEmailVerification(true)}
               className="shrink-0 rounded-md border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100"
             >
-              Activer mon compte
+              {t('header.activateAccount')}
             </button>
           </div>
         </div>

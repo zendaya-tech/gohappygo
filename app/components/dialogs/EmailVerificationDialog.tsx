@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '~/hooks/useAuth';
 
 export default function EmailVerificationDialog({
@@ -19,6 +20,7 @@ export default function EmailVerificationDialog({
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const { verifyEmail, resendEmailVerification, authenticate } = useAuth();
+  const { t } = useTranslation();
   const emailValue = email?.trim();
 
   useEffect(() => {
@@ -60,11 +62,11 @@ export default function EmailVerificationDialog({
       try {
         const res = await resendEmailVerification(emailValue);
         if (!cancelled) {
-          setMessage(res.message || 'Code de verification envoye.');
+          setMessage(res.message || t('dialogs.emailVerification.codeResent'));
         }
       } catch (err: any) {
         if (!cancelled) {
-          setError(err?.message || "Impossible d'envoyer le code pour l'instant.");
+          setError(err?.message || t('dialogs.emailVerification.errors.resendFailed'));
         }
       } finally {
         if (!cancelled) {
@@ -88,24 +90,24 @@ export default function EmailVerificationDialog({
     setMessage(null);
 
     if (!emailValue) {
-      setError('Adresse email introuvable. Veuillez vous reconnecter.');
+      setError(t('dialogs.emailVerification.errors.emailNotFound'));
       return;
     }
 
     const verificationCode = code.join('');
     if (verificationCode.length !== 6) {
-      setError('Veuillez entrer le code complet a 6 chiffres.');
+      setError(t('dialogs.emailVerification.errors.incompleteCode'));
       return;
     }
 
     setSubmitting(true);
     try {
       const res = await verifyEmail(emailValue, verificationCode);
-      setMessage(res.message || 'Email verifie avec succes.');
+      setMessage(res.message || t('dialogs.emailVerification.success'));
       await authenticate();
       setTimeout(() => onClose(), 900);
     } catch (err: any) {
-      setError(err?.message || "Code invalide. Merci d'essayer a nouveau.");
+      setError(err?.message || t('dialogs.emailVerification.errors.invalidCode'));
     } finally {
       setSubmitting(false);
     }
@@ -123,9 +125,9 @@ export default function EmailVerificationDialog({
     setResending(true);
     try {
       const res = await resendEmailVerification(emailValue);
-      setMessage(res.message || 'Code de verification renvoye.');
+      setMessage(res.message || t('dialogs.emailVerification.codeResent'));
     } catch (err: any) {
-      setError(err?.message || "Impossible de renvoyer le code pour l'instant.");
+      setError(err?.message || t('dialogs.emailVerification.errors.resendFailed'));
     } finally {
       setResending(false);
     }
@@ -140,21 +142,22 @@ export default function EmailVerificationDialog({
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/2 p-6 md:p-8">
             <div className="mb-6 md:mb-8">
-              <h1 className="text-2xl md font-bold text-gray-900 mb-2">Verification email</h1>
-              <p className="text-sm md text-gray-600">
-                Activez votre compte pour acceder a toutes les fonctionnalites.
-              </p>
+              <h1 className="text-2xl md font-bold text-gray-900 mb-2">
+                {t('dialogs.emailVerification.title')}
+              </h1>
+              <p className="text-sm md text-gray-600">{t('dialogs.emailVerification.subtitle')}</p>
             </div>
 
             <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="text-sm text-gray-600">
-                Un code de verification a ete envoye a <span className="font-semibold">{emailValue}</span>
+                {t('dialogs.emailVerification.codeSent', { email: emailValue })}
               </div>
 
               {message && <div className="text-sm text-green-600">{message}</div>}
               {error && <div className="text-sm text-red-600">{error}</div>}
 
-              <div className="flex justify-between gap-2"
+              <div
+                className="flex justify-between gap-2"
                 onPaste={(e) => {
                   const text = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
                   if (!text) return;
@@ -197,7 +200,9 @@ export default function EmailVerificationDialog({
                   disabled={resending}
                   className="text-sm text-blue-600 hover disabled:opacity-50 cursor-pointer"
                 >
-                  {resending ? 'Renvoi...' : 'Renvoyer le code'}
+                  {resending
+                    ? t('dialogs.emailVerification.resending')
+                    : t('dialogs.emailVerification.resendCode')}
                 </button>
               </div>
 
@@ -208,13 +213,19 @@ export default function EmailVerificationDialog({
                   submitting ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
               >
-                {submitting ? 'Verification…' : 'Verifier mon email'}
+                {submitting
+                  ? t('dialogs.emailVerification.verifying')
+                  : t('dialogs.emailVerification.verifyButton')}
               </button>
             </form>
           </div>
 
           <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 relative min-h-[300px]">
-            <img src="/images/login.jpg" alt="Verification" className="w-full h-full object-cover" />
+            <img
+              src="/images/login.jpg"
+              alt={t('common.accessibility.verification')}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>

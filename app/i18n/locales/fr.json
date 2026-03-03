@@ -79,6 +79,7 @@
       "success": "Demande envoyée avec succès !",
       "successIllustration": "Illustration de succès",
       "toggleDropdown": "Basculer le menu",
+      "verification": "Illustration de vérification",
       "worldMap": "Carte du monde"
     },
     "actions": {
@@ -411,6 +412,23 @@
       "success": "Demande de voyage mise à jour avec succès!",
       "title": "Modifier la demande de voyage"
     },
+    "emailVerification": {
+      "codeResent": "Code de vérification renvoyé.",
+      "codeSent": "Un code de vérification a été envoyé à {{email}}",
+      "errors": {
+        "emailNotFound": "Adresse email introuvable. Veuillez vous reconnecter.",
+        "incompleteCode": "Veuillez entrer le code complet à 6 chiffres.",
+        "invalidCode": "Code invalide. Merci d'essayer à nouveau.",
+        "resendFailed": "Impossible de renvoyer le code pour l'instant."
+      },
+      "resendCode": "Renvoyer le code",
+      "resending": "Renvoi...",
+      "subtitle": "Activez votre compte pour accéder à toutes les fonctionnalités.",
+      "success": "Email vérifié avec succès.",
+      "title": "Vérification email",
+      "verifyButton": "Vérifier mon email",
+      "verifying": "Vérification..."
+    },
     "login": {
       "confirmPassword": "Confirmer le mot de passe",
       "email": "Email",
@@ -584,6 +602,7 @@
     }
   },
   "header": {
+    "activateAccount": "Activer mon compte",
     "ariaLabels": {
       "closeMobileMenu": "Fermer le menu mobile",
       "notifications": "Notifications",
@@ -606,6 +625,7 @@
     },
     "downloadApp": "Téléchargez l'appli +",
     "downloadAppButton": "Télécharger l'appli",
+    "emailNotVerified": "Votre email n'est pas encore vérifié. Merci d'activer votre compte pour accéder à toutes les fonctionnalités.",
     "language": "Langue",
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -1085,7 +1105,11 @@
         {
           "title": "Gohappygo, porter plus que des bagages",
           "intro": "En choisissant Gohappygo, vous ne transportez pas seulement un bagage. Vous portez :",
-          "items": ["Une démarche responsable", "Une vision solidaire", "Un futur plus durable"],
+          "items": [
+            "Une démarche responsable",
+            "Une vision solidaire",
+            "Un futur plus durable"
+          ],
           "footerText": "Parce que voyager mieux, ce n'est pas voyager moins — c'est voyager plus intelligemment. 💙🌍"
         }
       ],
@@ -1459,7 +1483,11 @@
       "section3": {
         "content": "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
         "footer": "Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires.",
-        "items": ["Une solution à un problème", "Un voyage plus serein", "Une confiance retrouvée"],
+        "items": [
+          "Une solution à un problème",
+          "Un voyage plus serein",
+          "Une confiance retrouvée"
+        ],
         "title": "De petits gestes, De grands effets."
       },
       "title": "LE BONHEUR,<br><span>ÇA SE PARTAGE AUSSI !</span>"
