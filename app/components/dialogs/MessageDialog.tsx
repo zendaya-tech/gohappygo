@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { sendMessage, type SendMessageDto } from '~/services/messageService';
+import { useTranslation } from 'react-i18next';
+import { XMarkIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 export default function MessageDialog({
   open,
@@ -18,6 +20,7 @@ export default function MessageDialog({
   requestId?: number;
   onSend?: (message: string) => void;
 }) {
+  const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +64,7 @@ export default function MessageDialog({
       onClose();
     } catch (error: any) {
       console.error('Error sending message:', error);
-      setError(error?.response?.data?.message || "Erreur lors de l'envoi du message");
+      setError(error?.response?.data?.message || t('dialogs.message.error'));
     } finally {
       setSending(false);
     }
@@ -92,7 +95,7 @@ export default function MessageDialog({
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Your message here ..."
+              placeholder={t('dialogs.message.placeholder')}
               rows={6}
               className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus"
               disabled={sending}
@@ -109,7 +112,7 @@ export default function MessageDialog({
               disabled={!message.trim() || sending}
               className="mt-6 w-full rounded-lg bg-[#2d6a74] py-3 text-white font-semibold hover:bg-[#25575f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
-              {sending ? 'Envoi...' : 'Send message'}
+              {sending ? t('dialogs.message.sending') : t('dialogs.message.send')}
             </button>
           </div>
 
@@ -118,45 +121,28 @@ export default function MessageDialog({
             {/* Close Button positioned in the right panel as per image */}
             <button
               onClick={onClose}
-              aria-label="Close"
+              aria-label={t('common.close')}
               className="absolute top-4 right-4 text-gray-400 hover transition-colors cursor-pointer"
             >
-              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <XMarkIcon className="h-6 w-6" />
             </button>
 
             <div className="mt-2 flex flex-col gap-6">
               {/* Warning Icon */}
               <div className="text-red-500">
-                <svg className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
+                <ExclamationTriangleIcon className="h-9 w-9" />
               </div>
 
-              {/* French Safety Text */}
+              {/* Safety Text */}
               <div className="space-y-6 text-[15px] leading-relaxed text-gray-800 font-semibold">
                 <p>
-                  Pour garantir votre sécurité, restez toujours sur{' '}
+                  {t('dialogs.message.safety.stayOnPlatform').split('GoHappyGo')[0]}
                   <span className="font-semibold text-blue-600 hover:underline cursor-pointer">
                     GoHappyGo
-                  </span>{' '}
-                  jusqu'au bout de votre voyage.
+                  </span>
+                  {t('dialogs.message.safety.stayOnPlatform').split('GoHappyGo')[1]}
                 </p>
-                <p>
-                  Pour éviter les arnaques, ne cliquez jamais sur des liens de paiement ou de
-                  virement partagés par d'autres membres.
-                </p>
+                <p>{t('dialogs.message.safety.avoidScams')}</p>
               </div>
             </div>
           </div>

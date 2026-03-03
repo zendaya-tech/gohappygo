@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 
 interface AlertDialogProps {
   open: boolean;
@@ -17,9 +18,12 @@ export default function AlertDialog({
   title,
   message,
   type,
-  confirmText = 'OK',
+  confirmText,
   onConfirm,
 }: AlertDialogProps) {
+  const { t } = useTranslation();
+  const finalConfirmText = confirmText || t('common.ok');
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -106,7 +110,7 @@ export default function AlertDialog({
               onClick={handleConfirm}
               className={`px-6 py-2 rounded-lg text-white font-medium transition-colors cursor-pointer ${colors.button}`}
             >
-              {confirmText}
+              {finalConfirmText}
             </button>
           </div>
         </div>

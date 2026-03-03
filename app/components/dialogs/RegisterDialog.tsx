@@ -535,7 +535,11 @@ export default function RegisterDialog({
 
           {/* Côté droit - Image (caché sur mobile) */}
           <div className="hidden md:block md:w-2/3 bg-gradient-to-br from-green-500 to-blue-600 relative">
-            <img src="/images/login.jpg" alt="Register" className="w-full h-full object-cover" />
+            <img
+              src="/images/login.jpg"
+              alt={t('dialogs.register.title')}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>

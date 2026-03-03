@@ -195,9 +195,7 @@ export default function LoginDialog({
 
             {/* Lien vers inscription */}
             <div className="mt-4 md:mt-6 text-center">
-              <span className="text-xs md text-gray-600">
-                {t('dialogs.login.noAccount')}{' '}
-              </span>
+              <span className="text-xs md text-gray-600">{t('dialogs.login.noAccount')} </span>
               <button
                 onClick={onSwitchToRegister}
                 className="text-xs md text-blue-600 hover font-medium cursor-pointer"
@@ -209,7 +207,11 @@ export default function LoginDialog({
 
           {/* Côté droit - Image */}
           <div className="hidden md:block md:w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 relative min-h-[300px]">
-            <img src="/images/login.jpg" alt="Login" className="w-full h-full object-cover" />
+            <img
+              src="/images/login.jpg"
+              alt={t('dialogs.login.title')}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>

@@ -1,150 +1,625 @@
 {
-  "demand": {
-    "package": "I want to find baggage space",
-    "travel": "I offer baggage space"
-  },
-  "common": {
-    "copyright": "© 2024 GoHappyGo. All rights reserved.",
-    "email": "Your email",
-    "loading": "Loading...",
-    "save": "Save",
-    "cancel": "Cancel",
-    "close": "Close",
-    "edit": "Edit",
-    "delete": "Delete",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "search": "Search",
-    "filter": "Filter",
-    "clear": "Clear",
-    "submit": "Submit",
-    "send": "Send",
-    "download": "Download",
-    "upload": "Upload",
-    "share": "Share",
-    "copy": "Copy",
-    "view": "View",
-    "explore": "Explore",
-    "step": "Step",
-    "of": "of",
-    "as": "as",
-    "unfinished": "unfinished",
-    "completed": "Completed",
-    "pending": "Pending",
-    "failed": "Failed",
-    "user": "User",
-    "ok": "OK",
-    "error": "Error",
-    "userDefault": "User",
-    "accessibility": {
-      "close": "Close",
-      "success": "Request sent successfully!",
-      "error": "Error sending request",
-      "ariaLabels": {
-        "openChat": "Open chat",
-        "closeChat": "Close chat"
-      },
-      "logo": "GoHappyGo Logo",
-      "toggleDropdown": "Toggle dropdown",
-      "image": "Image",
-      "profile": "Profile",
-      "avatar": "Avatar",
-      "loading": "Loading"
+  "announcements": {
+    "card": {
+      "addToFavorites": "Add to favorites",
+      "availableSpace": "Available space",
+      "departure": "Departure",
+      "perKilo": "/Kilo",
+      "removeFromFavorites": "Remove from favorites",
+      "requestedSpace": "Requested space"
     },
-    "refresh": "Refresh",
-    "traveler": "Traveler",
-    "anonymous": "Anonymous",
-    "info": "Info",
-    "writeMessage": "Write a message...",
-    "new": "New",
-    "conversation": "conversation",
-    "chat": {
-      "title": "Messages",
-      "selectConversation": "Select a conversation",
-      "newConversation": "New conversation",
-      "search": "Search...",
-      "openChat": "Open chat",
-      "closeChat": "Close chat",
-      "info": "Info",
-      "writeMessage": "Write a message...",
-      "send": "Send"
-    }
+    "filters": {
+      "airline": "Airline",
+      "flight": "Flight",
+      "lowestPrice": "Lowest price",
+      "transportRequest": "Transport request",
+      "travelAd": "Travel ad",
+      "travelDate": "Travel date",
+      "verifiedProfile": "Verified profile"
+    },
+    "title": "Announcements"
   },
   "cards": {
-    "common": {
-      "kg": "Kg",
-      "currency": "{{amount}} {{symbol}}",
-      "currencyPerKg": "{{symbol}}/Kg"
-    },
     "action": {
-      "travel": "Travel",
       "demand": "Request",
-      "message": "Message",
       "flight": "Flight",
-      "perKg": "/kg"
+      "message": "Message",
+      "perKg": "/kg",
+      "travel": "Travel"
     },
     "announce": {
-      "verified": "Verified",
+      "airline": "Airline",
       "availableSpace": "Available space",
-      "requestedSpace": "Requested space",
       "date": "Date:",
-      "airline": "Airline"
+      "requestedSpace": "Requested space",
+      "verified": "Verified"
+    },
+    "common": {
+      "currency": "{{amount}} {{symbol}}",
+      "currencyPerKg": "{{symbol}}/Kg",
+      "kg": "Kg"
     },
     "profileTravel": {
-      "flightNumber": "Flight number",
+      "delete": "Delete",
       "edit": "Edit",
-      "delete": "Delete"
+      "flightNumber": "Flight number"
     },
     "reservation": {
       "approve": "Approve",
-      "reject": "Reject",
       "contact": "Contact",
+      "customerDataPending": "The data will be available after the payment is processed.",
       "customerDetails": "Customer Details",
-      "customerDataPending": "The data will be available after the payment is processed."
+      "reject": "Reject"
     },
     "travel": {
       "removeFromFavorites": "Remove from favorites"
     }
   },
-  "header": {
-    "downloadApp": "Download app +",
-    "publishAd": "Publish ad +",
-    "downloadAppButton": "Download App",
-    "notifications": "Notifications",
-    "profile": "Profile",
-    "settings": "Settings",
-    "logout": "Logout",
-    "login": "Login",
-    "register": "Register",
-    "language": "Language",
-    "ariaLabels": {
-      "openAvatarMenu": "Open account menu",
-      "openMobileMenu": "Open mobile menu",
-      "closeMobileMenu": "Close mobile menu",
-      "notifications": "Notifications"
+  "common": {
+    "accessibility": {
+      "airport": "Airport",
+      "ariaLabels": {
+        "closeChat": "Close chat",
+        "openChat": "Open chat"
+      },
+      "avatar": "Avatar",
+      "axaLogo": "AXA Logo",
+      "close": "Close",
+      "error": "Error sending request",
+      "image": "Image",
+      "loading": "Loading",
+      "logo": "GoHappyGo Logo",
+      "paymentMethods": {
+        "cb": "CB Logo",
+        "mastercard": "MasterCard Logo",
+        "visa": "Visa Logo"
+      },
+      "profile": "Profile",
+      "quote": "Quote icon",
+      "success": "Request sent successfully!",
+      "successIllustration": "Success illustration",
+      "toggleDropdown": "Toggle dropdown",
+      "worldMap": "World map"
     },
+    "actions": {
+      "deleteImage": "Delete image"
+    },
+    "anonymous": "Anonymous",
+    "arrival": "Arrival",
+    "as": "as",
+    "back": "Back",
+    "brands": {
+      "stripe": "Stripe"
+    },
+    "cancel": "Cancel",
+    "characterCount": "{{count}} / {{max}} characters",
+    "chat": {
+      "closeChat": "Close chat",
+      "info": "Info",
+      "newConversation": "New conversation",
+      "openChat": "Open chat",
+      "search": "Search...",
+      "selectConversation": "Select a conversation",
+      "send": "Send",
+      "title": "Messages",
+      "writeMessage": "Write a message..."
+    },
+    "clear": "Clear",
+    "close": "Close",
+    "completed": "Completed",
+    "confirm": "Confirm",
+    "conversation": "conversation",
+    "copy": "Copy",
+    "copyright": "© 2024 GoHappyGo. All rights reserved.",
+    "currencyHint": "This currency will be used for all amounts",
+    "date": "Date",
+    "delete": "Delete",
+    "departure": "Departure",
+    "download": "Download",
+    "edit": "Edit",
+    "email": "Your email",
+    "error": "Error",
+    "errors": {
+      "genericUpdate": "An error occurred while updating. Please try again.",
+      "loginRequiredUpdate": "You must be logged in to make changes. Please log in.",
+      "sameDepartureArrival": "Departure and arrival airports cannot be the same."
+    },
+    "explore": "Explore",
+    "failed": "Failed",
+    "filter": "Filter",
+    "flight": "Flight",
+    "info": "Info",
+    "kg": "Kg",
+    "loading": "Loading...",
+    "loadingStates": {
+      "creating": "Creating..."
+    },
+    "new": "New",
+    "next": "Next",
+    "no": "No",
+    "of": "of",
+    "ok": "OK",
+    "packageNature": {
+      "FRAGILE": "Fragile",
+      "MORE_THAN_3000": "More than 3000",
+      "STANDARD": "Standard",
+      "URGENT": "Urgent"
+    },
+    "pending": "Pending",
+    "placeholders": {
+      "arrival": "Arrival airport",
+      "chooseAirport": "Choose an airport",
+      "chooseDate": "Choose a date",
+      "currency": "EUR",
+      "departure": "Departure airport",
+      "flight": "Flight number",
+      "noCountryFound": "No country found",
+      "noResults": "No results found",
+      "pricePerKg": "Enter price per kilos",
+      "searchAirport": "Search for an airport...",
+      "searchCountry": "Search a country...",
+      "searchCurrency": "Search for a currency...",
+      "selectCountry": "Select a country",
+      "typeHere": "Type here..."
+    },
+    "previous": "Previous",
+    "profile": "Profile",
+    "refresh": "Refresh",
+    "save": "Save",
+    "search": "Search",
+    "send": "Send",
+    "share": "Share",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter"
+    },
+    "step": "Step",
+    "submit": "Submit",
+    "traveler": "Traveler",
+    "unfinished": "unfinished",
+    "update": "Update",
+    "upload": "Upload",
+    "user": "User",
+    "userDefault": "User",
+    "view": "View",
+    "viewMore": "Read more",
+    "weight": "Weight",
+    "writeMessage": "Write a message...",
+    "yes": "Yes"
+  },
+  "countries": {
+    "AE": "United Arab Emirates",
+    "AT": "Austria",
+    "AU": "Australia",
+    "BE": "Belgium",
+    "BG": "Bulgaria",
+    "BR": "Brazil",
+    "CA": "Canada",
+    "CH": "Switzerland",
+    "CY": "Cyprus",
+    "CZ": "Czech Republic",
+    "DE": "Germany",
+    "DK": "Denmark",
+    "EE": "Estonia",
+    "ES": "Spain",
+    "FI": "Finland",
+    "FR": "France",
+    "GB": "United Kingdom",
+    "GI": "Gibraltar",
+    "GR": "Greece",
+    "HK": "Hong Kong",
+    "HR": "Croatia",
+    "HU": "Hungary",
+    "IE": "Ireland",
+    "IT": "Italy",
+    "JP": "Japan",
+    "LI": "Liechtenstein",
+    "LT": "Lithuania",
+    "LU": "Luxembourg",
+    "LV": "Latvia",
+    "MT": "Malte",
+    "MX": "Mexico",
+    "MY": "Malaysia",
+    "NL": "Netherlands",
+    "NO": "Norway",
+    "NZ": "New Zealand",
+    "PL": "Poland",
+    "PT": "Portugal",
+    "RO": "Romania",
+    "SE": "Sweden",
+    "SG": "Singapore",
+    "SI": "Slovenia",
+    "SK": "Slovakia",
+    "TH": "Thailand",
+    "US": "United States"
+  },
+  "demand": {
+    "package": "I want to find baggage space",
+    "travel": "I offer baggage space"
+  },
+  "dialogs": {
+    "announceType": {
+      "cancel": "Cancel",
+      "iHavePackage": "I have a package to send",
+      "iTravel": "I am traveling and I have space",
+      "title": "Announcement type"
+    },
+    "booking": {
+      "cardInfoLabel": "Card information",
+      "enterKilos": "Enter n° Kilo",
+      "errors": {
+        "createPaymentMethod": "Unable to create the payment method",
+        "generic": "An error occurred",
+        "loadForm": "Error while loading the payment form",
+        "processPayment": "Error while processing the payment"
+      },
+      "payCta": "Pay {{amount}} {{currency}}",
+      "securedBy": "Secure payment by",
+      "submitting": "Processing...",
+      "tagline": "Be a carrier of happiness"
+    },
+    "cookieConsent": {
+      "accept": "Accept",
+      "decline": "Decline",
+      "description": "To improve your experience, measure audience and personalize content. By clicking “Accept”, you consent to cookies being stored on your device.",
+      "title": "We use cookies"
+    },
+    "createAlert": {
+      "alertType": {
+        "both": "Trips and requests",
+        "demandOnly": "Requests only",
+        "travelOnly": "Trips only"
+      },
+      "alertTypeLabel": "Alert type",
+      "arrivalAirportLabel": "Arrival airport *",
+      "arrivalAirportPlaceholder": "Search an arrival airport",
+      "departureAirportLabel": "Departure airport *",
+      "departureAirportPlaceholder": "Search a departure airport",
+      "errors": {
+        "airportsRequired": "Departure and arrival airports are required.",
+        "createFailed": "Error while creating the alert",
+        "sameDepartureArrival": "Departure and arrival airports cannot be the same."
+      },
+      "flightNumberLabel": "Flight number (optional)",
+      "flightNumberPlaceholder": "Ex: AF123",
+      "submit": "Create alert",
+      "submitting": "Creating...",
+      "successMessage": "Alert created successfully! You will be notified as soon as an offer matches.",
+      "title": "Create an alert",
+      "travelDateLabel": "Travel date (optional)"
+    },
+    "createAnnounce": {
+      "accountHolderName": "Account holder name",
+      "accountHolderPlaceholder": "John Doe",
+      "airlineDetected": "Detected automatically",
+      "airlineEnterFlightFirst": "Enter the flight number first",
+      "airlineHelper": "The airline is detected automatically from the flight number",
+      "airlineLabel": "Airline",
+      "airlineSearching": "Searching...",
+      "allowExtraGrams": "Allow extra grams",
+      "allowExtraGramsQuestion": "Do you allow a few extra grams?",
+      "arrival": "Arrival",
+      "arrivalAirportLabel": "Select your arrival airport",
+      "arrivalAirportPlaceholder": "Choose an airport",
+      "bookingPreference": "What type of booking do you prefer for this travel?",
+      "bookingType": "Booking type",
+      "create": "Create",
+      "currencyLabel": "Currency",
+      "currencyPlaceholder": "EUR",
+      "departure": "Departure",
+      "departureAirportLabel": "Select your departure airport",
+      "departureAirportPlaceholder": "Choose an airport",
+      "errors": {
+        "airportsMustDiffer": "The arrival airport must be different from the departure airport",
+        "arrivalRequired": "Please select an arrival airport",
+        "authRequired": "You must be logged in to create an announcement. Please log in.",
+        "bothAirportsRequired": "Please select departure and arrival airports",
+        "currencyRequired": "Please select a currency",
+        "departureRequired": "Please select a departure airport",
+        "flightNumberInvalid": "Please enter a valid flight number",
+        "invalidFlightNumber": "Invalid flight number",
+        "kilosInvalid": "Please enter a valid number of kilos",
+        "photosMinimum": "Please add at least 2 photos",
+        "pricePerKiloInvalid": "Please enter a valid price per kilo",
+        "sameDepartureArrival": "Departure and arrival airports cannot be the same.",
+        "selectAirports": "Please select the airports",
+        "storyRequired": "Please describe your travel",
+        "storyTooLong": "The description cannot exceed 500 characters",
+        "travelDatePast": "The date cannot be in the past"
+      },
+      "flightNumber": "Flight number",
+      "flightNumberPlaceholder": "Add the flight number from your ticket",
+      "ibanLabel": "IBAN / Bank account",
+      "ibanPlaceholder": "FR76....",
+      "instant": "Instant",
+      "lateTax": "Late tax",
+      "nonInstant": "Non-instant",
+      "nonInstantDetailed": "Non-instant (you want to approve the booking before confirmation)",
+      "noSmileTax": "No smile tax",
+      "paymentConfigTitle": "Payment configuration",
+      "paymentEmailLabel": "Payment email (Stripe)",
+      "paymentEmailPlaceholder": "name@email.com",
+      "photos": "Photos",
+      "photosHelper": "Upload at least 2 photos of your trip",
+      "photosUploadCta": "Click to upload files ({{count}}/{{max}})",
+      "pricePerKilo": "Price per kilo",
+      "pricePerKiloPlaceholder": "Enter your price per kilo",
+      "pricePerKiloQuestion": "What is your price per kilo?",
+      "publish": "Publish",
+      "publishing": "Publishing...",
+      "punctual": "Punctual",
+      "punctualityQuestion": "How punctual do you expect to be when meeting your HappyTraveler?",
+      "reservationType": "Reservation type",
+      "reservationTypeQuestion": "What kind of reservation do you prefer?",
+      "sharedKilos": "Shared kilos with different travelers",
+      "singlePerson": "All my kilos for one person",
+      "singlePersonDetailed": "All my kilos for one single traveler",
+      "step1": "Basic information",
+      "step1Subtitle": "Select basic settings",
+      "step2": "Photos",
+      "step2Subtitle": "Add 2 photos",
+      "step3": "Price and conditions",
+      "step3Subtitle": "Specify your preferences",
+      "story": "Your story",
+      "storyCounter": "{{count}}/500 characters",
+      "storyOverflow": "Exceeded by {{count}} characters",
+      "storyPlaceholder": "Tell us more about your travel",
+      "success": "Travel announcement created successfully!",
+      "title": "I offer baggage space",
+      "travelDate": "Your travel date",
+      "veryPunctual": "Very punctual",
+      "weight": "Weight (kg)",
+      "weightPlaceholder": "Enter the number of kilos",
+      "weightQuestion": "How many kilos are you offering?"
+    },
+    "createPackage": {
+      "arrivalPlaceholder": "Select your airport of arrival",
+      "create": "Create",
+      "departurePlaceholder": "Select your airport of departure",
+      "description": "Description",
+      "errors": {
+        "arrivalRequired": "Please select an arrival airport",
+        "authRequired": "You must be logged in to create a travel request. Please log in.",
+        "bothAirportsRequired": "Please select departure and arrival airports",
+        "currencyRequired": "Please select a currency",
+        "departureRequired": "Please select a departure airport",
+        "descriptionRequired": "Please describe your baggage",
+        "descriptionTooLong": "The description cannot exceed 500 characters",
+        "flightNumberRequired": "Please enter the flight number",
+        "pastDate": "The date cannot be in the past",
+        "photosMinimum": "Please add 3 images of your baggage",
+        "priceInvalid": "Please enter a valid price",
+        "travelDateRequired": "Please select a travel date",
+        "weightInvalid": "Please enter a valid weight"
+      },
+      "maxDeliveryDate": "Max delivery date",
+      "packageNature": "Package nature",
+      "step1": "General",
+      "step1Subtitle": "Select basic settings",
+      "step2": "Photos & Price",
+      "step2Subtitle": "Add photos and set the price",
+      "success": "Travel request created successfully!",
+      "title": "I want to find baggage space",
+      "weight": "Weight (kg)"
+    },
+    "editAnnounce": {
+      "success": "Travel announcement updated successfully!",
+      "title": "Edit travel announcement"
+    },
+    "editPackage": {
+      "success": "Transport request updated successfully!",
+      "title": "Edit transport request"
+    },
+    "login": {
+      "confirmPassword": "Confirm password",
+      "email": "Email",
+      "emailPlaceholder": "Your email",
+      "errorDefault": "Something went wrong. Please try again.",
+      "forgotPassword": "Forgot password?",
+      "login": "Login",
+      "noAccount": "Don't have an account?",
+      "password": "Password",
+      "passwordPlaceholder": "Your password",
+      "register": "Register",
+      "rememberMe": "Remember me",
+      "submitting": "Logging in…",
+      "subtitle": "and enjoy all the possibilities",
+      "title": "Login"
+    },
+    "message": {
+      "error": "Error while sending message",
+      "placeholder": "Your message here...",
+      "safety": {
+        "avoidScams": "To avoid scams, never click on payment or transfer links shared by other members.",
+        "stayOnPlatform": "To ensure your safety, always stay on GoHappyGo until the end of your trip.",
+        "title": "Safety Information"
+      },
+      "send": "Send message",
+      "sending": "Sending..."
+    },
+    "register": {
+      "back": "Back",
+      "confirmPassword": "Confirm password",
+      "countryLabel": "Country of residence",
+      "countryPlaceholder": "Select your country",
+      "countryRequired": "Please select your country of residence",
+      "email": "Email",
+      "error": {
+        "invalidCode": "Invalid verification code. Please try again.",
+        "registrationFailed": "Registration failed. Please try again.",
+        "resendCodeFailed": "Failed to resend verification code. Please try again."
+      },
+      "firstName": "First name",
+      "firstNameHelper": "(Only your first name appears on the platform)",
+      "hasAccount": "Already have an account?",
+      "lastName": "Last name",
+      "login": "Login",
+      "next": "Next",
+      "orContinueWith": "Or continue with",
+      "password": "Password",
+      "phoneHelper": "The country code is automatically set according to your country of residence",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "Phone number",
+      "privacyPolicy": "Privacy Policy",
+      "register": "Register",
+      "resendCode": "Resend the code",
+      "submit": "Submit",
+      "submitting": "In progress...",
+      "subtitle": "Join us and enjoy all the possibilities",
+      "termsAnd": "and the",
+      "termsOfUse": "Terms of Use",
+      "termsPrefix": "By registering, you accept the",
+      "title": "Register",
+      "validation": {
+        "incompleteCode": "Please enter the complete verification code",
+        "lowercase": "At least one lowercase letter",
+        "minLength": "Password must be at least 8 characters long",
+        "notMatch": "Passwords do not match",
+        "number": "At least one number",
+        "special": "At least one special character",
+        "uppercase": "At least one uppercase letter"
+      },
+      "verificationCodeSent": "A 6-digit verification code has been sent to {{email}}.",
+      "verificationPlaceholder": "Enter the code sent to your email",
+      "verificationSubtitle": "Enter the verification code",
+      "verificationTitle": "Verification"
+    },
+    "share": {
+      "copySuccess": "Link copied successfully! ✓",
+      "facebookQuote": "Go to GoHappyGo to react to this announcement!",
+      "options": {
+        "copyLink": "Copy link",
+        "email": "Email",
+        "embed": "Embed",
+        "messages": "Messages",
+        "more": "More options"
+      },
+      "title": "Share this announcement"
+    },
+    "success": {
+      "goToDashboard": "Go to Dashboard",
+      "happinessIsSimple": "Happiness is simple",
+      "infoFilled": "Information Filled",
+      "paymentsActivated": "Payments Activated",
+      "readyToGiveReceive": "You are ready to give and receive Happiness.",
+      "steps": {
+        "earn": {
+          "desc": "Start earning money from your trips.",
+          "title": "Earn income"
+        },
+        "find": {
+          "desc": "Search for a trip to the same destination.",
+          "title": "Find a HappyTraveler"
+        },
+        "publish": {
+          "desc": "Publish a travel announcement or request.",
+          "title": "Publish an announcement"
+        }
+      },
+      "stripeCompleted": "Stripe Configuration Completed!",
+      "verifiedAccount": "Verified Account",
+      "whatsNext": "What's next?"
+    },
+    "support": {
+      "autoCloseHint": "This window will close automatically...",
+      "charactersCount": "{{count}}/{{max}} characters",
+      "title": "Contact our support"
+    }
+  },
+  "footer": {
+    "account": {
+      "login": "Login",
+      "register": "Register",
+      "title": "Account"
+    },
+    "copyright": "All rights reserved.",
+    "description": "Be a happiness carrier",
+    "discover": {
+      "announcements": "Announcements",
+      "howItWorks": "How it works",
+      "logos": "Logos",
+      "title": "Discover",
+      "transporters": "Transporters"
+    },
+    "giveHappiness": {
+      "becomeTransporter": "Become HappyTransporter",
+      "insuranceProtection": "Insurance and Protection",
+      "securityRules": "Security rules",
+      "title": "Give Happiness"
+    },
+    "knowUs": {
+      "ecologicalImpact": "Ecological impact",
+      "howItWorks": "How does it work?",
+      "title": "To know us better",
+      "whatIsHappiness": "What is Happiness?"
+    },
+    "legal": {
+      "pricingPolicy": "Pricing Policy",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "title": "Legal Mentions"
+    },
+    "ship": {
+      "packageInsurance": "Package insurance",
+      "postRequest": "Post a request",
+      "pricing": "Pricing",
+      "title": "Ship"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "Twitter"
+    },
+    "support": {
+      "downloadApp": "Download the app",
+      "faq": "FAQ",
+      "title": "Support"
+    },
+    "transport": {
+      "becomeTransporter": "Become a transporter",
+      "identityVerification": "Identity verification",
+      "securityRules": "Security rules",
+      "title": "Transport"
+    }
+  },
+  "header": {
+    "ariaLabels": {
+      "closeMobileMenu": "Close mobile menu",
+      "notifications": "Notifications",
+      "openAvatarMenu": "Open account menu",
+      "openMobileMenu": "Open mobile menu"
+    },
+    "avatarMenu": {
+      "contact": "Contact Customer Service",
+      "howItWorks": "How GoHappyGo works",
+      "insurance": "Insurance and protection",
+      "legal": "Legal Mentions",
+      "login": "Login",
+      "menuAriaLabel": "Account menu",
+      "messages": "My Messages",
+      "profile": "My Profile",
+      "register": "Register",
+      "travelerTools": "Traveler tools",
+      "travels": "My Travels",
+      "wishes": "My Travel Wishes"
+    },
+    "downloadApp": "Download app +",
+    "downloadAppButton": "Download App",
+    "language": "Language",
+    "login": "Login",
+    "logout": "Logout",
+    "notifications": "Notifications",
     "popovers": {
-      "notifications": {
-        "title": "Notifications",
-        "unread_one": "{{count}} unread",
-        "unread_other": "{{count}} unread",
-        "markAllAsRead": "✓ Mark all as read",
-        "loading": "Loading...",
-        "empty": "No notifications",
-        "upToDate": "You're all up to date!",
-        "viewAll": "See all notifications →",
-        "closeLabel": "Close",
-        "timeAgo": {
-          "justNow": "just now",
-          "ago": "{{count}}{{units}} ago",
-          "yesterday": "yesterday",
-          "units": {
-            "min": "min",
-            "hour": "h",
-            "day": "d"
-          }
+      "announceType": {
+        "ariaLabel": "Announcement types",
+        "package": {
+          "desc": "Request a baggage trip",
+          "title": "Package"
+        },
+        "travel": {
+          "desc": "Post a trip to carry packages",
+          "title": "Travel"
         }
       },
       "download": {
@@ -152,237 +627,854 @@
         "qrAlt": "QR Code to download the app",
         "scanText": "Scan to download"
       },
-      "announceType": {
-        "ariaLabel": "Announcement types",
-        "travel": {
-          "title": "Travel",
-          "desc": "Post a trip to carry packages"
+      "notifications": {
+        "closeLabel": "Close",
+        "empty": "No notifications",
+        "loading": "Loading...",
+        "markAllAsRead": "✓ Mark all as read",
+        "timeAgo": {
+          "ago": "{{count}}{{units}} ago",
+          "justNow": "just now",
+          "units": {
+            "day": "d",
+            "hour": "h",
+            "min": "min"
+          },
+          "yesterday": "yesterday"
         },
-        "package": {
-          "title": "Package",
-          "desc": "Request a baggage trip"
-        }
+        "title": "Notifications",
+        "unread_one": "{{count}} unread",
+        "unread_other": "{{count}} unread",
+        "upToDate": "You're all up to date!",
+        "viewAll": "See all notifications →"
       }
     },
-    "avatarMenu": {
-      "howItWorks": "How GoHappyGo works",
-      "travelerTools": "Traveler tools",
-      "login": "Login",
-      "register": "Register",
-      "profile": "My Profile",
-      "messages": "My Messages",
-      "travels": "My Travels",
-      "wishes": "My Travel Wishes",
-      "contact": "Contact Customer Service",
-      "legal": "Legal Mentions",
-      "insurance": "Insurance and protection",
-      "menuAriaLabel": "Account menu"
-    }
+    "profile": "Profile",
+    "publishAd": "Publish ad +",
+    "register": "Register",
+    "settings": "Settings"
   },
   "home": {
-    "hero": {
-      "title": "Ship your packages safely",
-      "subtitle": "Have your excess baggage checked in by other travelers on the same flight as you, for the same destination",
-      "titlePart1": "Carry as much luggage as you wish with",
-      "titlePart2": "during your trip",
-      "searchFrom": "From",
-      "searchTo": "To",
-      "searchDate": "Date",
-      "searchFlight": "Flight",
-      "searchButton": "Search",
-      "fromPlaceholder": "Departure airport",
-      "toPlaceholder": "Arrival airport",
-      "datePlaceholder": "When?",
-      "flightPlaceholder": "Flight number",
-      "searchByDestination": "Search by destination",
-      "searchByFlightNumber": "Search by Flight Number"
-    },
-    "heroAlt": {
-      "airplane": "Airplane in flight",
-      "suitcase": "Suitcase",
-      "package": "Package",
-      "airport": "Airport",
-      "arrow": "Directional arrow"
-    },
-    "meta": {
-      "title": "GoHappyGo - Make more than a trip, Make happy luggage",
-      "description": "Two needs, one mutual aid: travelers with fewer kilos help those who have more. Ship at low prices while travelers monetize their free space, in any security and simplicity."
-    },
-    "latestDemands": {
-      "noDemands": "No demands available at the moment",
-      "subtitle": "HappyVoyageurs wishing to find baggage space",
-      "title": "Latest demands",
-      "loading": "Loading latest demands...",
-      "priority": {
-        "urgent": "Urgent",
-        "fragile": "Fragile",
-        "priority": "Priority",
-        "standard": "Standard"
-      }
-    },
-    "packageCategories": {
-      "title": "Package types",
-      "categories": {
-        "documents": "Documents",
-        "clothing": "Clothing",
-        "electronics": "Electronics",
-        "medicine": "Medicine",
-        "gifts": "Gifts",
-        "books": "Books",
-        "samples": "Samples",
-        "urgent": "Urgent"
-      }
-    },
-    "features": {
-      "title": "Why choose GoHappyGo?",
-      "subtitle": "A simple and secure solution for your shipments",
-      "profitability": {
-        "title": "Profit from your travels",
-        "description": "Make an economical trip by earning money with your unused baggage allowance while meeting new people."
-      },
-      "security": {
-        "title": "Travel and exchange with confidence",
-        "description": "Evolve in a secure and trusted environment with identity verification, internal messaging, photos taken and stored on the app, transaction traceability, insurance, ratings."
-      },
-      "simplicity": {
-        "title": "Happiness is simple",
-        "description": "Installing the GoHappyGo app is a revolution. It's simple and beneficial for all travelers. Join a thriving community for happy and ecological mobility."
-      },
-      "verifiedTickets": "Verified flight tickets and much more"
-    },
-    "recommendations": {
-      "title": "Our",
-      "howItWorks": "How it works?",
-      "judiciaryProtection": "Here and there, your legal protection works",
-      "whyHappy": "Why I give happiness?",
-      "yourSecurityPriority": "Your security is our priority",
-      "exploreDestinations": "Explore new destinations",
-      "popularRoutes": "Popular journeys",
-      "secureTransport": "Ship securely",
-      "fragilePackages": "Fragile packages",
-      "saveOnShipping": "Save on shipping",
-      "advantageousRates": "Advantageous rates",
-      "expressDelivery": "Express delivery",
-      "urgentPackages": "Urgent packages",
-      "watchVideo": "Watch video"
-    },
-    "reviews": {
-      "title": "User testimonials",
-      "noReviews": "You don't have any reviews yet",
-      "brazil": {
-        "review": "I helped, I traveled, I earned. Thank you GoHappyGo!",
-        "name": "James P."
-      },
-      "south_africa": {
-        "review": "I treated myself to a restaurant with GoHappyGo earnings. Yes, I gave happiness, and I received a lot in return",
-        "name": "Theresa L."
-      },
-      "australia": {
-        "review": "A simple but brilliant idea. The interface is intuitive and the concept addresses a real need.",
-        "name": "Marie D."
-      },
-      "usa_east": {
-        "review": "A very beautiful human experience. Pierre, my HappyTraveler, was ultimately like a guide during my stay. I was a bit hesitant at first, but the platform is clear and reassuring. I was informed at every step.",
-        "name": "Christian L."
-      },
-      "usa_west": {
-        "review": "A smooth platform, clear exchanges and a true sense of mutual aid between travelers.",
-        "name": "Johnson S."
-      },
-      "france": {
-        "review": "I'm a mother of 4 children; I was able to bring plenty of things for the 'little' family on our trip without breaking the bank",
-        "name": "Sophie M."
-      }
-    },
-    "popularRoutes": {
-      "title": "Most popular <span className=\"text-blue-600\">Trips</span>",
-      "startingFrom": "Starting from"
-    },
     "becomeTransporter": {
       "title": "Become a <span className=\"text-blue-600\">HappyTraveler</span>, and give happiness to other travelers"
     },
-    "verifiedTravelers": {
-      "title": "<span className=\"text-blue-600\">Verified</span> HappyTravelers",
-      "loading": "Loading verified travelers...",
-      "noTravelers": "No verified traveler available at the moment"
+    "features": {
+      "profitability": {
+        "description": "Make an economical trip by earning money with your unused baggage allowance while meeting new people.",
+        "title": "Profit from your travels"
+      },
+      "security": {
+        "description": "Evolve in a secure and trusted environment with identity verification, internal messaging, photos taken and stored on the app, transaction traceability, insurance, ratings.",
+        "title": "Travel and exchange with confidence"
+      },
+      "simplicity": {
+        "description": "Installing the GoHappyGo app is a revolution. It's simple and beneficial for all travelers. Join a thriving community for happy and ecological mobility.",
+        "title": "Happiness is simple"
+      },
+      "subtitle": "A simple and secure solution for your shipments",
+      "title": "Why choose GoHappyGo?",
+      "verifiedTickets": "Verified flight tickets and much more"
+    },
+    "hero": {
+      "datePlaceholder": "When?",
+      "flightPlaceholder": "Flight number",
+      "fromPlaceholder": "Departure airport",
+      "searchButton": "Search",
+      "searchByDestination": "Search by destination",
+      "searchByFlightNumber": "Search by Flight Number",
+      "searchDate": "Date",
+      "searchFlight": "Flight",
+      "searchFrom": "From",
+      "searchTo": "To",
+      "subtitle": "Have your excess baggage checked in by other travelers on the same flight as you, for the same destination",
+      "title": "Ship your packages safely",
+      "titlePart1": "Carry as much luggage as you wish with",
+      "titlePart2": "during your trip",
+      "toPlaceholder": "Arrival airport"
+    },
+    "heroAlt": {
+      "airplane": "Airplane in flight",
+      "airport": "Airport",
+      "arrow": "Directional arrow",
+      "package": "Package",
+      "suitcase": "Suitcase"
     },
     "hostSection": {
-      "title": "Become a transporter and earn money",
+      "cta": "Start now",
       "description": "Profit from your travels by transporting packages for other people. Simple, secure and profitable.",
-      "cta": "Start now"
+      "title": "Become a transporter and earn money"
+    },
+    "latestDemands": {
+      "loading": "Loading latest demands...",
+      "noDemands": "No demands available at the moment",
+      "priority": {
+        "fragile": "Fragile",
+        "priority": "Priority",
+        "standard": "Standard",
+        "urgent": "Urgent"
+      },
+      "subtitle": "<span className=\"text-blue-600\">HappyTraveler</span> wishing to find baggage space",
+      "title": "Latest demands"
+    },
+    "meta": {
+      "description": "Two needs, one mutual aid: travelers with fewer kilos help those who have more. Ship at low prices while travelers monetize their free space, in any security and simplicity.",
+      "title": "GoHappyGo - Make more than a trip, Make happy luggage"
+    },
+    "packageCategories": {
+      "categories": {
+        "books": "Books",
+        "clothing": "Clothing",
+        "documents": "Documents",
+        "electronics": "Electronics",
+        "gifts": "Gifts",
+        "medicine": "Medicine",
+        "samples": "Samples",
+        "urgent": "Urgent"
+      },
+      "title": "Package types"
+    },
+    "popularRoutes": {
+      "startingFrom": "Starting from",
+      "title": "Most popular <span className=\"text-blue-600\">Trips</span>"
+    },
+    "recommendations": {
+      "advantageousRates": "Advantageous rates",
+      "exploreDestinations": "Explore new destinations",
+      "expressDelivery": "Express delivery",
+      "fragilePackages": "Fragile packages",
+      "howItWorks": "How it works?",
+      "judiciaryProtection": "Here and there, your legal protection works",
+      "popularRoutes": "Popular journeys",
+      "saveOnShipping": "Save on shipping",
+      "secureTransport": "Ship securely",
+      "title": "Our",
+      "urgentPackages": "Urgent packages",
+      "watchVideo": "Watch video",
+      "whyHappy": "Why I give happiness?",
+      "yourSecurityPriority": "Your security is our priority"
+    },
+    "reviews": {
+      "australia": {
+        "name": "Marie D.",
+        "review": "A simple but brilliant idea. The interface is intuitive and the concept addresses a real need."
+      },
+      "brazil": {
+        "name": "James P.",
+        "review": "I helped, I traveled, I earned. Thank you GoHappyGo!"
+      },
+      "france": {
+        "name": "Sophie M.",
+        "review": "I'm a mother of 4 children; I was able to bring plenty of things for the 'little' family on our trip without breaking the bank"
+      },
+      "noReviews": "You don't have any reviews yet",
+      "south_africa": {
+        "name": "Theresa L.",
+        "review": "I treated myself to a restaurant with GoHappyGo earnings. Yes, I gave happiness, and I received a lot in return"
+      },
+      "title": "User testimonials",
+      "usa_east": {
+        "name": "Christian L.",
+        "review": "A very beautiful human experience. Pierre, my HappyTraveler, was ultimately like a guide during my stay. I was a bit hesitant at first, but the platform is clear and reassuring. I was informed at every step."
+      },
+      "usa_west": {
+        "name": "Johnson S.",
+        "review": "A smooth platform, clear exchanges and a true sense of mutual aid between travelers."
+      }
     },
     "supportSection": {
-      "title": "Our <span className=\"text-blue-600\">Guarantees</span>",
-      "successMessage": "Message sent successfully!",
-      "successDesc": "We will get back to you soon.",
-      "submitting": "Sending...",
       "detailedHelp": "Need detailed help?",
-      "learnMore": "Learn more about our support →",
       "errors": {
         "fillAll": "Please fill in all fields.",
         "invalidEmail": "Please enter a valid email address.",
         "sendError": "Error while sending message."
       },
-      "support247": {
-        "title": "24/7 Support",
-        "description": "Understand the essentials before starting!",
-        "cta": "Learn more"
-      },
       "insurance": {
-        "title": "Insurance and security",
-        "description": "Insured and tracked. Travel with peace of mind!"
+        "description": "Insured and tracked. Travel with peace of mind!",
+        "title": "Insurance and security"
       },
+      "learnMore": "Learn more about our support →",
       "online": {
-        "title": "Online",
         "description": "Ask any question to our support",
         "placeholder": "Your question",
-        "send": "Send"
-      }
+        "send": "Send",
+        "title": "Online"
+      },
+      "submitting": "Sending...",
+      "successDesc": "We will get back to you soon.",
+      "successMessage": "Message sent successfully!",
+      "support247": {
+        "cta": "Learn more",
+        "description": "Understand the essentials before starting!",
+        "title": "24/7 Support"
+      },
+      "title": "Our <span className=\"text-blue-600\">Guarantees</span>"
+    },
+    "verifiedTravelers": {
+      "loading": "Loading verified travelers...",
+      "noTravelers": "No verified traveler available at the moment",
+      "title": "<span className=\"text-blue-600\">Verified</span> HappyTravelers"
     }
   },
-  "announcements": {
-    "title": "Announcements",
-    "filters": {
-      "verifiedProfile": "Verified profile",
-      "lowestPrice": "Lowest price",
-      "airline": "Airline",
-      "travelDate": "Travel date",
-      "travelAd": "Travel ad",
-      "transportRequest": "Transport request",
-      "flight": "Flight"
-    },
-    "card": {
-      "availableSpace": "Available space",
-      "requestedSpace": "Requested space",
-      "departure": "Departure",
-      "perKilo": "/Kilo",
+  "languages": {
+    "ar": "Arabic",
+    "bn": "Bengali",
+    "de": "German",
+    "en": "English",
+    "es": "Spanish",
+    "fil": "Filipino",
+    "fr": "French",
+    "hi": "Hindi",
+    "id": "Indonesian",
+    "it": "Italian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "ms": "Malay",
+    "pa": "Punjabi",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "th": "Thai",
+    "tr": "Turkish",
+    "vi": "Vietnamese",
+    "zh": "Chinese"
+  },
+  "pages": {
+    "announceDetail": {
       "addToFavorites": "Add to favorites",
-      "removeFromFavorites": "Remove from favorites"
+      "alerts": {
+        "bookingCreated": "Your request #{{id}} was successfully created.",
+        "bookingError": "Booking error",
+        "bookingSuccess": "Booking successful!",
+        "capacityExceeded": "The requested weight ({{weight}}kg) exceeds available capacity ({{available}}kg).",
+        "defaultError": "An error occurred during booking",
+        "enterValidWeight": "Please enter a valid weight greater than or equal to 0.",
+        "insufficientCapacity": "Insufficient capacity",
+        "invalidType": "Invalid announcement type",
+        "invalidWeight": "Invalid weight",
+        "loginRequired": "Login required",
+        "loginToBook": "You must be logged in to book a trip.",
+        "loginToFavorite": "You must be logged in to add to favorites.",
+        "onlyTravelBooking": "You can only book travels."
+      },
+      "arrival": "Arrival",
+      "availableSpace": "Available space",
+      "backToAnnounces": "Back to announcements",
+      "badges": {
+        "allowExtra": "accepts a few extra grams",
+        "instantBooking": "booking will be confirmed instantly",
+        "manualBooking": "booking will be confirmed by the HappyTraveler",
+        "noExtra": "does not accept extra grams",
+        "punctual": "punctual",
+        "sharedWeight": "can take kilos from multiple travelers",
+        "singleTraveler": "accepts only one person for all kilos",
+        "veryPunctual": "very punctual"
+      },
+      "booking": {
+        "allKilosRequired": "All kilos required",
+        "createSimilar": "Create this travel",
+        "exactKilosRequired": "You must enter exactly {{weight}}kg.",
+        "lowWeight": "Insufficient available weight",
+        "oversizeWeight": "The requested weight ({{kilos}}kg) exceeds the available capacity ({{available}}kg).",
+        "ownAnnounce": "Your travel",
+        "pastTravel": "Travel already completed",
+        "pricing": {
+          "axaOffered": "Free!",
+          "axaTitle": "International Legal Protection Insurance",
+          "axaTitlePart1": "Legal Protection",
+          "axaTitlePart2": "Insurance",
+          "axaTooltipDesc": "International legal protection offered by AXA. Covers disputes related to transport, 24/7 legal assistance, and reimbursement of legal costs up to €15,000.",
+          "axaTooltipTitle": "AXA Legal Protection Insurance",
+          "loadingPricing": "Loading pricing calculation...",
+          "remainingCapacity": "Remaining capacity: {{available}}kg / {{max}}kg ({{percent}}%)",
+          "serviceFees": "Service fees",
+          "serviceFeesTooltipDesc": "These fees cover the secure processing of your payment, 24/7 customer support, and the transaction guarantee.",
+          "serviceFeesTooltipTitle": "GoHappyGo Service Fees",
+          "totalLabel": "Total with taxes",
+          "vatLabel": "VAT 20%",
+          "vatTooltipDesc": "French VAT of 20% applied in accordance with current tax regulations on digital services.",
+          "vatTooltipTitle": "Value Added Tax"
+        },
+        "singleTravelerOnly": "The HappyVoyageur only accepts one person for all kilos."
+      },
+      "departure": "Departure",
+      "descriptionUnavailable": "Description not available",
+      "errors": {
+        "loadQuotesFailed": "Failed to load quotes"
+      },
+      "flightNumber": "Flight No",
+      "message": "Message",
+      "meta": {
+        "description": "Discover this {{typeLabel}} on GoHappyGo. make more than a trip.",
+        "keywords": "luggage transport, travel, {{typeKey}}, GoHappyGo",
+        "title": "{{type}} #{{id}} - GoHappyGo"
+      },
+      "metaTypeDemand": "Demand",
+      "metaTypeLabelDemand": "transport request",
+      "metaTypeLabelTravel": "travel announcement",
+      "metaTypeTravel": "Travel",
+      "notFoundMessage": "Check the ID or return to the list of announcements.",
+      "notFoundTitle": "Announcement not found",
+      "notRatedYet": "Not rated yet",
+      "notVerified": "Not verified",
+      "profile": "Profile",
+      "removeFromFavorites": "Remove from favorites",
+      "requestedSpace": "Requested space",
+      "share": "Share",
+      "verified": "Verified",
+      "yourAnnounce": "Your announcement"
+    },
+    "announces": {
+      "alertDescription": "Set an alert, we'll notify you as soon as an offer matches.",
+      "allLoaded": "You have seen all available announcements",
+      "clearAll": "Clear all",
+      "createAlert": "Create an alert",
+      "errors": {
+        "loadResultsFailed": "Failed to load results"
+      },
+      "filterBy": "Filter by",
+      "filters": {
+        "airline": "Airline",
+        "lowestPrice": "Lowest price",
+        "oldest": "Oldest",
+        "transportRequest": "Transport request",
+        "travelAd": "Travel ad",
+        "verified": "Verified profile"
+      },
+      "filterUnavailable": "Filter unavailable",
+      "max": "Max",
+      "min": "Min",
+      "noResultsSubtitle": "for this flight... yet!",
+      "noResultsTitle": "We found no available luggage space",
+      "pricePerKg": "Price per kg (€)",
+      "searchAirline": "Search airline",
+      "title": "Announcements",
+      "weightKg": "Weight (kg)"
+    },
+    "becomeTransporter": {
+      "footer": "BE A HAPPINESS CARRIER.",
+      "header": "BE A HAPPYTRAVELER,<br><span>SIMPLY BE HAPPY</span>",
+      "section1": {
+        "intro": [
+          "We believe that traveling can be more than just a trip.",
+          "We believe that every journey is an opportunity.",
+          "An opportunity to help.",
+          "An opportunity to share.",
+          "An opportunity to create a bond."
+        ]
+      },
+      "section2": {
+        "lines": [
+          "Is choosing to travel differently.",
+          "Is seeing in a free space a chance to be of service.",
+          "In a meeting, a trust to build.",
+          "In a luggage, a story to carry.",
+          "We are already traveling.",
+          "So might as well <b>travel usefully</b>.",
+          "Useful for someone waiting.",
+          "Useful for a planet to preserve.",
+          "Useful to give meaning back to our travels."
+        ],
+        "title": "BEING A HAPPYTRAVELER,"
+      },
+      "section3": {
+        "lines": [
+          "Is believing in the power of small gestures.",
+          "An agreement.",
+          "A smile.",
+          "A package arriving at destination.",
+          "And often, much more than that.",
+          "We move forward together, in a safe, transparent and respectful framework.",
+          "Because trust is not an option.",
+          "It is our foundation."
+        ],
+        "title": "BEING A HAPPYTRAVELER,"
+      },
+      "section4": {
+        "lines": [
+          "Is a state of mind.",
+          "That of those who choose solidarity over indifference, connection over isolation, meaning over routine.",
+          "We are the HappyTravelers.",
+          "We carry more than luggage.",
+          "We carry kindness.",
+          "We carry trust.",
+          "We carry happiness."
+        ],
+        "title": "BEING A HAPPYTRAVELER,"
+      }
+    },
+    "downloadApp": {
+      "autoRedirect": "Automatic redirection in 3 seconds...",
+      "button": {
+        "downloadOn": "Download on {{storeName}}",
+        "redirecting": "Redirecting..."
+      },
+      "features": {
+        "community": {
+          "desc": "Join thousands of travelers worldwide",
+          "title": "Active community"
+        },
+        "competitive": {
+          "desc": "Save up to 80% on your excess baggage fees",
+          "title": "Competitive prices"
+        },
+        "secure": {
+          "desc": "Verified profiles and insurance included for all your transports",
+          "title": "Secure transport"
+        },
+        "support": {
+          "desc": "Assistance available at any time to accompany you",
+          "title": "24/7 Support"
+        },
+        "title": "Why download GoHappyGo?"
+      },
+      "stores": {
+        "android": {
+          "name": "Google Play",
+          "subtitle": "Available for Android",
+          "title": "Download on Google Play"
+        },
+        "desktop": {
+          "name": "Chrome Web Store",
+          "subtitle": "Available for browser",
+          "title": "Install Chrome Extension"
+        },
+        "ios": {
+          "name": "App Store",
+          "subtitle": "Available for iPhone and iPad",
+          "title": "Download on the App Store"
+        },
+        "unknown": {
+          "name": "Store",
+          "subtitle": "Choose your platform",
+          "title": "Download the app"
+        }
+      },
+      "subtitle": "Join our community of travelers",
+      "title": "Download GoHappyGo"
+    },
+    "ecologicalImpact": {
+      "sections": [
+        {
+          "title": "An alternative to heavy logistics solutions",
+          "intro": "Classic luggage shipping often implies:",
+          "items": ["Dedicated vehicles", "Sorting centers", "Extra packaging", "Indirect routes"],
+          "highlightTitle": "Gohappygo adopts a different logic:",
+          "highlights": [
+            "Zero extra trip",
+            "Zero heavy infrastructure",
+            "Zero superfluous packaging"
+          ],
+          "footerText": "Luggage travels with people already on the move. This is the very essence of the sharing economy applied to travel."
+        },
+        {
+          "title": "Sharing economy serving the environment",
+          "intro": "By using Gohappygo, each user becomes an actor of the ecological transition:",
+          "items": [
+            "The carrier optimizes an empty space",
+            "The sender avoids a polluting solution",
+            "The community reduces its global footprint"
+          ],
+          "footerText": "A small individual gesture, multiplied by thousands of travelers, can have a significant collective impact."
+        },
+        {
+          "title": "Gohappygo, carry more than luggage",
+          "intro": "By choosing Gohappygo, you don't just transport a luggage. You carry:",
+          "items": ["A responsible approach", "A solidary vision", "A more sustainable future"],
+          "footerText": "Because traveling better is not traveling less — it is traveling more intelligently. 💙🌍"
+        }
+      ],
+      "title": "YOUR TRIP, YOUR LUGGAGE...<br><span>HAS A STRONG ECOLOGICAL</span><br><span>IMPACT</span>"
+    },
+    "faqPage": {
+      "questions": [
+        {
+          "question": "Who Can Use Gohappygo?",
+          "answer": "Any adult with a verified account can use Gohappygo to offer or book luggage space."
+        },
+        {
+          "question": "Are Profiles Verified?",
+          "answer": "Yes. All users go through identity verification during registration to guarantee a trusted community."
+        },
+        {
+          "question": "What Is A HappyTraveler?",
+          "answer": "A HappyTraveler is a user who chooses to travel by helping others, or use the Gohappygo service, in a spirit of trust, sharing and kindness."
+        },
+        {
+          "question": "Who Chooses The Luggage Carrier?",
+          "answer": "Whether booking or offering luggage space, one can freely choose their HappyTraveler, after consulting their profile, and exchanging with them. Cancellation is possible at any time before the trip. Any transaction must start and end on Gohappygo to benefit from our legal protection."
+        },
+        {
+          "question": "How Is The Meeting Traceability Ensured?",
+          "answer": "During the meeting at the airport, and before check-in, the 2 travelers take a selfie via the application, which confirms their identity and confirms the meeting; this data is not held by any of the travelers."
+        },
+        {
+          "question": "What Type Of Luggage Can Be Transported?",
+          "answer": "Only luggage authorized by regulations (suitcases, personal bags, non-dangerous effects) can be entrusted via Gohappygo."
+        },
+        {
+          "question": "What Happens In Case Of Problem During The Trip?",
+          "answer": "Gohappygo is a secure framework, and of traceability. The platform provides 24/7 technical and legal assistance, regardless of location on the globe."
+        },
+        {
+          "question": "How Does Payment Work?",
+          "answer": "Payment is 100% secure and held in escrow by the platform throughout the trip and automatically transferred upon validation by the 2 HappyTravelers."
+        },
+        {
+          "question": "Can I Both Book And Offer Luggage Space?",
+          "answer": "Yes. Gohappygo allows you to take on both roles, depending on your needs and trips."
+        },
+        {
+          "question": "How To Contact Gohappygo?",
+          "answer": "A support service is accessible directly via the application to accompany users at every step."
+        }
+      ],
+      "title": "FREQUENTLY ASKED<br><span>QUESTIONS</span>"
+    },
+    "forgotPassword": {
+      "backHome": "Back to home",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "errorDefault": "An error occurred. Please try again.",
+      "resetLink": "Reset my password",
+      "sentMessage": "A reset code has been sent to <strong>{{email}}</strong>. Check your inbox.",
+      "submit": "Send code",
+      "submitting": "Sending...",
+      "subtitle": "Enter your email address to receive a reset code.",
+      "title": "Forgot password"
+    },
+    "helpCenter": {
+      "ariaClear": "Clear search",
+      "ariaSearch": "Search for a question in the help center",
+      "faqs": [
+        {
+          "q": "How does GoHappyGo work?",
+          "a": "Travelers offer available space in their luggage. You can ask them to transport your packages (per kilo)."
+        },
+        {
+          "q": "What items are prohibited?",
+          "a": "Any dangerous, illegal item or item prohibited by airlines and customs is strictly forbidden."
+        },
+        {
+          "q": "How to pay?",
+          "a": "The price is generally set per kilo. Payment is secured via the platform."
+        },
+        {
+          "q": "How to contact a HappyTraveler?",
+          "a": "From an announcement, use the ‘Request transport’ or ‘Contact’ buttons to send your message."
+        },
+        {
+          "q": "How to define the weight to ship?",
+          "a": "Indicate the estimated weight in kilograms. The HappyTraveler will confirm the remaining availability."
+        }
+      ],
+      "noResults": "No question matches « {{query}} ».",
+      "placeholder": "Search for a question...",
+      "subtitle": "Search for a question or browse common topics.",
+      "title": "Help Center"
+    },
+    "howItWorks": {
+      "steps": [
+        {
+          "title": "I SIGN UP & I PUBLISH MY TRIP",
+          "items": [
+            "Account creation",
+            "Mandatory identity check",
+            "Publication of an announcement/trip wish"
+          ],
+          "description": "It all starts with a verified profile and a shared route. Your data is treated strictly confidentially."
+        },
+        {
+          "title": "I BOOK & I SECURE THE EXCHANGE",
+          "items": [
+            "Luggage space booking",
+            "Exchanges via secure messaging/physical meeting",
+            "Selfie of 2 via application"
+          ],
+          "description": "Trust is built in transparency. The traceability of your exchanges and transactions are guaranteed."
+        },
+        {
+          "title": "I TRAVEL & I GET PAID SECURELY",
+          "items": [
+            "Joint luggage check-in",
+            "Travel + reservation validation",
+            "Payment automatically released"
+          ],
+          "description": "The payment system is secure and you do not handle money directly."
+        }
+      ],
+      "title": "HOW <br/><span>IT WORKS</span>"
+    },
+    "insurance": {
+      "claims": {
+        "items": [
+          "Keep evidence (photos, messages, receipt)",
+          "Contact support via the platform within 48h",
+          "Fill out the dedicated form with supporting documents"
+        ],
+        "title": "How to file a claim"
+      },
+      "coverage": {
+        "items": [
+          "Loss or theft during transport",
+          "Proven material damage",
+          "Delays causing prejudice (subject to conditions)"
+        ],
+        "title": "What is covered"
+      },
+      "exclusions": {
+        "items": [
+          "Prohibited or dangerous items",
+          "Insufficient packaging",
+          "Inherent defects of the object"
+        ],
+        "title": "Exclusions"
+      },
+      "meta": {
+        "description": "Information on insurance and package coverage.",
+        "title": "Package insurance - GoHappyGo"
+      },
+      "subtitle": "Protect your shipments with our coverage adapted to exchanges between individuals.",
+      "title": "Package Insurance"
+    },
+    "logos": {
+      "main": "Main logo",
+      "monochrome": "Monochrome",
+      "outline": "Outline",
+      "title": "GoHappyGo Logos"
+    },
+    "logout": {
+      "message": "Logging out...",
+      "title": "See you soon!"
+    },
+    "notifications": {
+      "actions": {
+        "clearRead": "Clear read",
+        "delete": "Delete",
+        "markAllRead": "Mark all as read",
+        "markAsRead": "Mark as read"
+      },
+      "allSeen": "You have seen all your notifications",
+      "backProfile": "← Back to profile",
+      "empty": {
+        "all": "You have no notifications for the moment",
+        "title": "No notifications",
+        "unread": "You have no unread notifications"
+      },
+      "error": "Error loading notifications",
+      "filter": {
+        "all": "All",
+        "unread": "Unread"
+      },
+      "subtitle": {
+        "allRead": "All your notifications are read",
+        "unread": "{{count}} unread",
+        "unread_plural": "{{count}} unread"
+      },
+      "time": {
+        "dayAgo": "{{count}} days ago",
+        "hourAgo": "{{count}} h ago",
+        "justNow": "just now",
+        "minAgo": "{{count}} min ago",
+        "yesterday": "yesterday"
+      },
+      "title": "Notifications"
+    },
+    "resetPassword": {
+      "backHome": "Back to home",
+      "codeLabel": "Reset code",
+      "codePlaceholder": "Enter the code received by email",
+      "confirmPasswordLabel": "Confirm password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "errors": {
+        "codeRequired": "Reset code is required.",
+        "invalidCode": "Invalid or expired code. Please try again.",
+        "passwordLength": "Password must be at least 8 characters.",
+        "passwordMismatch": "Passwords do not match."
+      },
+      "newPasswordLabel": "New password",
+      "newPasswordPlaceholder": "Minimum 8 characters",
+      "resendCode": "Resend code",
+      "submit": "Reset password",
+      "submitting": "Resetting...",
+      "subtitle": "Enter the code received by email and your new password.",
+      "successDesc": "You will be redirected to the home page...",
+      "successTitle": "Password reset successfully!",
+      "title": "Reset password"
+    },
+    "security": {
+      "items": {
+        "allowedItems": {
+          "desc": "Respect airline regulations. Flammable materials, weapons, illegal products, and any dangerous objects are prohibited. If in doubt, contact our support.",
+          "title": "1. Allowed and Prohibited Items"
+        },
+        "communication": {
+          "desc": "Prioritize integrated messaging to keep a record of exchanges and report any suspicious behavior.",
+          "title": "5. Communication on the Platform"
+        },
+        "identityVerification": {
+          "desc": "Complete your profile with accurate information. We recommend specific identity verification before any exchange.",
+          "title": "2. Identity Verification"
+        },
+        "packaging": {
+          "desc": "Take photos of the content, seal the package in the presence of both parties, and add a clear label (name, number, destination).",
+          "title": "3. Package Handover and Sealing"
+        },
+        "payment": {
+          "desc": "Make payments only via the platform. Never send money outside the system.",
+          "title": "4. Secure Payment"
+        }
+      },
+      "meta": {
+        "description": "Security guidelines and best practices for exchanges on GoHappyGo.",
+        "title": "Security Rules - GoHappyGo"
+      },
+      "subtitle": "Our best practices for safe exchanges between travelers and senders.",
+      "title": "Security Rules"
+    },
+    "stripeOnboarding": {
+      "badges": {
+        "happiness": "Happiness is simple",
+        "info": "Information Filled",
+        "payments": "Payments Activated",
+        "verified": "Account Verified"
+      },
+      "dashboard": "Access Dashboard",
+      "next": "And now?",
+      "steps": {
+        "earn": {
+          "desc": "Start earning money from your travels.",
+          "title": "Earn income/Give Happiness"
+        },
+        "publish": {
+          "desc": "Post an announcement or a travel request.",
+          "title": "Publish an announcement"
+        },
+        "search": {
+          "desc": "for a trip on the same plane for the same destination",
+          "title": "Find/Search a HappyTraveler"
+        }
+      },
+      "subtitle": "You are ready to give and receive Happiness.",
+      "title": "Stripe Configuration Completed!"
+    },
+    "support": {
+      "contactMethods": {
+        "email": "Email",
+        "faq": "FAQ",
+        "faqLink": "Check our frequently asked questions",
+        "title": "Other ways to contact"
+      },
+      "features": {
+        "available": {
+          "desc": "Our team is always here to help you, no matter the time.",
+          "title": "Available 24/7"
+        },
+        "fastResponse": {
+          "desc": "We are committed to responding to your requests as soon as possible.",
+          "title": "Fast response"
+        },
+        "multilingual": {
+          "desc": "Our team speaks several languages to better serve you.",
+          "title": "Multilingual support"
+        },
+        "title": "Our 24/7 support"
+      },
+      "form": {
+        "advancedForm": "Prefer to use our advanced form?",
+        "categories": {
+          "account": "User account",
+          "billing": "Billing",
+          "booking": "Booking",
+          "general": "General question",
+          "other": "Other",
+          "technical": "Technical problem"
+        },
+        "categoryLabel": "Category",
+        "emailLabel": "Email address *",
+        "errors": {
+          "invalidEmail": "Please enter a valid email address.",
+          "required": "Please fill in all required fields.",
+          "sendError": "Error sending the message."
+        },
+        "messageLabel": "Message *",
+        "placeholder": "Describe your question or problem in detail...",
+        "submit": "Send message",
+        "submitting": "Sending...",
+        "successDesc": "We have received your message and will respond as soon as possible.",
+        "successMessage": "Message sent successfully!",
+        "title": "Contact us"
+      },
+      "subtitle": "We are here to help you! Find answers to your questions or contact our support team.",
+      "title": "GoHappyGo Help Center"
+    },
+    "terms": {
+      "description": "By using GoHappyGo, you accept our general conditions. Please read this information carefully to understand your rights and responsibilities.",
+      "privacyDescription": "We respect your privacy. This policy explains what data we collect, how we use it and your rights.",
+      "privacySection1": "1. We collect account information (name, email), profile data and technical information to improve the service.",
+      "privacySection2": "2. Your data is only shared with your consent or when the law requires it.",
+      "privacySection3": "3. You can request access, rectification or deletion of your data.",
+      "privacyTitle": "Privacy Policy",
+      "section1": "1. GoHappyGo connects people with available space in their luggage and people wishing to ship items. Users are responsible for the transported content.",
+      "section2": "2. HappyTravelers undertake to respect current laws and refuse any dangerous or prohibited object. Senders must precisely describe the content and weight.",
+      "section3": "3. Payments and refunds follow the terms indicated at the time of the request.",
+      "title": "Terms of Use"
+    },
+    "transporters": {
+      "available": "Available",
+      "contact": "Contact",
+      "requestTransport": "Request transport",
+      "routes": "Routes",
+      "subtitle": "Find a traveler to ship your packages.",
+      "title": "HappyVoyageurs"
+    },
+    "whatIsHappiness": {
+      "footer": "BE A HAPPINESS CARRIER.\nFOR OTHERS. FOR YOU. FOR TRAVELING DIFFERENTLY.",
+      "section1": {
+        "content": "Happiness is not just arriving at the destination. It's knowing that, during your journey, <b>you helped someone.</b>",
+        "footer": "At GoHappyGo, every trip can become <b>a good and beautiful action.</b>",
+        "items": [
+          "A package that arrives on time",
+          "A lighter trip for someone else",
+          "Avoided stress",
+          "A smile at the end of the road"
+        ],
+        "title": "Traveling usefully is traveling happily"
+      },
+      "section2": {
+        "content": "By using GoHappyGo, you are not just a user. You are part of a <b>supportive community of travelers</b> who:",
+        "footer": "Happiness is often born when one feels <b>useful, connected and engaged.</b>",
+        "items": [
+          "Help each other naturally",
+          "Optimize what already exists",
+          "Give meaning to their travels"
+        ],
+        "title": "The happiness of being part of something bigger"
+      },
+      "section3": {
+        "content": "Carrying a package is not much. But for someone else, it is sometimes:",
+        "footer": "Happiness is these <b>ordinary little gestures</b> that create extraordinary effects.",
+        "items": ["A solution to a problem", "A more serene trip", "Regained confidence"],
+        "title": "Small gestures. Big effects."
+      },
+      "title": "HAPPINESS,<br><span> IT'S ALSO SHARED!</span>"
     }
   },
   "profile": {
-    "title": "Profile",
-    "editProfile": "Edit profile",
+    "actions": {
+      "approve": "Approve",
+      "cancel": "Cancel",
+      "contact": "Contact {{name}}",
+      "edit": "Edit",
+      "findSpace": "I want to find baggage space",
+      "finish": "Finish",
+      "message": "Message",
+      "proposeSpace": "I offer baggage space",
+      "rate": "Rate",
+      "rated": "Rated",
+      "reject": "Reject"
+    },
     "addInfo": "Please add information about yourself in your profile settings.",
-    "sections": {
-      "favorites": "My Favorites",
-      "favoritesWithCount": "My Favorites ({{count}})",
-      "messages": "My Messages",
-      "payments": "Wallet",
-      "reservations": "My Reservations",
-      "reviews": "My Reviews",
-      "travelRequests": "My Travel Requests",
-      "travels": "My Travels"
-    },
-    "stats": {
-      "distance": "Distance",
-      "earnings": "Earnings",
-      "packagesCarried": "Packages carried",
-      "packagesSent": "Packages sent",
-      "rating": "Rating",
-      "response": "Response",
-      "success": "Success"
-    },
     "dialog": {
       "aboutMe": "About me",
       "aboutMePlaceholder": "Tell us a bit more about yourself",
@@ -431,7 +1523,112 @@
       },
       "title": "Profile",
       "updateError": "Error while updating profile",
-      "updateSuccess": "Profile updated successfully!"
+      "updateSuccess": "Profile updated successfully!",
+      "uploadProfilePicture": "Upload profile picture"
+    },
+    "editProfile": "Edit profile",
+    "messages": {
+      "addBio": "Add a bio to tell others about yourself",
+      "cancelDemandBody": "Are you sure you want to cancel this travel demand? This action cannot be undone.",
+      "cancelDemandTitle": "Cancel demand",
+      "cancelReservationBody": "Are you sure you want to cancel this reservation? The travel amount will be refunded, but platform fees will be retained.",
+      "cancelReservationTitle": "Cancel reservation",
+      "cancelTravelBody": "Are you sure you want to cancel this travel?",
+      "cancelTravelTitle": "Cancel travel",
+      "confirmCancel": "Yes, cancel",
+      "connectionLost": "Connection lost. Attempting to reconnect...",
+      "conversationsDesc": "Your conversations with travelers will appear here",
+      "errorAccept": "Error accepting request",
+      "errorCancel": "Error canceling reservation",
+      "errorComplete": "Error completing request",
+      "errorConfirmCancel": "Error confirming cancellation",
+      "errorDisputeCancel": "Error disputing cancellation",
+      "flight": "Flight",
+      "fundsReleased": "Funds released successfully",
+      "impossibleFinish": "Cannot finish before the travel departure date.",
+      "keep": "No, keep",
+      "loadingDemands": "Loading demands...",
+      "loadingFavorites": "Loading your favorites...",
+      "loadingPayments": "Loading payment data...",
+      "loadingProfile": "Loading profile...",
+      "loadingReservations": "Loading your reservations...",
+      "loadingTravels": "Loading travels...",
+      "messagePlaceholder": "Type a message...",
+      "messagesTitle": "Messages",
+      "noBio": "No bio provided",
+      "noConversations": "No conversations",
+      "noDemandsFound": "No demands found",
+      "noDemandsFoundSubImageText": "Your next Travel Demands will appear here...",
+      "noFavorites": "No favorites yet",
+      "noFavoritesSubImageText": "Your next Favorites will appear here...",
+      "noPayments": "No payments",
+      "noPaymentsSubImageText": "Your next payments will appear here...",
+      "noReservations": "No reservations",
+      "noReservationsSubImageText": "Your next reservations will appear here...",
+      "noTravelsFound": "No travels found",
+      "noTravelsFoundSubImageText": "Your next Travels will appear here...",
+      "offline": "Offline",
+      "online": "Online",
+      "releaseError": "Error while releasing funds",
+      "requiredWeight": "Required weight",
+      "reservedSpace": "Reserved space",
+      "selectConversation": "Select a conversation",
+      "selectConversationDesc": "Choose a conversation from the list to start chatting",
+      "time": {
+        "daysAgo": "{{count}}d ago",
+        "hoursAgo": "{{count}}h ago",
+        "minutesAgo": "A few minutes ago"
+      },
+      "today": "Today",
+      "typing": "Typing...",
+      "userNotFound": "User not found",
+      "yesterday": "Yesterday"
+    },
+    "payments": {
+      "availableBalance": "Available balance",
+      "balance": "Balance",
+      "clickToRegister": "Click the button below to complete your registration.",
+      "clickToUpdate": "Click the button below to modify or complete your information.",
+      "config": "Configuration",
+      "createStripeDesc": "To withdraw your earnings from the platform, you must create a Stripe account.",
+      "fundsReleased": "Funds released successfully",
+      "loadingPayments": "Loading payment data...",
+      "loadMore": "Load more transactions",
+      "loadMoreTransactions": "Load more transactions",
+      "pendingBalance": "Pending balance",
+      "processing": "Processing",
+      "readyToWithdraw": "Ready to be withdrawn",
+      "register": "Register",
+      "release": "Release",
+      "releaseError": "Error while releasing funds",
+      "stripeAccount": "GoHappyGo Stripe Connect Account",
+      "stripeUpdateActionDesc": "Click the button below to modify or complete your information.",
+      "transaction": "transaction",
+      "transaction_plural": "transactions",
+      "transactionHistory": "Transaction history",
+      "transactions": "Transactions",
+      "transfer": "Transfer",
+      "update": "Update",
+      "updateInfo": "To ensure the correct payment/withdrawal of your earnings, your Stripe information must be up to date."
+    },
+    "sections": {
+      "favorites": "My Favorites",
+      "favoritesWithCount": "My Favorites ({{count}})",
+      "messages": "My Messages",
+      "payments": "Wallet",
+      "reservations": "My Reservations",
+      "reviews": "My Reviews",
+      "travelRequests": "My Travel Requests",
+      "travels": "My Travels"
+    },
+    "stats": {
+      "distance": "Distance",
+      "earnings": "Earnings",
+      "packagesCarried": "Packages carried",
+      "packagesSent": "Packages sent",
+      "rating": "Rating",
+      "response": "Response",
+      "success": "Success"
     },
     "tabs": {
       "buySpace": "Buy space",
@@ -445,1092 +1642,47 @@
       "reservationsToConfirm": "Reservations to confirm",
       "sellSpace": "Sell space"
     },
-    "actions": {
-      "approve": "Approve",
-      "cancel": "Cancel",
-      "contact": "Contact {{name}}",
-      "edit": "Edit",
-      "findSpace": "I want to find baggage space",
-      "finish": "Finish",
-      "message": "Message",
-      "proposeSpace": "I offer baggage space",
-      "rate": "Rate",
-      "rated": "Rated",
-      "reject": "Reject"
-    },
-    "messages": {
-      "loadingProfile": "Loading profile...",
-      "userNotFound": "User not found",
-      "addBio": "Add a bio to tell others about yourself",
-      "noBio": "No bio provided",
-      "loadingReservations": "Loading your reservations...",
-      "loadingPayments": "Loading payment data...",
-      "fundsReleased": "Funds released successfully",
-      "releaseError": "Error while releasing funds",
-      "noReservations": "No reservations",
-      "noPayments": "No payments",
-      "noReservationsSubImageText": "Your next reservations will appear here...",
-      "noPaymentsSubImageText": "Your next payments will appear here...",
-      "noConversations": "No conversations",
-      "conversationsDesc": "Your conversations with travelers will appear here",
-      "selectConversation": "Select a conversation",
-      "selectConversationDesc": "Choose a conversation from the list to start chatting",
-      "messagesTitle": "Messages",
-      "messagePlaceholder": "Type a message...",
-      "online": "Online",
-      "offline": "Offline",
-      "typing": "Typing...",
-      "today": "Today",
-      "yesterday": "Yesterday",
-      "connectionLost": "Connection lost. Attempting to reconnect...",
-      "time": {
-        "minutesAgo": "A few minutes ago",
-        "hoursAgo": "{{count}}h ago",
-        "daysAgo": "{{count}}d ago"
-      },
-      "confirmCancel": "Yes, cancel",
-      "keep": "No, keep",
-      "impossibleFinish": "Cannot finish before the travel departure date.",
-      "errorAccept": "Error accepting request",
-      "errorComplete": "Error completing request",
-      "errorCancel": "Error canceling reservation",
-      "errorConfirmCancel": "Error confirming cancellation",
-      "errorDisputeCancel": "Error disputing cancellation",
-      "cancelReservationTitle": "Cancel reservation",
-      "cancelReservationBody": "Are you sure you want to cancel this reservation? The travel amount will be refunded, but platform fees will be retained.",
-      "cancelTravelTitle": "Cancel travel",
-      "cancelTravelBody": "Are you sure you want to cancel this travel?",
-      "cancelDemandTitle": "Cancel demand",
-      "cancelDemandBody": "Are you sure you want to cancel this travel demand? This action cannot be undone.",
-      "loadingFavorites": "Loading your favorites...",
-      "noFavorites": "No favorites yet",
-      "noFavoritesSubImageText": "Your next Favorites will appear here...",
-      "reservedSpace": "Reserved space",
-      "requiredWeight": "Required weight",
-      "loadingDemands": "Loading demands...",
-      "loadingTravels": "Loading travels...",
-      "noTravelsFound": "No travels found",
-      "noTravelsFoundSubImageText": "Your next Travels will appear here...",
-      "noDemandsFound": "No demands found",
-      "noDemandsFoundSubImageText": "Your next Travel Demands will appear here...",
-      "flight": "Flight"
-    },
-    "reviews": {
-      "loadingReviews": "Loading reviews...",
-      "noReviewsYet": "No reviews yet..",
-      "beFirstReview": "Be the first to",
-      "shareExperience": "share your experience",
-      "leaveReview": "Leave a review",
-      "reviewFrom": "Review from {{name}}",
-      "reviewFor": "Review for {{name}}",
-      "dialog": {
-        "title": "Congratulations on being a HappyTraveler!",
-        "subtitle": "Share your experience with {{name}}",
-        "rating": "Your rating",
-        "comment": "Your comment (optional)",
-        "commentPlaceholder": "Share your experience...",
-        "submit": "Send review",
-        "submitting": "Sending...",
-        "selectRatingError": "Please select a rating",
-        "submitError": "Error while submitting review"
-      },
-      "myReceivedReviews": "My received reviews",
-      "myGivenReviews": "My given reviews"
-    },
-    "payments": {
-      "loadingPayments": "Loading payment data...",
-      "fundsReleased": "Funds released successfully",
-      "releaseError": "Error while releasing funds",
-      "config": "Configuration",
-      "balance": "Balance",
-      "transactions": "Transactions",
-      "availableBalance": "Available balance",
-      "readyToWithdraw": "Ready to be withdrawn",
-      "pendingBalance": "Pending balance",
-      "processing": "Processing",
-      "transfer": "Transfer",
-      "transactionHistory": "Transaction history",
-      "transaction": "transaction",
-      "transaction_plural": "transactions",
-      "release": "Release",
-      "loadMore": "Load more transactions",
-      "loadMoreTransactions": "Load more transactions",
-      "stripeAccount": "GoHappyGo Stripe Connect Account",
-      "createStripeDesc": "To withdraw your earnings from the platform, you must create a Stripe account.",
-      "clickToRegister": "Click the button below to complete your registration.",
-      "register": "Register",
-      "updateInfo": "To ensure the correct payment/withdrawal of your earnings, your Stripe information must be up to date.",
-      "clickToUpdate": "Click the button below to modify or complete your information.",
-      "stripeUpdateActionDesc": "Click the button below to modify or complete your information.",
-      "update": "Update"
-    }
-  },
-  "dialogs": {
-    "announceType": {
-      "cancel": "Cancel",
-      "iHavePackage": "I have a package to send",
-      "iTravel": "I am traveling and I have space",
-      "title": "Announcement type"
-    },
-    "booking": {
-      "cardInfoLabel": "Card information",
-      "errors": {
-        "createPaymentMethod": "Unable to create the payment method",
-        "generic": "An error occurred",
-        "loadForm": "Error while loading the payment form",
-        "processPayment": "Error while processing the payment"
-      },
-      "payCta": "Pay {{amount}} {{currency}}",
-      "securedBy": "Secure payment by",
-      "submitting": "Processing...",
-      "tagline": "Be a carrier of happiness"
-    },
-    "createAlert": {
-      "alertType": {
-        "both": "Trips and requests",
-        "demandOnly": "Requests only",
-        "travelOnly": "Trips only"
-      },
-      "alertTypeLabel": "Alert type",
-      "arrivalAirportLabel": "Arrival airport *",
-      "arrivalAirportPlaceholder": "Search an arrival airport",
-      "departureAirportLabel": "Departure airport *",
-      "departureAirportPlaceholder": "Search a departure airport",
-      "errors": {
-        "airportsRequired": "Departure and arrival airports are required.",
-        "createFailed": "Error while creating the alert"
-      },
-      "flightNumberLabel": "Flight number (optional)",
-      "flightNumberPlaceholder": "Ex: AF123",
-      "submit": "Create alert",
-      "successMessage": "Alert created successfully! You will be notified as soon as an offer matches.",
-      "submitting": "Creating...",
-      "title": "Create an alert",
-      "travelDateLabel": "Travel date (optional)"
-    },
-    "createAnnounce": {
-      "allowExtraGrams": "Allow extra grams",
-      "arrival": "Arrival",
-      "arrivalAirportLabel": "Select your arrival airport",
-      "arrivalAirportPlaceholder": "Choose an airport",
-      "airlineDetected": "Detected automatically",
-      "airlineEnterFlightFirst": "Enter the flight number first",
-      "airlineHelper": "The airline is detected automatically from the flight number",
-      "airlineLabel": "Airline",
-      "airlineSearching": "Searching...",
-      "bookingPreference": "What type of booking do you prefer for this travel?",
-      "bookingType": "Booking type",
-      "create": "Create",
-      "departure": "Departure",
-      "departureAirportLabel": "Select your departure airport",
-      "departureAirportPlaceholder": "Choose an airport",
-      "flightNumber": "Flight number",
-      "flightNumberPlaceholder": "Add the flight number from your ticket",
-      "instant": "Instant",
-      "lateTax": "Late tax",
-      "noSmileTax": "No smile tax",
-      "nonInstant": "Non-instant",
-      "nonInstantDetailed": "Non-instant (you want to approve the booking before confirmation)",
-      "paymentConfigTitle": "Payment configuration",
-      "paymentEmailLabel": "Payment email (Stripe)",
-      "paymentEmailPlaceholder": "name@email.com",
-      "ibanLabel": "IBAN / Bank account",
-      "ibanPlaceholder": "FR76....",
-      "accountHolderName": "Account holder name",
-      "accountHolderPlaceholder": "John Doe",
-      "photos": "Photos",
-      "photosHelper": "Upload at least 2 photos of your trip",
-      "photosUploadCta": "Click to upload files ({{count}}/{{max}})",
-      "punctual": "Punctual",
-      "punctualityQuestion": "How punctual do you expect to be when meeting your HappyTraveler?",
-      "veryPunctual": "Very punctual",
-      "pricePerKilo": "Price per kilo",
-      "pricePerKiloPlaceholder": "Enter your price per kilo",
-      "pricePerKiloQuestion": "What is your price per kilo?",
-      "currencyLabel": "Currency",
-      "currencyPlaceholder": "EUR",
-      "allowExtraGramsQuestion": "Do you allow a few extra grams?",
-      "reservationType": "Reservation type",
-      "sharedKilos": "Shared kilos with different travelers",
-      "singlePerson": "All my kilos for one person",
-      "singlePersonDetailed": "All my kilos for one single traveler",
-      "step1": "Basic information",
-      "step2": "Photos",
-      "step3": "Price and conditions",
-      "story": "Your story",
-      "storyPlaceholder": "Tell us more about your travel",
-      "storyCounter": "{{count}}/500 characters",
-      "storyOverflow": "Exceeded by {{count}} characters",
-      "title": "I offer baggage space",
-      "travelDate": "Your travel date",
-      "weight": "Weight (kg)",
-      "weightPlaceholder": "Enter the number of kilos",
-      "weightQuestion": "How many kilos are you offering?",
-      "errors": {
-        "airportsMustDiffer": "The arrival airport must be different from the departure airport",
-        "arrivalRequired": "Please select an arrival airport",
-        "authRequired": "You must be logged in to create an announcement. Please log in.",
-        "bothAirportsRequired": "Please select departure and arrival airports",
-        "currencyRequired": "Please select a currency",
-        "departureRequired": "Please select a departure airport",
-        "flightNumberInvalid": "Please enter a valid flight number",
-        "kilosInvalid": "Please enter a valid number of kilos",
-        "photosMinimum": "Please add at least 2 images",
-        "pricePerKiloInvalid": "Please enter a valid price",
-        "storyRequired": "Please describe your trip",
-        "storyTooLong": "The description cannot exceed 500 characters",
-        "travelDatePast": "The date cannot be in the past"
-      },
-      "success": "Travel announcement created successfully!",
-      "publishing": "Publishing...",
-      "publish": "Publish"
-    },
-    "createPackage": {
-      "arrivalPlaceholder": "Select your airport of arrival",
-      "create": "Create",
-      "departurePlaceholder": "Select your airport of departure",
-      "description": "Description",
-      "maxDeliveryDate": "Max delivery date",
-      "packageNature": "Package nature",
-      "title": "I want to find baggage space",
-      "weight": "Weight (kg)",
-      "errors": {
-        "arrivalRequired": "Please select an arrival airport",
-        "authRequired": "You must be logged in to create a travel request. Please log in.",
-        "bothAirportsRequired": "Please select departure and arrival airports",
-        "currencyRequired": "Please select a currency",
-        "departureRequired": "Please select a departure airport",
-        "descriptionRequired": "Please describe your baggage",
-        "descriptionTooLong": "The description cannot exceed 500 characters",
-        "flightNumberRequired": "Please enter the flight number",
-        "photosMinimum": "Please add 3 images of your baggage",
-        "priceInvalid": "Please enter a valid price",
-        "travelDateRequired": "Please select a travel date",
-        "weightInvalid": "Please enter a valid weight"
-      },
-      "success": "Travel request created successfully!"
-    },
-    "editAnnounce": {
-      "title": "Edit travel announcement"
-    },
-    "login": {
-      "confirmPassword": "Confirm password",
-      "email": "Email",
-      "emailPlaceholder": "Your email",
-      "errorDefault": "Something went wrong. Please try again.",
-      "forgotPassword": "Forgot password?",
-      "login": "Login",
-      "noAccount": "Don't have an account?",
-      "password": "Password",
-      "passwordPlaceholder": "Your password",
-      "register": "Register",
-      "rememberMe": "Remember me",
-      "submitting": "Logging in…",
-      "subtitle": "and enjoy all the possibilities",
-      "title": "Login"
-    },
-    "register": {
-      "back": "Back",
-      "confirmPassword": "Confirm password",
-      "countryLabel": "Country of residence",
-      "countryPlaceholder": "Select your country",
-      "countryRequired": "Please select your country of residence",
-      "email": "Email",
-      "error": {
-        "invalidCode": "Invalid verification code. Please try again.",
-        "registrationFailed": "Registration failed. Please try again.",
-        "resendCodeFailed": "Failed to resend verification code. Please try again."
-      },
-      "firstName": "First name",
-      "firstNameHelper": "(Only your first name appears on the platform)",
-      "hasAccount": "Already have an account?",
-      "lastName": "Last name",
-      "login": "Login",
-      "next": "Next",
-      "orContinueWith": "Or continue with",
-      "password": "Password",
-      "phoneHelper": "The country code is automatically set according to your country of residence",
-      "phoneLabel": "Phone number",
-      "phonePlaceholder": "Phone number",
-      "privacyPolicy": "Privacy Policy",
-      "register": "Register",
-      "submitting": "In progress...",
-      "submit": "Submit",
-      "subtitle": "Join us and enjoy all the possibilities",
-      "termsAnd": "and the",
-      "termsOfUse": "Terms of Use",
-      "termsPrefix": "By registering, you accept the",
-      "title": "Register",
-      "validation": {
-        "incompleteCode": "Please enter the complete verification code",
-        "lowercase": "At least one lowercase letter",
-        "minLength": "Password must be at least 8 characters long",
-        "notMatch": "Passwords do not match",
-        "number": "At least one number",
-        "special": "At least one special character",
-        "uppercase": "At least one uppercase letter"
-      },
-      "verificationCodeSent": "A 6-digit verification code has been sent to {{email}}.",
-      "verificationPlaceholder": "Enter the code sent to your email",
-      "verificationSubtitle": "Enter the verification code",
-      "verificationTitle": "Verification",
-      "resendCode": "Resend the code"
-    },
-    "share": {
-      "copySuccess": "Link copied successfully! ✓",
-      "facebookQuote": "Go to GoHappyGo to react to this announcement!",
-      "options": {
-        "copyLink": "Copy link",
-        "email": "Email",
-        "embed": "Embed",
-        "messages": "Messages",
-        "more": "More options"
-      },
-      "title": "Share this announcement"
-    },
-    "support": {
-      "autoCloseHint": "This window will close automatically...",
-      "charactersCount": "{{count}}/{{max}} characters",
-      "title": "Contact our support"
-    },
-    "cookieConsent": {
-      "accept": "Accept",
-      "decline": "Decline",
-      "description": "To improve your experience, measure audience and personalize content. By clicking “Accept”, you consent to cookies being stored on your device.",
-      "title": "We use cookies"
-    }
+    "title": "Profile"
   },
   "requests": {
-    "title": "Transport requests",
-    "urgentDocuments": "Urgent package - Documents",
     "birthdayGift": "Birthday gift",
-    "medications": "Medications",
+    "books": "Books",
     "clothing": "Clothing",
     "electronics": "Electronics",
-    "books": "Books"
-  },
-  "footer": {
-    "description": "Be a happiness carrier",
-    "copyright": "All rights reserved.",
-    "knowUs": {
-      "title": "To know us better",
-      "howItWorks": "How does it work?",
-      "ecologicalImpact": "Ecological impact",
-      "whatIsHappiness": "What is Happiness?"
-    },
-    "legal": {
-      "title": "Legal Mentions",
-      "termsOfUse": "Terms of Use",
-      "privacyPolicy": "Privacy Policy",
-      "pricingPolicy": "Pricing Policy"
-    },
-    "giveHappiness": {
-      "title": "Give Happiness",
-      "becomeTransporter": "Become HappyTransporter",
-      "securityRules": "Security rules",
-      "insuranceProtection": "Insurance and Protection"
-    },
-    "support": {
-      "title": "Support",
-      "faq": "FAQ",
-      "downloadApp": "Download the app"
-    },
-    "social": {
-      "twitter": "Twitter",
-      "facebook": "Facebook",
-      "instagram": "Instagram"
-    },
-    "discover": {
-      "title": "Discover",
-      "announcements": "Announcements",
-      "transporters": "Transporters",
-      "howItWorks": "How it works",
-      "logos": "Logos"
-    },
-    "ship": {
-      "title": "Ship",
-      "postRequest": "Post a request",
-      "pricing": "Pricing",
-      "packageInsurance": "Package insurance"
-    },
-    "transport": {
-      "title": "Transport",
-      "becomeTransporter": "Become a transporter",
-      "securityRules": "Security rules",
-      "identityVerification": "Identity verification"
-    },
-    "account": {
-      "title": "Account",
-      "login": "Login",
-      "register": "Register"
-    }
-  },
-  "languages": {
-    "fr": "French",
-    "en": "English",
-    "de": "German",
-    "es": "Spanish",
-    "it": "Italian",
-    "pt": "Portuguese",
-    "ru": "Russian",
-    "tr": "Turkish",
-    "zh": "Chinese",
-    "ar": "Arabic",
-    "hi": "Hindi",
-    "bn": "Bengali",
-    "pa": "Punjabi",
-    "te": "Telugu",
-    "ta": "Tamil",
-    "th": "Thai",
-    "vi": "Vietnamese",
-    "id": "Indonesian",
-    "ms": "Malay",
-    "fil": "Filipino",
-    "ja": "Japanese",
-    "ko": "Korean"
-  },
-  "pages": {
-    "announces": {
-      "title": "Announcements",
-      "filterBy": "Filter by",
-      "clearAll": "Clear all",
-      "filterUnavailable": "Filter unavailable",
-      "searchAirline": "Search airline",
-      "pricePerKg": "Price per kg (€)",
-      "weightKg": "Weight (kg)",
-      "min": "Min",
-      "max": "Max",
-      "noResultsTitle": "We found no available luggage space",
-      "noResultsSubtitle": "for this flight... yet!",
-      "alertDescription": "Set an alert, we'll notify you as soon as an offer matches.",
-      "createAlert": "Create an alert",
-      "allLoaded": "You have seen all available announcements",
-      "filters": {
-        "verified": "Verified profile",
-        "lowestPrice": "Lowest price",
-        "airline": "Airline",
-        "oldest": "Oldest",
-        "travelAd": "Travel ad",
-        "transportRequest": "Transport request"
-      }
-    },
-    "announceDetail": {
-      "meta": {
-        "title": "{{type}} #{{id}} - GoHappyGo",
-        "description": "Discover this {{typeLabel}} on GoHappyGo. make more than a trip.",
-        "keywords": "luggage transport, travel, {{typeKey}}, GoHappyGo"
-      },
-      "metaTypeTravel": "Travel",
-      "metaTypeDemand": "Demand",
-      "metaTypeLabelTravel": "travel announcement",
-      "metaTypeLabelDemand": "transport request",
-      "notFoundTitle": "Announcement not found",
-      "notFoundMessage": "Check the ID or return to the list of announcements.",
-      "backToAnnounces": "Back to announcements",
-      "share": "Share",
-      "addToFavorites": "Add to favorites",
-      "removeFromFavorites": "Remove from favorites",
-      "yourAnnounce": "Your announcement",
-      "booking": {
-        "allKilosRequired": "All kilos required",
-        "oversizeWeight": "The requested weight ({{kilos}}kg) exceeds the available capacity ({{available}}kg).",
-        "pricing": {
-          "serviceFees": "Service fees",
-          "serviceFeesTooltipTitle": "GoHappyGo Service Fees",
-          "serviceFeesTooltipDesc": "These fees cover the secure processing of your payment, 24/7 customer support, and the transaction guarantee.",
-          "vatLabel": "VAT 20%",
-          "vatTooltipTitle": "Value Added Tax",
-          "vatTooltipDesc": "French VAT of 20% applied in accordance with current tax regulations on digital services.",
-          "axaTitle": "International Legal Protection Insurance",
-          "axaTitlePart1": "Legal Protection",
-          "axaTitlePart2": "Insurance",
-          "axaOffered": "Free!",
-          "axaTooltipTitle": "AXA Legal Protection Insurance",
-          "axaTooltipDesc": "International legal protection offered by AXA. Covers disputes related to transport, 24/7 legal assistance, and reimbursement of legal costs up to €15,000.",
-          "totalLabel": "Total with taxes",
-          "loadingPricing": "Loading pricing calculation...",
-          "remainingCapacity": "Remaining capacity: {{available}}kg / {{max}}kg ({{percent}}%)"
-        },
-        "createSimilar": "Create this travel",
-        "exactKilosRequired": "You must enter exactly {{weight}}kg.",
-        "lowWeight": "Insufficient available weight",
-        "ownAnnounce": "Your travel",
-        "pastTravel": "Travel already completed",
-        "singleTravelerOnly": "The HappyVoyageur only accepts one person for all kilos."
-      },
-      "notRatedYet": "Not rated yet",
-      "verified": "Verified",
-      "notVerified": "Not verified",
-      "profile": "Profile",
-      "message": "Message",
-      "departure": "Departure",
-      "arrival": "Arrival",
-      "flightNumber": "Flight No",
-      "availableSpace": "Available space",
-      "requestedSpace": "Requested space",
-      "descriptionUnavailable": "Description not available",
-      "badges": {
-        "sharedWeight": "can take kilos from multiple travelers",
-        "singleTraveler": "accepts only one person for all kilos",
-        "veryPunctual": "very punctual",
-        "punctual": "punctual",
-        "allowExtra": "accepts a few extra grams",
-        "noExtra": "does not accept extra grams",
-        "instantBooking": "booking will be confirmed instantly",
-        "manualBooking": "booking will be confirmed by the HappyTraveler"
-      },
-      "alerts": {
-        "loginRequired": "Login required",
-        "loginToFavorite": "You must be logged in to add to favorites.",
-        "loginToBook": "You must be logged in to book a trip.",
-        "invalidType": "Invalid announcement type",
-        "onlyTravelBooking": "You can only book travels.",
-        "invalidWeight": "Invalid weight",
-        "enterValidWeight": "Please enter a valid weight greater than or equal to 0.",
-        "insufficientCapacity": "Insufficient capacity",
-        "capacityExceeded": "The requested weight ({{weight}}kg) exceeds available capacity ({{available}}kg).",
-        "bookingSuccess": "Booking successful!",
-        "bookingCreated": "Your request #{{id}} was successfully created.",
-        "bookingError": "Booking error",
-        "defaultError": "An error occurred during booking"
-      }
-    },
-
-    "insurance": {
-      "meta": {
-        "description": "Information on insurance and package coverage.",
-        "title": "Package insurance - GoHappyGo"
-      },
-      "title": "Package Insurance",
-      "subtitle": "Protect your shipments with our coverage adapted to exchanges between individuals.",
-      "coverage": {
-        "title": "What is covered",
-        "items": [
-          "Loss or theft during transport",
-          "Proven material damage",
-          "Delays causing prejudice (subject to conditions)"
-        ]
-      },
-      "exclusions": {
-        "title": "Exclusions",
-        "items": [
-          "Prohibited or dangerous items",
-          "Insufficient packaging",
-          "Inherent defects of the object"
-        ]
-      },
-      "claims": {
-        "title": "How to file a claim",
-        "items": [
-          "Keep evidence (photos, messages, receipt)",
-          "Contact support via the platform within 48h",
-          "Fill out the dedicated form with supporting documents"
-        ]
-      }
-    },
-    "becomeTransporter": {
-      "header": "BE A HAPPYTRAVELER,<br><span>SIMPLY BE HAPPY</span>",
-      "footer": "BE A HAPPINESS CARRIER.",
-      "section1": {
-        "intro": [
-          "We believe that traveling can be more than just a trip.",
-          "We believe that every journey is an opportunity.",
-          "An opportunity to help.",
-          "An opportunity to share.",
-          "An opportunity to create a bond."
-        ]
-      },
-      "section2": {
-        "title": "BEING A HAPPYTRAVELER,",
-        "lines": [
-          "Is choosing to travel differently.",
-          "Is seeing in a free space a chance to be of service.",
-          "In a meeting, a trust to build.",
-          "In a luggage, a story to carry.",
-          "We are already traveling.",
-          "So might as well <b>travel usefully</b>.",
-          "Useful for someone waiting.",
-          "Useful for a planet to preserve.",
-          "Useful to give meaning back to our travels."
-        ]
-      },
-      "section3": {
-        "title": "BEING A HAPPYTRAVELER,",
-        "lines": [
-          "Is believing in the power of small gestures.",
-          "An agreement.",
-          "A smile.",
-          "A package arriving at destination.",
-          "And often, much more than that.",
-          "We move forward together, in a safe, transparent and respectful framework.",
-          "Because trust is not an option.",
-          "It is our foundation."
-        ]
-      },
-      "section4": {
-        "title": "BEING A HAPPYTRAVELER,",
-        "lines": [
-          "Is a state of mind.",
-          "That of those who choose solidarity over indifference, connection over isolation, meaning over routine.",
-          "We are the HappyTravelers.",
-          "We carry more than luggage.",
-          "We carry kindness.",
-          "We carry trust.",
-          "We carry happiness."
-        ]
-      }
-    },
-    "downloadApp": {
-      "title": "Download GoHappyGo",
-      "subtitle": "Join our community of travelers",
-      "stores": {
-        "ios": {
-          "title": "Download on the App Store",
-          "subtitle": "Available for iPhone and iPad",
-          "name": "App Store"
-        },
-        "android": {
-          "title": "Download on Google Play",
-          "subtitle": "Available for Android",
-          "name": "Google Play"
-        },
-        "desktop": {
-          "title": "Install Chrome Extension",
-          "subtitle": "Available for browser",
-          "name": "Chrome Web Store"
-        },
-        "unknown": {
-          "title": "Download the app",
-          "subtitle": "Choose your platform",
-          "name": "Store"
-        }
-      },
-      "button": {
-        "downloadOn": "Download on {{storeName}}",
-        "redirecting": "Redirecting..."
-      },
-      "autoRedirect": "Automatic redirection in 3 seconds...",
-      "features": {
-        "title": "Why download GoHappyGo?",
-        "secure": {
-          "title": "Secure transport",
-          "desc": "Verified profiles and insurance included for all your transports"
-        },
-        "competitive": {
-          "title": "Competitive prices",
-          "desc": "Save up to 80% on your excess baggage fees"
-        },
-        "community": {
-          "title": "Active community",
-          "desc": "Join thousands of travelers worldwide"
-        },
-        "support": {
-          "title": "24/7 Support",
-          "desc": "Assistance available at any time to accompany you"
-        }
-      }
-    },
-    "ecologicalImpact": {
-      "title": "YOUR TRIP, YOUR LUGGAGE...<br><span>HAS A STRONG ECOLOGICAL</span><br><span>IMPACT</span>",
-      "sections": [
-        {
-          "title": "An alternative to heavy logistics solutions",
-          "intro": "Classic luggage shipping often implies:",
-          "items": ["Dedicated vehicles", "Sorting centers", "Extra packaging", "Indirect routes"],
-          "highlightTitle": "Gohappygo adopts a different logic:",
-          "highlights": [
-            "Zero extra trip",
-            "Zero heavy infrastructure",
-            "Zero superfluous packaging"
-          ],
-          "footerText": "Luggage travels with people already on the move. This is the very essence of the sharing economy applied to travel."
-        },
-        {
-          "title": "Sharing economy serving the environment",
-          "intro": "By using Gohappygo, each user becomes an actor of the ecological transition:",
-          "items": [
-            "The carrier optimizes an empty space",
-            "The sender avoids a polluting solution",
-            "The community reduces its global footprint"
-          ],
-          "footerText": "A small individual gesture, multiplied by thousands of travelers, can have a significant collective impact."
-        },
-        {
-          "title": "Gohappygo, carry more than luggage",
-          "intro": "By choosing Gohappygo, you don't just transport a luggage. You carry:",
-          "items": ["A responsible approach", "A solidary vision", "A more sustainable future"],
-          "footerText": "Because traveling better is not traveling less — it is traveling more intelligently. 💙🌍"
-        }
-      ]
-    },
-    "faqPage": {
-      "title": "FREQUENTLY ASKED<br><span>QUESTIONS</span>",
-      "questions": [
-        {
-          "question": "Who Can Use Gohappygo?",
-          "answer": "Any adult with a verified account can use Gohappygo to offer or book luggage space."
-        },
-        {
-          "question": "Are Profiles Verified?",
-          "answer": "Yes. All users go through identity verification during registration to guarantee a trusted community."
-        },
-        {
-          "question": "What Is A HappyTraveler?",
-          "answer": "A HappyTraveler is a user who chooses to travel by helping others, or use the Gohappygo service, in a spirit of trust, sharing and kindness."
-        },
-        {
-          "question": "Who Chooses The Luggage Carrier?",
-          "answer": "Whether booking or offering luggage space, one can freely choose their HappyTraveler, after consulting their profile, and exchanging with them. Cancellation is possible at any time before the trip. Any transaction must start and end on Gohappygo to benefit from our legal protection."
-        },
-        {
-          "question": "How Is The Meeting Traceability Ensured?",
-          "answer": "During the meeting at the airport, and before check-in, the 2 travelers take a selfie via the application, which confirms their identity and confirms the meeting; this data is not held by any of the travelers."
-        },
-        {
-          "question": "What Type Of Luggage Can Be Transported?",
-          "answer": "Only luggage authorized by regulations (suitcases, personal bags, non-dangerous effects) can be entrusted via Gohappygo."
-        },
-        {
-          "question": "What Happens In Case Of Problem During The Trip?",
-          "answer": "Gohappygo is a secure framework, and of traceability. The platform provides 24/7 technical and legal assistance, regardless of location on the globe."
-        },
-        {
-          "question": "How Does Payment Work?",
-          "answer": "Payment is 100% secure and held in escrow by the platform throughout the trip and automatically transferred upon validation by the 2 HappyTravelers."
-        },
-        {
-          "question": "Can I Both Book And Offer Luggage Space?",
-          "answer": "Yes. Gohappygo allows you to take on both roles, depending on your needs and trips."
-        },
-        {
-          "question": "How To Contact Gohappygo?",
-          "answer": "A support service is accessible directly via the application to accompany users at every step."
-        }
-      ]
-    },
-    "forgotPassword": {
-      "title": "Forgot password",
-      "subtitle": "Enter your email address to receive a reset code.",
-      "sentMessage": "A reset code has been sent to <strong>{{email}}</strong>. Check your inbox.",
-      "resetLink": "Reset my password",
-      "emailLabel": "Email",
-      "emailPlaceholder": "you@example.com",
-      "submit": "Send code",
-      "submitting": "Sending...",
-      "backHome": "Back to home",
-      "errorDefault": "An error occurred. Please try again."
-    },
-    "helpCenter": {
-      "title": "Help Center",
-      "subtitle": "Search for a question or browse common topics.",
-      "placeholder": "Search for a question...",
-      "noResults": "No question matches « {{query}} ».",
-      "ariaSearch": "Search for a question in the help center",
-      "ariaClear": "Clear search",
-      "faqs": [
-        {
-          "q": "How does GoHappyGo work?",
-          "a": "Travelers offer available space in their luggage. You can ask them to transport your packages (per kilo)."
-        },
-        {
-          "q": "What items are prohibited?",
-          "a": "Any dangerous, illegal item or item prohibited by airlines and customs is strictly forbidden."
-        },
-        {
-          "q": "How to pay?",
-          "a": "The price is generally set per kilo. Payment is secured via the platform."
-        },
-        {
-          "q": "How to contact a HappyTraveler?",
-          "a": "From an announcement, use the ‘Request transport’ or ‘Contact’ buttons to send your message."
-        },
-        {
-          "q": "How to define the weight to ship?",
-          "a": "Indicate the estimated weight in kilograms. The HappyTraveler will confirm the remaining availability."
-        }
-      ]
-    },
-    "howItWorks": {
-      "title": "HOW <br/><span>IT WORKS</span>",
-      "steps": [
-        {
-          "title": "I SIGN UP & I PUBLISH MY TRIP",
-          "items": [
-            "Account creation",
-            "Mandatory identity check",
-            "Publication of an announcement/trip wish"
-          ],
-          "description": "It all starts with a verified profile and a shared route. Your data is treated strictly confidentially."
-        },
-        {
-          "title": "I BOOK & I SECURE THE EXCHANGE",
-          "items": [
-            "Luggage space booking",
-            "Exchanges via secure messaging/physical meeting",
-            "Selfie of 2 via application"
-          ],
-          "description": "Trust is built in transparency. The traceability of your exchanges and transactions are guaranteed."
-        },
-        {
-          "title": "I TRAVEL & I GET PAID SECURELY",
-          "items": [
-            "Joint luggage check-in",
-            "Travel + reservation validation",
-            "Payment automatically released"
-          ],
-          "description": "The payment system is secure and you do not handle money directly."
-        }
-      ]
-    },
-    "logos": {
-      "title": "GoHappyGo Logos",
-      "main": "Main logo",
-      "monochrome": "Monochrome",
-      "outline": "Outline"
-    },
-    "logout": {
-      "title": "See you soon!",
-      "message": "Logging out..."
-    },
-    "notifications": {
-      "title": "Notifications",
-      "subtitle": {
-        "unread": "{{count}} unread",
-        "unread_plural": "{{count}} unread",
-        "allRead": "All your notifications are read"
-      },
-      "backProfile": "← Back to profile",
-      "filter": {
-        "all": "All",
-        "unread": "Unread"
-      },
-      "actions": {
-        "markAllRead": "Mark all as read",
-        "clearRead": "Clear read",
-        "markAsRead": "Mark as read",
-        "delete": "Delete"
-      },
-      "empty": {
-        "title": "No notifications",
-        "unread": "You have no unread notifications",
-        "all": "You have no notifications for the moment"
-      },
-      "allSeen": "You have seen all your notifications",
-      "error": "Error loading notifications",
-      "time": {
-        "justNow": "just now",
-        "minAgo": "{{count}} min ago",
-        "hourAgo": "{{count}} h ago",
-        "yesterday": "yesterday",
-        "dayAgo": "{{count}} days ago"
-      }
-    },
-    "resetPassword": {
-      "title": "Reset password",
-      "subtitle": "Enter the code received by email and your new password.",
-      "successTitle": "Password reset successfully!",
-      "successDesc": "You will be redirected to the home page...",
-      "codeLabel": "Reset code",
-      "codePlaceholder": "Enter the code received by email",
-      "newPasswordLabel": "New password",
-      "newPasswordPlaceholder": "Minimum 8 characters",
-      "confirmPasswordLabel": "Confirm password",
-      "confirmPasswordPlaceholder": "Confirm your password",
-      "submit": "Reset password",
-      "submitting": "Resetting...",
-      "resendCode": "Resend code",
-      "backHome": "Back to home",
-      "errors": {
-        "codeRequired": "Reset code is required.",
-        "passwordLength": "Password must be at least 8 characters.",
-        "passwordMismatch": "Passwords do not match.",
-        "invalidCode": "Invalid or expired code. Please try again."
-      }
-    },
-    "stripeOnboarding": {
-      "title": "Stripe Configuration Completed!",
-      "subtitle": "You are ready to give and receive Happiness.",
-      "badges": {
-        "verified": "Account Verified",
-        "info": "Information Filled",
-        "payments": "Payments Activated",
-        "happiness": "Happiness is simple"
-      },
-      "dashboard": "Access Dashboard",
-      "next": "And now?",
-      "steps": {
-        "publish": {
-          "title": "Publish an announcement",
-          "desc": "Post an announcement or a travel request."
-        },
-        "search": {
-          "title": "Find/Search a HappyTraveler",
-          "desc": "for a trip on the same plane for the same destination"
-        },
-        "earn": {
-          "title": "Earn income/Give Happiness",
-          "desc": "Start earning money from your travels."
-        }
-      }
-    },
-
-    "whatIsHappiness": {
-      "title": "HAPPINESS,<br><span> IT'S ALSO SHARED!</span>",
-      "section1": {
-        "title": "Traveling usefully is traveling happily",
-        "content": "Happiness is not just arriving at the destination. It's knowing that, during your journey, <b>you helped someone.</b>",
-        "items": [
-          "A package that arrives on time",
-          "A lighter trip for someone else",
-          "Avoided stress",
-          "A smile at the end of the road"
-        ],
-        "footer": "At GoHappyGo, every trip can become <b>a good and beautiful action.</b>"
-      },
-      "section2": {
-        "title": "The happiness of being part of something bigger",
-        "content": "By using GoHappyGo, you are not just a user. You are part of a <b>supportive community of travelers</b> who:",
-        "items": [
-          "Help each other naturally",
-          "Optimize what already exists",
-          "Give meaning to their travels"
-        ],
-        "footer": "Happiness is often born when one feels <b>useful, connected and engaged.</b>"
-      },
-      "section3": {
-        "title": "Small gestures. Big effects.",
-        "content": "Carrying a package is not much. But for someone else, it is sometimes:",
-        "items": ["A solution to a problem", "A more serene trip", "Regained confidence"],
-        "footer": "Happiness is these <b>ordinary little gestures</b> that create extraordinary effects."
-      },
-      "footer": "BE A HAPPINESS CARRIER.\nFOR OTHERS. FOR YOU. FOR TRAVELING DIFFERENTLY."
-    },
-    "terms": {
-      "title": "Terms of Use",
-      "description": "By using GoHappyGo, you accept our general conditions. Please read this information carefully to understand your rights and responsibilities.",
-      "section1": "1. GoHappyGo connects people with available space in their luggage and people wishing to ship items. Users are responsible for the transported content.",
-      "section2": "2. HappyTravelers undertake to respect current laws and refuse any dangerous or prohibited object. Senders must precisely describe the content and weight.",
-      "section3": "3. Payments and refunds follow the terms indicated at the time of the request.",
-      "privacyTitle": "Privacy Policy",
-      "privacyDescription": "We respect your privacy. This policy explains what data we collect, how we use it and your rights.",
-      "privacySection1": "1. We collect account information (name, email), profile data and technical information to improve the service.",
-      "privacySection2": "2. Your data is only shared with your consent or when the law requires it.",
-      "privacySection3": "3. You can request access, rectification or deletion of your data."
-    },
-    "transporters": {
-      "title": "HappyVoyageurs",
-      "subtitle": "Find a traveler to ship your packages.",
-      "available": "Available",
-      "routes": "Routes",
-      "requestTransport": "Request transport",
-      "contact": "Contact"
-    },
-    "support": {
-      "title": "GoHappyGo Help Center",
-      "subtitle": "We are here to help you! Find answers to your questions or contact our support team.",
-      "features": {
-        "title": "Our 24/7 support",
-        "available": {
-          "title": "Available 24/7",
-          "desc": "Our team is always here to help you, no matter the time."
-        },
-        "fastResponse": {
-          "title": "Fast response",
-          "desc": "We are committed to responding to your requests as soon as possible."
-        },
-        "multilingual": {
-          "title": "Multilingual support",
-          "desc": "Our team speaks several languages to better serve you."
-        }
-      },
-      "contactMethods": {
-        "title": "Other ways to contact",
-        "email": "Email",
-        "faq": "FAQ",
-        "faqLink": "Check our frequently asked questions"
-      },
-      "form": {
-        "title": "Contact us",
-        "successMessage": "Message sent successfully!",
-        "successDesc": "We have received your message and will respond as soon as possible.",
-        "emailLabel": "Email address *",
-        "categoryLabel": "Category",
-        "messageLabel": "Message *",
-        "placeholder": "Describe your question or problem in detail...",
-        "submit": "Send message",
-        "submitting": "Sending...",
-        "advancedForm": "Prefer to use our advanced form?",
-        "categories": {
-          "general": "General question",
-          "technical": "Technical problem",
-          "billing": "Billing",
-          "account": "User account",
-          "booking": "Booking",
-          "other": "Other"
-        },
-        "errors": {
-          "required": "Please fill in all required fields.",
-          "invalidEmail": "Please enter a valid email address.",
-          "sendError": "Error sending the message."
-        }
-      }
-    },
-    "security": {
-      "title": "Security Rules",
-      "subtitle": "Our best practices for safe exchanges between travelers and senders.",
-      "items": {
-        "allowedItems": {
-          "title": "1. Allowed and Prohibited Items",
-          "desc": "Respect airline regulations. Flammable materials, weapons, illegal products, and any dangerous objects are prohibited. If in doubt, contact our support."
-        },
-        "identityVerification": {
-          "title": "2. Identity Verification",
-          "desc": "Complete your profile with accurate information. We recommend specific identity verification before any exchange."
-        },
-        "packaging": {
-          "title": "3. Package Handover and Sealing",
-          "desc": "Take photos of the content, seal the package in the presence of both parties, and add a clear label (name, number, destination)."
-        },
-        "payment": {
-          "title": "4. Secure Payment",
-          "desc": "Make payments only via the platform. Never send money outside the system."
-        },
-        "communication": {
-          "title": "5. Communication on the Platform",
-          "desc": "Prioritize integrated messaging to keep a record of exchanges and report any suspicious behavior."
-        }
-      },
-      "meta": {
-        "title": "Security Rules - GoHappyGo",
-        "description": "Security guidelines and best practices for exchanges on GoHappyGo."
-      }
-    }
+    "medications": "Medications",
+    "title": "Transport requests",
+    "urgentDocuments": "Urgent package - Documents"
   },
   "reviews": {
-    "loadingReviews": "Loading reviews...",
-    "noReviewsYet": "No reviews yet..",
     "beFirstReview": "Be the first to",
-    "shareExperience": "share your experience",
-    "leaveReview": "Leave a review",
-    "reviewFrom": "Review from {{name}}",
-    "reviewFor": "Review for {{name}}",
-    "noCommentProvided": "No comment provided",
-    "reviewsWithCount": "reviews",
-    "myReceivedReviews": "My received reviews",
-    "receivedReviews": "Received reviews",
-    "myGivenReviews": "My given reviews",
-    "givenReviews": "Given reviews",
-    "flight": "Flight",
+    "count": "{{count}} review",
+    "count_plural": "{{count}} reviews",
+    "countTotal": "{{count}} reviews total",
     "dialog": {
-      "title": "Congratulations on being a HappyTraveler!",
-      "subtitle": "Share your experience with {{name}}",
-      "rating": "Your rating",
       "comment": "Your comment (optional)",
       "commentPlaceholder": "Share your experience...",
+      "rating": "Your rating",
+      "selectRatingError": "Please select a rating",
       "submit": "Send review",
+      "submitError": "Error while submitting review",
       "submitting": "Sending...",
-      "selectRatingError": "Please select a rating"
-    }
+      "subtitle": "Share your experience with {{name}}",
+      "title": "Congratulations on being a HappyTraveler!"
+    },
+    "flight": "Flight",
+    "givenReviews": "Given reviews",
+    "leaveReview": "Leave a review",
+    "loadingReviews": "Loading reviews...",
+    "myGivenReviews": "My given reviews",
+    "myReceivedReviews": "My received reviews",
+    "noCommentProvided": "No comment provided",
+    "none": "No reviews yet",
+    "noReviewsYet": "No reviews yet..",
+    "receivedReviews": "Received reviews",
+    "reviewFor": "Review for {{name}}",
+    "reviewFrom": "Review from {{name}}",
+    "reviewsWithCount": "reviews",
+    "shareExperience": "share your experience"
   },
   "seo": {
     "description": "Make more than a trip, make happy luggage! GoHappyGo is the reference platform for making more than a trip. Find reliable transporters or offer your services during your travels. Economical, secure and ecological.",

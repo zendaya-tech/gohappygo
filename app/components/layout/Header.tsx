@@ -85,7 +85,7 @@ export default function Header() {
             {/* Logo */}
             <Link to={'/'} className="flex items-center space-x-3 flex-shrink-0">
               <div className="h-10">
-                <img src="/logo.png" alt="Logo" className="h-10" />
+                <img src="/logo.png" alt={t('common.accessibility.logo')} className="h-10" />
               </div>
             </Link>
 
@@ -173,7 +173,7 @@ export default function Header() {
                   {isLoggedIn ? (
                     <img
                       src={uqer?.profilePictureUrl}
-                      alt="Profile"
+                      alt={t('common.accessibility.profile')}
                       className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                     />
                   ) : (
@@ -274,7 +274,7 @@ export default function Header() {
                   {isLoggedIn ? (
                     <img
                       src={uqer?.profilePictureUrl}
-                      alt="Profile"
+                      alt={t('common.accessibility.profile')}
                       className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                     />
                   ) : (

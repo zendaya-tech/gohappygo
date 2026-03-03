@@ -91,12 +91,12 @@ export default function CreateAnnounceDialog({
           setFlightNumberError(null);
         } else {
           setAirline({});
-          setFlightNumberError('Numéro de vol non valide');
+          setFlightNumberError(t('dialogs.createAnnounce.errors.invalidFlightNumber'));
         }
       } catch (error) {
         console.error('Error fetching airline:', error);
         setAirline({});
-        setFlightNumberError('Numéro de vol non valide');
+        setFlightNumberError(t('dialogs.createAnnounce.errors.invalidFlightNumber'));
       } finally {
         setFetchingAirline(false);
       }
@@ -118,15 +118,13 @@ export default function CreateAnnounceDialog({
           errors.airports = t('dialogs.createAnnounce.errors.airportsMustDiffer');
         }
         if (!story.trim()) errors.story = t('dialogs.createAnnounce.errors.storyRequired');
-        if (story.length > 500)
-          errors.story = t('dialogs.createAnnounce.errors.storyTooLong');
+        if (story.length > 500) errors.story = t('dialogs.createAnnounce.errors.storyTooLong');
         if (flightNumber && (!airline.name || flightNumberError)) {
           errors.flightNumber = t('dialogs.createAnnounce.errors.flightNumberInvalid');
         }
         break;
       case 2:
-        if (files.length < 2)
-          errors.photos = t('dialogs.createAnnounce.errors.photosMinimum');
+        if (files.length < 2) errors.photos = t('dialogs.createAnnounce.errors.photosMinimum');
         break;
       case 3:
         if (!kilos || Number(kilos) <= 0)
@@ -429,7 +427,7 @@ export default function CreateAnnounceDialog({
                     value={travelDate}
                     onChange={(e) => setTravelDate(e.target.value)}
                     min={today} // This prevents selecting past dates
-                    placeholder="Choisir une date"
+                    placeholder={t('common.placeholders.chooseDate')}
                     className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                   {/* Optional: Show an error message if the date is invalid */}
@@ -512,11 +510,11 @@ export default function CreateAnnounceDialog({
                       max: 500,
                     })}
                     {story.length > 500 && (
-                        <span className="block text-red-500 font-medium">
-                          {t('dialogs.createAnnounce.storyOverflow', {
-                            count: story.length - 500,
-                          })}
-                        </span>
+                      <span className="block text-red-500 font-medium">
+                        {t('dialogs.createAnnounce.storyOverflow', {
+                          count: story.length - 500,
+                        })}
+                      </span>
                     )}
                   </div>
                   {validationErrors.story && (
@@ -823,6 +821,7 @@ export default function CreateAnnounceDialog({
 }
 
 function StepsNav({ step }: { step: StepKey }) {
+  const { t } = useTranslation();
   const Item = ({
     index,
     title,
@@ -865,11 +864,23 @@ function StepsNav({ step }: { step: StepKey }) {
 
   return (
     <div>
-      <Item index={1} title="Général" subtitle="Sélectionner les paramètres de base" />
+      <Item
+        index={1}
+        title={t('dialogs.createAnnounce.step1')}
+        subtitle={t('dialogs.createAnnounce.step1Subtitle')}
+      />
       <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
-      <Item index={2} title="Photos" subtitle="Ajouter 2 photos" />
+      <Item
+        index={2}
+        title={t('dialogs.createAnnounce.step2')}
+        subtitle={t('dialogs.createAnnounce.step2Subtitle')}
+      />
       <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
-      <Item index={3} title="Prix & Réservation" subtitle="Spécifiez vos préférences" />
+      <Item
+        index={3}
+        title={t('dialogs.createAnnounce.step3')}
+        subtitle={t('dialogs.createAnnounce.step3Subtitle')}
+      />
       {/* <Item index={1} title="General" subtitle="Select basic settings" />
       <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
       <Item index={2} title="Pictures" subtitle="Add 2 photos" />

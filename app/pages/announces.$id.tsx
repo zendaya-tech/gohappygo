@@ -157,22 +157,22 @@ export default function AnnounceDetail() {
     return listing.reviews.map((review) => ({
       id: review.id,
       rating: parseFloat(review.rating) || 0,
-      name: `${review.reviewer?.fullName}` || 'Anonyme',
+      name: `${review.reviewer?.fullName}` || t('common.anonymous'),
       avatar: review.reviewer?.profilePictureUrl || '/favicon.ico',
       comment: review.comment || '',
       createdAt: review.createdAt,
     }));
-  }, [listing?.reviews]);
+  }, [listing?.reviews, t]);
 
   // Format user name from firstName and lastName
   const userName = useMemo(() => {
-    if (!listing?.user) return 'Voyageur';
+    if (!listing?.user) return t('common.traveler');
     const { firstName, lastName, fullName } = listing.user;
     if (fullName) {
       return fullName;
     }
     return firstName + ' ' + lastName;
-  }, [listing?.user]);
+  }, [listing?.user, t]);
 
   const averageRating =
     reviews.length > 0
@@ -246,7 +246,7 @@ export default function AnnounceDetail() {
     const loadQuotes = async () => {
       const res = await getRandomQuotes();
       if (!res) {
-        setQuotesError('Impossible de charger les citations.');
+        setQuotesError(t('pages.announceDetail.errors.loadQuotesFailed'));
         setQuotes([]);
         return;
       }
@@ -631,7 +631,7 @@ export default function AnnounceDetail() {
                 >
                   <img
                     src={galleryImages[0]}
-                    alt="Image principale"
+                    alt={t('common.accessibility.mainImage')}
                     className={`h-full w-full transition-transform duration-300 group-hover:scale-110 ${
                       type === 'travel' && galleryImages[0] === listing.airline?.logoUrl
                         ? 'object-contain p-8'
@@ -654,7 +654,7 @@ export default function AnnounceDetail() {
                 >
                   <img
                     src={galleryImages[1]}
-                    alt="Image 2"
+                    alt={`${t('common.accessibility.image')} 2`}
                     className="h-full w-full object-cover transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
@@ -670,7 +670,7 @@ export default function AnnounceDetail() {
                 >
                   <img
                     src={galleryImages[2]}
-                    alt="Image 3"
+                    alt={`${t('common.accessibility.image')} 3`}
                     className="h-full w-full object-cover transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
@@ -712,7 +712,7 @@ export default function AnnounceDetail() {
                         : 'bg-blue-600 text-white hover'
                     }`}
                   >
-                    Profile
+                    {t('common.profile')}
                   </button>
                   <button
                     onClick={() => setMessageOpen(true)}
@@ -767,7 +767,7 @@ export default function AnnounceDetail() {
                 </div>
                 <div className="md:col-span-3 text-left md mt-2 md:mt-0">
                   <div className="text-lg sm md font-bold text-gray-900">
-                    {listing.pricePerKg} {currencySymbol}/Kilo
+                    {listing.pricePerKg} {currencySymbol}/{t('common.kg')}
                   </div>
                 </div>
               </div>
@@ -786,7 +786,7 @@ export default function AnnounceDetail() {
                   <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/multiple.jpeg"
-                      alt="Type de réservation"
+                      alt={t('pages.announceDetail.badges.reservationType')}
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
@@ -874,14 +874,13 @@ export default function AnnounceDetail() {
                                 </div> */}
                 {/* <p className="text-sm text-gray-500 mb-4">You will not be able to edit your review</p> */}
                 {/* <div className="rounded-2xl   flex items-center justify-between gap-3">
-                                    <input placeholder="Write your review..." className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                                    <input placeholder={t('reviews.writeReviewPlaceholder')} className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                                     <button className="rounded-lg bg-blue-600 text-white px-5 py-3 font-semibold hover">Post a review</button>
                                 </div> */}
                 <div className="mt-8">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-xl font-semibold text-gray-900">
-                      {reviews.length} Commentaire
-                      {reviews.length > 1 ? 's' : ''}
+                      {t('reviews.count', { count: reviews.length })}
                     </h4>
                     <div className="flex items-center gap-2 text-sm">
                       <div className="flex items-center">
@@ -899,29 +898,32 @@ export default function AnnounceDetail() {
                         ))}
                       </div>
                       <span className="text-gray-700 font-medium">{averageRating.toFixed(1)}</span>
-                      <span className="text-gray-500">({totalReviews} reviews)</span>
+                      <span className="text-gray-500">
+                        ({t('reviews.countTotal', { count: totalReviews })})
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-col mt-10 gap-5">
                     {reviews.length === 0 ? (
-                      <div className="text-center py-8 text-gray-500">
-                        Aucun commentaire pour le moment
-                      </div>
+                      <div className="text-center py-8 text-gray-500">{t('reviews.none')}</div>
                     ) : (
                       reviews.map((review: any) => {
                         const reviewDate = review.createdAt
-                          ? new Date(review.createdAt).toLocaleDateString('fr-FR', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            })
+                          ? new Date(review.createdAt).toLocaleDateString(
+                              i18n.language === 'fr' ? 'fr-FR' : 'en-US',
+                              {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                              }
+                            )
                           : '';
 
                         return (
                           <div key={review.id} className="flex items-start gap-3">
                             <img
                               src={review.avatar}
-                              alt="avatar"
+                              alt={t('common.accessibility.avatar')}
                               className="h-10 w-10 rounded-full object-cover"
                             />
                             <div className="flex-1">
@@ -959,12 +961,14 @@ export default function AnnounceDetail() {
                 {type === 'travel' ? (
                   <>
                     <div className="text-2xl font-bold text-gray-900">
-                      {listing.pricePerKg} {currencySymbol}/Kilo
+                      {listing.pricePerKg} {currencySymbol}/Kg
                     </div>
-                    <div className="text-xs text-gray-500 mb-6">Prix par kilogramme</div>
+                    <div className="text-xs text-gray-500 mb-6">
+                      {t('pages.announceDetail.booking.pricing.pricePerKg')}
+                    </div>
 
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Enter n° Kilo
+                      {t('dialogs.booking.enterKilos')}
                     </label>
                     <input
                       type="number"
@@ -1150,7 +1154,7 @@ export default function AnnounceDetail() {
                               </div>
                               <img
                                 src="/images/axa-logo.svg"
-                                alt="AXA"
+                                alt={t('common.accessibility.axaLogo')}
                                 className="h-9 w-9 rounded object-contain"
                                 onError={(e) => {
                                   // Fallback if image doesn't exist
@@ -1243,7 +1247,7 @@ export default function AnnounceDetail() {
                                 </p>
 
                                 <span className="mt-2 block text-[10px] uppercase tracking-tighter text-blue-600 opacity-80">
-                                  — {q.author || 'Anonyme'}
+                                  — {q.author || t('common.anonymous')}
                                 </span>
                               </div>
                             </div>
@@ -1308,7 +1312,7 @@ export default function AnnounceDetail() {
         open={shareOpen}
         onClose={() => setShareOpen(false)}
         listing={{
-          title: `Voyage ${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`,
+          title: `${type === 'travel' ? t('common.travel') : t('common.demand')} ${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`,
           location: `${listing.departureAirport?.name}, ${listing.arrivalAirport?.name}`,
           rating: averageRating,
           bedrooms: 1,

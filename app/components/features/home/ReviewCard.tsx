@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 interface ReviewCardProps {
   review: string;
   name: string;
@@ -5,15 +7,11 @@ interface ReviewCardProps {
   rating: number;
 }
 
-export default function ReviewCard({
-  review,
-  name,
-  avatar,
-  rating,
-}: ReviewCardProps) {
+export default function ReviewCard({ review, name, avatar, rating }: ReviewCardProps) {
+  const { t } = useTranslation();
   return (
     <div className="bg-gray-50 rounded-lg  p-6 animate-fade-in flex flex-col gap-2">
-      <img src="/images/quote.svg" alt="quote" className="w-10 h-10" />
+      <img src="/images/quote.svg" alt={t('common.accessibility.quote')} className="w-10 h-10" />
       <div>
         <p className="text-gray-600">"{review}"</p>
       </div>
@@ -22,9 +20,7 @@ export default function ReviewCard({
         <div className="w-10 h-10 bg-gray-200 rounded-full   overflow-hidden">
           <img src={avatar} alt={name} className="w-full h-full object-cover" />
         </div>
-        <span className="font-semibold align-middle text-gray-900 ">
-          {name}
-        </span>
+        <span className="font-semibold align-middle text-gray-900 ">{name}</span>
       </div>
 
       {/* <div className="flex justify-center space-x-1 mb-2">

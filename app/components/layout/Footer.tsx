@@ -24,7 +24,7 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <a
                   href="https://x.com/GoHappyGo1"
-                  aria-label="Twitter"
+                  aria-label={t('common.social.twitter')}
                   className="hover:text-blue-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -33,7 +33,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="https://web.facebook.com/gohappygofr"
-                  aria-label="Facebook"
+                  aria-label={t('common.social.facebook')}
                   className="hover:text-blue-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -42,7 +42,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="https://instagram.com/gohappygo1"
-                  aria-label="Instagram"
+                  aria-label={t('common.social.instagram')}
                   className="hover:text-blue-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">

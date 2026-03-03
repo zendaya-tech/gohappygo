@@ -165,9 +165,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
         <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
-            <h2 className="text-xl font-bold text-gray-900">
-              {t('profile.dialog.settingsTitle')}
-            </h2>
+            <h2 className="text-xl font-bold text-gray-900">{t('profile.dialog.settingsTitle')}</h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover transition-colors cursor-pointer"
@@ -319,9 +317,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       : 'bg-blue-600 text-white hover'
                   }`}
                 >
-                  {submitting
-                    ? t('profile.dialog.saving')
-                    : t('profile.dialog.saveChanges')}
+                  {submitting ? t('profile.dialog.saving') : t('profile.dialog.saveChanges')}
                 </button>
               </form>
             )}
@@ -502,8 +498,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                       </p>
                       {hasActiveTransactions && (
                         <p className="text-sm text-red-700 mt-2 font-medium">
-                          ⚠️ Vous ne pouvez pas supprimer votre compte car vous avez des
-                          transactions en cours.
+                          {t('profile.dialog.deleteAccount.activeTransactionsWarning')}
                         </p>
                       )}
                     </div>
@@ -511,15 +506,15 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                 </div>
 
                 {!showDeleteConfirm ? (
-                    <button
-                      onClick={() => setShowDeleteConfirm(true)}
-                      disabled={hasActiveTransactions}
-                      className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled cursor-pointer disabled:cursor-not-allowed"
-                    >
-                      {hasActiveTransactions
-                        ? t('profile.dialog.deleteAccount.impossibleWithActiveTransactions')
-                        : t('profile.dialog.deleteAccount.cta')}
-                    </button>
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    disabled={hasActiveTransactions}
+                    className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover transition-colors disabled cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    {hasActiveTransactions
+                      ? t('profile.dialog.deleteAccount.impossibleWithActiveTransactions')
+                      : t('profile.dialog.deleteAccount.cta')}
+                  </button>
                 ) : (
                   <div className="space-y-4">
                     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
@@ -549,9 +544,7 @@ export default function ProfileDialog({ open, onClose }: ProfileDialogProps) {
                               window.location.href = '/';
                             }, 2000);
                           } catch (err: any) {
-                            setError(
-                              err.message || t('profile.dialog.deleteAccount.error')
-                            );
+                            setError(err.message || t('profile.dialog.deleteAccount.error'));
                           } finally {
                             setSubmitting(false);
                           }

@@ -17,11 +17,11 @@ import i18n from '~/i18n';
 export function meta({}: Route.MetaArgs) {
   return [
     {
-      title: i18n.t('pages.home.meta.title'),
+      title: i18n.t('home.meta.title'),
     },
     {
       name: 'description',
-      content: i18n.t('pages.home.meta.description'),
+      content: i18n.t('home.meta.description'),
     },
   ];
 }

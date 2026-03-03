@@ -138,7 +138,7 @@ export default function Annonces() {
         setMeta(responseMeta);
         setHasMore(responseMeta?.hasNextPage ?? false);
       } catch (e: any) {
-        setError(e?.message || 'Failed to load results');
+        setError(e?.message || t('pages.announces.errors.loadResultsFailed'));
       } finally {
         setLoading(false);
       }
@@ -506,7 +506,11 @@ export default function Annonces() {
                         rating={rating}
                         image={image}
                         featured={featured}
-                        weight={availableWeight ? `${availableWeight}kg` : undefined}
+                        weight={
+                          availableWeight
+                            ? `${availableWeight}${t('common.kg').toLowerCase()}`
+                            : undefined
+                        }
                         departure={departure}
                         airline={airline}
                         type={type as any}

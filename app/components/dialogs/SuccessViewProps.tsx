@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, PlusCircle, Search, DollarSign, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface SuccessModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface SuccessModalProps {
 }
 
 export default function SuccessModal({ isOpen, onClose, onPrimaryAction }: SuccessModalProps) {
+  const { t } = useTranslation();
   // Close modal when "Escape" key is pressed
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -48,8 +50,10 @@ export default function SuccessModal({ isOpen, onClose, onPrimaryAction }: Succe
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Configuration Stripe Terminé !</h1>
-          <p className="text-gray-500">Vous êtes prêt(e) à donner et recevoir du Bonheur.</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {t('dialogs.success.stripeCompleted')}
+          </h1>
+          <p className="text-gray-500">{t('dialogs.success.readyToGiveReceive')}</p>
         </div>
 
         {/* Hero Illustration Area */}
@@ -57,7 +61,7 @@ export default function SuccessModal({ isOpen, onClose, onPrimaryAction }: Succe
           <div className="relative z-10 w-full h-full flex justify-center">
             <img
               src="/illustrations/travel-success.jpeg"
-              alt="Success"
+              alt={t('common.accessibility.successIllustration')}
               className="w-full h-full object-cover"
             />
           </div>
@@ -65,10 +69,10 @@ export default function SuccessModal({ isOpen, onClose, onPrimaryAction }: Succe
 
         {/* Status Badges */}
         <div className="flex flex-wrap justify-center gap-4 py-8 border-b border-gray-100 bg-white">
-          <StatusBadge label="Compte Vérifié" />
-          <StatusBadge label="Informations Remplies" />
-          <StatusBadge label="Paiements Activés" />
-          <StatusBadge label="Le Bonheur est simple" />
+          <StatusBadge label={t('dialogs.success.verifiedAccount')} />
+          <StatusBadge label={t('dialogs.success.infoFilled')} />
+          <StatusBadge label={t('dialogs.success.paymentsActivated')} />
+          <StatusBadge label={t('dialogs.success.happinessIsSimple')} />
         </div>
 
         {/* Main Action */}
@@ -80,29 +84,31 @@ export default function SuccessModal({ isOpen, onClose, onPrimaryAction }: Succe
             }}
             className="bg-indigo-600 hover text-white px-10 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-indigo-100 cursor-pointer"
           >
-            Accéder au Tableau de bord
+            {t('dialogs.success.goToDashboard')}
           </button>
         </div>
 
         {/* Footer: What happens next? */}
         <div className="bg-gray-50/50 p-10">
-          <h3 className="text-center font-bold text-gray-900 mb-10 text-lg">Et maintenant ?</h3>
+          <h3 className="text-center font-bold text-gray-900 mb-10 text-lg">
+            {t('dialogs.success.whatsNext')}
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <NextStep
               icon={<PlusCircle className="text-blue-500" />}
-              title="Publier une annonce"
-              desc="Déposez une annonce ou une demande de voyage."
+              title={t('dialogs.success.steps.publish.title')}
+              desc={t('dialogs.success.steps.publish.desc')}
             />
             <NextStep
               icon={<Search className="text-blue-400" />}
-              title="Trouver un HappyVoyageur"
-              desc="Recherchez un voyage pour la même destination."
+              title={t('dialogs.success.steps.find.title')}
+              desc={t('dialogs.success.steps.find.desc')}
             />
             <NextStep
               icon={<DollarSign className="text-yellow-500" />}
-              title="Gagner des revenus"
-              desc="Commencez à gagner de l'argent grâce à vos voyages."
+              title={t('dialogs.success.steps.earn.title')}
+              desc={t('dialogs.success.steps.earn.desc')}
             />
           </div>
         </div>

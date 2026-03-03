@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import i18n from '~/i18n';
 import { useEffect, useState } from 'react';
 import AnnounceCard from '~/components/cards/AnnounceCard';
@@ -57,7 +57,12 @@ export default function LatestDemands() {
 
   return (
     <section className="py-12 px-10 rounded-2xl mx-auto">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8">{t('home.latestDemands.subtitle')}</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">
+        <Trans
+          i18nKey="home.latestDemands.subtitle"
+          components={{ span: <span className="text-blue-600" /> }}
+        />
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {demands.map((demand) => {

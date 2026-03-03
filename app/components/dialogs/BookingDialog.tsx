@@ -87,13 +87,25 @@ function CheckoutForm({
     <form onSubmit={handleSubmit}>
       <div className="flex items-center justify-center px-6 pt-4 mt-6">
         <div className="w-[20%]">
-          <img src="/images/paymentLogosCB.png" alt="CB" className=" w-full" />
+          <img
+            src="/images/paymentLogosCB.png"
+            alt={t('common.accessibility.paymentMethods.cb')}
+            className=" w-full"
+          />
         </div>
         <div className="w-[20%]">
-          <img src="/images/paymentLogosVisa.png" alt="Visa" className="w-full" />
+          <img
+            src="/images/paymentLogosVisa.png"
+            alt={t('common.accessibility.paymentMethods.visa')}
+            className="w-full"
+          />
         </div>
         <div className="w-[20%]">
-          <img src="/images/paymentLogosMasterCard.png" alt="MasterCard" className="w-full" />
+          <img
+            src="/images/paymentLogosMasterCard.png"
+            alt={t('common.accessibility.paymentMethods.mastercard')}
+            className="w-full"
+          />
         </div>
       </div>
       <div className="px-6 py-5">
@@ -139,7 +151,7 @@ function CheckoutForm({
           </svg>
           <span>{t('dialogs.booking.securedBy')}</span>
           <div className=" border-black border-2 px-0.5 py-1 rounded text-[10px] text-black font-bold tracking-tighter">
-            stripe
+            {t('common.brands.stripe')}
           </div>
         </div>
       </div>
@@ -208,7 +220,7 @@ export default function BookingDialog({
         {/* Logo badge */}
         <div className="absolute -top-8 left-1/2 -translate-x-1/2">
           <div className="flex items-center justify-center">
-            <img src="/logo.png" alt="GoHappyGo" className="h-18" />
+            <img src="/logo.png" alt={t('common.accessibility.logo')} className="h-18" />
           </div>
         </div>
 

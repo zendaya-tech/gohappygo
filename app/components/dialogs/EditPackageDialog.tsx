@@ -120,13 +120,13 @@ export default function EditPackageDialog({
 
     try {
       if (!departureAirportId || !arrivalAirportId) {
-        setError("Veuillez sélectionner les aéroports de départ et d'arrivée");
+        setError(t('dialogs.createAnnounce.errors.selectAirports'));
         setSubmitting(false);
         return;
       }
 
       if (!currency) {
-        setError('Veuillez sélectionner une devise');
+        setError(t('dialogs.createAnnounce.errors.selectCurrency'));
         setSubmitting(false);
         return;
       }
@@ -146,20 +146,18 @@ export default function EditPackageDialog({
       const result = await updateDemand(demand.id, updateData);
 
       if (result) {
-        setSuccess('Demande de voyage mise à jour avec succès!');
+        setSuccess(t('dialogs.editPackage.success'));
         setTimeout(() => {
           onSuccess?.();
           onClose();
         }, 2000);
       } else {
-        setError('Erreur lors de la mise à jour de la demande. Veuillez réessayer.');
+        setError(t('common.errors.genericUpdate'));
       }
     } catch (err: any) {
       // Check if it's a 401 error (user not authenticated)
       if (err?.response?.status === 401 || err?.status === 401) {
-        setError(
-          'Vous devez être connecté pour modifier une demande de voyage. Veuillez vous connecter.'
-        );
+        setError(t('common.errors.loginRequiredUpdate'));
       } else {
         // Handle validation errors from backend
         if (err?.response?.data?.message) {
@@ -169,7 +167,7 @@ export default function EditPackageDialog({
             setError(err.response.data.message);
           }
         } else {
-          setError('Erreur lors de la mise à jour de la demande. Veuillez réessayer.');
+          setError(t('common.errors.genericUpdate'));
         }
       }
     } finally {
@@ -191,7 +189,7 @@ export default function EditPackageDialog({
           <section className="p-4 md:p-6 overflow-y-auto min-h-0">
             <header className="mb-4 md:mb-6">
               <h2 className="text-lg md font-bold text-gray-900">
-                <span className="uppercase text-sm md">Modifier la demande de voyage</span>
+                <span className="uppercase text-sm md">{t('dialogs.editPackage.title')}</span>
               </h2>
             </header>
 
@@ -263,12 +261,14 @@ export default function EditPackageDialog({
                         : 'text-gray-400'
                   }`}
                 >
-                  {baggageDescription.length}/500 caractères
+                  {t('common.characterCount', { count: baggageDescription.length, max: 500 })}
                 </div>
               </Field>
 
               <div>
-                <div className="mb-2 text-sm font-semibold text-gray-900">Nature du baggage</div>
+                <div className="mb-2 text-sm font-semibold text-gray-900">
+                  {t('dialogs.createPackage.packageNature')}
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
@@ -276,7 +276,7 @@ export default function EditPackageDialog({
                       checked={packageNature === 'STANDARD'}
                       onChange={() => setPackageNature('STANDARD')}
                     />
-                    Standard
+                    {t('common.packageNature.STANDARD')}
                   </label>
                   <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
@@ -284,7 +284,7 @@ export default function EditPackageDialog({
                       checked={packageNature === 'FRAGILE'}
                       onChange={() => setPackageNature('FRAGILE')}
                     />
-                    Fragile
+                    {t('common.packageNature.FRAGILE')}
                   </label>
                   <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
@@ -292,7 +292,7 @@ export default function EditPackageDialog({
                       checked={packageNature === 'URGENT'}
                       onChange={() => setPackageNature('URGENT')}
                     />
-                    Urgent
+                    {t('common.packageNature.URGENT')}
                   </label>
                   <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                     <input
@@ -300,7 +300,7 @@ export default function EditPackageDialog({
                       checked={packageNature === 'MORE_THAN_3000'}
                       onChange={() => setPackageNature('MORE_THAN_3000')}
                     />
-                    Valeur supérieure à 3000 €
+                    {t('common.packageNature.MORE_THAN_3000')}
                   </label>
                 </div>
               </div>
@@ -331,20 +331,18 @@ export default function EditPackageDialog({
                   </Field>
                   <div className="w-32">
                     <label className="mb-2 block text-sm font-semibold text-gray-900">
-                      Currency
+                      {t('dialogs.createAnnounce.currencyLabel')}
                     </label>
                     <CurrencyComboBox
                       value={currency?.code}
                       selectedCurrency={currency}
                       onChange={setCurrency}
-                      placeholder="EUR"
+                      placeholder={t('common.placeholders.currency')}
                       compact
                     />
                   </div>
                 </div>
-                <p className="mt-1 text-xs text-gray-500">
-                  Cette devise sera utilisée pour tous les montants
-                </p>
+                <p className="mt-1 text-xs text-gray-500">{t('common.currencyHint')}</p>
               </div>
             </div>
 
@@ -367,7 +365,7 @@ export default function EditPackageDialog({
                     : 'bg-gray-300 cursor-not-allowed'
                 }`}
               >
-                {submitting ? 'Mise à jour en cours...' : 'Update'}
+                {submitting ? t('common.loadingStates.updating') : t('common.update')}
               </button>
             </div>
           </section>
