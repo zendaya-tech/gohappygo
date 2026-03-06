@@ -46,6 +46,8 @@
     "action": {
       "travel": "Travel",
       "demand": "Request",
+      "seller": "Seller",
+      "buyer": "Buyer",
       "message": "Message",
       "flight": "Flight",
       "perKg": "/kg"
@@ -64,6 +66,7 @@
     },
     "reservation": {
       "approve": "Approve",
+      "dispute": "Dispute",
       "reject": "Reject",
       "contact": "Contact",
       "customerDetails": "Customer Details",

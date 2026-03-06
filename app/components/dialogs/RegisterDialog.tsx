@@ -3,11 +3,13 @@ import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { signInWithPopup } from 'firebase/auth';
 import { useAuth } from '~/hooks/useAuth';
 import CountryComboBox, {
   type Country,
   STRIPE_COUNTRIES,
 } from '~/components/forms/CountryComboBox';
+import { facebookProvider, firebaseAuth, googleProvider } from '~/services/firebaseClient';
 
 export default function RegisterDialog({
   open,
@@ -20,7 +22,7 @@ export default function RegisterDialog({
 }) {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement | null>(null);
-  const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -43,13 +45,68 @@ export default function RegisterDialog({
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleCountryChange = (country: Country | null) => {
     setSelectedCountry(country);
     // Reset phone number when country changes
     setForm((p) => ({ ...p, phoneNumber: '' }));
   };
 
-  const { register, verifyEmail, resendEmailVerification } = useAuth();
+  const {
+    register,
+    verifyEmail,
+    resendEmailVerification,
+    completeRegistration,
+    signInWithGoogle,
+    signInWithFacebook,
+  } = useAuth();
+
+  const onGoogleSignIn = async () => {
+    setError(null);
+    setMessage(null);
+
+    try {
+      setSubmitting(true);
+      const result = await signInWithPopup(firebaseAuth, googleProvider);
+      const idToken = await result.user.getIdToken();
+      const response = await signInWithGoogle(idToken);
+
+      if (response.needsRegistrationCompletion) {
+        setMessage('Connexion Google reussie. Completez votre onboarding.');
+        setStep(3);
+      } else {
+        onClose();
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Connexion Google impossible pour le moment.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const onFacebookSignIn = async () => {
+    setError(null);
+    setMessage(null);
+
+    try {
+      setSubmitting(true);
+      const result = await signInWithPopup(firebaseAuth, facebookProvider);
+      const idToken = await result.user.getIdToken();
+      const response = await signInWithFacebook(idToken);
+
+      if (response.needsRegistrationCompletion) {
+        setMessage('Connexion Facebook reussie. Completez votre onboarding.');
+        setStep(3);
+      } else {
+        onClose();
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Connexion Facebook impossible pour le moment.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   // Update phone input when country changes
   useEffect(() => {
@@ -99,23 +156,12 @@ export default function RegisterDialog({
         setError(t('dialogs.register.validation.notMatch'));
         return;
       }
-      if (!selectedCountry) {
-        setError(t('dialogs.register.countryRequired'));
-        return;
-      }
       setSubmitting(true);
       setError(null);
       setMessage(null);
 
       try {
-        const res = await register(
-          form.email,
-          form.password,
-          form.firstName,
-          form.lastName,
-          form.phoneNumber,
-          selectedCountry?.code
-        );
+        const res = await register(form.email, form.password, form.firstName, form.lastName);
         setMessage(res.message);
         setStep(2);
       } catch (err: any) {
@@ -139,17 +185,43 @@ export default function RegisterDialog({
         const verifyRes = await verifyEmail(form.email, verification);
         setMessage(verifyRes.message);
 
-        // Si l'utilisateur est maintenant connecté, fermer immédiatement
+        // Une fois l'email verifie, ouvrir l'etape de completion onboarding
         if (verifyRes.isLoggedIn) {
-          onClose();
+          setMessage('Email verifie. Completez votre profil pour terminer.');
+          setStep(3);
         } else {
-          // Sinon, fermer après un délai pour montrer le message
-          setTimeout(() => {
-            onClose();
-          }, 1500);
+          setError('Session introuvable apres verification. Reconnectez-vous puis completez le profil.');
         }
       } catch (err: any) {
         setError(err.message || t('dialogs.register.error.invalidCode'));
+      } finally {
+        setSubmitting(false);
+      }
+      return;
+    }
+
+    if (step === 3) {
+      if (!selectedCountry) {
+        setError(t('dialogs.register.countryRequired'));
+        return;
+      }
+
+      if (!form.phoneNumber?.trim()) {
+        setError('Le numero de telephone est requis.');
+        return;
+      }
+
+      setSubmitting(true);
+      setError(null);
+
+      try {
+        const completionRes = await completeRegistration(selectedCountry.code, form.phoneNumber);
+        setMessage(completionRes.message || 'Inscription terminee avec succes.');
+        setTimeout(() => {
+          onClose();
+        }, 1200);
+      } catch (err: any) {
+        setError(err?.response?.data?.message || 'Impossible de completer votre profil.');
       } finally {
         setSubmitting(false);
       }
@@ -182,12 +254,18 @@ export default function RegisterDialog({
           <div className="w-full md:w-2/3 p-4 sm:p-6 md:p-8 overflow-y-auto max-h-[90vh]">
             <div className="mb-4">
               <h1 className="text-xl sm font-bold text-gray-900 mb-2">
-                {step === 1 ? t('dialogs.register.title') : t('dialogs.register.verificationTitle')}
+                {step === 1
+                  ? t('dialogs.register.title')
+                  : step === 2
+                    ? t('dialogs.register.verificationTitle')
+                    : 'Completer votre onboarding'}
               </h1>
               <p className="text-sm sm text-gray-600">
                 {step === 1
                   ? t('dialogs.register.subtitle')
-                  : t('dialogs.register.verificationSubtitle')}
+                  : step === 2
+                    ? t('dialogs.register.verificationSubtitle')
+                    : 'Ajoutez votre pays et votre numero pour finaliser votre compte.'}
               </p>
             </div>
 
@@ -236,40 +314,6 @@ export default function RegisterDialog({
                   </div>
 
                   <div>
-                    <CountryComboBox
-                      label={t('dialogs.register.countryLabel')}
-                      selectedCountry={selectedCountry}
-                      onChange={handleCountryChange}
-                      placeholder={t('dialogs.register.countryPlaceholder')}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="mb-2 block text-sm font-semibold text-gray-900">
-                      {t('dialogs.register.phoneLabel')}
-                    </label>
-                    <PhoneInput
-                      key={selectedCountry?.code || 'default'} // Force re-render when country changes
-                      defaultCountry={(selectedCountry?.code.toLowerCase() as any) || 'fr'}
-                      value={form.phoneNumber}
-                      onChange={(phone) => setForm((p) => ({ ...p, phoneNumber: phone }))}
-                      inputClassName="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      countrySelectorStyleProps={{
-                        className:
-                          'border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus pointer-events-none opacity-75',
-                      }}
-                      inputProps={{
-                        placeholder: t('dialogs.register.phonePlaceholder'),
-                        required: true,
-                      }}
-                      disableCountryGuess
-                      forceDialCode
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      {t('dialogs.register.phoneHelper')}
-                    </p>
-                  </div>
-                  <div>
                     <label
                       htmlFor="email"
                       className="mb-2 block text-sm font-semibold text-gray-900"
@@ -293,16 +337,55 @@ export default function RegisterDialog({
                     >
                       {t('dialogs.register.password')}
                     </label>
-                    <input
-                      type="password"
-                      id="password"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder={t('dialogs.register.password')}
-                      required
-                      value={form.password}
-                      onFocus={() => setShowPasswordRequirements(true)}
-                      onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        id="password"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 pr-10 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
+                        placeholder={t('dialogs.register.password')}
+                        required
+                        value={form.password}
+                        onFocus={() => setShowPasswordRequirements(true)}
+                        onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        className="absolute inset-y-0 right-0 px-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                        aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                      >
+                        {showPassword ? (
+                          <svg
+                            className="h-5 w-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.8}
+                              d="M3 3l18 18M10.58 10.58a2 2 0 102.83 2.83M9.88 5.09A9.77 9.77 0 0112 4.8c5.05 0 9.27 3.11 10.5 7.2a11.8 11.8 0 01-4.13 5.94M6.61 6.61A11.82 11.82 0 001.5 12c.56 1.86 1.69 3.53 3.2 4.83"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="h-5 w-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.8}
+                              d="M1.5 12S5.5 4.8 12 4.8 22.5 12 22.5 12 18.5 19.2 12 19.2 1.5 12 1.5 12z"
+                            />
+                            <circle cx="12" cy="12" r="3" strokeWidth={1.8} />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                     {showPasswordRequirements && (
                       <div className="mt-2 space-y-1">
                         <p
@@ -360,20 +443,63 @@ export default function RegisterDialog({
                     >
                       {t('dialogs.register.confirmPassword')}
                     </label>
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
-                      placeholder={t('dialogs.register.confirmPassword')}
-                      required
-                      value={form.confirmPassword}
-                      onChange={(e) =>
-                        setForm((p) => ({
-                          ...p,
-                          confirmPassword: e.target.value,
-                        }))
-                      }
-                    />
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        id="confirmPassword"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 pr-10 text-sm sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
+                        placeholder={t('dialogs.register.confirmPassword')}
+                        required
+                        value={form.confirmPassword}
+                        onChange={(e) =>
+                          setForm((p) => ({
+                            ...p,
+                            confirmPassword: e.target.value,
+                          }))
+                        }
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword((prev) => !prev)}
+                        className="absolute inset-y-0 right-0 px-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                        aria-label={
+                          showConfirmPassword
+                            ? 'Masquer la confirmation du mot de passe'
+                            : 'Afficher la confirmation du mot de passe'
+                        }
+                      >
+                        {showConfirmPassword ? (
+                          <svg
+                            className="h-5 w-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.8}
+                              d="M3 3l18 18M10.58 10.58a2 2 0 102.83 2.83M9.88 5.09A9.77 9.77 0 0112 4.8c5.05 0 9.27 3.11 10.5 7.2a11.8 11.8 0 01-4.13 5.94M6.61 6.61A11.82 11.82 0 001.5 12c.56 1.86 1.69 3.53 3.2 4.83"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="h-5 w-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.8}
+                              d="M1.5 12S5.5 4.8 12 4.8 22.5 12 22.5 12 18.5 19.2 12 19.2 1.5 12 1.5 12z"
+                            />
+                            <circle cx="12" cy="12" r="3" strokeWidth={1.8} />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                   </div>
 
                   <div className="flex items-start">
@@ -396,7 +522,7 @@ export default function RegisterDialog({
                     </label>
                   </div>
                 </>
-              ) : (
+              ) : step === 2 ? (
                 <>
                   <p className="text-xs sm text-gray-600">
                     {t('dialogs.register.verificationCodeSent', { email: form.email })}
@@ -444,6 +570,41 @@ export default function RegisterDialog({
                     {t('dialogs.register.resendCode')}
                   </button>
                 </>
+              ) : (
+                <>
+                  <div>
+                    <CountryComboBox
+                      label={t('dialogs.register.countryLabel')}
+                      selectedCountry={selectedCountry}
+                      onChange={handleCountryChange}
+                      placeholder={t('dialogs.register.countryPlaceholder')}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-900">
+                      {t('dialogs.register.phoneLabel')}
+                    </label>
+                    <PhoneInput
+                      key={selectedCountry?.code || 'default'}
+                      defaultCountry={(selectedCountry?.code.toLowerCase() as any) || 'fr'}
+                      value={form.phoneNumber}
+                      onChange={(phone) => setForm((p) => ({ ...p, phoneNumber: phone }))}
+                      inputClassName="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus transition-colors"
+                      countrySelectorStyleProps={{
+                        className:
+                          'border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus pointer-events-none opacity-75',
+                      }}
+                      inputProps={{
+                        placeholder: t('dialogs.register.phonePlaceholder'),
+                        required: true,
+                      }}
+                      disableCountryGuess
+                      forceDialCode
+                    />
+                    <p className="text-xs text-gray-500 mt-1">{t('dialogs.register.phoneHelper')}</p>
+                  </div>
+                </>
               )}
 
               <button
@@ -457,13 +618,15 @@ export default function RegisterDialog({
                   ? t('dialogs.register.submitting')
                   : step === 1
                     ? t('dialogs.register.next')
-                    : t('dialogs.register.submit')}
+                    : step === 2
+                      ? t('dialogs.register.submit')
+                      : 'Terminer mon inscription'}
               </button>
 
-              {step === 2 && (
+              {(step === 2 || step === 3) && (
                 <button
                   type="button"
-                  onClick={() => setStep(1)}
+                  onClick={() => setStep(step === 3 ? 2 : 1)}
                   className="w-full inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 sm:py-2.5 text-xs sm font-medium text-gray-700 hover cursor-pointer"
                 >
                   {t('dialogs.register.back')}
@@ -484,7 +647,12 @@ export default function RegisterDialog({
 
                 {/* Boutons sociaux */}
                 <div className="flex justify-center gap-2 sm:gap-4">
-                  <button className="flex text-xs sm w-28 sm:w-32 items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
+                  <button
+                    type="button"
+                    onClick={onGoogleSignIn}
+                    disabled={submitting}
+                    className="flex text-xs sm w-28 sm:w-32 items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
@@ -505,7 +673,12 @@ export default function RegisterDialog({
                     </svg>
                     Google
                   </button>
-                  <button className="text-xs sm w-28 sm:w-32 flex items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
+                  <button
+                    type="button"
+                    onClick={onFacebookSignIn}
+                    disabled={submitting}
+                    className="text-xs sm w-28 sm:w-32 flex items-center justify-center px-2 sm:px-4 py-2 border border-gray-300 rounded-lg hover transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                     <svg
                       className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"
                       fill="#1877F2"

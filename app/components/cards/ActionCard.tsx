@@ -6,6 +6,8 @@ interface ActionCardProps {
   image: string;
   title: string;
   type?: 'traveler' | 'transporter';
+  roleBadgeLabel?: string;
+  roleBadgeTone?: 'blue' | 'orange';
   subtitle: string;
   dateLabel: string;
   flightNumber: string;
@@ -56,6 +58,8 @@ const ActionCard: React.FC<ActionCardProps> = ({
   unreadCount,
   primaryAction,
   type,
+  roleBadgeLabel,
+  roleBadgeTone,
   secondaryAction,
   statusBadge,
   messageAction,
@@ -76,13 +80,15 @@ const ActionCard: React.FC<ActionCardProps> = ({
           } m-auto transition-transform duration-300 hover:scale-105`}
           onError={(e) => (e.currentTarget.src = '/favicon.ico')}
         />
-        {type && (
+        {(type || roleBadgeLabel) && (
           <div
             className={`absolute bottom-3 left-3 md:bottom-4 md:left-4 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wide ${
-              type === 'transporter' ? 'bg-blue-600/90 text-white' : 'bg-orange-500/90 text-white'
+              roleBadgeTone === 'orange' || (!roleBadgeTone && type === 'traveler')
+                ? 'bg-orange-500/90 text-white'
+                : 'bg-blue-600/90 text-white'
             }`}
           >
-            {type === 'transporter' ? t('cards.action.travel') : t('cards.action.demand')}
+            {roleBadgeLabel || (type === 'transporter' ? t('cards.action.travel') : t('cards.action.demand'))}
           </div>
         )}
       </div>

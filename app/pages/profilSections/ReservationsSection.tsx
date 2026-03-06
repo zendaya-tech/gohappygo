@@ -296,6 +296,10 @@ export const ReservationsSection = ({
                 price={price}
                 priceSubtext={currencySymbol}
                 type="transporter" // For the proper airline logo styling
+                roleBadgeLabel={
+                  isCurrentUserRequester ? t('cards.action.buyer') : t('cards.action.seller')
+                }
+                roleBadgeTone={isCurrentUserRequester ? 'orange' : 'blue'}
                 unreadCount={request.unReadMessages || 0}
                 // Logic for Status Badges vs Buttons
                 statusBadge={
@@ -312,7 +316,8 @@ export const ReservationsSection = ({
                         label: t('profile.actions.approve'),
                         onClick: () => handleAcceptRequest(request.id),
                       }
-                    : request.currentStatus?.status === 'ACCEPTED'
+                    : request.currentStatus?.status === 'ACCEPTED' &&
+                        requester?.id.toString() === currentUser?.id
                       ? (() => {
                           // Check by calendar day only (ignore hour)
                           const travelDate = travel?.departureDatetime
@@ -377,7 +382,8 @@ export const ReservationsSection = ({
                           },
                           color: 'red',
                         }
-                      : request.currentStatus?.status === 'ACCEPTED'
+                      : request.currentStatus?.status === 'ACCEPTED' &&
+                          requester?.id.toString() === currentUser?.id
                         ? {
                             label: t('profile.actions.cancel'),
                             onClick: () => {
@@ -395,7 +401,7 @@ export const ReservationsSection = ({
                                 disabled: true,
                               }
                             : {
-                                label: t('common.clear'), // or 'Contester' -> dispute?
+                                label: t('profile.actions.dispute'),
                                 onClick: () => handleDisputeCancellation(request.id),
                                 color: 'red',
                               }
