@@ -5,6 +5,10 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '~/hooks/useAuth';
 import { getReviews, type Review } from '~/services/reviewService';
 
+//trying to implement the "leave a review" button
+// import { getRequests, type RequestResponse } from '~/services/requestService';
+// import ReviewDialog from '~/components/dialogs/ReviewDialog';
+
 export const ReviewsSection = () => {
   const { t } = useTranslation();
   const [tab, setTab] = useState<'received' | 'given'>('received');
@@ -13,6 +17,11 @@ export const ReviewsSection = () => {
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get('user');
+
+  //trying to implement the "leave a review" button
+  // const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
+  // const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
+  // const [requests, setRequests] = useState<RequestResponse[]>([]);
 
   // Use the profile user ID or current user ID
   const targetUserId = userId || currentUser?.id;
@@ -40,6 +49,39 @@ export const ReviewsSection = () => {
 
     fetchReviews();
   }, [targetUserId, tab]);
+
+  //trying to implement the "leave a review" button
+  // const handleOpenReview = (request: RequestResponse) => {
+  //   setRequestToReview(request);
+  //   setReviewDialogOpen(true);
+  // };
+
+  // // Fonction pour obtenir le nom de la personne à évaluer (vis-à-vis)
+  // const getRevieweeName = (request: RequestResponse): string => {
+  //   const requester = request.requester;
+  //   const travelOwner = request.travel?.owner;
+
+  //   // Si l'utilisateur connecté est le requester, évaluer le propriétaire
+  //   const isCurrentUserRequester = requester?.id.toString() === currentUser?.id;
+  //   const reviewee = isCurrentUserRequester ? travelOwner : requester;
+
+  //   return reviewee
+  //     ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.`
+  //     : t('common.userDefault');
+  // };
+
+  // const handleReviewSuccess = () => {
+  //   // Refresh requests
+  //   const fetchRequests = async () => {
+  //     try {
+  //       const response = await getRequests();
+  //       setRequests(response.items || []);
+  //     } catch (error) {
+  //       console.error('Error fetching requests:', error);
+  //     }
+  //   };
+  //   fetchRequests();
+  // };
 
   const calculateAverageRating = () => {
     if (reviews.length === 0) return '0.0';
@@ -104,7 +146,10 @@ export const ReviewsSection = () => {
               </div>
             </div>
             {isOwnProfile && (
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover transition-colors mt-4">
+              <button
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover transition-colors mt-4 cursor-pointer"
+                onClick={() => {}}
+              >
                 {t('reviews.leaveReview')}
               </button>
             )}
@@ -128,7 +173,7 @@ export const ReviewsSection = () => {
             {reviews.map((review) => {
               const reviewer = tab === 'received' ? review.reviewer : review.reviewee;
               const displayName = reviewer
-                ? `${reviewer.firstName} ${reviewer.lastName}`.trim()
+                ? `${reviewer.firstName} ${reviewer.lastName.charAt(0).toUpperCase()}.`.trim()
                 : t('common.userDefault');
 
               return (
@@ -185,6 +230,21 @@ export const ReviewsSection = () => {
           </div>
         </div>
       )}
+
+      {/* Review Dialog
+      trying to implement the "leave a review" button
+      {requestToReview && (
+        <ReviewDialog
+          open={reviewDialogOpen}
+          onClose={() => {
+            setReviewDialogOpen(false);
+            setRequestToReview(null);
+          }}
+          requestId={requestToReview.id}
+          requesterName={getRevieweeName(requestToReview)}
+          onSuccess={handleReviewSuccess}
+        />
+      )} */}
     </div>
   );
 };

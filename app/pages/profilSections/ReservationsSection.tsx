@@ -344,7 +344,7 @@ export const ReservationsSection = ({
                             color: 'green' as const,
                           };
                         })()
-                    : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
+                      : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
                         ? requester?.id.toString() === currentUser?.id
                           ? {
                               label: t('profile.actions.finish'),
