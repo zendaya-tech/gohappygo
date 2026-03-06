@@ -202,6 +202,14 @@ export default function AnnounceDetail() {
     fetchAnnounce();
   }, [id, type]);
 
+  // Automatically set kilos if the owner requires all kilos to be taken
+  useEffect(() => {
+    if (listing && type === 'travel' && !listing.isSharedWeight) {
+      const available = listing.weightAvailable || 0;
+      setKilos(available);
+    }
+  }, [listing, type]);
+
   // Update meta tags dynamically when listing data is loaded
   useEffect(() => {
     if (listing && typeof document !== 'undefined') {
@@ -467,8 +475,7 @@ export default function AnnounceDetail() {
   const hasSingleTravelerWeightError =
     hasInvalidKilosForSingleTraveler && kilos <= (availableWeight || 0);
   const shouldShowOverCapacityError = hasTouchedKilosInput && hasOverCapacityError;
-  const shouldShowSingleTravelerWeightError =
-    hasTouchedKilosInput && hasSingleTravelerWeightError;
+  const shouldShowSingleTravelerWeightError = hasTouchedKilosInput && hasSingleTravelerWeightError;
 
   const handleBookingConfirm = async (cardData: BookingCardData) => {
     if (!currentUser) {
@@ -767,7 +774,20 @@ export default function AnnounceDetail() {
                         )}
                       </>
                     )}
-                    <span className="text-blue-600">
+                    <span className="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 text-xs md:text-sm font-bold shadow-sm inline-flex items-center gap-2">
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+                        />
+                      </svg>
                       {type === 'travel'
                         ? t('pages.announceDetail.availableSpace')
                         : t('pages.announceDetail.requestedSpace')}
@@ -985,7 +1005,9 @@ export default function AnnounceDetail() {
                       min={0}
                       value={kilos === 0 ? '' : kilos}
                       onBlur={() => setHasTouchedKilosInput(true)}
+                      readOnly={requiresAllKilos}
                       onChange={(e) => {
+                        if (requiresAllKilos) return;
                         setHasTouchedKilosInput(true);
                         const value = e.target.value;
                         if (value === '' || value === '0') {
@@ -1001,11 +1023,13 @@ export default function AnnounceDetail() {
                       }}
                       placeholder="0"
                       className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
-                        shouldShowOverCapacityError
-                          ? 'border-red-500 focus:ring-red-500'
-                          : shouldShowSingleTravelerWeightError
-                            ? 'border-orange-500 focus:ring-orange-500'
-                            : 'border-gray-300 focus:ring-indigo-500'
+                        requiresAllKilos
+                          ? 'bg-gray-50 border-gray-200 text-gray-500 cursor-not-allowed'
+                          : shouldShowOverCapacityError
+                            ? 'border-red-500 focus:ring-red-500'
+                            : shouldShowSingleTravelerWeightError
+                              ? 'border-orange-500 focus:ring-orange-500'
+                              : 'border-gray-300 focus:ring-indigo-500'
                       }`}
                     />
 
