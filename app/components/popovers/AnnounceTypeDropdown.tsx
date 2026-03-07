@@ -44,8 +44,8 @@ export default function AnnounceTypeDropdown({
   const announceTypes: AnnounceType[] = [
     {
       id: 'travel',
-      title: 'Voyage',
-      description: 'Publier un trajet pour faire voyager des colis',
+      title: t('header.popovers.announceType.travel.title'),
+      description: t('header.popovers.announceType.travel.desc'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -65,8 +65,8 @@ export default function AnnounceTypeDropdown({
     },
     {
       id: 'package',
-      title: 'Colis',
-      description: "Demander le voyage d'un baggage",
+      title: t('header.popovers.announceType.package.title'),
+      description: t('header.popovers.announceType.package.desc'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -81,7 +81,12 @@ export default function AnnounceTypeDropdown({
   ];
 
   return (
-    <div ref={ref} className="flex" role="dialog" aria-label="Types d'annonces">
+    <div
+      ref={ref}
+      className="flex"
+      role="dialog"
+      aria-label={t('header.popovers.announceType.ariaLabel')}
+    >
       <div className="flex w-fit gap-1.5">
         {announceTypes.map((type) => (
           <button

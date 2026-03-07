@@ -2,6 +2,7 @@ import { useState, forwardRef, useImperativeHandle, type Ref } from 'react';
 import { useNavigate } from 'react-router';
 import AirportComboBox from '~/components/forms/AirportComboBox';
 import AirlineComboBox from '~/components/forms/AirlineComboBox';
+import { useTranslation } from 'react-i18next';
 import type { Airport } from '~/services/airportService';
 import type { Airline } from '~/services/airlineService';
 
@@ -40,6 +41,7 @@ function SearchFiltersBar(
   }: Props,
   ref: Ref<SearchFiltersBarRef>
 ) {
+  const { t } = useTranslation();
   const [from, setFrom] = useState(initialFrom);
   const [to, setTo] = useState(initialTo);
   const [date, setDate] = useState<string>(initialDate || '');
@@ -97,10 +99,7 @@ function SearchFiltersBar(
       //   !from || !to,
       //   "Veuillez sélectionner les aéroports de départ et d'arrivée.",
       // ],
-      [
-        from && to && from === to,
-        "L'aéroport de départ et d'arrivée ne peuvent pas être identiques.",
-      ],
+      [from && to && from === to, t('common.errors.sameDepartureArrival')],
       // [!date, "Veuillez sélectionner une date de voyage."],
       // [weight < 0, "Le poids doit être un nombre positif."],
     ] as const;
@@ -135,9 +134,9 @@ function SearchFiltersBar(
         {/* From */}
         <div className="md:border-r md:border-gray-200 md:pr-4">
           <AirportComboBox
-            label="Départ"
+            label={t('common.departure')}
             value={from !== to ? Number(from) : undefined}
-            placeholder="Aéroport de départ"
+            placeholder={t('common.placeholders.departure')}
             onChange={(airportId: number | null) => {
               const id = airportId ? String(airportId) : '';
               setFrom(id);
@@ -149,9 +148,9 @@ function SearchFiltersBar(
         {/* To */}
         <div className="md:border-r md:border-gray-200 md:pr-4">
           <AirportComboBox
-            label="Arrivée"
+            label={t('common.arrival')}
             value={to !== from ? Number(to) : undefined}
-            placeholder="Aéroport d'arrivée"
+            placeholder={t('common.placeholders.arrival')}
             onChange={(airportId: number | null) => {
               const id = airportId ? String(airportId) : '';
               setTo(id);
@@ -162,7 +161,9 @@ function SearchFiltersBar(
 
         {/* Date */}
         <div className="md:border-r md:border-gray-200 md:pr-4">
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Date</label>
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+            {t('common.date')}
+          </label>
           <input
             type="date"
             value={date}
@@ -177,7 +178,9 @@ function SearchFiltersBar(
 
         {/* Flight */}
         <div className="md:border-r md:border-gray-200 md:pr-4">
-          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Vol</label>
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
+            {t('common.flight')}
+          </label>
           <input
             type="text"
             value={flight}
@@ -185,7 +188,7 @@ function SearchFiltersBar(
               setFlight(e.target.value);
               emit({ flight: e.target.value });
             }}
-            placeholder="N° de vol"
+            placeholder={t('common.placeholders.flight')}
             className="w-full uppercase text-xs md:text-sm text-gray-700 bg-transparent border border-gray-300  rounded-lg  px-3 py-2   outline-none truncate focus:border-blue-500 transition-colors"
           />
         </div>
@@ -234,8 +237,8 @@ function SearchFiltersBar(
             ) : (
               <img
                 src="/images/searchFilterGoButton.png"
-                className="w-15 h-15 object-cover"
-                alt="go button"
+                className="w-15 h-15 object-cover rounded-full"
+                alt={t('common.search')}
               />
             )}
 

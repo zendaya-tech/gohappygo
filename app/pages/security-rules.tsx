@@ -57,12 +57,14 @@ export default function SecurityRules() {
   );
 }
 
+import i18n from '~/i18n';
+
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: 'Règles de sécurité - GoHappyGo' },
+    { title: i18n.t('pages.security.meta.title') },
     {
       name: 'description',
-      content: 'Consignes et bonnes pratiques de sécurité pour les échanges sur GoHappyGo.',
+      content: i18n.t('pages.security.meta.description'),
     },
   ];
 };

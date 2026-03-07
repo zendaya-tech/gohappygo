@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { Airline } from "~/services/airlineService";
-import { searchAirlines } from "~/services/airlineService";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Airline } from '~/services/airlineService';
+import { searchAirlines } from '~/services/airlineService';
+import { useTranslation } from 'react-i18next';
 
 type AirlineComboBoxProps = {
   label: string;
@@ -24,8 +25,9 @@ export default function AirlineComboBox({
   onChange,
   placeholder,
 }: AirlineComboBoxProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [items, setItems] = useState<Airline[]>([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -73,12 +75,11 @@ export default function AirlineComboBox({
     const onDocClick = (e: MouseEvent) => {
       const target = e.target as Node;
       if (!listRef.current && !inputRef.current) return;
-      const inside =
-        listRef.current?.contains(target) || inputRef.current?.contains(target);
+      const inside = listRef.current?.contains(target) || inputRef.current?.contains(target);
       if (!inside) setOpen(false);
     };
-    document.addEventListener("mousedown", onDocClick);
-    return () => document.removeEventListener("mousedown", onDocClick);
+    document.addEventListener('mousedown', onDocClick);
+    return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
 
   // Infinite scroll observer
@@ -109,9 +110,7 @@ export default function AirlineComboBox({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
-        {label}
-      </label>
+      <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       <div className="relative">
         <input
           ref={inputRef}
@@ -122,24 +121,21 @@ export default function AirlineComboBox({
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={(e) => {
-            if (!open && (e.key === "ArrowDown" || e.key === "Enter")) {
+            if (!open && (e.key === 'ArrowDown' || e.key === 'Enter')) {
               setOpen(true);
               return;
             }
             if (!open) return;
-            if (e.key === "ArrowDown") {
+            if (e.key === 'ArrowDown') {
               e.preventDefault();
-              setActiveIndex((idx) =>
-                Math.min(idx < 0 ? 0 : idx + 1, items.length - 1)
-              );
-            } else if (e.key === "ArrowUp") {
+              setActiveIndex((idx) => Math.min(idx < 0 ? 0 : idx + 1, items.length - 1));
+            } else if (e.key === 'ArrowUp') {
               e.preventDefault();
               setActiveIndex((idx) => Math.max(idx < 0 ? 0 : idx - 1, 0));
-            } else if (e.key === "Enter") {
+            } else if (e.key === 'Enter') {
               e.preventDefault();
-              if (activeIndex >= 0 && activeIndex < items.length)
-                onPick(items[activeIndex]);
-            } else if (e.key === "Escape") {
+              if (activeIndex >= 0 && activeIndex < items.length) onPick(items[activeIndex]);
+            } else if (e.key === 'Escape') {
               setOpen(false);
             }
           }}
@@ -148,12 +144,12 @@ export default function AirlineComboBox({
         />
         <button
           type="button"
-          aria-label="Toggle dropdown"
+          aria-label={t('common.accessibility.toggleDropdown')}
           onClick={() => setOpen((o) => !o)}
           className="absolute inset-y-0 right-0 flex items-center pr-2 text-gray-500 hover"
         >
           <svg
-            className={`h-4 w-4 transition-transform ${open ? "rotate-180" : "rotate-0"}`}
+            className={`h-4 w-4 transition-transform ${open ? 'rotate-180' : 'rotate-0'}`}
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -171,14 +167,14 @@ export default function AirlineComboBox({
           >
             {items.length === 0 && !loading && (
               <div className="px-3 py-2 text-sm text-gray-500">
-                Aucune compagnie trouvée
+                {t('common.placeholders.noResults')}
               </div>
             )}
             {items.map((airline, idx) => (
               <button
                 key={`${airline.id}-${airline.iataCode}`}
                 onClick={() => onPick(airline)}
-                className={`w-full text-left px-3 py-2 text-sm text-gray-800 ${idx === activeIndex ? "bg-gray-100" : "hover"}`}
+                className={`w-full text-left px-3 py-2 text-sm text-gray-800 ${idx === activeIndex ? 'bg-gray-100' : 'hover'}`}
               >
                 <div className="flex items-center gap-2">
                   {airline.logoUrl && (
@@ -190,21 +186,16 @@ export default function AirlineComboBox({
                   )}
                   <div>
                     <div className="font-medium">
-                      {airline.name}{" "}
-                      <span className="text-gray-500">({airline.iataCode})</span>
+                      {airline.name} <span className="text-gray-500">({airline.iataCode})</span>
                     </div>
-                    <div className="text-xs text-gray-500">
-                      {airline.icaoCode}
-                    </div>
+                    <div className="text-xs text-gray-500">{airline.icaoCode}</div>
                   </div>
                 </div>
               </button>
             ))}
             <div ref={sentinelRef} />
             {loading && (
-              <div className="px-3 py-2 text-sm text-gray-500">
-                Chargement…
-              </div>
+              <div className="px-3 py-2 text-sm text-gray-500">{t('common.loading')}</div>
             )}
           </div>
         )}

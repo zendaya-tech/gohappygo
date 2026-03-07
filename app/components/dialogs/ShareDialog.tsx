@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ShareDialogProps {
   open: boolean;
@@ -16,6 +17,7 @@ interface ShareDialogProps {
 
 export default function ShareDialog({ open, onClose, listing }: ShareDialogProps) {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   if (!open) return null;
 
@@ -31,7 +33,7 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
 
   const shareOptions = [
     {
-      name: 'Copier le lien',
+      name: t('dialogs.share.options.copyLink'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -46,7 +48,7 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
       primary: true,
     },
     {
-      name: 'E-mail',
+      name: t('dialogs.share.options.email'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -63,7 +65,7 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
         ),
     },
     {
-      name: 'Messages',
+      name: t('dialogs.share.options.messages'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -108,9 +110,7 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
         </svg>
       ),
       action: () => {
-        // Facebook utilise les métadonnées Open Graph de la page
-        // Le paramètre quote ajoute un texte supplémentaire au partage
-        const shareText = 'Allez sur GoHappyGo pour réagir à cette annonce !';
+        const shareText = t('dialogs.share.facebookQuote');
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${shareText}`
         );
@@ -129,7 +129,7 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
         ),
     },
     {
-      name: 'Intégrer',
+      name: t('dialogs.share.options.embed'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -143,7 +143,7 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
       action: () => {},
     },
     {
-      name: "Plus d'options",
+      name: t('dialogs.share.options.more'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -164,7 +164,9 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
       <div className="relative z-10 w-full max-w-xl bg-white rounded-2xl shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Partager cette annonce</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            {t('dialogs.share.title')}
+          </h2>
           <button
             onClick={onClose}
             className="p-2 hover rounded-full transition-colors cursor-pointer"
@@ -231,7 +233,9 @@ export default function ShareDialog({ open, onClose, listing }: ShareDialogProps
           {/* Copy Link Success Message */}
           {copied && (
             <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-sm text-green-800 text-center">Lien copié avec succès ! ✓</p>
+              <p className="text-sm text-green-800 text-center">
+                {t('dialogs.share.copySuccess')}
+              </p>
             </div>
           )}
         </div>

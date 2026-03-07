@@ -3,6 +3,7 @@ import Footer from '../components/layout/Footer';
 import type { Route } from '../+types/root';
 
 import { useTranslation } from 'react-i18next';
+import i18n from '~/i18n';
 
 export default function AssuranceColis() {
   const { t } = useTranslation();
@@ -63,7 +64,7 @@ export default function AssuranceColis() {
 
 export const meta: Route.MetaFunction = () => {
   return [
-    { title: 'Assurance colis - GoHappyGo' },
-    { name: 'description', content: "Informations sur l'assurance et la couverture des colis." },
+    { title: i18n.t('pages.insurance.meta.title') },
+    { name: 'description', content: i18n.t('pages.insurance.meta.description') },
   ];
 };

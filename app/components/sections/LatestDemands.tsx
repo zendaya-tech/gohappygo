@@ -1,4 +1,5 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
+import i18n from '~/i18n';
 import { useEffect, useState } from 'react';
 import AnnounceCard from '~/components/cards/AnnounceCard';
 import { getLatestDemands, type DemandTravelItem } from '~/services/announceService';
@@ -25,7 +26,7 @@ export default function LatestDemands() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
+    return date.toLocaleDateString(i18n.language === 'fr' ? 'fr-FR' : 'en-US', {
       day: 'numeric',
       month: 'short',
     });
@@ -38,19 +39,18 @@ export default function LatestDemands() {
 
   // Fonction pour déterminer la priorité basée sur les propriétés de la demande
   const getPriority = (demand: DemandTravelItem) => {
-    if (demand.isInstant) return 'Urgent';
-    if (demand.packageKind?.toLowerCase().includes('fragile')) return 'Fragile';
-    if (demand.isAllowExtraWeight) return 'Priorité';
-    return 'Standard';
+    if (demand.isInstant) return t('home.latestDemands.priority.urgent');
+    if (demand.packageKind?.toLowerCase().includes('fragile'))
+      return t('home.latestDemands.priority.fragile');
+    if (demand.isAllowExtraWeight) return t('home.latestDemands.priority.priority');
+    return t('home.latestDemands.priority.standard');
   };
 
   if (loading) {
     return (
       <section className="py-12 px-10 rounded-2xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          Dernières <span className="text-blue-600">demandes</span>
-        </h2>
-        <div className="text-center text-gray-500">Chargement des dernières demandes...</div>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">{t('home.latestDemands.title')}</h2>
+        <div className="text-center text-gray-500">{t('home.latestDemands.loading')}</div>
       </section>
     );
   }
@@ -58,13 +58,16 @@ export default function LatestDemands() {
   return (
     <section className="py-12 px-10 rounded-2xl mx-auto">
       <h2 className="text-3xl font-bold text-gray-900 mb-8">
-        <span className="text-blue-600">HappyVoyageurs</span> souhaitant trouver un espace de bagage
+        <Trans
+          i18nKey="home.latestDemands.subtitle"
+          components={{ span: <span className="text-blue-600" /> }}
+        />
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {demands.map((demand) => {
           const id = demand.id?.toString() || Math.random().toString(36).slice(2);
-          const name = formatName(demand.user?.fullName || 'Voyageur');
+          const name = formatName(demand.user?.fullName || t('common.traveler'));
           const avatar = demand.user?.selfieImage || '/favicon.ico';
           const originName = demand.departureAirport?.name || '';
           const destName = demand.arrivalAirport?.name || '';
@@ -101,7 +104,7 @@ export default function LatestDemands() {
       </div>
 
       {demands.length === 0 && (
-        <div className="text-center text-gray-500">Aucune demande disponible pour le moment</div>
+        <div className="text-center text-gray-500">{t('home.latestDemands.noDemands')}</div>
       )}
     </section>
   );

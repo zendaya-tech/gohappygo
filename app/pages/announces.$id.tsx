@@ -24,17 +24,20 @@ import { addBookmark, removeBookmark, checkIfBookmarked } from '~/services/bookm
 
 // Reviews are now fetched from the API
 
-function formatDate(dateString: string, locale: string = 'fr-FR') {
-  const date = new Date(dateString);
-  return date.toLocaleDateString(locale, {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-}
-
 export default function AnnounceDetail() {
   const { t, i18n } = useTranslation();
+
+  const formatDate = (
+    dateString: string,
+    locale: string = i18n.language === 'fr' ? 'fr-FR' : 'en-US'
+  ) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(locale, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const id = searchParams.get('id') ?? '';
@@ -155,22 +158,22 @@ export default function AnnounceDetail() {
     return listing.reviews.map((review) => ({
       id: review.id,
       rating: parseFloat(review.rating) || 0,
-      name: `${review.reviewer?.fullName}` || 'Anonyme',
+      name: `${review.reviewer?.fullName}` || t('common.anonymous'),
       avatar: review.reviewer?.profilePictureUrl || '/favicon.ico',
       comment: review.comment || '',
       createdAt: review.createdAt,
     }));
-  }, [listing?.reviews]);
+  }, [listing?.reviews, t]);
 
   // Format user name from firstName and lastName
   const userName = useMemo(() => {
-    if (!listing?.user) return 'Voyageur';
+    if (!listing?.user) return t('common.traveler');
     const { firstName, lastName, fullName } = listing.user;
     if (fullName) {
       return fullName;
     }
     return firstName + ' ' + lastName;
-  }, [listing?.user]);
+  }, [listing?.user, t]);
 
   const averageRating =
     reviews.length > 0
@@ -246,7 +249,7 @@ export default function AnnounceDetail() {
     const loadQuotes = async () => {
       const res = await getRandomQuotes();
       if (!res) {
-        setQuotesError('Impossible de charger les citations.');
+        setQuotesError(t('pages.announceDetail.errors.loadQuotesFailed'));
         setQuotes([]);
         return;
       }
@@ -638,7 +641,7 @@ export default function AnnounceDetail() {
                 >
                   <img
                     src={galleryImages[0]}
-                    alt="Image principale"
+                    alt={t('common.accessibility.mainImage')}
                     className={`h-full w-full transition-transform duration-300 group-hover:scale-110 ${
                       type === 'travel' && galleryImages[0] === listing.airline?.logoUrl
                         ? 'object-contain p-8'
@@ -661,7 +664,7 @@ export default function AnnounceDetail() {
                 >
                   <img
                     src={galleryImages[1]}
-                    alt="Image 2"
+                    alt={`${t('common.accessibility.image')} 2`}
                     className="h-full w-full object-cover transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
@@ -677,7 +680,7 @@ export default function AnnounceDetail() {
                 >
                   <img
                     src={galleryImages[2]}
-                    alt="Image 3"
+                    alt={`${t('common.accessibility.image')} 3`}
                     className="h-full w-full object-cover transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-all duration-300 rounded-xl"></div>
@@ -719,7 +722,7 @@ export default function AnnounceDetail() {
                         : 'bg-blue-600 text-white hover'
                     }`}
                   >
-                    Profile
+                    {t('common.profile')}
                   </button>
                   <button
                     onClick={() => setMessageOpen(true)}
@@ -774,7 +777,7 @@ export default function AnnounceDetail() {
                 </div>
                 <div className="md:col-span-3 text-left md mt-2 md:mt-0">
                   <div className="text-lg sm md font-bold text-gray-900">
-                    {listing.pricePerKg} {currencySymbol}/Kilo
+                    {listing.pricePerKg} {currencySymbol}/{t('common.kg')}
                   </div>
                 </div>
               </div>
@@ -793,7 +796,7 @@ export default function AnnounceDetail() {
                   <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/multiple.jpeg"
-                      alt="Type de réservation"
+                      alt={t('pages.announceDetail.badges.reservationType')}
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
@@ -807,7 +810,7 @@ export default function AnnounceDetail() {
                   <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/ponctuel.jpeg"
-                      alt="Ponctualité"
+                      alt={t('pages.announceDetail.badges.punctual')}
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
@@ -821,7 +824,7 @@ export default function AnnounceDetail() {
                   <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/kilos_trop.jpeg"
-                      alt="Poids supplémentaire"
+                      alt={t('pages.announceDetail.badges.allowExtra')}
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
@@ -835,7 +838,7 @@ export default function AnnounceDetail() {
                   <div className="flex items-center gap-3 text-gray-700">
                     <img
                       src="/images/badges/reservation.jpeg"
-                      alt="Type de confirmation"
+                      alt={t('pages.announceDetail.badges.manualBooking')}
                       className="h-8 w-8 rounded-full object-cover flex-shrink-0"
                     />
                     <span className="flex-1">
@@ -852,7 +855,11 @@ export default function AnnounceDetail() {
                                 <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
                                     <div className={`h-full rounded-full ${availableRatio > 0.5 ? "bg-green-500" : availableRatio > 0.2 ? "bg-yellow-500" : "bg-red-500"}`} style={{ width: `${availablePercent}%` }} />
                                 </div>
-                                <div className="text-xs text-gray-500">Capacité restante: {listing.availableWeight}kg / {listing.maxWeight}kg ({availablePercent}%)</div>
+                                <div className="text-xs text-gray-500">{t('pages.announceDetail.booking.pricing.remainingCapacity', {
+                                  available: listing.availableWeight,
+                                  max: listing.maxWeight,
+                                  percent: availablePercent
+                                })}</div>
                             </div> */}
 
               {/* Bottom reviews-like section */}
@@ -877,14 +884,13 @@ export default function AnnounceDetail() {
                                 </div> */}
                 {/* <p className="text-sm text-gray-500 mb-4">You will not be able to edit your review</p> */}
                 {/* <div className="rounded-2xl   flex items-center justify-between gap-3">
-                                    <input placeholder="Write your review..." className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                                    <input placeholder={t('reviews.writeReviewPlaceholder')} className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                                     <button className="rounded-lg bg-blue-600 text-white px-5 py-3 font-semibold hover">Post a review</button>
                                 </div> */}
                 <div className="mt-8">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-xl font-semibold text-gray-900">
-                      {reviews.length} Commentaire
-                      {reviews.length > 1 ? 's' : ''}
+                      {t('reviews.count', { count: reviews.length })}
                     </h4>
                     <div className="flex items-center gap-2 text-sm">
                       <div className="flex items-center">
@@ -902,29 +908,32 @@ export default function AnnounceDetail() {
                         ))}
                       </div>
                       <span className="text-gray-700 font-medium">{averageRating.toFixed(1)}</span>
-                      <span className="text-gray-500">({totalReviews} reviews)</span>
+                      <span className="text-gray-500">
+                        ({t('reviews.countTotal', { count: totalReviews })})
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-col mt-10 gap-5">
                     {reviews.length === 0 ? (
-                      <div className="text-center py-8 text-gray-500">
-                        Aucun commentaire pour le moment
-                      </div>
+                      <div className="text-center py-8 text-gray-500">{t('reviews.none')}</div>
                     ) : (
                       reviews.map((review: any) => {
                         const reviewDate = review.createdAt
-                          ? new Date(review.createdAt).toLocaleDateString('fr-FR', {
-                              day: 'numeric',
-                              month: 'short',
-                              year: 'numeric',
-                            })
+                          ? new Date(review.createdAt).toLocaleDateString(
+                              i18n.language === 'fr' ? 'fr-FR' : 'en-US',
+                              {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                              }
+                            )
                           : '';
 
                         return (
                           <div key={review.id} className="flex items-start gap-3">
                             <img
                               src={review.avatar}
-                              alt="avatar"
+                              alt={t('common.accessibility.avatar')}
                               className="h-10 w-10 rounded-full object-cover"
                             />
                             <div className="flex-1">
@@ -962,12 +971,14 @@ export default function AnnounceDetail() {
                 {type === 'travel' ? (
                   <>
                     <div className="text-2xl font-bold text-gray-900">
-                      {listing.pricePerKg} {currencySymbol}/Kilo
+                      {listing.pricePerKg} {currencySymbol}/Kg
                     </div>
-                    <div className="text-xs text-gray-500 mb-6">Prix par kilogramme</div>
+                    <div className="text-xs text-gray-500 mb-6">
+                      {t('pages.announceDetail.booking.pricing.pricePerKg')}
+                    </div>
 
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Enter n° Kilo
+                      {t('dialogs.booking.enterKilos')}
                     </label>
                     <input
                       type="number"
@@ -1014,11 +1025,13 @@ export default function AnnounceDetail() {
                         </svg>
                         <div className="flex-1">
                           <p className="text-sm font-semibold text-red-800">
-                            Poids disponible insuffisant
+                            {t('pages.announceDetail.booking.lowWeight')}
                           </p>
                           <p className="text-xs text-red-700 mt-1">
-                            Le poids demandé ({kilos}kg) dépasse la capacité disponible (
-                            {availableWeight || 0}kg).
+                            {t('pages.announceDetail.booking.oversizeWeight', {
+                              kilos,
+                              available: availableWeight || 0,
+                            })}
                           </p>
                         </div>
                       </div>
@@ -1040,11 +1053,13 @@ export default function AnnounceDetail() {
                         </svg>
                         <div className="flex-1">
                           <p className="text-sm font-semibold text-orange-800">
-                            Tous les kilos requis
+                            {t('pages.announceDetail.booking.allKilosRequired')}
                           </p>
                           <p className="text-xs text-orange-700 mt-1">
-                            Le HappyVoyageur n'accepte qu'une seule personne pour tous les kilos.
-                            Vous devez entrer exactement {availableWeight || 0}kg.
+                            {t('pages.announceDetail.booking.singleTravelerOnly')}
+                            {t('pages.announceDetail.booking.exactKilosRequired', {
+                              weight: availableWeight || 0,
+                            })}
                           </p>
                         </div>
                       </div>
@@ -1062,7 +1077,7 @@ export default function AnnounceDetail() {
                       <>
                         <div className="space-y-3 text-sm">
                           <div className="flex items-center justify-between text-gray-700">
-                            <span>Frais de service</span>
+                            <span>{t('pages.announceDetail.booking.pricing.serviceFees')}</span>
                             <div className="flex items-center gap-2">
                               <span>
                                 {pricingData.fee.toFixed(2)} {currencySymbol}
@@ -1088,11 +1103,14 @@ export default function AnnounceDetail() {
                                 {tooltipVisible.serviceFee && (
                                   <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
                                     <div className="font-semibold mb-1">
-                                      Frais de service GoHappyGo
+                                      {t(
+                                        'pages.announceDetail.booking.pricing.serviceFeesTooltipTitle'
+                                      )}
                                     </div>
                                     <div>
-                                      Ces frais couvrent le traitement sécurisé de votre paiement,
-                                      le support client 24/7, et la garantie de transaction.
+                                      {t(
+                                        'pages.announceDetail.booking.pricing.serviceFeesTooltipDesc'
+                                      )}
                                     </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
@@ -1101,7 +1119,7 @@ export default function AnnounceDetail() {
                             </div>
                           </div>
                           <div className="flex items-center justify-between text-gray-700">
-                            <span>TVA 20%</span>
+                            <span>{t('pages.announceDetail.booking.pricing.vatLabel')}</span>
                             <div className="flex items-center gap-2">
                               <span>
                                 {pricingData.tvaAmount.toFixed(2)} {currencySymbol}
@@ -1127,11 +1145,10 @@ export default function AnnounceDetail() {
                                 {tooltipVisible.vat && (
                                   <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
                                     <div className="font-semibold mb-1">
-                                      Taxe sur la Valeur Ajoutée
+                                      {t('pages.announceDetail.booking.pricing.vatTooltipTitle')}
                                     </div>
                                     <div>
-                                      TVA française de 20% appliquée conformément à la
-                                      réglementation fiscale en vigueur sur les services numériques.
+                                      {t('pages.announceDetail.booking.pricing.vatTooltipDesc')}
                                     </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
@@ -1142,12 +1159,16 @@ export default function AnnounceDetail() {
                           <div className="flex items-center justify-between text-gray-700">
                             <div className="flex items-center gap-2">
                               <div className="flex flex-col">
-                                <span>Assurance Protection</span>
-                                <span>Juridique Internationale</span>
+                                <span>
+                                  {t('pages.announceDetail.booking.pricing.axaTitlePart1')}
+                                </span>
+                                <span>
+                                  {t('pages.announceDetail.booking.pricing.axaTitlePart2')}
+                                </span>
                               </div>
                               <img
                                 src="/images/axa-logo.svg"
-                                alt="AXA"
+                                alt={t('common.accessibility.axaLogo')}
                                 className="h-9 w-9 rounded object-contain"
                                 onError={(e) => {
                                   // Fallback if image doesn't exist
@@ -1156,7 +1177,9 @@ export default function AnnounceDetail() {
                               />
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-green-600 font-semibold">Offert !</span>
+                              <span className="text-green-600 font-semibold">
+                                {t('pages.announceDetail.booking.pricing.axaOffered')}
+                              </span>
                               <div className="relative">
                                 <button
                                   className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center text-xs text-gray-500 hover cursor-pointer"
@@ -1178,12 +1201,10 @@ export default function AnnounceDetail() {
                                 {tooltipVisible.insurance && (
                                   <div className="absolute bottom-full right-0 mb-2 w-72 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
                                     <div className="font-semibold mb-1">
-                                      Assurance Protection Juridique AXA
+                                      {t('pages.announceDetail.booking.pricing.axaTooltipTitle')}
                                     </div>
                                     <div>
-                                      Protection juridique internationale offerte par AXA. Couvre
-                                      les litiges liés au transport, assistance juridique 24/7, et
-                                      remboursement des frais de justice jusqu'à 15 000€.
+                                      {t('pages.announceDetail.booking.pricing.axaTooltipDesc')}
                                     </div>
                                     <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                                   </div>
@@ -1195,7 +1216,9 @@ export default function AnnounceDetail() {
 
                         <div className="mt-6 border-t border-gray-200 pt-4">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-700 font-medium">Total with taxes</span>
+                            <span className="text-gray-700 font-medium">
+                              {t('pages.announceDetail.booking.pricing.totalLabel')}
+                            </span>
                             <span className="font-bold text-lg text-gray-900">
                               {pricingData.totalAmount.toFixed(2)} {currencySymbol}
                             </span>
@@ -1204,7 +1227,7 @@ export default function AnnounceDetail() {
                       </>
                     ) : (
                       <div className="text-center py-4 text-gray-500 text-sm">
-                        Chargement du calcul des prix...
+                        {t('pages.announceDetail.booking.pricing.loadingPricing')}
                       </div>
                     )}
                   </>
@@ -1238,7 +1261,7 @@ export default function AnnounceDetail() {
                                 </p>
 
                                 <span className="mt-2 block text-[10px] uppercase tracking-tighter text-blue-600 opacity-80">
-                                  — {q.author || 'Anonyme'}
+                                  — {q.author || t('common.anonymous')}
                                 </span>
                               </div>
                             </div>
@@ -1272,13 +1295,15 @@ export default function AnnounceDetail() {
                     }`}
                   >
                     {isOwnAnnounce
-                      ? 'Votre voyage'
+                      ? t('pages.announceDetail.booking.ownAnnounce')
                       : isPastTravelDate
-                        ? 'Voyage déjà effectué'
+                        ? t('pages.announceDetail.booking.pastTravel')
                         : kilos > (availableWeight || 0)
-                          ? 'Poids insuffisant'
+                          ? t('pages.announceDetail.booking.lowWeight')
                           : hasInvalidKilosForSingleTraveler
-                            ? `Tous les kilos requis (${availableWeight}kg)`
+                            ? t('pages.announceDetail.booking.exactKilosRequired', {
+                                weight: availableWeight,
+                              })
                             : `Payer ${total.toFixed(2)} ${currencySymbol}`}
                   </button>
                 ) : (
@@ -1287,7 +1312,7 @@ export default function AnnounceDetail() {
                       onClick={() => setCreateOpen(true)}
                       className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-4 text-sm font-semibold text-white hover cursor-pointer"
                     >
-                      Créer ce voyage
+                      {t('pages.announceDetail.booking.createSimilar')}
                     </button>
                   )
                 )}
@@ -1301,7 +1326,7 @@ export default function AnnounceDetail() {
         open={shareOpen}
         onClose={() => setShareOpen(false)}
         listing={{
-          title: `Voyage ${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`,
+          title: `${type === 'travel' ? t('common.travel') : t('common.demand')} ${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`,
           location: `${listing.departureAirport?.name}, ${listing.arrivalAirport?.name}`,
           rating: averageRating,
           bedrooms: 1,
@@ -1470,14 +1495,25 @@ export default function AnnounceDetail() {
   );
 }
 
+import i18n from '~/i18n';
+
 export const meta: Route.MetaFunction = ({ location }) => {
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id') || 'unknown';
   const type = searchParams.get('type') || 'travel';
 
+  const typeKey =
+    type === 'travel'
+      ? i18n.t('pages.announceDetail.metaTypeTravel')
+      : i18n.t('pages.announceDetail.metaTypeDemand');
+  const typeLabel =
+    type === 'travel'
+      ? i18n.t('pages.announceDetail.metaTypeLabelTravel')
+      : i18n.t('pages.announceDetail.metaTypeLabelDemand');
+
   // Create dynamic meta tags based on URL parameters
-  const title = `${type === 'travel' ? 'Voyage' : 'Demande'} #${id} - GoHappyGo`;
-  const description = `Découvrez cette ${type === 'travel' ? 'annonce de voyage' : 'demande de transport'} sur GoHappyGo. faites plus q'un voyage.`;
+  const title = i18n.t('pages.announceDetail.meta.title', { type: typeKey, id });
+  const description = i18n.t('pages.announceDetail.meta.description', { typeLabel });
   const url = `https://gohappygo.com${location.pathname}${location.search}`;
   const imageUrl = 'https://gohappygo.com/og-image.jpg';
 
@@ -1492,7 +1528,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
     { property: 'og:url', content: url },
     { property: 'og:type', content: 'website' },
     { property: 'og:site_name', content: 'GoHappyGo' },
-    { property: 'og:locale', content: 'fr_FR' },
+    { property: 'og:locale', content: i18n.language === 'fr' ? 'fr_FR' : 'en_US' },
 
     // Twitter
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -1504,7 +1540,7 @@ export const meta: Route.MetaFunction = ({ location }) => {
     // Additional meta
     {
       name: 'keywords',
-      content: `transport bagages, voyage, ${type === 'travel' ? 'transporteur' : 'demande'}, GoHappyGo`,
+      content: i18n.t('pages.announceDetail.meta.keywords', { typeKey: typeKey.toLowerCase() }),
     },
     { name: 'robots', content: 'index, follow' },
     { name: 'author', content: 'GoHappyGo' },

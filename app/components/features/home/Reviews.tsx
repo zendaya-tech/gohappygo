@@ -77,7 +77,7 @@ export default function Reviews() {
         <div className="relative flex-1 w-full max-w-3xl">
           <img
             src="/images/map.svg"
-            alt="world map"
+            alt={t('common.accessibility.worldMap')}
             className="w-full h-auto opacity-70"
             style={{ filter: 'brightness(0.6)' }}
           />

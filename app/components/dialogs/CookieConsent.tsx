@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const STORAGE_KEY = "cookie_consent";
 
@@ -10,6 +11,7 @@ type ConsentValue = {
 export default function CookieConsent() {
     const [visible, setVisible] = useState(false);
     const [hydrated, setHydrated] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setHydrated(true);
@@ -43,10 +45,11 @@ export default function CookieConsent() {
                                 <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-900">Nous utilisons des cookies</p>
+                                <p className="font-semibold text-gray-900">
+                                    {t("dialogs.cookieConsent.title")}
+                                </p>
                                 <p className="mt-1 text-gray-600">
-                                    Pour améliorer votre expérience, mesurer l'audience et personnaliser le contenu. En cliquant sur « Accepter »,
-                                    vous consentez au stockage des cookies sur votre appareil.
+                                    {t("dialogs.cookieConsent.description")}
                                 </p>
                             </div>
                         </div>
@@ -56,14 +59,14 @@ export default function CookieConsent() {
                                 onClick={() => save("declined")}
                                 className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover"
                             >
-                                Refuser
+                                {t("dialogs.cookieConsent.decline")}
                             </button>
                             <button
                                 type="button"
                                 onClick={() => save("accepted")}
                                 className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover"
                             >
-                                Accepter
+                                {t("dialogs.cookieConsent.accept")}
                             </button>
                         </div>
                     </div>

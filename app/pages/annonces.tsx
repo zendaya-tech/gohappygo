@@ -12,6 +12,7 @@ import AirlineComboBox from '~/components/forms/AirlineComboBox';
 import type { Airline } from '~/services/airlineService';
 import { useInfiniteScroll } from '~/hooks/useInfiniteScroll';
 import CreateAlertDialog from '~/components/dialogs/CreateAlertDialog';
+import i18n from '~/i18n';
 import { useAuthStore } from '~/store/auth';
 
 export default function Annonces() {
@@ -47,7 +48,7 @@ export default function Annonces() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
+    return date.toLocaleDateString(i18n.language === 'fr' ? 'fr-FR' : 'en-US', {
       day: 'numeric',
       month: 'short',
     });
@@ -137,7 +138,7 @@ export default function Annonces() {
         setMeta(responseMeta);
         setHasMore(responseMeta?.hasNextPage ?? false);
       } catch (e: any) {
-        setError(e?.message || 'Failed to load results');
+        setError(e?.message || t('pages.announces.errors.loadResultsFailed'));
       } finally {
         setLoading(false);
       }
@@ -467,7 +468,7 @@ export default function Annonces() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
                   {results.map((item: any) => {
                     const id = item.id?.toString() || Math.random().toString(36).slice(2);
-                    const name = item.user?.fullName || item.title || 'Voyageur';
+                    const name = item.user?.fullName || item.title || t('common.traveler');
                     const avatar =
                       item.user?.selfieImage || item.images?.[0]?.fileUrl || '/favicon.ico';
                     const originName = item.departureAirport?.name || '';
@@ -505,7 +506,11 @@ export default function Annonces() {
                         rating={rating}
                         image={image}
                         featured={featured}
-                        weight={availableWeight ? `${availableWeight}kg` : undefined}
+                        weight={
+                          availableWeight
+                            ? `${availableWeight}${t('common.kg').toLowerCase()}`
+                            : undefined
+                        }
                         departure={departure}
                         airline={airline}
                         type={type as any}
@@ -575,7 +580,9 @@ export default function Annonces() {
             {quotes.map((q) => (
               <div key={q.id} className="rounded-2xl border border-gray-200 bg-white p-4">
                 <p className="text-gray-800 text-sm">{q.quote}</p>
-                <div className="mt-2 text-xs text-gray-500">{q.author || 'Anonyme'}</div>
+                <div className="mt-2 text-xs text-gray-500">
+                  {q.author || t('common.anonymous')}
+                </div>
               </div>
             ))}
           </div>

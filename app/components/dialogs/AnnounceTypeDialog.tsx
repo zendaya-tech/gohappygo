@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TruckIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 
 interface AnnounceTypeDialogProps {
@@ -12,6 +13,7 @@ export default function AnnounceTypeDialog({
   onClose,
   onSelectType,
 }: AnnounceTypeDialogProps) {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,15 +53,15 @@ export default function AnnounceTypeDialog({
   const announceTypes = [
     {
       id: 'travel',
-      title: 'Annonce de voyage',
-      description: "Je voyage et j'ai de l'espace",
+      title: t('pages.announces.filters.travelAd'),
+      description: t('dialogs.announceType.iTravel'),
       icon: PaperAirplaneIcon,
       color: 'text-blue-600',
     },
     {
       id: 'package',
-      title: 'Annonce de colis',
-      description: "J'ai un colis à faire voyager",
+      title: t('dialogs.createPackage.title'),
+      description: t('dialogs.announceType.iHavePackage'),
       icon: TruckIcon,
       color: 'text-green-600',
     },
@@ -70,7 +72,7 @@ export default function AnnounceTypeDialog({
       <div ref={ref} className="relative w-full max-w-sm mx-4 bg-white rounded-xl shadow-lg">
         {/* Header */}
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Type d'annonce</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{t('dialogs.announceType.title')}</h2>
         </div>
 
         {/* Content */}
@@ -105,7 +107,7 @@ export default function AnnounceTypeDialog({
             onClick={onClose}
             className="w-full px-4 py-2 text-gray-600 hover font-medium transition-colors cursor-pointer"
           >
-            Annuler
+            {t('dialogs.announceType.cancel')}
           </button>
         </div>
       </div>

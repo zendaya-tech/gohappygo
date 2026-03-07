@@ -23,7 +23,7 @@ export default function StripeOnboarding() {
     <div className="min-h-screen">
       {/* Logo */}
       <div className="absolute top-8 left-8">
-        <img src="/logo.png" alt="GoHappyGo" className="h-12" />
+        <img src="/logo.png" alt={t('common.accessibility.logo')} className="h-12" />
       </div>
 
       <main className="min-h-screen flex items-center justify-center p-4 sm:p-6">
@@ -47,7 +47,7 @@ export default function StripeOnboarding() {
             <div className="relative z-10 w-full h-full flex justify-center">
               <img
                 src="/illustrations/travel-success.jpeg"
-                alt="Success"
+                alt={t('common.accessibility.successIllustration')}
                 className="w-full h-full object-contain"
               />
             </div>

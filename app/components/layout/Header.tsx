@@ -87,7 +87,7 @@ export default function Header() {
             {/* Logo */}
             <Link to={'/'} className="flex items-center space-x-3 flex-shrink-0">
               <div className="h-10">
-                <img src="/logo.png" alt="Logo" className="h-10" />
+                <img src="/logo.png" alt={t('common.accessibility.logo')} className="h-10" />
               </div>
             </Link>
 
@@ -137,7 +137,7 @@ export default function Header() {
                   <button
                     className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative cursor-pointer"
                     onClick={() => setIsMenuOpen(false)}
-                    aria-label="Notifications"
+                    aria-label={t('header.ariaLabels.notifications')}
                     onMouseDown={(e) => e.preventDefault()}
                     onClickCapture={(e) => {
                       e.stopPropagation();
@@ -170,12 +170,12 @@ export default function Header() {
                 <button
                   className="flex items-center gap-2 rounded-lg p-1.5 hover transition-colors duration-200 cursor-pointer"
                   onClick={() => setShowAvatarMenuDesktop((v) => !v)}
-                  aria-label="Ouvrir le menu du compte"
+                  aria-label={t('header.ariaLabels.openAvatarMenu')}
                 >
                   {isLoggedIn ? (
                     <img
                       src={uqer?.profilePictureUrl}
-                      alt="Profile"
+                      alt={t('common.accessibility.profile')}
                       className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                     />
                   ) : (
@@ -237,7 +237,7 @@ export default function Header() {
                   <button
                     className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative"
                     onClick={() => setShowNotif((v) => !v)}
-                    aria-label="Notifications"
+                    aria-label={t('header.ariaLabels.notifications')}
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
@@ -271,12 +271,12 @@ export default function Header() {
                 <button
                   className="flex items-center hover rounded-lg p-2 transition-colors duration-200"
                   onClick={() => setShowAvatarMenuMobile((v) => !v)}
-                  aria-label="Ouvrir le menu du compte"
+                  aria-label={t('header.ariaLabels.openAvatarMenu')}
                 >
                   {isLoggedIn ? (
                     <img
                       src={uqer?.profilePictureUrl}
-                      alt="Profile"
+                      alt={t('common.accessibility.profile')}
                       className="w-8 h-8 rounded-full object-cover ring-2 ring-gray-200"
                     />
                   ) : (
@@ -319,7 +319,11 @@ export default function Header() {
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="relative w-10 h-10 rounded-lg hover transition-all duration-300 flex items-center justify-center group"
-                aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                aria-label={
+                  isMenuOpen
+                    ? t('header.ariaLabels.closeMobileMenu')
+                    : t('header.ariaLabels.openMobileMenu')
+                }
               >
                 <div className="w-5 h-4 flex flex-col justify-between">
                   <span
@@ -461,16 +465,13 @@ export default function Header() {
       {isLoggedIn && uqer && uqer.isEmailVerified === false && (
         <div className="bg-amber-50 border-b border-amber-200">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 py-2.5 text-sm text-amber-900 flex items-center justify-between gap-3">
-            <span>
-              Votre email n'est pas encore verifie. Merci d'activer votre compte pour acceder a
-              toutes les fonctionnalites.
-            </span>
+            <span>{t('header.emailNotVerified')}</span>
             <button
               type="button"
               onClick={() => setShowEmailVerification(true)}
               className="shrink-0 rounded-md border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-800 hover:bg-amber-100"
             >
-              Activer mon compte
+              {t('header.activateAccount')}
             </button>
           </div>
         </div>

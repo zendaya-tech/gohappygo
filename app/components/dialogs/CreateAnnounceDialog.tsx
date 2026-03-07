@@ -91,12 +91,12 @@ export default function CreateAnnounceDialog({
           setFlightNumberError(null);
         } else {
           setAirline({});
-          setFlightNumberError('Numéro de vol non valide');
+          setFlightNumberError(t('dialogs.createAnnounce.errors.invalidFlightNumber'));
         }
       } catch (error) {
         console.error('Error fetching airline:', error);
         setAirline({});
-        setFlightNumberError('Numéro de vol non valide');
+        setFlightNumberError(t('dialogs.createAnnounce.errors.invalidFlightNumber'));
       } finally {
         setFetchingAirline(false);
       }
@@ -112,26 +112,26 @@ export default function CreateAnnounceDialog({
 
     switch (step) {
       case 1:
-        if (!departureId) errors.departure = 'Veuillez sélectionner un aéroport de départ';
-        if (!arrivalId) errors.arrival = "Veuillez sélectionner un aéroport d'arrivée";
+        if (!departureId) errors.departure = t('dialogs.createAnnounce.errors.departureRequired');
+        if (!arrivalId) errors.arrival = t('dialogs.createAnnounce.errors.arrivalRequired');
         if (departureId && arrivalId && departureId === arrivalId) {
-          errors.airports = "L'aéroport d'arrivée doit être différent de l'aéroport de départ";
+          errors.airports = t('dialogs.createAnnounce.errors.airportsMustDiffer');
         }
-        if (!story.trim()) errors.story = 'Veuillez décrire votre voyage';
-        if (story.length > 500) errors.story = 'La description ne peut pas dépasser 500 caractères';
+        if (!story.trim()) errors.story = t('dialogs.createAnnounce.errors.storyRequired');
+        if (story.length > 500) errors.story = t('dialogs.createAnnounce.errors.storyTooLong');
         if (flightNumber && (!airline.name || flightNumberError)) {
-          errors.flightNumber = 'Veuillez entrer un numéro de vol valide';
+          errors.flightNumber = t('dialogs.createAnnounce.errors.flightNumberInvalid');
         }
         break;
       case 2:
-        if (files.length < 2) errors.photos = 'Veuillez ajouter au moins 2 images';
+        if (files.length < 2) errors.photos = t('dialogs.createAnnounce.errors.photosMinimum');
         break;
       case 3:
         if (!kilos || Number(kilos) <= 0)
-          errors.kilos = 'Veuillez saisir un nombre de kilos valide';
+          errors.kilos = t('dialogs.createAnnounce.errors.kilosInvalid');
         if (!pricePerKg || Number(pricePerKg) <= 0)
-          errors.pricePerKg = 'Veuillez saisir un prix valide';
-        if (!currency) errors.currency = 'Veuillez sélectionner une devise';
+          errors.pricePerKg = t('dialogs.createAnnounce.errors.pricePerKiloInvalid');
+        if (!currency) errors.currency = t('dialogs.createAnnounce.errors.currencyRequired');
         break;
     }
 
@@ -260,17 +260,17 @@ export default function CreateAnnounceDialog({
     }
 
     if (files.length < 2) {
-      setError('Veuillez ajouter au moins 2 images');
+      setError(t('dialogs.createAnnounce.errors.photosMinimum'));
       return;
     }
 
     if (!departureId || !arrivalId) {
-      setError("Veuillez sélectionner les aéroports de départ et d'arrivée");
+      setError(t('dialogs.createAnnounce.errors.bothAirportsRequired'));
       return;
     }
 
     if (flightNumber && (!airline.name || flightNumberError)) {
-      setError('Veuillez entrer un numéro de vol valide');
+      setError(t('dialogs.createAnnounce.errors.flightNumberInvalid'));
       return;
     }
 
@@ -283,7 +283,7 @@ export default function CreateAnnounceDialog({
       const departureDatetime = travelDate ? `${travelDate}T12:00:00Z` : new Date().toISOString();
 
       if (!currency) {
-        setError('Veuillez sélectionner une devise');
+        setError(t('dialogs.createAnnounce.errors.currencyRequired'));
         return;
       }
 
@@ -308,17 +308,17 @@ export default function CreateAnnounceDialog({
       const result = await createTravel(travelData);
 
       if (result) {
-        setSuccess('Annonce de voyage créée avec succès!');
+        setSuccess(t('dialogs.createAnnounce.success'));
         setTimeout(() => {
           onClose();
         }, 2000);
       } else {
-        setError("Erreur lors de la création de l'annonce. Veuillez réessayer.");
+        setError(t('dialogs.createAnnounce.errors.createFailed'));
       }
     } catch (err: any) {
       // Check if it's a 401 error (user not authenticated)
       if (err?.response?.status === 401 || err?.status === 401) {
-        setError('Vous devez être connecté pour créer une annonce. Veuillez vous connecter.');
+        setError(t('dialogs.createAnnounce.errors.authRequired'));
       } else {
         // Handle validation errors from backend
         if (err?.response?.data?.message) {
@@ -328,7 +328,7 @@ export default function CreateAnnounceDialog({
             setError(err.response.data.message);
           }
         } else {
-          setError("Erreur lors de la création de l'annonce. Veuillez réessayer.");
+          setError(t('dialogs.createAnnounce.errors.createFailed'));
         }
       }
     } finally {
@@ -378,10 +378,10 @@ export default function CreateAnnounceDialog({
               <div className="space-y-6">
                 <div>
                   <AirportComboBox
-                    label="Sélectionnez votre aéroport de départ"
+                    label={t('dialogs.createAnnounce.departureAirportLabel')}
                     value={departureId ?? undefined}
                     onChange={setDepartureId}
-                    placeholder="Choisir l'aéroport"
+                    placeholder={t('dialogs.createAnnounce.departureAirportPlaceholder')}
                   />
                   {validationErrors.departure && (
                     <p className="mt-1 text-sm text-red-600">{validationErrors.departure}</p>
@@ -389,10 +389,10 @@ export default function CreateAnnounceDialog({
                 </div>
                 <div>
                   <AirportComboBox
-                    label="Sélectionnez votre aéroport d'arrivée"
+                    label={t('dialogs.createAnnounce.arrivalAirportLabel')}
                     value={arrivalId ?? undefined}
                     onChange={setArrivalId}
-                    placeholder="Choisir l'aéroport"
+                    placeholder={t('dialogs.createAnnounce.arrivalAirportPlaceholder')}
                   />
                   {validationErrors.arrival && (
                     <p className="mt-1 text-sm text-red-600">{validationErrors.arrival}</p>
@@ -404,11 +404,11 @@ export default function CreateAnnounceDialog({
                   )}
                 </div>
 
-                <Field label="Numéro de Vol">
+                <Field label={t('dialogs.createAnnounce.flightNumber')}>
                   <input
                     value={flightNumber}
                     onChange={(e) => setFlightNumber(e.target.value)}
-                    placeholder="Ajoutez le numéro de vol sur votre billet d’avion"
+                    placeholder={t('dialogs.createAnnounce.flightNumberPlaceholder')}
                     className={`w-full rounded-xl uppercase border ${
                       validationErrors.flightNumber || flightNumberError
                         ? 'border-red-500 focus:ring-red-500'
@@ -421,33 +421,33 @@ export default function CreateAnnounceDialog({
                     </p>
                   )}
                 </Field>
-                <Field label="Date de votre Voyage">
+                <Field label={t('dialogs.createAnnounce.travelDate')}>
                   <input
                     type="date"
                     value={travelDate}
                     onChange={(e) => setTravelDate(e.target.value)}
                     min={today} // This prevents selecting past dates
-                    placeholder="Choisir une date"
+                    placeholder={t('common.placeholders.chooseDate')}
                     className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                   {/* Optional: Show an error message if the date is invalid */}
                   {travelDate && travelDate < today && (
                     <p className="mt-1 text-xs text-red-500 font-medium">
-                      La date ne peut pas être dans le passé.
+                      {t('dialogs.createAnnounce.errors.travelDatePast')}
                     </p>
                   )}
                 </Field>
-                <Field label="Compagnie aérienne">
+                <Field label={t('dialogs.createAnnounce.airlineLabel')}>
                   <div className="relative">
                     <input
                       value={airline.name || ''}
                       disabled
                       placeholder={
                         fetchingAirline
-                          ? 'Recherche en cours...'
+                          ? t('dialogs.createAnnounce.airlineSearching')
                           : flightNumber
-                            ? 'Détectée automatiquement'
-                            : "Entrez d'abord le numéro de vol"
+                            ? t('dialogs.createAnnounce.airlineDetected')
+                            : t('dialogs.createAnnounce.airlineEnterFlightFirst')
                       }
                       className="w-full rounded-xl border border-gray-300 bg-gray-100 px-4 py-3 text-sm text-gray-600 cursor-not-allowed"
                     />
@@ -477,11 +477,11 @@ export default function CreateAnnounceDialog({
                     )}
                   </div>
                   <p className="mt-1 text-xs text-gray-500">
-                    La compagnie aérienne est détectée automatiquement à partir du numéro de vol
+                    {t('dialogs.createAnnounce.airlineHelper')}
                   </p>
                 </Field>
 
-                <Field label="Parlez un peu plus de votre voyage">
+                <Field label={t('dialogs.createAnnounce.story')}>
                   <textarea
                     value={story}
                     onChange={(e) => {
@@ -489,7 +489,7 @@ export default function CreateAnnounceDialog({
                       setStory(e.target.value);
                     }}
                     rows={5}
-                    placeholder="Tapez ici..."
+                    placeholder={t('dialogs.createAnnounce.storyPlaceholder')}
                     className={`w-full resize-none rounded-xl border ${
                       validationErrors.story || story.length > 500
                         ? 'border-red-500 focus:ring-red-500'
@@ -505,10 +505,15 @@ export default function CreateAnnounceDialog({
                           : 'text-gray-400'
                     }`}
                   >
-                    {story.length}/500 caractères
+                    {t('dialogs.createAnnounce.storyCounter', {
+                      count: story.length,
+                      max: 500,
+                    })}
                     {story.length > 500 && (
                       <span className="block text-red-500 font-medium">
-                        Dépassement de {story.length - 500} caractères
+                        {t('dialogs.createAnnounce.storyOverflow', {
+                          count: story.length - 500,
+                        })}
                       </span>
                     )}
                   </div>
@@ -518,7 +523,7 @@ export default function CreateAnnounceDialog({
                 </Field>
                 <div>
                   <div className="mb-2 text-sm font-semibold text-gray-900">
-                    Quel type de réservation préférez-vous ?
+                    {t('dialogs.createAnnounce.bookingPreference')}
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
@@ -527,7 +532,7 @@ export default function CreateAnnounceDialog({
                         checked={reservationType === 'single'}
                         onChange={() => setReservationType('single')}
                       />
-                      Tous mes kilos pour un seul et unique voyageur
+                      {t('dialogs.createAnnounce.singlePersonDetailed')}
                     </label>
                     <label className="inline-flex items-center gap-2 rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-700">
                       <input
@@ -535,13 +540,13 @@ export default function CreateAnnounceDialog({
                         checked={reservationType === 'shared'}
                         onChange={() => setReservationType('shared')}
                       />
-                      Kilo partagé avec différents voyageurs
+                      {t('dialogs.createAnnounce.sharedKilos')}
                     </label>
                   </div>
                 </div>
                 <div>
                   <div className="mb-2 text-sm font-semibold text-gray-900">
-                    Quel type de réservation préférez-vous pour ce voyage ?
+                    {t('dialogs.createAnnounce.bookingPreference')}
                   </div>
                   <div className="flex items-center gap-6 text-sm text-gray-700">
                     <label className="inline-flex items-center gap-2">
@@ -550,7 +555,7 @@ export default function CreateAnnounceDialog({
                         checked={bookingType === 'instant'}
                         onChange={() => setBookingType('instant')}
                       />
-                      Instantané
+                      {t('dialogs.createAnnounce.instant')}
                     </label>
                     <label className="inline-flex items-center gap-2">
                       <input
@@ -558,7 +563,7 @@ export default function CreateAnnounceDialog({
                         checked={bookingType === 'non-instant'}
                         onChange={() => setBookingType('non-instant')}
                       />
-                      Non-instantané (vous souhaitez valider la réservation avant confirmation)
+                      {t('dialogs.createAnnounce.nonInstantDetailed')}
                     </label>
                   </div>
                 </div>
@@ -568,7 +573,7 @@ export default function CreateAnnounceDialog({
             {step === 2 && (
               <div className="space-y-6">
                 <p className="text-gray-700 font-medium">
-                  Téléchargez au moins 2 photos de votre voyage
+                  {t('dialogs.createAnnounce.photosHelper')}
                 </p>
                 <label className="block cursor-pointer rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-500 hover">
                   <input
@@ -579,7 +584,7 @@ export default function CreateAnnounceDialog({
                     onChange={onFilesSelected}
                     disabled={files.length >= 2}
                   />
-                  Cliquez pour télécharger des fichiers ({files.length}/2)
+                  {t('dialogs.createAnnounce.photosUploadCta', { count: files.length, max: 2 })}
                 </label>
                 {validationErrors.photos && (
                   <p className="text-sm text-red-600">{validationErrors.photos}</p>
@@ -594,13 +599,13 @@ export default function CreateAnnounceDialog({
                         <button
                           onClick={() => removeFile(idx)}
                           className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg cursor-pointer z-10"
-                          title="Supprimer l'image"
+                          title={t('dialogs.createAnnounce.removeImageTitle')}
                         >
                           −
                         </button>
                         <img
                           src={fileUrls[idx]}
-                          alt={`Aperçu ${f.name}`}
+                          alt={t('dialogs.createAnnounce.imagePreviewAlt', { name: f.name })}
                           className="w-full h-32 object-cover"
                         />
                         <div className="p-2">
@@ -615,13 +620,13 @@ export default function CreateAnnounceDialog({
 
             {step === 3 && (
               <div className="space-y-6">
-                <Field label="Combien de kilos proposez-vous ?">
+                <Field label={t('dialogs.createAnnounce.weightQuestion')}>
                   <input
                     type="number"
                     min={0}
                     value={kilos}
                     onChange={(e) => setKilos(e.target.value === '' ? '' : Number(e.target.value))}
-                    placeholder="Entrez le nombre de kilos"
+                    placeholder={t('dialogs.createAnnounce.weightPlaceholder')}
                     className={`w-full rounded-xl border ${
                       validationErrors.kilos
                         ? 'border-red-500 focus:ring-red-500'
@@ -634,7 +639,7 @@ export default function CreateAnnounceDialog({
                 </Field>
                 <div>
                   <div className="flex gap-4">
-                    <Field label="Quel est votre prix par kilo ?">
+                    <Field label={t('dialogs.createAnnounce.pricePerKiloQuestion')}>
                       <input
                         type="number"
                         min={0}
@@ -645,7 +650,7 @@ export default function CreateAnnounceDialog({
                             e.target.value === '' ? '' : Math.min(Number(e.target.value), 3000)
                           )
                         }
-                        placeholder="Entrez votre prix par kilo"
+                        placeholder={t('dialogs.createAnnounce.pricePerKiloPlaceholder')}
                         className={`w-full rounded-xl border ${
                           validationErrors.pricePerKg
                             ? 'border-red-500 focus:ring-red-500'
@@ -658,13 +663,13 @@ export default function CreateAnnounceDialog({
                     </Field>
                     <div className="w-32">
                       <label className="mb-2 block text-sm font-semibold text-gray-900">
-                        Devise
+                        {t('dialogs.createAnnounce.currencyLabel')}
                       </label>
                       <CurrencyComboBox
                         value={currency?.code}
                         selectedCurrency={currency}
                         onChange={setCurrency}
-                        placeholder="EUR"
+                        placeholder={t('dialogs.createAnnounce.currencyPlaceholder')}
                         compact
                       />
                       {validationErrors.currency && (
@@ -676,7 +681,7 @@ export default function CreateAnnounceDialog({
 
                 <div>
                   <div className="mb-2 text-sm font-semibold text-gray-900">
-                    Tolérez-vous quelques grammes de trop ?
+                    {t('dialogs.createAnnounce.allowExtraGramsQuestion')}
                   </div>
                   <div className="flex items-center gap-6 text-sm text-gray-700">
                     <label className="inline-flex items-center gap-2">
@@ -685,7 +690,7 @@ export default function CreateAnnounceDialog({
                         checked={allowExtraGrams}
                         onChange={() => setAllowExtraGrams(true)}
                       />
-                      Oui
+                      {t('common.yes')}
                     </label>
                     <label className="inline-flex items-center gap-2">
                       <input
@@ -693,14 +698,14 @@ export default function CreateAnnounceDialog({
                         checked={!allowExtraGrams}
                         onChange={() => setAllowExtraGrams(false)}
                       />
-                      Non
+                      {t('common.no')}
                     </label>
                   </div>
                 </div>
 
                 <div>
                   <div className="mb-2 text-sm font-semibold text-gray-900">
-                    Quelle ponctualité attendez-vous lors de la rencontre avec votre HappyVoyageur ?
+                    {t('dialogs.createAnnounce.punctualityQuestion')}
                   </div>
                   <div className="flex items-center gap-6 text-sm text-gray-700">
                     <label className="inline-flex items-center gap-2">
@@ -711,7 +716,7 @@ export default function CreateAnnounceDialog({
                         onChange={() => setPunctuality('punctual')}
                         className="text-blue-600 focus:ring-blue-500"
                       />
-                      Ponctuel
+                      {t('dialogs.createAnnounce.punctual')}
                     </label>
                     <label className="inline-flex items-center gap-2">
                       <input
@@ -721,7 +726,7 @@ export default function CreateAnnounceDialog({
                         onChange={() => setPunctuality('very-punctual')}
                         className="text-blue-600 focus:ring-blue-500"
                       />
-                      Très Ponctuel
+                      {t('dialogs.createAnnounce.veryPunctual')}
                     </label>
                   </div>
                 </div>
@@ -730,26 +735,28 @@ export default function CreateAnnounceDialog({
 
             {step === 4 && (
               <div className="space-y-6">
-                <p className="text-gray-700 font-medium">Configuration des paiements</p>
+                <p className="text-gray-700 font-medium">
+                  {t('dialogs.createAnnounce.paymentConfigTitle')}
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Field label="Nom du titulaire du compte">
+                  <Field label={t('dialogs.createAnnounce.accountHolderName')}>
                     <input
                       className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="John Doe"
+                      placeholder={t('dialogs.createAnnounce.accountHolderPlaceholder')}
                     />
                   </Field>
-                  <Field label="Email de paiement (Stripe)">
+                  <Field label={t('dialogs.createAnnounce.paymentEmailLabel')}>
                     <input
                       type="email"
                       className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      placeholder="name@email.com"
+                      placeholder={t('dialogs.createAnnounce.paymentEmailPlaceholder')}
                     />
                   </Field>
                 </div>
-                <Field label="IBAN / Compte bancaire">
+                <Field label={t('dialogs.createAnnounce.ibanLabel')}>
                   <input
                     className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    placeholder="FR76...."
+                    placeholder={t('dialogs.createAnnounce.ibanPlaceholder')}
                   />
                 </Field>
               </div>
@@ -769,7 +776,7 @@ export default function CreateAnnounceDialog({
                     }
                   }}
                 >
-                  ‹ Retour
+                  ‹ {t('common.back')}
                 </button>
               </div>
               {step < 3 ? (
@@ -787,7 +794,7 @@ export default function CreateAnnounceDialog({
                     isStepComplete() ? 'bg-indigo-600 hover' : 'bg-gray-300 cursor-not-allowed'
                   }`}
                 >
-                  Suivant ›
+                  {t('common.next')} ›
                 </button>
               ) : (
                 <button
@@ -800,7 +807,9 @@ export default function CreateAnnounceDialog({
                       : 'bg-indigo-600 hover'
                   }`}
                 >
-                  {submitting ? 'Publication en cours...' : 'Publier'}
+                  {submitting
+                    ? t('dialogs.createAnnounce.publishing')
+                    : t('dialogs.createAnnounce.publish')}
                 </button>
               )}
             </div>
@@ -812,6 +821,7 @@ export default function CreateAnnounceDialog({
 }
 
 function StepsNav({ step }: { step: StepKey }) {
+  const { t } = useTranslation();
   const Item = ({
     index,
     title,
@@ -854,11 +864,23 @@ function StepsNav({ step }: { step: StepKey }) {
 
   return (
     <div>
-      <Item index={1} title="Général" subtitle="Sélectionner les paramètres de base" />
+      <Item
+        index={1}
+        title={t('dialogs.createAnnounce.step1')}
+        subtitle={t('dialogs.createAnnounce.step1Subtitle')}
+      />
       <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
-      <Item index={2} title="Photos" subtitle="Ajouter 2 photos" />
+      <Item
+        index={2}
+        title={t('dialogs.createAnnounce.step2')}
+        subtitle={t('dialogs.createAnnounce.step2Subtitle')}
+      />
       <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
-      <Item index={3} title="Prix & Réservation" subtitle="Spécifiez vos préférences" />
+      <Item
+        index={3}
+        title={t('dialogs.createAnnounce.step3')}
+        subtitle={t('dialogs.createAnnounce.step3Subtitle')}
+      />
       {/* <Item index={1} title="General" subtitle="Select basic settings" />
       <div className="ml-1.5 md:ml-2 h-4 md:h-6 w-px bg-gray-200" />
       <Item index={2} title="Pictures" subtitle="Add 2 photos" />

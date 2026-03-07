@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import AirportComboBox from '~/components/forms/AirportComboBox';
 import { createAlert, type CreateAlertData } from '~/services/alertService';
+import { useTranslation } from 'react-i18next';
 
 interface CreateAlertDialogProps {
   open: boolean;
@@ -32,6 +33,7 @@ export default function CreateAlertDialog({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   // Initialize form with initial data
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function CreateAlertDialog({
     try {
       // Validation: Both airports are required
       if (!formData.departureAirportId || !formData.arrivalAirportId) {
-        setError("Les aéroports de départ et d'arrivée sont obligatoires.");
+        setError(t('dialogs.createAlert.errors.airportsRequired'));
         return;
       }
 
@@ -82,7 +84,7 @@ export default function CreateAlertDialog({
       };
 
       await createAlert(alertData);
-      setSuccess("Alerte créée avec succès ! Vous serez notifié dès qu'une offre correspond.");
+      setSuccess(t('dialogs.createAlert.successMessage'));
 
       setTimeout(() => {
         onSuccess?.();
@@ -98,7 +100,7 @@ export default function CreateAlertDialog({
         setSuccess(null);
       }, 2000);
     } catch (err: any) {
-      setError(err.message || "Erreur lors de la création de l'alerte");
+      setError(err.message || t('dialogs.createAlert.errors.createFailed'));
     } finally {
       setLoading(false);
     }
@@ -114,7 +116,9 @@ export default function CreateAlertDialog({
         <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">Créer une alerte</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              {t('dialogs.createAlert.title')}
+            </h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover transition-colors cursor-pointer"
@@ -141,7 +145,7 @@ export default function CreateAlertDialog({
               {/* Alert Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Type d'alerte
+                  {t('dialogs.createAlert.alertTypeLabel')}
                 </label>
                 <select
                   value={formData.alertType}
@@ -153,16 +157,22 @@ export default function CreateAlertDialog({
                   }
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="TRAVEL">Voyages uniquement</option>
-                  <option value="DEMAND">Demandes uniquement</option>
-                  <option value="BOTH">Voyages et demandes</option>
+                  <option value="TRAVEL">
+                    {t('dialogs.createAlert.alertType.travelOnly')}
+                  </option>
+                  <option value="DEMAND">
+                    {t('dialogs.createAlert.alertType.demandOnly')}
+                  </option>
+                  <option value="BOTH">
+                    {t('dialogs.createAlert.alertType.both')}
+                  </option>
                 </select>
               </div>
 
               {/* Departure Airport */}
               <div>
                 <AirportComboBox
-                  label="Aéroport de départ *"
+                  label={t('dialogs.createAlert.departureAirportLabel')}
                   value={formData.departureAirportId ?? undefined}
                   onChange={(airportId) =>
                     setFormData((prev) => ({
@@ -170,14 +180,14 @@ export default function CreateAlertDialog({
                       departureAirportId: airportId,
                     }))
                   }
-                  placeholder="Rechercher un aéroport de départ"
+                  placeholder={t('dialogs.createAlert.departureAirportPlaceholder')}
                 />
               </div>
 
               {/* Arrival Airport */}
               <div>
                 <AirportComboBox
-                  label="Aéroport d'arrivée *"
+                  label={t('dialogs.createAlert.arrivalAirportLabel')}
                   value={formData.arrivalAirportId ?? undefined}
                   onChange={(airportId) =>
                     setFormData((prev) => ({
@@ -185,14 +195,14 @@ export default function CreateAlertDialog({
                       arrivalAirportId: airportId,
                     }))
                   }
-                  placeholder="Rechercher un aéroport d'arrivée"
+                  placeholder={t('dialogs.createAlert.arrivalAirportPlaceholder')}
                 />
               </div>
 
               {/* Travel Date */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Date de voyage (optionnel)
+                  {t('dialogs.createAlert.travelDateLabel')}
                 </label>
                 <input
                   type="date"
@@ -210,11 +220,11 @@ export default function CreateAlertDialog({
               {/* Flight Number */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Numéro de vol (optionnel)
+                  {t('dialogs.createAlert.flightNumberLabel')}
                 </label>
                 <input
                   type="text"
-                  placeholder="Ex: AF123"
+                  placeholder={t('dialogs.createAlert.flightNumberPlaceholder')}
                   value={formData.flightNumber}
                   onChange={(e) =>
                     setFormData((prev) => ({
@@ -233,7 +243,7 @@ export default function CreateAlertDialog({
                   onClick={onClose}
                   className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover transition-colors cursor-pointer"
                 >
-                  Annuler
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="submit"
@@ -244,7 +254,7 @@ export default function CreateAlertDialog({
                       : 'bg-blue-600 text-white hover'
                   }`}
                 >
-                  {loading ? 'Création...' : "Créer l'alerte"}
+                  {loading ? t('dialogs.createAlert.submitting') : t('dialogs.createAlert.submit')}
                 </button>
               </div>
             </form>

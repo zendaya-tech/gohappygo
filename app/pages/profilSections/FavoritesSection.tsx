@@ -58,10 +58,13 @@ export const FavoritesSection = () => {
       {bookmarks.length === 0 ? (
         <div className="text-center text-gray-500 py-8 flex flex-col items-center">
           <img
-            src="/images/noFavorites.jpeg"
+            src="/images/noFavorites.png"
             alt={t('profile.messages.noFavorites')}
-            className="w-[50%] h-[50%]"
+            className="w-[20%] h-[20%]"
           />
+          <span className="font-bold text-lg my-6">
+            {t('profile.messages.noFavoritesSubImageText')}
+          </span>
         </div>
       ) : (
         <div>

@@ -17,14 +17,14 @@ export default function Footer() {
             {/* Brand */}
             <div className="col-span-1 sm:col-span-2 md:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/logo.png" alt="GoHappyGo logo" className="h-10" />
+                <img src="/logo.png" alt={t('common.accessibility.logo')} className="h-10" />
                 <span className="font-bold text-lg text-gray-900">GoHappyGo</span>
               </div>
               <p className="text-sm mb-4">{t('footer.description')}</p>
               <div className="flex items-center gap-3">
                 <a
                   href="https://x.com/GoHappyGo1"
-                  aria-label="Twitter"
+                  aria-label={t('common.social.twitter')}
                   className="hover:text-blue-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -33,7 +33,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="https://web.facebook.com/gohappygofr"
-                  aria-label="Facebook"
+                  aria-label={t('common.social.facebook')}
                   className="hover:text-blue-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -42,7 +42,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="https://instagram.com/gohappygo1"
-                  aria-label="Instagram"
+                  aria-label={t('common.social.instagram')}
                   className="hover:text-blue-600"
                 >
                   <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">

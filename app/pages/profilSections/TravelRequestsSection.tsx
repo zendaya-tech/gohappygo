@@ -87,10 +87,13 @@ export const TravelRequestsSection = () => {
           <div className="flex items-center justify-center h-64">
             <div className="text-center text-gray-500 py-8 flex flex-col items-center">
               <img
-                src="/images/noTravelDemands.jpeg"
+                src="/images/noTravelDemandes.png"
                 alt={t('profile.messages.noDemandsFound')}
-                className="w-[50%] h-[50%]"
+                className="w-[20%] h-[20%]"
               />
+              <span className="font-bold text-lg my-6">
+                {t('profile.messages.noDemandsFoundSubImageText')}
+              </span>
             </div>
           </div>
         ) : (

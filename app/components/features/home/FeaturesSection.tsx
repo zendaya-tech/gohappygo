@@ -59,7 +59,11 @@ export default function FeaturesSection() {
           })}
         </div>
         <div className="hidden md:flex absolute items-end mt-4  top-120 lg:top-95 left-[50%] transition-all duration-300 transform hover:scale-105">
-          <img src="/images/arrowPink.png" alt="Aéroport" className="w-35 h-15 object-cover" />
+          <img
+            src="/images/arrowPink.png"
+            alt={t('common.accessibility.airport')}
+            className="w-35 h-15 object-cover"
+          />
           <span className="text-[#de179c] font-bold text-md lg:text-xl w-[55%] text-center">
             {t('home.features.verifiedTickets')}
           </span>

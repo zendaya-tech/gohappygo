@@ -254,10 +254,13 @@ export const PaymentsSection = ({
           {transactions.length === 0 ? (
             <div className="text-center text-gray-500 py-8 flex flex-col items-center">
               <img
-                src="/images/noPaiements.jpeg"
-                alt="No reservations"
-                className="w-[50%] h-[50%]"
+                src="/images/noPaiements.png"
+                alt={t('profile.messages.noPayements')}
+                className="w-[20%] h-[20%]"
               />
+              <span className="font-bold text-lg my-6">
+                {t('profile.messages.noPayementsSubImageText')}
+              </span>
             </div>
           ) : (
             <div className="space-y-4">
@@ -421,7 +424,7 @@ export const PaymentsSection = ({
                 <button
                   onClick={handleStripeOnboarding}
                   disabled={processingOnboarding}
-                  className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative w-[40%] bg-blue-500 hover text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {processingOnboarding ? '...' : t('profile.payments.update')}
                   {stripeRequiments?.hasRequirements && (

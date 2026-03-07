@@ -240,10 +240,13 @@ export const ReservationsSection = ({
       {filtered.length === 0 ? (
         <div className="text-center text-gray-500 py-8 flex flex-col items-center">
           <img
-            src="/images/noReservations.jpeg"
+            src="/images/noReservations.png"
             alt={t('profile.messages.noReservations')}
-            className="w-[50%] h-[50%]"
+            className="w-[15%] h-[15%]"
           />
+          <span className="font-bold text-lg my-6">
+            {t('profile.messages.noReservationsSubImageText')}
+          </span>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
@@ -346,7 +349,7 @@ export const ReservationsSection = ({
                             color: 'green' as const,
                           };
                         })()
-                    : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
+                      : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
                         ? requester?.id.toString() === currentUser?.id
                           ? {
                               label: t('profile.actions.finish'),
