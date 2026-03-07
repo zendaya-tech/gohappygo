@@ -1494,6 +1494,7 @@
       "approve": "Approuver",
       "cancel": "Annuler",
       "contact": "Contacter {{name}}",
+      "dispute": "Contester l'annulation",
       "edit": "Modifier",
       "findSpace": "Je souhaite trouver un espace bagage",
       "finish": "Terminer",

@@ -109,14 +109,13 @@ export default function LoginDialog({
                 >
                   {t('dialogs.login.password')}
                 </label>
-<<<<<<< HEAD
                 <div className="relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
                     className="w-full px-3 md:px-4 py-2 md:py-3 pr-10 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
-                    placeholder="Votre mot de passe"
+                    placeholder={t('dialogs.login.passwordPlaceholder')}
                     required
                     value={formData.password}
                     onChange={handleChange}
@@ -149,18 +148,6 @@ export default function LoginDialog({
                     )}
                   </button>
                 </div>
-=======
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
-                  placeholder={t('dialogs.login.passwordPlaceholder')}
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                />
->>>>>>> support_frontEnd-dev
               </div>
 
               <div className="flex items-center justify-between">
