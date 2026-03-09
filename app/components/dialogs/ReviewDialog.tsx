@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 import { createReview } from '~/services/reviewService';
+import { Field } from './CreateAnnounceDialog';
 
 interface ReviewDialogProps {
   open: boolean;
@@ -24,10 +25,22 @@ export default function ReviewDialog({
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = async () => {
+    const errors: Record<string, string> = {};
+
     if (rating === 0) {
-      setError(t('reviews.dialog.selectRatingError'));
+      errors.rating = t('reviews.dialog.selectRatingError');
+    }
+
+    if (comment.length > 500) {
+      errors.comment = t('dialogs.createAnnounce.errors.storyTooLong');
+    }
+
+    setValidationErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
       return;
     }
 
@@ -44,6 +57,7 @@ export default function ReviewDialog({
       // Reset form
       setRating(0);
       setComment('');
+      setValidationErrors({});
       onClose();
       onSuccess?.();
     } catch (err: any) {
@@ -94,20 +108,53 @@ export default function ReviewDialog({
               </button>
             ))}
           </div>
+          {validationErrors.rating && (
+            <p className="mt-2 text-sm text-red-600 text-center font-medium">
+              {validationErrors.rating}
+            </p>
+          )}
         </div>
 
         {/* Comment */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            {t('reviews.dialog.comment')}
-          </label>
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder={t('reviews.dialog.commentPlaceholder')}
-            className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus resize-none"
-            rows={4}
-          />
+          <Field label={t('reviews.dialog.comment')}>
+            <textarea
+              value={comment}
+              onChange={(e) => {
+                // Allow typing beyond 500 characters but show validation
+                setComment(e.target.value);
+              }}
+              rows={4}
+              placeholder={t('reviews.dialog.commentPlaceholder')}
+              className={`w-full resize-none rounded-xl border ${
+                validationErrors.comment || comment.length > 500
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-indigo-500'
+              } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
+            />
+            <div
+              className={`mt-1 text-xs flex justify-between ${
+                comment.length > 500 ? 'text-red-500 font-semibold' : 'text-gray-400'
+              }`}
+            >
+              <span>
+                {t('common.characterCount', {
+                  count: comment.length,
+                  max: 500,
+                })}
+              </span>
+              {comment.length > 500 && (
+                <span className="font-medium">
+                  {t('dialogs.createAnnounce.storyOverflow', {
+                    count: comment.length - 500,
+                  })}
+                </span>
+              )}
+            </div>
+            {validationErrors.comment && (
+              <p className="mt-1 text-sm text-red-600 font-medium">{validationErrors.comment}</p>
+            )}
+          </Field>
         </div>
 
         {/* Buttons */}

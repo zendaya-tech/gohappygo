@@ -4,7 +4,7 @@ import { searchAirports, getAirportById } from '~/services/airportService';
 import { useTranslation } from 'react-i18next';
 
 type AirportComboBoxProps = {
-  label: string;
+  label: React.ReactNode;
   value?: number; // airport ID
   onChange: (airportId: number | null) => void;
   placeholder?: string;

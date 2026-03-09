@@ -131,6 +131,7 @@
     "flight": "Flight",
     "info": "Info",
     "kg": "Kg",
+    "fillAllFields": "Please fill in all required fields to proceed",
     "loading": "Loading...",
     "loadingStates": {
       "creating": "Creating..."
