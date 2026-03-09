@@ -256,13 +256,13 @@ export default function Annonces() {
             >
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 {results.length > 0 ? (
-                  <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-xs md font-medium ">
+                  <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-md md font-medium ">
                     {t('pages.announces.filterBy')}
                   </button>
                 ) : (
                   <button
                     onClick={clearAllFilters}
-                    className="text-xs md text-gray-100"
+                    className="text-md md text-gray-100"
                     disabled={true}
                   >
                     {t('pages.announces.clearAll')}
@@ -270,7 +270,7 @@ export default function Annonces() {
                 )}
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs md text-gray-500 hover cursor-pointer"
+                  className="text-md md text-gray-500 hover cursor-pointer"
                 >
                   {t('pages.announces.clearAll')}
                 </button>
@@ -279,7 +279,7 @@ export default function Annonces() {
               {/* Filtrer non disponible button */}
               {results.length === 0 ? (
                 <div className="mb-3 md:mb-4">
-                  <button className="w-full text-left px-3 md:px-4 py-2 text-xs md text-blue-600 border border-blue-200 rounded-lg hover/20 transition-colors">
+                  <button className="w-full text-left px-3 md:px-4 py-2 text-md md text-blue-600 border border-blue-200 rounded-lg hover/20 transition-colors">
                     {t('pages.announces.filterUnavailable')}
                   </button>
                 </div>
