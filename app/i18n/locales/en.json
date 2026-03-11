@@ -1491,16 +1491,8 @@
       "cancel": "Cancel",
       "confirmReservation": "Confirm reservation",
       "contact": "Contact {{name}}",
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
       "confirmReception": "Confirm receipt",
       "decline": "Decline",
->>>>>>> Stashed changes
-=======
-      "confirmReception": "Confirm receipt",
-      "decline": "Decline",
->>>>>>> Stashed changes
       "dispute": "Dispute cancellation",
       "edit": "Edit",
       "findSpace": "I want to find baggage space",
