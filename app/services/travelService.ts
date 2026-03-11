@@ -188,12 +188,18 @@ export interface GetTravelsResponse {
   totalPages: number;
 }
 
-export const getUserTravels = async (userId?: number): Promise<GetTravelsResponse> => {
+export const getUserTravels = async (
+  userId?: number,
+  page = 1,
+  limit = 12
+): Promise<GetTravelsResponse> => {
   try {
     const params: any = {};
     if (userId) {
       params.userId = userId;
     }
+    params.page = page;
+    params.limit = limit;
 
     const response = await api.get("/travel", { params });
     return response.data;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
@@ -25,6 +25,9 @@ export const ReservationsSection = ({
   const [tab, setTab] = useState<'pending' | 'accepted' | 'completed' | 'cancelled'>('pending');
   const [requests, setRequests] = useState<RequestResponse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
@@ -37,6 +40,7 @@ export const ReservationsSection = ({
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
   const [searchParams] = useSearchParams();
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const userId = searchParams.get('user');
   const { user: currentUser } = useAuth();
@@ -45,27 +49,55 @@ export const ReservationsSection = ({
     !userId || (currentUser && userId === currentUser.id?.toString())
   );
 
-  useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const response = await getRequests();
-        setRequests(response.items || []);
-      } catch (error) {
-        console.error('Error fetching requests:', error);
-      } finally {
-        setLoading(false);
+  const fetchRequestsPage = useCallback(async (nextPage = 1, reset = false) => {
+    try {
+      if (reset) {
+        setLoading(true);
+      } else {
+        setLoadingMore(true);
       }
-    };
 
-    fetchRequests();
+      const response = await getRequests(nextPage, 12);
+      const incoming = response.items || [];
+
+      setRequests((prev) => (reset ? incoming : [...prev, ...incoming]));
+      setPage(nextPage);
+      setHasMore(response.meta?.hasNextPage || false);
+    } catch (error) {
+      console.error('Error fetching requests:', error);
+    } finally {
+      if (reset) {
+        setLoading(false);
+      } else {
+        setLoadingMore(false);
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    fetchRequestsPage(1, true);
+  }, [fetchRequestsPage]);
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore || loading || loadingMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          fetchRequestsPage(page + 1);
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, loading, loadingMore, page, fetchRequestsPage]);
 
   const handleAcceptRequest = async (requestId: number) => {
     try {
       await acceptRequest(requestId);
-      // Refresh requests
-      const response = await getRequests();
-      setRequests(response.items || []);
+      await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error accepting request:', error);
       setErrorMessage(t('profile.messages.errorAccept'));
@@ -75,9 +107,7 @@ export const ReservationsSection = ({
   const handleCompleteRequest = async (requestId: number) => {
     try {
       await completeRequest(requestId);
-      // Refresh requests
-      const response = await getRequests();
-      setRequests(response.items || []);
+      await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error completing request:', error);
       setErrorMessage(t('profile.messages.errorComplete'));
@@ -89,9 +119,7 @@ export const ReservationsSection = ({
 
     try {
       await cancelRequest(requestToCancel.id);
-      // Refresh requests
-      const response = await getRequests();
-      setRequests(response.items || []);
+      await fetchRequestsPage(1, true);
       setRequestToCancel(null);
       setCancelConfirmOpen(false);
     } catch (error) {
@@ -103,8 +131,7 @@ export const ReservationsSection = ({
   const handleConfirmCancellation = async (requestId: number) => {
     try {
       await confirmCancellation(requestId);
-      const response = await getRequests();
-      setRequests(response.items || []);
+      await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error confirming cancellation:', error);
       setErrorMessage(t('profile.messages.errorConfirmCancel'));
@@ -114,8 +141,7 @@ export const ReservationsSection = ({
   const handleDisputeCancellation = async (requestId: number) => {
     try {
       await disputeCancellation(requestId);
-      const response = await getRequests();
-      setRequests(response.items || []);
+      await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error disputing cancellation:', error);
       setErrorMessage(t('profile.messages.errorDisputeCancel'));
@@ -160,15 +186,7 @@ export const ReservationsSection = ({
 
   const handleReviewSuccess = () => {
     // Refresh requests
-    const fetchRequests = async () => {
-      try {
-        const response = await getRequests();
-        setRequests(response.items || []);
-      } catch (error) {
-        console.error('Error fetching requests:', error);
-      }
-    };
-    fetchRequests();
+    fetchRequestsPage(1, true);
   };
 
   const formatDate = (dateString: string) => {
@@ -249,8 +267,9 @@ export const ReservationsSection = ({
           </span>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
-          {filtered.map((request) => {
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+            {filtered.map((request) => {
             const travel = request.travel;
             const requester = request.requester;
             const travelOwner = travel?.owner; // Utiliser travel.owner au lieu de travel.user
@@ -282,8 +301,8 @@ export const ReservationsSection = ({
 
             const displayUserAvatar = (displayUser as any)?.profilePictureUrl || '/favicon.ico';
 
-            return (
-              <ActionCard
+              return (
+                <ActionCard
                 key={request.id}
                 id={request.id}
                 user={{
@@ -298,6 +317,7 @@ export const ReservationsSection = ({
                 weight={weight}
                 price={price}
                 priceSubtext={currencySymbol}
+                priceAboveActions
                 type="transporter" // For the proper airline logo styling
                 roleBadgeLabel={
                   isCurrentUserRequester ? t('cards.action.buyer') : t('cards.action.seller')
@@ -316,7 +336,7 @@ export const ReservationsSection = ({
                   request.currentStatus?.status === 'NEGOTIATING' &&
                   requester?.id.toString() != currentUser?.id
                     ? {
-                        label: t('profile.actions.approve'),
+                        label: t('profile.actions.confirmReservation'),
                         onClick: () => handleAcceptRequest(request.id),
                       }
                     : request.currentStatus?.status === 'ACCEPTED' &&
@@ -342,7 +362,7 @@ export const ReservationsSection = ({
                           const canComplete = travelDay ? todayStart >= travelDay : false;
 
                           return {
-                            label: t('profile.actions.finish'),
+                            label: t('profile.actions.confirmReception'),
                             onClick: canComplete
                               ? () => handleCompleteRequest(request.id)
                               : () => setErrorMessage(t('profile.messages.impossibleFinish')),
@@ -352,7 +372,7 @@ export const ReservationsSection = ({
                       : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
                         ? requester?.id.toString() === currentUser?.id
                           ? {
-                              label: t('profile.actions.finish'),
+                              label: t('profile.actions.confirmReception'),
                               onClick: () => {},
                               color: 'green' as const,
                               disabled: true,
@@ -368,7 +388,7 @@ export const ReservationsSection = ({
                   request.currentStatus?.status === 'NEGOTIATING' &&
                   requester?.id.toString() != currentUser?.id
                     ? {
-                        label: t('profile.actions.reject'),
+                        label: t('profile.actions.decline'),
                         onClick: () => {
                           setRequestToCancel(request);
                           setCancelConfirmOpen(true);
@@ -436,10 +456,16 @@ export const ReservationsSection = ({
                       }
                     : undefined
                 }
-              />
-            );
-          })}
-        </div>
+                />
+              );
+            })}
+          </div>
+
+          {loadingMore && (
+            <div className="text-center text-sm text-gray-500 mt-4">{t('common.loading')}</div>
+          )}
+          <div ref={loadMoreRef} className="h-2" />
+        </>
       )}
 
       {/* Error Modal */}

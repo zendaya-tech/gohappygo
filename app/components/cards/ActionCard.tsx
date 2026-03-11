@@ -43,6 +43,7 @@ interface ActionCardProps {
     color?: 'blue' | 'green' | 'orange' | 'gray';
     disabled?: boolean;
   };
+  priceAboveActions?: boolean;
 }
 
 const ActionCard: React.FC<ActionCardProps> = ({
@@ -64,8 +65,11 @@ const ActionCard: React.FC<ActionCardProps> = ({
   statusBadge,
   messageAction,
   tertiaryAction,
+  priceAboveActions,
 }) => {
   const { t } = useTranslation();
+  const isLongPrimaryLabel = (primaryAction?.label?.length || 0) > 18;
+  const isLongSecondaryLabel = (secondaryAction?.label?.length || 0) > 18;
   return (
     <div className="bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
       {/* 1. Image - Hauteur adaptée (plus petite sur mobile) */}
@@ -142,10 +146,16 @@ const ActionCard: React.FC<ActionCardProps> = ({
         </div>
 
         {/* 4. Footer - Prix & Boutons (Stack sur très petit écran si besoin) */}
-        <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-1">
-          <div className="text-sm font-medium  text-gray-900">
+        <div
+          className={`mt-auto pt-3 border-t border-gray-50 gap-1 ${
+            priceAboveActions
+              ? 'flex flex-col items-end'
+              : 'flex flex-wrap items-center justify-between'
+          }`}
+        >
+          <div className="text-sm font-medium text-gray-900 mb-1">
             {price}{' '}
-            <span className="text-sm  text-gray-900">
+            <span className="text-sm text-gray-900">
               {priceSubtext || t('cards.action.perKg')}
             </span>
           </div>
@@ -180,7 +190,11 @@ const ActionCard: React.FC<ActionCardProps> = ({
                   <button
                     onClick={primaryAction.onClick}
                     disabled={primaryAction.disabled}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold ${
+                      isLongPrimaryLabel
+                        ? 'text-[9px] md:text-[10px] leading-tight'
+                        : 'text-[10px] md'
+                    } shadow-md transition-all active:scale-95 whitespace-nowrap ${
                       primaryAction.disabled
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-70'
                         : primaryAction.color === 'green'
@@ -195,7 +209,11 @@ const ActionCard: React.FC<ActionCardProps> = ({
                   <button
                     onClick={secondaryAction.onClick}
                     disabled={secondaryAction.disabled}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
+                      isLongSecondaryLabel
+                        ? 'text-[9px] md:text-[10px] leading-tight'
+                        : 'text-[10px] md'
+                    } ${
                       secondaryAction.disabled
                         ? 'border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-80'
                         : secondaryAction.color === 'red'

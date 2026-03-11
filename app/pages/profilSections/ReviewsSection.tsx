@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 import { StarIcon } from '@heroicons/react/24/solid';
@@ -14,8 +14,12 @@ export const ReviewsSection = () => {
   const [tab, setTab] = useState<'received' | 'given'>('received');
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const userId = searchParams.get('user');
 
   //trying to implement the "leave a review" button
@@ -30,16 +34,20 @@ export const ReviewsSection = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       setLoading(true);
+      setReviews([]);
+      setPage(1);
+      setHasMore(false);
+
       if (!targetUserId) {
         setLoading(false);
         return;
       }
 
       try {
-        // Correct signature: getReviews(asReviewer?: boolean, userId?: number)
         const asReviewer = tab === 'given';
-        const response = await getReviews(asReviewer, Number(targetUserId));
+        const response = await getReviews(asReviewer, Number(targetUserId), 1, 10);
         setReviews(response.items || []);
+        setHasMore(response.meta?.hasNextPage || false);
       } catch (error) {
         console.error('Error fetching reviews:', error);
       } finally {
@@ -49,6 +57,38 @@ export const ReviewsSection = () => {
 
     fetchReviews();
   }, [targetUserId, tab]);
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore || loading || loadingMore || !targetUserId) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+
+        const fetchMore = async () => {
+          try {
+            setLoadingMore(true);
+            const nextPage = page + 1;
+            const asReviewer = tab === 'given';
+            const response = await getReviews(asReviewer, Number(targetUserId), nextPage, 10);
+            setReviews((prev) => [...prev, ...(response.items || [])]);
+            setPage(nextPage);
+            setHasMore(response.meta?.hasNextPage || false);
+          } catch (error) {
+            console.error('Error fetching more reviews:', error);
+          } finally {
+            setLoadingMore(false);
+          }
+        };
+
+        fetchMore();
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, loading, loadingMore, page, tab, targetUserId]);
 
   //trying to implement the "leave a review" button
   // const handleOpenReview = (request: RequestResponse) => {
@@ -228,6 +268,9 @@ export const ReviewsSection = () => {
               );
             })}
           </div>
+
+          {loadingMore && <div className="text-center text-sm text-gray-500">{t('common.loading')}</div>}
+          <div ref={loadMoreRef} className="h-2" />
         </div>
       )}
 

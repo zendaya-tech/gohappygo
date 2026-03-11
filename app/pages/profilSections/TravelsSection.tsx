@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
@@ -11,11 +11,15 @@ export const TravelsSection = () => {
   const { t } = useTranslation();
   const [travels, setTravels] = useState<TravelItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [page, setPage] = useState(1);
   const [editingTravel, setEditingTravel] = useState<TravelItem | null>(null);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
   const [travelToCancel, setTravelToCancel] = useState<TravelItem | null>(null);
   const { user: currentUser } = useAuth();
   const [searchParams] = useSearchParams();
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const userId = searchParams.get('user');
   const type = 'transporter'; // Puisqu'on récupère que les voyages
 
@@ -23,22 +27,55 @@ export const TravelsSection = () => {
   const targetUserId = userId || currentUser?.id;
   const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
-  const fetchTravels = async () => {
+  const fetchTravels = useCallback(async (nextPage = 1, reset = false) => {
     if (!targetUserId) return;
 
     try {
-      const response = await getUserTravels(Number(targetUserId));
-      setTravels(response.items || []);
+      if (reset) {
+        setLoading(true);
+      } else {
+        setLoadingMore(true);
+      }
+
+      const response = await getUserTravels(Number(targetUserId), nextPage, 12);
+      const incoming = response.items || [];
+
+      setTravels((prev) => (reset ? incoming : [...prev, ...incoming]));
+      setPage(nextPage);
+      setHasMore((response.page || nextPage) < (response.totalPages || 0));
     } catch (error) {
       console.error('Error fetching travels:', error);
     } finally {
-      setLoading(false);
+      if (reset) {
+        setLoading(false);
+      } else {
+        setLoadingMore(false);
+      }
     }
-  };
+  }, [targetUserId]);
 
   useEffect(() => {
-    fetchTravels();
-  }, [targetUserId]);
+    setTravels([]);
+    setPage(1);
+    setHasMore(false);
+    fetchTravels(1, true);
+  }, [fetchTravels]);
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore || loading || loadingMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          fetchTravels(page + 1);
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, loading, loadingMore, page, fetchTravels]);
 
   const handleCancelTravel = async () => {
     if (!travelToCancel) return;
@@ -46,7 +83,7 @@ export const TravelsSection = () => {
     try {
       await deleteTravel(travelToCancel.id);
       // Refresh the list
-      await fetchTravels();
+      await fetchTravels(1, true);
       setTravelToCancel(null);
     } catch (error) {
       console.error('Error canceling travel:', error);
@@ -56,7 +93,7 @@ export const TravelsSection = () => {
 
   const handleEditSuccess = () => {
     setEditingTravel(null);
-    fetchTravels(); // Refresh the list
+    fetchTravels(1, true); // Refresh the list
   };
 
   const formatDate = (dateString: string) => {
@@ -142,6 +179,15 @@ export const TravelsSection = () => {
               />
             ))}
           </div>
+        )}
+
+        {!loading && travels.length > 0 && (
+          <>
+            {loadingMore && (
+              <div className="text-center text-sm text-gray-500 mt-4">{t('common.loading')}</div>
+            )}
+            <div ref={loadMoreRef} className="h-2" />
+          </>
         )}
       </div>
 

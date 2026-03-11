@@ -63,9 +63,17 @@ export interface PaginatedReviews {
   };
 }
 
-export const getReviews = async (asReviewer?: boolean, userId?: number): Promise<PaginatedReviews> => {
+export const getReviews = async (
+  asReviewer?: boolean,
+  userId?: number,
+  page = 1,
+  limit = 10
+): Promise<PaginatedReviews> => {
   try {
     const params: any = {};
+
+    params.page = page;
+    params.limit = limit;
     
     if (userId) {
       // For specific user profiles, use reviewerId or revieweeId
