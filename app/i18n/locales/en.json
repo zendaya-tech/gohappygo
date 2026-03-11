@@ -1492,6 +1492,11 @@
       "confirmReservation": "Confirm reservation",
       "contact": "Contact {{name}}",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+      "confirmReception": "Confirm receipt",
+      "decline": "Decline",
+>>>>>>> Stashed changes
 =======
       "confirmReception": "Confirm receipt",
       "decline": "Decline",
