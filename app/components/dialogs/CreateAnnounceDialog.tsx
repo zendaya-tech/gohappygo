@@ -378,7 +378,12 @@ export default function CreateAnnounceDialog({
               <div className="space-y-6">
                 <div>
                   <AirportComboBox
-                    label={t('dialogs.createAnnounce.departureAirportLabel')}
+                    label={
+                      <span>
+                        {t('dialogs.createAnnounce.departureAirportLabel')}{' '}
+                        {!departureId && <span className="text-red-500">*</span>}
+                      </span>
+                    }
                     value={departureId ?? undefined}
                     onChange={setDepartureId}
                     placeholder={t('dialogs.createAnnounce.departureAirportPlaceholder')}
@@ -389,7 +394,12 @@ export default function CreateAnnounceDialog({
                 </div>
                 <div>
                   <AirportComboBox
-                    label={t('dialogs.createAnnounce.arrivalAirportLabel')}
+                    label={
+                      <span>
+                        {t('dialogs.createAnnounce.arrivalAirportLabel')}{' '}
+                        {!arrivalId && <span className="text-red-500">*</span>}
+                      </span>
+                    }
                     value={arrivalId ?? undefined}
                     onChange={setArrivalId}
                     placeholder={t('dialogs.createAnnounce.arrivalAirportPlaceholder')}
@@ -404,7 +414,14 @@ export default function CreateAnnounceDialog({
                   )}
                 </div>
 
-                <Field label={t('dialogs.createAnnounce.flightNumber')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.flightNumber')}{' '}
+                      {!flightNumber && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <input
                     value={flightNumber}
                     onChange={(e) => setFlightNumber(e.target.value)}
@@ -421,7 +438,14 @@ export default function CreateAnnounceDialog({
                     </p>
                   )}
                 </Field>
-                <Field label={t('dialogs.createAnnounce.travelDate')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.travelDate')}{' '}
+                      {!travelDate && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <input
                     type="date"
                     value={travelDate}
@@ -481,7 +505,14 @@ export default function CreateAnnounceDialog({
                   </p>
                 </Field>
 
-                <Field label={t('dialogs.createAnnounce.story')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.story')}{' '}
+                      {!story && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <textarea
                     value={story}
                     onChange={(e) => {
@@ -620,7 +651,14 @@ export default function CreateAnnounceDialog({
 
             {step === 3 && (
               <div className="space-y-6">
-                <Field label={t('dialogs.createAnnounce.weightQuestion')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.weightQuestion')}{' '}
+                      {!kilos && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <input
                     type="number"
                     min={0}
@@ -639,7 +677,14 @@ export default function CreateAnnounceDialog({
                 </Field>
                 <div>
                   <div className="flex gap-4">
-                    <Field label={t('dialogs.createAnnounce.pricePerKiloQuestion')}>
+                    <Field
+                      label={
+                        <span>
+                          {t('dialogs.createAnnounce.pricePerKiloQuestion')}{' '}
+                          {!pricePerKg && <span className="text-red-500">*</span>}
+                        </span>
+                      }
+                    >
                       <input
                         type="number"
                         min={0}
@@ -663,7 +708,8 @@ export default function CreateAnnounceDialog({
                     </Field>
                     <div className="w-32">
                       <label className="mb-2 block text-sm font-semibold text-gray-900">
-                        {t('dialogs.createAnnounce.currencyLabel')}
+                        {t('dialogs.createAnnounce.currencyLabel')}{' '}
+                        {!currency && <span className="text-red-500">*</span>}
                       </label>
                       <CurrencyComboBox
                         value={currency?.code}
@@ -780,36 +826,45 @@ export default function CreateAnnounceDialog({
                 </button>
               </div>
               {step < 3 ? (
-                <button
-                  onClick={() => {
-                    const errors = validateCurrentStep();
-                    setValidationErrors(errors);
+                <div className="flex items-center gap-3">
+                  {!isStepComplete() && (
+                    <span className="text-xs text-gray-500 italic">
+                      {t('common.fillAllFields')}
+                    </span>
+                  )}
 
-                    if (Object.keys(errors).length === 0) {
-                      setStep((s) => (s + 1) as StepKey);
-                    }
-                  }}
-                  disabled={!isStepComplete()}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors cursor-pointer ${
-                    isStepComplete() ? 'bg-indigo-600 hover' : 'bg-gray-300 cursor-not-allowed'
-                  }`}
-                >
-                  {t('common.next')} ›
-                </button>
+                  <button
+                    onClick={() => {
+                      const errors = validateCurrentStep();
+                      setValidationErrors(errors);
+
+                      if (Object.keys(errors).length === 0) {
+                        setStep((s) => (s + 1) as StepKey);
+                      }
+                    }}
+                    disabled={!isStepComplete()}
+                    className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
+                      isStepComplete()
+                        ? 'bg-indigo-600 hover cursor-pointer'
+                        : 'bg-gray-300 cursor-not-allowed'
+                    }`}
+                  >
+                    {t('common.next')} ›
+                  </button>
+                </div>
               ) : (
                 <button
                   onClick={handleSubmit}
-                  //Button is disabled if submitting OR step 3 is incomplete
                   disabled={submitting || !isStepComplete()}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white cursor-pointer ${
-                    submitting && isStepComplete()
-                      ? 'bg-gray-300 cursor-not-allowed'
-                      : 'bg-indigo-600 hover'
+                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
+                    !submitting && isStepComplete()
+                      ? 'bg-indigo-600 hover cursor-pointer'
+                      : 'bg-gray-300 cursor-not-allowed'
                   }`}
                 >
                   {submitting
-                    ? t('dialogs.createAnnounce.publishing')
-                    : t('dialogs.createAnnounce.publish')}
+                    ? t('common.loadingStates.creating')
+                    : t('dialogs.createAnnounce.create')}
                 </button>
               )}
             </div>
@@ -890,7 +945,7 @@ function StepsNav({ step }: { step: StepKey }) {
   );
 }
 
-function Field({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
+export function Field({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
     <div>
       <label className="mb-2 block text-sm font-semibold text-gray-900">{label}</label>

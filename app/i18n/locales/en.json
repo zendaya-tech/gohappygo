@@ -134,6 +134,7 @@
     "flight": "Flight",
     "info": "Info",
     "kg": "Kg",
+    "fillAllFields": "Please fill in all required fields to proceed",
     "loading": "Loading...",
     "loadingStates": {
       "creating": "Creating..."
@@ -558,22 +559,22 @@
     "description": "Be a happiness carrier",
     "discover": {
       "announcements": "Announcements",
-      "howItWorks": "How it works",
+      "howItWorks": "How it works ?",
       "logos": "Logos",
       "title": "Discover",
-      "transporters": "Transporters"
+      "travelers": "travelers"
     },
     "giveHappiness": {
-      "becomeTransporter": "Become HappyTransporter",
+      "becomeTransporter": "Become HappyTraveler",
       "insuranceProtection": "Insurance and Protection",
       "securityRules": "Security rules",
       "title": "Give Happiness"
     },
     "knowUs": {
       "ecologicalImpact": "Ecological impact",
-      "howItWorks": "How does it work?",
+      "howItWorks": "How does it work ?",
       "title": "To know us better",
-      "whatIsHappiness": "What is Happiness?"
+      "whatIsHappiness": "What is Happiness ?"
     },
     "legal": {
       "pricingPolicy": "Pricing Policy",
@@ -598,7 +599,7 @@
       "title": "Support"
     },
     "transport": {
-      "becomeTransporter": "Become a transporter",
+      "becomeTransporter": "Become a Traveler",
       "identityVerification": "Identity verification",
       "securityRules": "Security rules",
       "title": "Transport"
@@ -679,7 +680,7 @@
   },
   "home": {
     "becomeTransporter": {
-      "title": "Become a <span className=\"text-blue-600\">HappyTraveler</span>, and give happiness to other travelers"
+      "title": "Become a <span className=\"text-blue-600\">HappyTraveler</span>, and give happiness to other Travelers"
     },
     "features": {
       "profitability": {
@@ -695,11 +696,11 @@
         "title": "Happiness is simple"
       },
       "subtitle": "A simple and secure solution for your shipments",
-      "title": "Why choose GoHappyGo?",
+      "title": "Why choose GoHappyGo ?",
       "verifiedTickets": "Verified flight tickets and much more"
     },
     "hero": {
-      "datePlaceholder": "When?",
+      "datePlaceholder": "When ?",
       "flightPlaceholder": "Flight number",
       "fromPlaceholder": "Departure airport",
       "searchButton": "Search",
@@ -725,7 +726,7 @@
     "hostSection": {
       "cta": "Start now",
       "description": "Profit from your travels by transporting packages for other people. Simple, secure and profitable.",
-      "title": "Become a transporter and earn money"
+      "title": "Become a traveler and earn money"
     },
     "latestDemands": {
       "loading": "Loading latest demands...",
@@ -765,7 +766,7 @@
       "exploreDestinations": "Explore new destinations",
       "expressDelivery": "Express delivery",
       "fragilePackages": "Fragile packages",
-      "howItWorks": "How it works?",
+      "howItWorks": "How it works ?",
       "judiciaryProtection": "Here and there, your legal protection works",
       "popularRoutes": "Popular journeys",
       "saveOnShipping": "Save on shipping",
@@ -773,7 +774,7 @@
       "title": "Our",
       "urgentPackages": "Urgent packages",
       "watchVideo": "Watch video",
-      "whyHappy": "Why I give happiness?",
+      "whyHappy": "Why I give happiness ?",
       "yourSecurityPriority": "Your security is our priority"
     },
     "reviews": {
@@ -805,7 +806,7 @@
       }
     },
     "supportSection": {
-      "detailedHelp": "Need detailed help?",
+      "detailedHelp": "Need detailed help ?",
       "errors": {
         "fillAll": "Please fill in all fields.",
         "invalidEmail": "Please enter a valid email address.",
@@ -1050,7 +1051,7 @@
           "desc": "Assistance available at any time to accompany you",
           "title": "24/7 Support"
         },
-        "title": "Why download GoHappyGo?"
+        "title": "Why download GoHappyGo ?"
       },
       "stores": {
         "android": {
@@ -1113,43 +1114,43 @@
     "faqPage": {
       "questions": [
         {
-          "question": "Who Can Use Gohappygo?",
+          "question": "Who Can Use Gohappygo ?",
           "answer": "Any adult with a verified account can use Gohappygo to offer or book luggage space."
         },
         {
-          "question": "Are Profiles Verified?",
+          "question": "Are Profiles Verified ?",
           "answer": "Yes. All users go through identity verification during registration to guarantee a trusted community."
         },
         {
-          "question": "What Is A HappyTraveler?",
+          "question": "What Is A HappyTraveler ?",
           "answer": "A HappyTraveler is a user who chooses to travel by helping others, or use the Gohappygo service, in a spirit of trust, sharing and kindness."
         },
         {
-          "question": "Who Chooses The Luggage Carrier?",
+          "question": "Who Chooses The Luggage Carrier ?",
           "answer": "Whether booking or offering luggage space, one can freely choose their HappyTraveler, after consulting their profile, and exchanging with them. Cancellation is possible at any time before the trip. Any transaction must start and end on Gohappygo to benefit from our legal protection."
         },
         {
-          "question": "How Is The Meeting Traceability Ensured?",
+          "question": "How Is The Meeting Traceability Ensured ?",
           "answer": "During the meeting at the airport, and before check-in, the 2 travelers take a selfie via the application, which confirms their identity and confirms the meeting; this data is not held by any of the travelers."
         },
         {
-          "question": "What Type Of Luggage Can Be Transported?",
+          "question": "What Type Of Luggage Can Be Transported ?",
           "answer": "Only luggage authorized by regulations (suitcases, personal bags, non-dangerous effects) can be entrusted via Gohappygo."
         },
         {
-          "question": "What Happens In Case Of Problem During The Trip?",
+          "question": "What Happens In Case Of Problem During The Trip ?",
           "answer": "Gohappygo is a secure framework, and of traceability. The platform provides 24/7 technical and legal assistance, regardless of location on the globe."
         },
         {
-          "question": "How Does Payment Work?",
+          "question": "How Does Payment Work ?",
           "answer": "Payment is 100% secure and held in escrow by the platform throughout the trip and automatically transferred upon validation by the 2 HappyTravelers."
         },
         {
-          "question": "Can I Both Book And Offer Luggage Space?",
+          "question": "Can I Both Book And Offer Luggage Space ?",
           "answer": "Yes. Gohappygo allows you to take on both roles, depending on your needs and trips."
         },
         {
-          "question": "How To Contact Gohappygo?",
+          "question": "How To Contact Gohappygo ?",
           "answer": "A support service is accessible directly via the application to accompany users at every step."
         }
       ],
@@ -1172,23 +1173,23 @@
       "ariaSearch": "Search for a question in the help center",
       "faqs": [
         {
-          "q": "How does GoHappyGo work?",
+          "q": "How does GoHappyGo work ?",
           "a": "Travelers offer available space in their luggage. You can ask them to transport your packages (per kilo)."
         },
         {
-          "q": "What items are prohibited?",
+          "q": "What items are prohibited ?",
           "a": "Any dangerous, illegal item or item prohibited by airlines and customs is strictly forbidden."
         },
         {
-          "q": "How to pay?",
+          "q": "How to pay ?",
           "a": "The price is generally set per kilo. Payment is secured via the platform."
         },
         {
-          "q": "How to contact a HappyTraveler?",
+          "q": "How to contact a HappyTraveler ?",
           "a": "From an announcement, use the ‘Request transport’ or ‘Contact’ buttons to send your message."
         },
         {
-          "q": "How to define the weight to ship?",
+          "q": "How to define the weight to ship ?",
           "a": "Indicate the estimated weight in kilograms. The HappyTraveler will confirm the remaining availability."
         }
       ],
@@ -1716,8 +1717,8 @@
     "shareExperience": "share your experience"
   },
   "seo": {
-    "description": "Make more than a trip, make happy luggage! GoHappyGo is the reference platform for making more than a trip. Find reliable transporters or offer your services during your travels. Economical, secure and ecological.",
-    "keywords": "luggage transport, travel, transporter, delivery, travel luggage, collaborative transport, travel package, luggage transporter, international delivery, GoHappyGo",
+    "description": "Make more than a trip, make happy luggage! GoHappyGo is the reference platform for making more than a trip. Find reliable travelers or offer your services during your travels. Economical, secure and ecological.",
+    "keywords": "luggage transport, travel, traveler, delivery, travel luggage, collaborative transport, travel package, luggage transporter, international delivery, GoHappyGo",
     "ogDescription": "🧳 Make more than a trip, Make happy luggage! Choose to travel differently, Share your baggage allowance, and make a Useful trip",
     "ogImageAlt": "GoHappyGo - Luggage transport platform",
     "title": "GoHappyGo - make more than a trip"

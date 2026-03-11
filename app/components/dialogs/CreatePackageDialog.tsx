@@ -284,7 +284,12 @@ export default function CreatePackageDialog({
               <div className="space-y-6">
                 <div>
                   <AirportComboBox
-                    label={t('dialogs.createPackage.departurePlaceholder')}
+                    label={
+                      <span>
+                        {t('dialogs.createPackage.departurePlaceholder')}{' '}
+                        {!departureAirportId && <span className="text-red-500">*</span>}
+                      </span>
+                    }
                     value={departureAirportId ?? undefined}
                     onChange={setDepartureAirportId}
                     placeholder={t('common.placeholders.chooseAirport')}
@@ -296,7 +301,12 @@ export default function CreatePackageDialog({
 
                 <div>
                   <AirportComboBox
-                    label={t('dialogs.createPackage.arrivalPlaceholder')}
+                    label={
+                      <span>
+                        {t('dialogs.createPackage.arrivalPlaceholder')}{' '}
+                        {!arrivalAirportId && <span className="text-red-500">*</span>}
+                      </span>
+                    }
                     value={arrivalAirportId ?? undefined}
                     onChange={setArrivalAirportId}
                     placeholder={t('common.placeholders.chooseAirport')}
@@ -306,7 +316,14 @@ export default function CreatePackageDialog({
                   )}
                 </div>
 
-                <Field label={t('dialogs.createAnnounce.flightNumber')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.flightNumber')}{' '}
+                      {!flightNumber && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <input
                     value={flightNumber}
                     onChange={(e) => setFlightNumber(e.target.value)}
@@ -322,7 +339,14 @@ export default function CreatePackageDialog({
                   )}
                 </Field>
 
-                <Field label={t('dialogs.createAnnounce.travelDate')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.travelDate')}{' '}
+                      {!travelDate && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <input
                     type="date"
                     value={travelDate}
@@ -344,7 +368,14 @@ export default function CreatePackageDialog({
                   )}
                 </Field>
 
-                <Field label={t('dialogs.createAnnounce.story')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.story')}{' '}
+                      {!baggageDescription && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <textarea
                     value={baggageDescription}
                     onChange={(e) => {
@@ -452,7 +483,14 @@ export default function CreatePackageDialog({
                   </div>
                 )}
 
-                <Field label={t('dialogs.createAnnounce.weight')}>
+                <Field
+                  label={
+                    <span>
+                      {t('dialogs.createAnnounce.weight')}{' '}
+                      {!weight && <span className="text-red-500">*</span>}
+                    </span>
+                  }
+                >
                   <input
                     type="number"
                     min={0}
@@ -472,7 +510,14 @@ export default function CreatePackageDialog({
                 </Field>
                 <div>
                   <div className="flex gap-4">
-                    <Field label={t('dialogs.createAnnounce.pricePerKilo')}>
+                    <Field
+                      label={
+                        <span>
+                          {t('dialogs.createAnnounce.pricePerKilo')}{' '}
+                          {!pricePerKilo && <span className="text-red-500">*</span>}
+                        </span>
+                      }
+                    >
                       <input
                         type="number"
                         min={0}
@@ -492,7 +537,8 @@ export default function CreatePackageDialog({
                     </Field>
                     <div className="w-32">
                       <label className="mb-2 block text-sm font-semibold text-gray-900">
-                        {t('common.currency')}
+                        {t('common.currency')}{' '}
+                        {!currency && <span className="text-red-500">*</span>}
                       </label>
                       <CurrencyComboBox
                         value={currency?.code}
@@ -513,31 +559,42 @@ export default function CreatePackageDialog({
 
             {/* Footer actions */}
             <div className="mt-10 flex items-center justify-between">
-              <button
-                className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover cursor-pointer"
-                onClick={() => (currentStep > 1 ? prevStep() : onClose())}
-              >
-                ‹ {t('common.back')}
-              </button>
-              {currentStep < 2 ? (
+              <div className="flex items-center gap-3">
                 <button
-                  onClick={nextStep}
-                  // Button is disabled if step is not complete
-                  disabled={!isStepComplete()}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors cursor-pointer ${
-                    isStepComplete() ? 'bg-indigo-600 hover' : 'bg-gray-300 cursor-not-allowed'
-                  }`}
+                  className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700 hover cursor-pointer"
+                  onClick={() => (currentStep > 1 ? prevStep() : onClose())}
                 >
-                  {t('common.next')} ›
+                  ‹ {t('common.back')}
                 </button>
+              </div>
+              {currentStep < 2 ? (
+                <div className="flex items-center gap-3">
+                  {!isStepComplete() && (
+                    <span className="text-xs text-gray-500 italic">
+                      {t('common.fillAllFields')}
+                    </span>
+                  )}
+                  <button
+                    onClick={nextStep}
+                    // Button is disabled if step is not complete
+                    disabled={!isStepComplete()}
+                    className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
+                      isStepComplete()
+                        ? 'bg-indigo-600 hover cursor-pointer'
+                        : 'bg-gray-300 cursor-not-allowed'
+                    }`}
+                  >
+                    {t('common.next')} ›
+                  </button>
+                </div>
               ) : (
                 <button
                   onClick={handleSubmit}
                   // Button is disabled if submitting OR step 2 is incomplete
                   disabled={submitting || !isStepComplete()}
-                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white cursor-pointer ${
+                  className={`inline-flex items-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white transition-colors ${
                     !submitting && isStepComplete()
-                      ? 'bg-indigo-600 hover'
+                      ? 'bg-indigo-600 hover cursor-pointer'
                       : 'bg-gray-300 cursor-not-allowed'
                   }`}
                 >
