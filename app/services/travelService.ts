@@ -182,10 +182,18 @@ export interface TravelItem {
 
 export interface GetTravelsResponse {
   items: TravelItem[];
-  totalCount: number;
-  page: number;
-  limit: number;
-  totalPages: number;
+  meta?: {
+    currentPage: number;
+    itemsPerPage: number;
+    totalItems: number;
+    totalPages: number;
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+  };
+  totalCount?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
 }
 
 export const getUserTravels = async (
