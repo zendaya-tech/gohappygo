@@ -237,7 +237,7 @@ function SearchFiltersBar(
             ) : (
               <img
                 src="/images/searchFilterGoButton.png"
-                className="w-15 h-15 object-cover rounded-full"
+                className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full"
                 alt={t('common.search')}
               />
             )}
