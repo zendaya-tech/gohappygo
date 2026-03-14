@@ -128,7 +128,7 @@ function SearchFiltersBar(
   };
 
   return (
-    <div className="bg-white max-w-7xl mx-auto border-2 border-gray-200 rounded-2xl md:rounded-r-full px-3 md:px-4 py-3 md:py-4 shadow-lg">
+    <div className="bg-white max-w-7xl mx-auto border-2 border-gray-200 rounded-2xl md:rounded-r-full px-3 md:px-4 py-2 md:py-3 shadow-lg">
       {/* Mobile: 2x2 Grid + Button | Desktop: 5 columns */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-2">
         {/* From */}
@@ -199,7 +199,7 @@ function SearchFiltersBar(
             onClick={handleSearch}
             disabled={isLoading}
             className={`
-              relative bg-gray-100 border-4 md:border-8 border-white text-white rounded-full
+              relative bg-gray-100 border-2 md:border-4 border-white text-white rounded-full
               transition-all duration-300 ease-in-out transform cursor-pointer
               ${
                 isLoading

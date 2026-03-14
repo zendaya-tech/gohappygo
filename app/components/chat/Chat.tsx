@@ -267,7 +267,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
       {/* Messages */}
       <div
         ref={messagesContainerRef}
-        className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
+        className="custom-scrollbar flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
         onScroll={(e) => {
           const { scrollTop } = e.currentTarget;
           if (scrollTop === 0 && hasMore && !loadingMore) {
