@@ -316,7 +316,13 @@ export default function Profile() {
                         {section.label}
                       </span>
                     </div>
-                    <span className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        section.id === 'messages' && Number(section.count) > 0
+                          ? 'bg-red-500 text-white'
+                          : 'bg-gray-200 text-gray-600'
+                      }`}
+                    >
                       {section.count}
                     </span>
                   </button>
