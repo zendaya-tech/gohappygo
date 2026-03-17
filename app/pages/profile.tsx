@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
+import { io, type Socket } from 'socket.io-client';
 import Header from '../components/layout/Header';
 import FooterMinimal from '~/components/layout/FooterMinimal';
 import ProfileDialog from '../components/dialogs/ProfileDialog';
@@ -25,12 +26,15 @@ import { PaymentsSection } from './profilSections/PaymentsSection';
 import { FavoritesSection } from './profilSections/FavoritesSection';
 import { MessagesSection } from './profilSections/MessagesSection';
 import type { ProfileSection } from './profilSections/types';
+import { useAuthStore } from '~/store/auth';
 
 export default function Profile() {
   const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
   const userId = searchParams.get('user'); // Get user ID from query params
   const { user: currentUser, isAuthenticated } = useAuth();
+  const token = useAuthStore((state) => state.token);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   // Determine if this is the current user's profile or another user's profile
   const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
@@ -87,6 +91,29 @@ export default function Profile() {
 
     fetchProfileData();
   }, [userId]);
+
+  useEffect(() => {
+    if (!isOwnProfile || !isLoggedIn || !token) return;
+
+    const socket: Socket = io('https://api.gohappygo.fr/messages', {
+      auth: { token },
+      transports: ['websocket'],
+      timeout: 20000,
+      forceNew: true,
+    });
+
+    socket.on('message-notification', (payload: { unreadCount?: number }) => {
+      if (typeof payload?.unreadCount === 'number') {
+        setTotalUnreadCount(payload.unreadCount);
+      } else {
+        setTotalUnreadCount((prev) => prev + 1);
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [isOwnProfile, isLoggedIn, token]);
 
   // Use profileUser data instead of currentUser for display
   const displayUser = profileUser || currentUser;
