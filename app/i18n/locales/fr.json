@@ -1570,6 +1570,7 @@
       "errorComplete": "Erreur lors de la finalisation de la demande",
       "errorConfirmCancel": "Erreur lors de la confirmation de l'annulation",
       "errorDisputeCancel": "Erreur lors de la contestation de l'annulation",
+      "cancellationDisputed": "Litige d'annulation",
       "flight": "Vol",
       "fundsReleased": "Fonds libérés avec succès",
       "impossibleFinish": "Impossible de terminer avant la date de départ du voyage.",

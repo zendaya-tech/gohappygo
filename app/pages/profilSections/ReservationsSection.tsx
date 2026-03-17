@@ -195,7 +195,7 @@ export const ReservationsSection = ({
     if (tab === 'pending') return status === 'NEGOTIATING';
     if (tab === 'accepted')
       return status === 'ACCEPTED' || status === 'PENDING_CANCELLATION_CONFIRMATION';
-    if (tab === 'completed') return status === 'COMPLETED';
+    if (tab === 'completed') return status === 'COMPLETED' || status === 'CANCELLATION_DISPUTED';
     if (tab === 'cancelled') return status === 'CANCELLED';
     return false;
   });
@@ -304,9 +304,17 @@ export const ReservationsSection = ({
                 statusBadge={
                   request.currentStatus?.status === 'COMPLETED'
                     ? t('common.completed')
+                    : request.currentStatus?.status === 'CANCELLATION_DISPUTED'
+                      ? t('profile.messages.cancellationDisputed')
                     : request.currentStatus?.status === 'CANCELLED'
                       ? t('common.cancel')
                       : undefined
+                }
+                statusBadgeTone={
+                  request.currentStatus?.status === 'CANCELLATION_DISPUTED' ? 'red' : 'green'
+                }
+                cardTone={
+                  request.currentStatus?.status === 'CANCELLATION_DISPUTED' ? 'danger' : 'default'
                 }
                 primaryAction={
                   request.currentStatus?.status === 'NEGOTIATING' &&

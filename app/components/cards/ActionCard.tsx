@@ -31,6 +31,8 @@ interface ActionCardProps {
     disabled?: boolean;
   };
   statusBadge?: string;
+  statusBadgeTone?: 'green' | 'red';
+  cardTone?: 'default' | 'danger';
   messageAction?: {
     label: string;
     onClick: () => void;
@@ -58,12 +60,18 @@ const ActionCard: React.FC<ActionCardProps> = ({
   type,
   secondaryAction,
   statusBadge,
+  statusBadgeTone,
+  cardTone,
   messageAction,
   tertiaryAction,
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 flex flex-col h-full">
+    <div
+      className={`bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border flex flex-col h-full ${
+        cardTone === 'danger' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'
+      }`}
+    >
       {/* 1. Image - Hauteur adaptée (plus petite sur mobile) */}
       <div className="relative flex items-center justify-center overflow-hidden rounded-2xl bg-gray-100 border border-gray-200 h-48 sm:h-56 md:h-64 mb-4 shrink-0">
         <img
@@ -164,7 +172,13 @@ const ActionCard: React.FC<ActionCardProps> = ({
                     {tertiaryAction.label}
                   </button>
                 )}
-                <span className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-xs">
+                <span
+                  className={`px-4 py-2 rounded-xl font-bold text-xs ${
+                    statusBadgeTone === 'red'
+                      ? 'bg-red-50 text-red-600 border border-red-200'
+                      : 'bg-green-50 text-green-600'
+                  }`}
+                >
                   {statusBadge}
                 </span>
               </div>
