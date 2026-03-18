@@ -39,6 +39,7 @@ export default function LoginDialog({
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,16 +109,45 @@ export default function LoginDialog({
                 >
                   {t('dialogs.login.password')}
                 </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
-                  placeholder={t('dialogs.login.passwordPlaceholder')}
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    className="w-full px-3 md:px-4 py-2 md:py-3 pr-10 text-sm md border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus transition-colors"
+                    placeholder={t('dialogs.login.passwordPlaceholder')}
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute inset-y-0 right-0 px-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                    aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                  >
+                    {showPassword ? (
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.8}
+                          d="M3 3l18 18M10.58 10.58a2 2 0 102.83 2.83M9.88 5.09A9.77 9.77 0 0112 4.8c5.05 0 9.27 3.11 10.5 7.2a11.8 11.8 0 01-4.13 5.94M6.61 6.61A11.82 11.82 0 001.5 12c.56 1.86 1.69 3.53 3.2 4.83"
+                        />
+                      </svg>
+                    ) : (
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.8}
+                          d="M1.5 12S5.5 4.8 12 4.8 22.5 12 22.5 12 18.5 19.2 12 19.2 1.5 12 1.5 12z"
+                        />
+                        <circle cx="12" cy="12" r="3" strokeWidth={1.8} />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </div>
 
               <div className="flex items-center justify-between">

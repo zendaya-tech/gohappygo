@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 import { io, type Socket } from 'socket.io-client';
@@ -64,6 +64,7 @@ export default function Profile() {
   const [error, setError] = useState<any>(null);
   const [processingOnboarding, setProcessingOnboarding] = useState(false);
   const [totalUnreadCount, setTotalUnreadCount] = useState(0);
+  const contentSectionRef = useRef<HTMLElement | null>(null);
 
   // Fetch profile data
   useEffect(() => {
@@ -117,6 +118,14 @@ export default function Profile() {
 
   // Use profileUser data instead of currentUser for display
   const displayUser = profileUser || currentUser;
+
+  useEffect(() => {
+    if (activeSection !== 'messages' || !contentSectionRef.current) return;
+
+    const headerOffset = 96;
+    const top = contentSectionRef.current.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }, [activeSection]);
 
   const profileSections: ProfileSection[] = [
     {
@@ -377,7 +386,7 @@ export default function Profile() {
           </aside>
 
           {/* Main Content */}
-          <section className="w-full">
+          <section ref={contentSectionRef} className="w-full scroll-mt-24">
             {/* Section Title */}
             <div className="mb-4 md:mb-6">
               <h1 className="text-xl md:text-2xl font-bold text-gray-900">

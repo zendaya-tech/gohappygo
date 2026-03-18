@@ -22,6 +22,8 @@
   "cards": {
     "action": {
       "demand": "Request",
+      "seller": "Seller",
+      "buyer": "Buyer",
       "flight": "Flight",
       "message": "Message",
       "perKg": "/kg",
@@ -46,6 +48,7 @@
     },
     "reservation": {
       "approve": "Approve",
+      "dispute": "Dispute",
       "contact": "Contact",
       "customerDataPending": "The data will be available after the payment is processed.",
       "customerDetails": "Customer Details",
@@ -1486,7 +1489,11 @@
     "actions": {
       "approve": "Approve",
       "cancel": "Cancel",
+      "confirmReservation": "Confirm reservation",
       "contact": "Contact {{name}}",
+      "confirmReception": "Confirm receipt",
+      "decline": "Decline",
+      "dispute": "Dispute cancellation",
       "edit": "Edit",
       "findSpace": "I want to find baggage space",
       "finish": "Finish",

@@ -15,10 +15,7 @@ export default function FooterMinimal() {
           <Link to="/annonces" className="hover">
             {t('footer.discover.announcements')}
           </Link>
-          <Link to="/voyageurs" className="hover">
-            {t('footer.discover.transporters')}
-          </Link>
-          <Link to="/help-center" className="hover">
+          <Link to="/faq" className="hover">
             {t('footer.support.faq')}
           </Link>
         </nav>

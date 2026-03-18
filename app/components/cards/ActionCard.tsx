@@ -6,6 +6,8 @@ interface ActionCardProps {
   image: string;
   title: string;
   type?: 'traveler' | 'transporter';
+  roleBadgeLabel?: string;
+  roleBadgeTone?: 'blue' | 'orange';
   subtitle: string;
   dateLabel: string;
   flightNumber: string;
@@ -43,6 +45,7 @@ interface ActionCardProps {
     color?: 'blue' | 'green' | 'orange' | 'gray';
     disabled?: boolean;
   };
+  priceAboveActions?: boolean;
 }
 
 const ActionCard: React.FC<ActionCardProps> = ({
@@ -58,14 +61,20 @@ const ActionCard: React.FC<ActionCardProps> = ({
   unreadCount,
   primaryAction,
   type,
+  roleBadgeLabel,
+  roleBadgeTone,
   secondaryAction,
   statusBadge,
   statusBadgeTone,
   cardTone,
   messageAction,
   tertiaryAction,
+  priceAboveActions,
 }) => {
   const { t } = useTranslation();
+  const isLongPrimaryLabel = (primaryAction?.label?.length || 0) > 18;
+  const isLongSecondaryLabel = (secondaryAction?.label?.length || 0) > 18;
+  const hasTwoActions = Boolean(primaryAction && secondaryAction);
   return (
     <div
       className={`bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border flex flex-col h-full ${
@@ -84,13 +93,15 @@ const ActionCard: React.FC<ActionCardProps> = ({
           } m-auto transition-transform duration-300 hover:scale-105`}
           onError={(e) => (e.currentTarget.src = '/favicon.ico')}
         />
-        {type && (
+        {(type || roleBadgeLabel) && (
           <div
             className={`absolute bottom-3 left-3 md:bottom-4 md:left-4 px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wide ${
-              type === 'transporter' ? 'bg-blue-600/90 text-white' : 'bg-orange-500/90 text-white'
+              roleBadgeTone === 'orange' || (!roleBadgeTone && type === 'traveler')
+                ? 'bg-orange-500/90 text-white'
+                : 'bg-blue-600/90 text-white'
             }`}
           >
-            {type === 'transporter' ? t('cards.action.travel') : t('cards.action.demand')}
+            {roleBadgeLabel || (type === 'transporter' ? t('cards.action.travel') : t('cards.action.demand'))}
           </div>
         )}
       </div>
@@ -144,15 +155,21 @@ const ActionCard: React.FC<ActionCardProps> = ({
         </div>
 
         {/* 4. Footer - Prix & Boutons (Stack sur très petit écran si besoin) */}
-        <div className="flex flex-wrap items-center justify-between mt-auto pt-3 border-t border-gray-50 gap-1">
-          <div className="text-sm font-medium  text-gray-900">
+        <div
+          className={`mt-auto pt-3 border-t border-gray-50 gap-1 ${
+            priceAboveActions
+              ? 'flex flex-col items-start'
+              : 'flex flex-wrap items-center justify-between'
+          }`}
+        >
+          <div className="text-sm font-medium text-gray-900 mb-1">
             {price}{' '}
-            <span className="text-sm  text-gray-900">
+            <span className="text-sm text-gray-900">
               {priceSubtext || t('cards.action.perKg')}
             </span>
           </div>
 
-          <div className="flex gap-2">
+          <div className={`flex gap-2 ${hasTwoActions ? 'w-full' : ''}`}>
             {statusBadge ? (
               <div className="flex gap-2 items-center justify-end w-full">
                 {tertiaryAction && (
@@ -188,7 +205,11 @@ const ActionCard: React.FC<ActionCardProps> = ({
                   <button
                     onClick={primaryAction.onClick}
                     disabled={primaryAction.disabled}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold text-[10px] md shadow-md transition-all active:scale-95 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold min-h-9 flex items-center justify-center ${
+                      isLongPrimaryLabel
+                        ? 'text-[9px] md:text-[10px] leading-tight'
+                        : 'text-[10px] md'
+                    } shadow-md transition-all active:scale-95 whitespace-nowrap ${hasTwoActions ? 'flex-1' : ''} ${
                       primaryAction.disabled
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-70'
                         : primaryAction.color === 'green'
@@ -203,7 +224,11 @@ const ActionCard: React.FC<ActionCardProps> = ({
                   <button
                     onClick={secondaryAction.onClick}
                     disabled={secondaryAction.disabled}
-                    className={`px-3 py-2 md:px-4 md:py-2 text-[10px] md font-bold rounded-xl transition-colors border-2 whitespace-nowrap ${
+                    className={`px-3 py-2 md:px-4 md:py-2 font-bold rounded-xl transition-colors border-2 whitespace-nowrap min-h-9 flex items-center justify-center ${
+                      isLongSecondaryLabel
+                        ? 'text-[9px] md:text-[10px] leading-tight'
+                        : 'text-[10px] md'
+                    } ${hasTwoActions ? 'flex-1' : ''} ${
                       secondaryAction.disabled
                         ? 'border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-80'
                         : secondaryAction.color === 'red'

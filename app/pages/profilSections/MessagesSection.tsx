@@ -29,7 +29,7 @@ export const MessagesSection = ({
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
       <div className="flex flex-col md:flex-row h-auto md:h-[600px]">
         {/* Conversations List */}
-        <div className="w-full md:w-1/3 border-b md md border-gray-200 max-h-[300px] md:max-h-none">
+        <div className="w-full md:w-1/3 border-b md:border-r border-gray-200 h-[300px] md:h-full min-h-0">
           <ConversationList
             onSelectConversation={setSelectedConversation}
             selectedConversationId={selectedConversation?.id}

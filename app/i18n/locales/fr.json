@@ -22,6 +22,8 @@
   "cards": {
     "action": {
       "demand": "Demande",
+      "seller": "Vendeur",
+      "buyer": "Acheteur",
       "flight": "Vol",
       "message": "Message",
       "perKg": "/kg",
@@ -46,6 +48,7 @@
     },
     "reservation": {
       "approve": "Approuver",
+      "dispute": "Contester",
       "contact": "Contacter",
       "customerDataPending": "Les données seront disponibles après le paiement.",
       "customerDetails": "Détails du client",
@@ -1491,7 +1494,11 @@
     "actions": {
       "approve": "Approuver",
       "cancel": "Annuler",
+      "confirmReservation": "Confirmer la reservation",
       "contact": "Contacter {{name}}",
+      "confirmReception": "Confirmer la reception",
+      "decline": "Decliner",
+      "dispute": "Contester l'annulation",
       "edit": "Modifier",
       "findSpace": "Je souhaite trouver un espace bagage",
       "finish": "Terminer",

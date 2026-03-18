@@ -2,7 +2,10 @@ import { useCallback } from 'react';
 import { useAuthStore, type AuthState } from '../store/auth';
 import {
   login as apiLogin,
-  register as apiRegister,
+  registerWithEmail as apiRegisterWithEmail,
+  completeRegistration as apiCompleteRegistration,
+  signInWithGoogle as apiSignInWithGoogle,
+  signInWithFacebook as apiSignInWithFacebook,
   verifyEmail as apiVerifyEmail,
   updateProfile as apiUpdateProfile,
   changePassword as apiChangePassword,
@@ -79,19 +82,14 @@ export const useAuth = () => {
       email: string,
       password: string,
       firstName?: string,
-      lastName?: string,
-      phoneNumber?: string,
-      countryCode?: string
+      lastName?: string
     ) => {
       try {
-        const res = await apiRegister(
-          email,
-          password,
-          firstName,
-          lastName,
-          phoneNumber,
-          countryCode
-        );
+        if (!firstName) {
+          throw new Error('Le prenom est requis.');
+        }
+
+        const res = await apiRegisterWithEmail(email, password, firstName, lastName);
 
         if (!res) {
           throw new Error("Échec de l'inscription. Réessayez.");
@@ -108,6 +106,126 @@ export const useAuth = () => {
     },
     []
   );
+
+  const completeRegistration = useCallback(async (countryCode: string, phoneNumber: string) => {
+    try {
+      const res = await apiCompleteRegistration(countryCode, phoneNumber);
+
+      return {
+        success: true,
+        message: res.message || 'Profil complete avec succes.',
+      };
+    } catch (error) {
+      console.error('Complete registration error:', error);
+      throw error;
+    }
+  }, []);
+
+  const signInWithGoogle = useCallback(async (idToken: string) => {
+    try {
+      const res = await apiSignInWithGoogle(idToken);
+      if (!res?.access_token) {
+        throw new Error('Connexion Google impossible.');
+      }
+
+      const composedUser = res.user
+        ? {
+            id: String(res.user.id),
+            name:
+              `${res.user.firstName ?? ''} ${res.user.lastName ?? ''}`.trim() ||
+              (res.user.email ?? 'Utilisateur'),
+            email: res.user.email,
+            firstName: res.user.firstName,
+            lastName: res.user.lastName,
+            phone: res.user.phone,
+            profilePictureUrl: res.user.profilePictureUrl,
+            bio: res.user.bio,
+            role: res.user.role,
+            isEmailVerified: res.user.isEmailVerified,
+            isPhoneVerified: res.user.isPhoneVerified,
+            isVerified: res.user.isVerified,
+            isAwaitingVerification: res.user.isAwaitingVerification,
+            recentCurrency: res.user.recentCurrency,
+            createdAt: res.user.createdAt ? new Date(res.user.createdAt) : undefined,
+            profileStats: res.user.profileStats,
+            stripeAccountId: res.user.stripeAccountId,
+            stripeAccountStatus: res.user.stripeAccountStatus,
+          }
+        : {
+            id: 'me',
+            name: 'Utilisateur',
+          };
+
+      try {
+        window.localStorage.setItem('auth_token', res.access_token);
+      } catch (e) {
+        console.warn('Could not store token in localStorage:', e);
+      }
+
+      storeLogin(res.access_token, composedUser, res.refresh_token);
+
+      return {
+        success: true,
+        needsRegistrationCompletion: !!res.needsRegistrationCompletion,
+      };
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+      throw error;
+    }
+  }, [storeLogin]);
+
+  const signInWithFacebook = useCallback(async (idToken: string) => {
+    try {
+      const res = await apiSignInWithFacebook(idToken);
+      if (!res?.access_token) {
+        throw new Error('Connexion Facebook impossible.');
+      }
+
+      const composedUser = res.user
+        ? {
+            id: String(res.user.id),
+            name:
+              `${res.user.firstName ?? ''} ${res.user.lastName ?? ''}`.trim() ||
+              (res.user.email ?? 'Utilisateur'),
+            email: res.user.email,
+            firstName: res.user.firstName,
+            lastName: res.user.lastName,
+            phone: res.user.phone,
+            profilePictureUrl: res.user.profilePictureUrl,
+            bio: res.user.bio,
+            role: res.user.role,
+            isEmailVerified: res.user.isEmailVerified,
+            isPhoneVerified: res.user.isPhoneVerified,
+            isVerified: res.user.isVerified,
+            isAwaitingVerification: res.user.isAwaitingVerification,
+            recentCurrency: res.user.recentCurrency,
+            createdAt: res.user.createdAt ? new Date(res.user.createdAt) : undefined,
+            profileStats: res.user.profileStats,
+            stripeAccountId: res.user.stripeAccountId,
+            stripeAccountStatus: res.user.stripeAccountStatus,
+          }
+        : {
+            id: 'me',
+            name: 'Utilisateur',
+          };
+
+      try {
+        window.localStorage.setItem('auth_token', res.access_token);
+      } catch (e) {
+        console.warn('Could not store token in localStorage:', e);
+      }
+
+      storeLogin(res.access_token, composedUser, res.refresh_token);
+
+      return {
+        success: true,
+        needsRegistrationCompletion: !!res.needsRegistrationCompletion,
+      };
+    } catch (error) {
+      console.error('Facebook sign-in error:', error);
+      throw error;
+    }
+  }, [storeLogin]);
 
   const verifyEmail = useCallback(
     async (email: string, verificationCode: string) => {
@@ -333,5 +451,8 @@ export const useAuth = () => {
     logout,
     authenticate,
     resendEmailVerification,
+    completeRegistration,
+    signInWithGoogle,
+    signInWithFacebook,
   };
 };

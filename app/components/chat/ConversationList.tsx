@@ -233,9 +233,9 @@ export default function ConversationList({
   }
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="h-full min-h-0 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-3 min-h-[72px] flex items-center border-b border-gray-200 bg-white sticky top-0 z-10">
+      <div className="px-4 py-3 min-h-[72px] flex items-center border-b border-gray-200 bg-white">
         <div className="flex items-center justify-between w-full">
           <h3 className="font-semibold text-gray-900">{t('profile.messages.messagesTitle')}</h3>
           {totalUnreadCount > 0 && (
@@ -247,7 +247,7 @@ export default function ConversationList({
       </div>
 
       {/* Conversations */}
-      <div className="divide-y divide-gray-100">
+      <div className="custom-scrollbar flex-1 min-h-0 overflow-y-auto divide-y divide-gray-100">
         {conversations.map((conversation) => (
           <div
             key={conversation.id}

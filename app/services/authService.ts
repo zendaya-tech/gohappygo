@@ -40,6 +40,59 @@ export const register = async (
   }
 };
 
+export const registerWithEmail = async (
+  email: string,
+  password: string,
+  firstName: string,
+  lastName?: string
+) => {
+  try {
+    const response = await api.post(`/auth/register-with-email`, {
+      email,
+      password,
+      firstName,
+      lastName,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const completeRegistration = async (countryCode: string, phoneNumber: string) => {
+  try {
+    const response = await api.post(`/auth/complete-registration`, {
+      countryCode,
+      phoneNumber,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const signInWithGoogle = async (idToken: string) => {
+  try {
+    const response = await api.post(`/auth/google`, { idToken });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const signInWithFacebook = async (idToken: string) => {
+  try {
+    const response = await api.post(`/auth/facebook`, { idToken });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const verifyEmail = async (email: string, verificationCode: string) => {
   try {
     const response = await api.post(`/auth/verify-email`, {
