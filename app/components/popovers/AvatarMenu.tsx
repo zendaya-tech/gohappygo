@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { LogIn, UserPlus } from 'lucide-react';
 
 export default function AvatarMenu({
   open,
@@ -57,11 +58,7 @@ export default function AvatarMenu({
               className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
-              <img
-                src="/images/loginIcon.png"
-                alt={t('header.avatarMenu.login')}
-                className="w-5 h-5 mr-3"
-              />
+              <LogIn className="w-5 h-5 mr-3 text-gray-500" />
               {t('header.avatarMenu.login')}
             </button>
             <button
@@ -72,11 +69,7 @@ export default function AvatarMenu({
               className="flex items-center w-full px-5 py-3 text-sm text-gray-700 bg-gray-50 hover transition-colors duration-150 cursor-pointer"
               role="menuitem"
             >
-              <img
-                src="/images/signinIcon.png"
-                alt={t('header.avatarMenu.register')}
-                className="w-5 h-5 mr-3"
-              />
+              <UserPlus className="w-5 h-5 mr-3 text-gray-500" />
               {t('header.avatarMenu.register')}
             </button>
 
