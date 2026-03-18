@@ -888,7 +888,7 @@
         "noExtra": "n'accepte pas de grammes en trop",
         "punctual": "ponctuel",
         "sharedWeight": "peut prendre des kilos de plusieurs voyageurs",
-        "singleTraveler": "accepte une seul personne pour tous les kilos",
+        "singleTraveler": "accepte un seul voyageur pour tous les kilos",
         "veryPunctual": "très ponctuel"
       },
       "booking": {
