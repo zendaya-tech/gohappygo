@@ -1565,6 +1565,7 @@
       "errorComplete": "Error completing request",
       "errorConfirmCancel": "Error confirming cancellation",
       "errorDisputeCancel": "Error disputing cancellation",
+      "cancellationDisputed": "Cancellation dispute",
       "flight": "Flight",
       "fundsReleased": "Funds released successfully",
       "impossibleFinish": "Cannot finish before the travel departure date.",

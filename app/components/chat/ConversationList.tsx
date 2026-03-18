@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { io, type Socket } from 'socket.io-client';
 import { getRequests, type RequestResponse } from '~/services/requestService';
 import { getUnreadCount } from '~/services/messageService';
 import { useAuth } from '~/hooks/useAuth';
+import { useAuthStore } from '~/store/auth';
 
 interface Conversation {
   id: number;
@@ -43,6 +45,8 @@ export default function ConversationList({
   const [loading, setLoading] = useState(true);
   const [totalUnreadCount, setTotalUnreadCount] = useState(0);
   const { user } = useAuth();
+  const token = useAuthStore((state) => state.token);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const handleSelectConversation = (conversation: Conversation) => {
     // Mark conversation as read locally
@@ -139,6 +143,43 @@ export default function ConversationList({
 
     loadConversations();
   }, [user?.id, initialRequestId]);
+
+  useEffect(() => {
+    if (!isLoggedIn || !token) return;
+
+    const socket: Socket = io('https://api.gohappygo.fr/messages', {
+      auth: { token },
+      transports: ['websocket'],
+      timeout: 20000,
+      forceNew: true,
+    });
+
+    socket.on('message-notification', (payload: { requestId?: number; unreadCount?: number }) => {
+      if (typeof payload?.unreadCount === 'number') {
+        setTotalUnreadCount(payload.unreadCount);
+      } else {
+        setTotalUnreadCount((prev) => prev + 1);
+      }
+
+      if (!payload?.requestId) return;
+
+      setConversations((prev) =>
+        prev.map((conversation) => {
+          if (conversation.requestId !== payload.requestId) return conversation;
+
+          if (selectedConversationId && conversation.id === selectedConversationId) {
+            return { ...conversation, unreadCount: 0 };
+          }
+
+          return { ...conversation, unreadCount: conversation.unreadCount + 1 };
+        })
+      );
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [isLoggedIn, token, selectedConversationId]);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);

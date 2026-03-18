@@ -17,6 +17,7 @@ interface ChatProps {
 export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
   const { t, i18n } = useTranslation();
   const [messages, setMessages] = useState<ThreadMessage[]>([]);
+  const [isOtherUserOnline, setIsOtherUserOnline] = useState(false);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
@@ -37,6 +38,10 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
   const handleNewMessage = useCallback(
     (message: ChatMessage) => {
+      if (message.sender.id === otherUser.id) {
+        setIsOtherUserOnline(true);
+      }
+
       setMessages((prev) => {
         // Avoid duplicates
         if (prev.some((m) => m.id === message.id)) {
@@ -59,10 +64,14 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         }
       }
     },
-    [requestId, currentUser?.id]
+    [requestId, currentUser?.id, otherUser.id]
   );
 
   const handleTyping = useCallback((userId: number, isTyping: boolean) => {
+    if (userId === otherUser.id && isTyping) {
+      setIsOtherUserOnline(true);
+    }
+
     setTypingUsers((prev) => {
       const newSet = new Set(prev);
       if (isTyping) {
@@ -72,15 +81,39 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
       }
       return newSet;
     });
-  }, []);
+  }, [otherUser.id]);
+
+  const handleUserJoined = useCallback(
+    (userId: number) => {
+      if (userId === otherUser.id) {
+        setIsOtherUserOnline(true);
+      }
+    },
+    [otherUser.id]
+  );
+
+  const handleUserLeft = useCallback(
+    (userId: number) => {
+      if (userId === otherUser.id) {
+        setIsOtherUserOnline(false);
+      }
+    },
+    [otherUser.id]
+  );
 
   const { isConnected, sendMessage, sendTyping, markAsRead } = useSocketIO({
     requestId,
 
     onMessage: handleNewMessage,
     onTyping: handleTyping,
+    onUserJoined: handleUserJoined,
+    onUserLeft: handleUserLeft,
     onError: (error) => console.error('Socket.IO error:', error),
   });
+
+  useEffect(() => {
+    setIsOtherUserOnline(false);
+  }, [requestId, otherUser.id]);
 
   // Load initial messages
   useEffect(() => {
@@ -233,7 +266,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
             <div>
               <p className="font-medium text-gray-900">{otherUser.name}</p>
             <div className="flex items-center gap-2 text-xs text-gray-500">
-              {isConnected ? (
+              {isConnected && isOtherUserOnline ? (
                 <>
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <span>{t('profile.messages.online')}</span>
