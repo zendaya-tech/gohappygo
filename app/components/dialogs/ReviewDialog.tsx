@@ -34,7 +34,7 @@ export default function ReviewDialog({
       errors.rating = t('reviews.dialog.selectRatingError');
     }
 
-    if (comment.length > 500) {
+    if (comment.length > 245) {
       errors.comment = t('dialogs.createAnnounce.errors.storyTooLong');
     }
 
@@ -121,32 +121,32 @@ export default function ReviewDialog({
             <textarea
               value={comment}
               onChange={(e) => {
-                // Allow typing beyond 500 characters but show validation
+                // Allow typing beyond 245 characters but show validation
                 setComment(e.target.value);
               }}
               rows={4}
               placeholder={t('reviews.dialog.commentPlaceholder')}
               className={`w-full resize-none rounded-xl border ${
-                validationErrors.comment || comment.length > 500
+                validationErrors.comment || comment.length > 245
                   ? 'border-red-500 focus:ring-red-500'
                   : 'border-gray-300 focus:ring-indigo-500'
               } bg-white px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2`}
             />
             <div
               className={`mt-1 text-xs flex justify-between ${
-                comment.length > 500 ? 'text-red-500 font-semibold' : 'text-gray-400'
+                comment.length > 245 ? 'text-red-500 font-semibold' : 'text-gray-400'
               }`}
             >
               <span>
                 {t('common.characterCount', {
                   count: comment.length,
-                  max: 500,
+                  max: 245,
                 })}
               </span>
-              {comment.length > 500 && (
+              {comment.length > 245 && (
                 <span className="font-medium">
                   {t('dialogs.createAnnounce.storyOverflow', {
-                    count: comment.length - 500,
+                    count: comment.length - 245,
                   })}
                 </span>
               )}
