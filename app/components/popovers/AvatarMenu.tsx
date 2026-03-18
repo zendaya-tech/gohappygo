@@ -41,7 +41,7 @@ export default function AvatarMenu({
   return (
     <div
       ref={ref}
-      className="absolute right-0 top-full mt-2 w-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl ring-1 ring-black/5"
+      className="absolute -right-1 md:right-0 top-full mt-2 w-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl ring-1 ring-black/5"
       role="menu"
       aria-label={t('header.avatarMenu.menuAriaLabel')}
     >

@@ -130,7 +130,7 @@ export default function Header() {
             </nav>
 
             {/* Desktop Actions */}
-            <div className="hidden lg:flex items-center space-x-4 relative">
+            <div className="hidden lg:flex items-center space-x-4">
               {/* Notifications - Only show if logged in */}
               {isLoggedIn && (
                 <div className="relative">
@@ -230,7 +230,7 @@ export default function Header() {
             </div>
 
             {/* Mobile Actions */}
-            <div className="lg:hidden flex items-center space-x-1">
+            <div className="lg:hidden flex items-center space-x-1 relative">
               {/* Notifications for mobile - Only show if logged in */}
               {isLoggedIn && (
                 <div className="relative">
@@ -267,7 +267,7 @@ export default function Header() {
               </div>
 
               {/* Avatar with dropdown for mobile */}
-              <div className="relative">
+              <div>
                 <button
                   className="flex items-center hover rounded-lg p-2 transition-colors duration-200"
                   onClick={() => setShowAvatarMenuMobile((v) => !v)}
@@ -409,7 +409,7 @@ export default function Header() {
                           setShowCreateAnnounce(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-blue-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
+                        className="flex items-center w-full font-semibold text-left px-4 py-2.5 text-blue-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -436,7 +436,7 @@ export default function Header() {
                           setShowCreatePackage(true);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center w-full text-left px-4 py-2.5 text-blue-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
+                        className="flex items-center w-full font-semibold text-left px-4 py-2.5 text-blue-600 hover hover/20 rounded-lg transition-all duration-200 cursor-pointer"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
