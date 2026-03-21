@@ -176,10 +176,68 @@ export default function ConversationList({
       );
     });
 
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+    socket.on(
+      'request-list-refresh',
+      (_payload: { requestId?: number; event?: string; timestamp?: string }) => {
+        if (refreshTimer) {
+          clearTimeout(refreshTimer);
+        }
+
+        refreshTimer = setTimeout(async () => {
+          try {
+            const requestsResponse = await getRequests();
+            const requests = requestsResponse.items || [];
+
+            const conversationList: Conversation[] = requests
+              .filter((request) => request.requester && request.travel)
+              .map((request) => {
+                let otherUser;
+
+                if (request.requester.id === Number(user?.id)) {
+                  otherUser = {
+                    id: request.travel!.owner!.id,
+                    name: `${request.travel!.owner!.fullName}`,
+                    avatar: (request.travel!.owner as any)?.profilePictureUrl || '/favicon.ico',
+                  };
+                } else {
+                  otherUser = {
+                    id: request.requester!.id,
+                    name: `${request.requester!.fullName}`,
+                    avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico',
+                  };
+                }
+
+                return {
+                  id: request.id,
+                  requestId: request.id,
+                  otherUser,
+                  unreadCount: request.unReadMessages || 0,
+                  travel: {
+                    departureAirport: request.travel?.departureAirport,
+                    arrivalAirport: request.travel?.arrivalAirport,
+                    flightNumber: request.travel?.flightNumber,
+                  },
+                };
+              })
+              .filter((conversation) => conversation.otherUser.id !== Number(user?.id));
+
+            setConversations(conversationList);
+          } catch (error) {
+            console.error('Error refreshing conversations after request update:', error);
+          }
+        }, 350);
+      }
+    );
+
     return () => {
+      if (refreshTimer) {
+        clearTimeout(refreshTimer);
+      }
       socket.disconnect();
     };
-  }, [isLoggedIn, token, selectedConversationId]);
+  }, [isLoggedIn, token, selectedConversationId, user?.id]);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);

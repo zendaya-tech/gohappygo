@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
+import { io, type Socket } from 'socket.io-client';
 import { useAuth } from '~/hooks/useAuth';
+import { useAuthStore } from '~/store/auth';
 import ActionCard from '~/components/cards/ActionCard';
 import ConfirmCancelDialog from '~/components/dialogs/ConfirmCancelDialog';
 import ReviewDialog from '~/components/dialogs/ReviewDialog';
@@ -44,6 +46,8 @@ export const ReservationsSection = ({
 
   const userId = searchParams.get('user');
   const { user: currentUser } = useAuth();
+  const token = useAuthStore((state) => state.token);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const [isOwnProfile] = useState(
     !userId || (currentUser && userId === currentUser.id?.toString())
@@ -77,6 +81,39 @@ export const ReservationsSection = ({
   useEffect(() => {
     fetchRequestsPage(1, true);
   }, [fetchRequestsPage]);
+
+  useEffect(() => {
+    if (!isOwnProfile || !isLoggedIn || !token) return;
+
+    const socket: Socket = io('https://api.gohappygo.fr/messages', {
+      auth: { token },
+      transports: ['websocket'],
+      timeout: 20000,
+      forceNew: true,
+    });
+
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+    socket.on(
+      'request-list-refresh',
+      (_payload: { requestId?: number; event?: string; timestamp?: string }) => {
+        if (refreshTimer) {
+          clearTimeout(refreshTimer);
+        }
+
+        refreshTimer = setTimeout(() => {
+          fetchRequestsPage(1, true);
+        }, 350);
+      }
+    );
+
+    return () => {
+      if (refreshTimer) {
+        clearTimeout(refreshTimer);
+      }
+      socket.disconnect();
+    };
+  }, [isOwnProfile, isLoggedIn, token, fetchRequestsPage]);
 
   useEffect(() => {
     if (!loadMoreRef.current || !hasMore || loading || loadingMore) return;
