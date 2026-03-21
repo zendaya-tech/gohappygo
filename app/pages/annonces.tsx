@@ -62,6 +62,37 @@ export default function Annonces() {
     { id: 'travel-ad', label: t('pages.announces.filters.travelAd') },
     { id: 'transport-request', label: t('pages.announces.filters.transportRequest') },
   ];
+
+  const getPriceValue = (item: any) => {
+    const rawValue = item?.pricePerKg ?? item?.price ?? null;
+    const numericValue =
+      typeof rawValue === 'string' ? parseFloat(rawValue) : Number(rawValue ?? Number.NaN);
+    return Number.isFinite(numericValue) ? numericValue : Number.POSITIVE_INFINITY;
+  };
+
+  const getDateValue = (item: any) => {
+    const rawDate = item?.deliveryDate || item?.travelDate || item?.departureDatetime || item?.createdAt;
+    const timestamp = rawDate ? new Date(rawDate).getTime() : Number.NaN;
+    return Number.isFinite(timestamp) ? timestamp : Number.POSITIVE_INFINITY;
+  };
+
+  const applySelectedSorts = useCallback(
+    (items: any[]) => {
+      let sortedItems = [...items];
+
+      if (selectedFilters.includes('lowest-price')) {
+        sortedItems.sort((a, b) => getPriceValue(a) - getPriceValue(b));
+      }
+
+      if (selectedFilters.includes('travel-date')) {
+        sortedItems.sort((a, b) => getDateValue(a) - getDateValue(b));
+      }
+
+      return sortedItems;
+    },
+    [selectedFilters]
+  );
+
   // Build filters object
   const buildFilters = useCallback(() => {
     const filters: any = {
@@ -76,11 +107,10 @@ export default function Annonces() {
     if (selectedFilters.includes('verified')) {
       filters.isVerified = true;
     }
-    if (selectedFilters.includes('travel-ad')) {
-      filters.type = 'travel';
-    }
-    if (selectedFilters.includes('transport-request')) {
-      filters.type = 'demand';
+    const hasTravelFilter = selectedFilters.includes('travel-ad');
+    const hasDemandFilter = selectedFilters.includes('transport-request');
+    if (hasTravelFilter !== hasDemandFilter) {
+      filters.type = hasTravelFilter ? 'travel' : 'demand';
     }
 
     // Apply price range filters
@@ -122,17 +152,7 @@ export default function Annonces() {
         let items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
         const responseMeta = apiRes?.meta;
 
-        // Apply client-side sorting for "lowest-price"
-        if (selectedFilters.includes('lowest-price')) {
-          items = [...items].sort((a, b) => (a.pricePerKg || 0) - (b.pricePerKg || 0));
-        }
-
-        // Apply client-side sorting for "travel-date"
-        if (selectedFilters.includes('travel-date')) {
-          items = [...items].sort(
-            (a, b) => new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
-          );
-        }
+        items = applySelectedSorts(items);
 
         setResults(items);
         setMeta(responseMeta);
@@ -153,6 +173,7 @@ export default function Annonces() {
     weightRange,
     selectedAirline,
     buildFilters,
+    applySelectedSorts,
   ]);
 
   // Load more results for infinite scroll
@@ -168,19 +189,7 @@ export default function Annonces() {
       let items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
       const responseMeta = apiRes?.meta;
 
-      // Apply client-side sorting for "lowest-price"
-      if (selectedFilters.includes('lowest-price')) {
-        items = [...items].sort((a, b) => (a.pricePerKg || 0) - (b.pricePerKg || 0));
-      }
-
-      // Apply client-side sorting for "travel-date"
-      if (selectedFilters.includes('travel-date')) {
-        items = [...items].sort(
-          (a, b) => new Date(a.deliveryDate).getTime() - new Date(b.deliveryDate).getTime()
-        );
-      }
-
-      setResults((prev) => [...prev, ...items]);
+      setResults((prev) => applySelectedSorts([...prev, ...items]));
       setMeta(responseMeta);
       setCurrentPage((prev) => prev + 1);
       setHasMore(responseMeta?.hasNextPage ?? false);
@@ -189,7 +198,7 @@ export default function Annonces() {
     } finally {
       setLoadingMore(false);
     }
-  }, [loadingMore, hasMore, currentPage, buildFilters, selectedFilters]);
+  }, [loadingMore, hasMore, currentPage, buildFilters, applySelectedSorts]);
 
   // Infinite scroll hook
   const sentinelRef = useInfiniteScroll({
