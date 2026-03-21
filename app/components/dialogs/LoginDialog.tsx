@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { useAuth } from '~/hooks/useAuth';
 import { useTranslation } from 'react-i18next';
+import { signInWithPopup } from 'firebase/auth';
+import { facebookProvider, firebaseAuth, googleProvider } from '~/services/firebaseClient';
 
 export default function LoginDialog({
   open,
@@ -30,7 +32,7 @@ export default function LoginDialog({
     };
   }, [open, onClose]);
 
-  const { login } = useAuth();
+  const { login, signInWithGoogle, signInWithFacebook } = useAuth();
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: '',
@@ -62,6 +64,50 @@ export default function LoginDialog({
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      const result = await signInWithPopup(firebaseAuth, googleProvider);
+      const idToken = await result.user.getIdToken();
+      const response = await signInWithGoogle(idToken);
+
+      if (response.needsRegistrationCompletion) {
+        setError('Connexion Google reussie. Completez votre profil pour finaliser le compte.');
+        return;
+      }
+
+      onClose();
+    } catch (err: any) {
+      setError(err?.response?.data?.message || err?.message || 'Connexion Google impossible.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      const result = await signInWithPopup(firebaseAuth, facebookProvider);
+      const idToken = await result.user.getIdToken();
+      const response = await signInWithFacebook(idToken);
+
+      if (response.needsRegistrationCompletion) {
+        setError('Connexion Facebook reussie. Completez votre profil pour finaliser le compte.');
+        return;
+      }
+
+      onClose();
+    } catch (err: any) {
+      setError(err?.response?.data?.message || err?.message || 'Connexion Facebook impossible.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (!open) return null;
@@ -190,7 +236,12 @@ export default function LoginDialog({
 
             {/* Boutons sociaux */}
             <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
+              <button
+                type="button"
+                onClick={handleGoogleSignIn}
+                disabled={submitting}
+                className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <svg className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" viewBox="0 0 24 24">
                   <path
                     fill="#4285F4"
@@ -211,7 +262,12 @@ export default function LoginDialog({
                 </svg>
                 Google
               </button>
-              <button className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors cursor-pointer">
+              <button
+                type="button"
+                onClick={handleFacebookSignIn}
+                disabled={submitting}
+                className="flex items-center justify-center px-3 md:px-4 py-2 text-xs md border border-gray-300 rounded-lg hover transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <svg
                   className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
                   fill="#1877F2"
