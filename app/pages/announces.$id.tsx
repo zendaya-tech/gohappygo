@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import type { Route } from '../+types/root';
+import React from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -1005,9 +1006,9 @@ export default function AnnounceDetail() {
                       min={0}
                       value={kilos === 0 ? '' : kilos}
                       onBlur={() => setHasTouchedKilosInput(true)}
-                      readOnly={requiresAllKilos}
+                      // readOnly={requiresAllKilos}
                       onChange={(e) => {
-                        if (requiresAllKilos) return;
+                        // if (requiresAllKilos) return;
                         setHasTouchedKilosInput(true);
                         const value = e.target.value;
                         if (value === '' || value === '0') {
@@ -1023,13 +1024,11 @@ export default function AnnounceDetail() {
                       }}
                       placeholder="0"
                       className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 ${
-                        requiresAllKilos
-                          ? 'bg-gray-50 border-gray-200 text-gray-500 cursor-not-allowed'
-                          : shouldShowOverCapacityError
-                            ? 'border-red-500 focus:ring-red-500'
-                            : shouldShowSingleTravelerWeightError
-                              ? 'border-orange-500 focus:ring-orange-500'
-                              : 'border-gray-300 focus:ring-indigo-500'
+                        shouldShowOverCapacityError
+                          ? 'border-red-500 focus:ring-red-500'
+                          : shouldShowSingleTravelerWeightError
+                            ? 'border-orange-500 focus:ring-orange-500'
+                            : 'border-gray-300 focus:ring-indigo-500'
                       }`}
                     />
 
