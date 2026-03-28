@@ -438,8 +438,8 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
       </div>
 
       {/* Message Input */}
-      <div className="p-4 border-t border-gray-200 bg-white">
-        <div className="flex items-end gap-2">
+      <div className="border-t border-gray-200 bg-gradient-to-b from-white to-blue-50/40 p-4">
+        <div className="flex items-end gap-3 rounded-2xl border border-gray-200 bg-white px-3 py-2 shadow-sm transition focus-within:border-blue-300 focus-within:shadow-md focus-within:ring-2 focus-within:ring-blue-100">
           <div className="flex-1">
             <textarea
               value={newMessage}
@@ -447,32 +447,20 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
               onKeyDown={handleKeyDown}
               placeholder={t('profile.messages.messagePlaceholder')}
               rows={1}
-              className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus resize-none"
+              className="h-10 w-full resize-none overflow-y-hidden border-0 bg-transparent px-0 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
               disabled={sending || !isConnected}
-              style={{ minHeight: '40px', maxHeight: '120px' }}
-              onInput={(e) => {
-                const target = e.target as HTMLTextAreaElement;
-                target.style.height = 'auto';
-                target.style.height = Math.min(target.scrollHeight, 120) + 'px';
-              }}
             />
           </div>
+
           <button
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || sending || !isConnected}
-            className="p-2 bg-blue-600 text-white rounded-full hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-blue-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.03] hover:bg-blue-700 disabled:scale-100 disabled:bg-gray-300 disabled:text-gray-500 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer"
           >
             {sending ? (
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white"></div>
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                />
-              </svg>
+              'Envoyer'
             )}
           </button>
         </div>

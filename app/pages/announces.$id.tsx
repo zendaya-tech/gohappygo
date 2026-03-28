@@ -91,6 +91,7 @@ export default function AnnounceDetail() {
   // Import auth store to check if user owns this announce
   const currentUser = useAuthStore((s: AuthState) => s.user);
   const isLoggedIn = useAuthStore((s: AuthState) => s.isLoggedIn);
+  const openRegister = useAuthStore((s: AuthState) => s.openRegister);
   const isOwnAnnounce = Boolean(
     currentUser && listing && listing.user?.id === Number(currentUser.id)
   );
@@ -486,7 +487,7 @@ export default function AnnounceDetail() {
         t('pages.announceDetail.alerts.loginToBook'),
         'warning'
       );
-      setTimeout(() => navigate('/login'), 2000);
+      openRegister();
       return;
     }
 
@@ -1297,7 +1298,19 @@ export default function AnnounceDetail() {
 
                 {type === 'travel' ? (
                   <button
-                    onClick={() => setBookOpen(true)}
+                    onClick={() => {
+                      if (!isLoggedIn) {
+                        showAlert(
+                          t('pages.announceDetail.alerts.loginRequired'),
+                          t('pages.announceDetail.alerts.loginToBook'),
+                          'warning'
+                        );
+                        openRegister();
+                        return;
+                      }
+
+                      setBookOpen(true);
+                    }}
                     disabled={
                       isOwnAnnounce ||
                       isPastTravelDate ||
@@ -1332,7 +1345,19 @@ export default function AnnounceDetail() {
                 ) : (
                   !isOwnAnnounce && (
                     <button
-                      onClick={() => setCreateOpen(true)}
+                      onClick={() => {
+                        if (!isLoggedIn) {
+                          showAlert(
+                            t('pages.announceDetail.alerts.loginRequired'),
+                            t('pages.announceDetail.alerts.loginToBook'),
+                            'warning'
+                          );
+                          openRegister();
+                          return;
+                        }
+
+                        setCreateOpen(true);
+                      }}
                       className="mt-6 w-full rounded-lg bg-blue-600 px-4 py-4 text-sm font-semibold text-white hover cursor-pointer"
                     >
                       {t('pages.announceDetail.booking.createSimilar')}
