@@ -28,6 +28,16 @@ const processQueue = (error: any, token: string | null = null) => {
     failedQueue = [];
 };
 
+const handleSessionExpired = () => {
+    deleteCookie('auth_token');
+    deleteCookie('refresh_token');
+    useAuthStore.getState().logout();
+
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event('auth-session-expired'));
+    }
+};
+
 // Request interceptor - Attach auth token
 api.interceptors.request.use((config) => {
     const token = getCookie('auth_token');
@@ -68,19 +78,10 @@ api.interceptors.response.use(
 
         if (!refreshToken) {
             // No refresh token available, clear auth and reject
-            deleteCookie('auth_token');
-            deleteCookie('refresh_token');
-            
-            // Update auth store to logged out state
-            useAuthStore.getState().logout();
+            handleSessionExpired();
             
             processQueue(error, null);
             isRefreshing = false;
-            
-            // Redirect to login or trigger logout
-            if (typeof window !== "undefined") {
-                window.location.href = '/';
-            }
             
             return Promise.reject(error);
         }
@@ -110,19 +111,10 @@ api.interceptors.response.use(
             return api(originalRequest);
         } catch (refreshError) {
             // Refresh failed, clear auth and reject all queued requests
-            deleteCookie('auth_token');
-            deleteCookie('refresh_token');
-            
-            // Update auth store to logged out state
-            useAuthStore.getState().logout();
+            handleSessionExpired();
             
             processQueue(refreshError, null);
             isRefreshing = false;
-
-            // Redirect to login
-            if (typeof window !== "undefined") {
-                window.location.href = '/';
-            }
 
             return Promise.reject(refreshError);
         }
