@@ -94,7 +94,7 @@ export default function SupportSection() {
 
         <Link
           to="/assurance-colis"
-          className="bg-[url('/images/axa-logo.jpeg')] bg-cover bg-center flex flex-col justify-start text-white p-6 rounded-2xl min-h-[220px]"
+          className="bg-[url('/images/axa-logo.jpeg')] bg-cover bg-center flex flex-col justify-start text-white p-6 rounded-2xl min-h-[420px]"
         >
           <h3 className="text-xl font-bold">{t('home.supportSection.insurance.title')}</h3>
           <div className="w-[70%]">

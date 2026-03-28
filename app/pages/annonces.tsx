@@ -71,7 +71,8 @@ export default function Annonces() {
   };
 
   const getDateValue = (item: any) => {
-    const rawDate = item?.deliveryDate || item?.travelDate || item?.departureDatetime || item?.createdAt;
+    const rawDate =
+      item?.deliveryDate || item?.travelDate || item?.departureDatetime || item?.createdAt;
     const timestamp = rawDate ? new Date(rawDate).getTime() : Number.NaN;
     return Number.isFinite(timestamp) ? timestamp : Number.POSITIVE_INFINITY;
   };
@@ -265,7 +266,7 @@ export default function Annonces() {
             >
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 {results.length > 0 ? (
-                  <button className="bg-blue-100/30 text-blue-700 px-3 md:px-4 py-2 rounded-lg text-md md font-medium ">
+                  <button className="bg-blue-100/30 text-blue-600 px-3 md:px-4 py-2 rounded-lg text-md md font-medium ">
                     {t('pages.announces.filterBy')}
                   </button>
                 ) : (

@@ -203,13 +203,13 @@ export default function AnnounceDetail() {
     fetchAnnounce();
   }, [id, type]);
 
-  // Automatically set kilos if the owner requires all kilos to be taken
-  useEffect(() => {
-    if (listing && type === 'travel' && !listing.isSharedWeight) {
-      const available = listing.weightAvailable || 0;
-      setKilos(available);
-    }
-  }, [listing, type]);
+  // // Automatically set kilos if the owner requires all kilos to be taken
+  // useEffect(() => {
+  //   if (listing && type === 'travel' && !listing.isSharedWeight) {
+  //     const available = listing.weightAvailable || 0;
+  //     setKilos(available);
+  //   }
+  // }, [listing, type]);
 
   // Update meta tags dynamically when listing data is loaded
   useEffect(() => {
@@ -711,7 +711,7 @@ export default function AnnounceDetail() {
                     <div className="font-semibold text-gray-900">{userName}</div>
                     <div className="text-xs text-gray-500">
                       {averageRating > 0
-                        ? `${t('pages.profile.stats.rating')} ${averageRating.toFixed(1)}`
+                        ? `${t('profile.stats.rating')} ${averageRating.toFixed(1)}`
                         : t('pages.announceDetail.notRatedYet')}{' '}
                       •{' '}
                       {listing.user?.isVerified

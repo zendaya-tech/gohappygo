@@ -559,7 +559,7 @@
     "description": "Soyez un porteur de bonheur",
     "discover": {
       "announcements": "Annonces",
-      "howItWorks": "Comment ça marche",
+      "howItWorks": "Comment ça marche ?",
       "logos": "Logos",
       "title": "Découvrir",
       "transporters": "HappyVoyageurs"
@@ -615,7 +615,7 @@
     },
     "avatarMenu": {
       "contact": "Contacter le Service Clients",
-      "howItWorks": "Comment ça marche",
+      "howItWorks": "Comment ça marche ?",
       "insurance": "Assurance et protection",
       "legal": "Mentions légales",
       "login": "Connexion",
