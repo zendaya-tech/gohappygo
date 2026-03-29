@@ -107,6 +107,17 @@ export const ReservationsSection = ({
       }
     );
 
+    socket.on('message-notification', (payload: { requestId?: number }) => {
+      if (!payload?.requestId) return;
+
+      setRequests((prev) =>
+        prev.map((request) => {
+          if (request.id !== payload.requestId) return request;
+          return { ...request, unReadMessages: (request.unReadMessages || 0) + 1 };
+        })
+      );
+    });
+
     return () => {
       if (refreshTimer) {
         clearTimeout(refreshTimer);
