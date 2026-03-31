@@ -28,11 +28,11 @@ export default function MessageDialog({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && !sending) onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
+  }, [open, onClose, sending]);
 
   useEffect(() => {
     if (!open) return;
@@ -73,7 +73,7 @@ export default function MessageDialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black/40" onClick={onClose} />
+      <div className="fixed inset-0 bg-black/40" onClick={sending ? undefined : onClose} />
 
       {/* Modal Container */}
       <div className="relative z-10 w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/10">
@@ -110,9 +110,16 @@ export default function MessageDialog({
             <button
               onClick={handleSendMessage}
               disabled={!message.trim() || sending}
-              className="mt-6 w-full rounded-lg bg-[#2d6a74] py-3 text-white font-semibold hover:bg-[#25575f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#2d6a74] py-3 text-white font-semibold hover:bg-[#25575f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
-              {sending ? t('dialogs.message.sending') : t('dialogs.message.send')}
+              {sending ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                  {t('dialogs.message.sending')}
+                </>
+              ) : (
+                t('dialogs.message.send')
+              )}
             </button>
           </div>
 
@@ -122,7 +129,8 @@ export default function MessageDialog({
             <button
               onClick={onClose}
               aria-label={t('common.close')}
-              className="absolute top-4 right-4 text-gray-400 hover transition-colors cursor-pointer"
+              disabled={sending}
+              className="absolute top-4 right-4 text-gray-400 hover transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>

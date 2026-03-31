@@ -182,10 +182,11 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
   };
 
   const handleInputChange = (value: string) => {
-    setNewMessage(value);
+    const cappedValue = value.slice(0, 2000);
+    setNewMessage(cappedValue);
 
     // Send typing indicator
-    if (value.trim()) {
+    if (cappedValue.trim()) {
       sendTyping(true);
 
       // Clear previous timeout
@@ -355,7 +356,9 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                           : 'bg-white text-gray-800 border border-gray-200 rounded-bl-sm'
                       }`}
                     >
-                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      <p className="text-sm whitespace-pre-wrap break-words overflow-wrap-anywhere">
+                        {message.content}
+                      </p>
                     </div>
                     <div
                       className={`flex items-center gap-2 mt-1 ${isOwn ? 'justify-end' : 'justify-start'}`}
@@ -439,7 +442,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
       {/* Message Input */}
       <div className="border-t border-gray-200 bg-gradient-to-b from-white to-blue-50/40 p-4">
-        <div className="flex items-end gap-3 rounded-2xl border border-gray-200 bg-white px-3 py-2 shadow-sm transition focus-within:border-blue-300 focus-within:shadow-md focus-within:ring-2 focus-within:ring-blue-100">
+        <div className="rounded-2xl border border-gray-200 bg-white px-3 py-2 shadow-sm transition focus-within:border-blue-300 focus-within:shadow-md focus-within:ring-2 focus-within:ring-blue-100">
           <div className="flex-1">
             <textarea
               value={newMessage}
@@ -447,22 +450,26 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
               onKeyDown={handleKeyDown}
               placeholder={t('profile.messages.messagePlaceholder')}
               rows={1}
+              maxLength={2000}
               className="h-10 w-full resize-none overflow-y-hidden border-0 bg-transparent px-0 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
               disabled={sending || !isConnected}
             />
           </div>
 
-          <button
-            onClick={handleSendMessage}
-            disabled={!newMessage.trim() || sending || !isConnected}
-            className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-blue-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.03] hover:bg-blue-700 disabled:scale-100 disabled:bg-gray-300 disabled:text-gray-500 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer"
-          >
-            {sending ? (
-              <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white"></div>
-            ) : (
-              'Envoyer'
-            )}
-          </button>
+          <div className="mt-2 flex items-center justify-between">
+            <span className="text-xs text-gray-500">{newMessage.length}/2000</span>
+            <button
+              onClick={handleSendMessage}
+              disabled={!newMessage.trim() || sending || !isConnected}
+              className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-blue-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:scale-[1.03] hover:bg-blue-700 disabled:scale-100 disabled:bg-gray-300 disabled:text-gray-500 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer"
+            >
+              {sending ? (
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white"></div>
+              ) : (
+                'Envoyer'
+              )}
+            </button>
+          </div>
         </div>
 
         {!isConnected && (

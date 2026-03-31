@@ -5,12 +5,13 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 interface ConfirmCancelDialogProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   title: string;
   message: string;
   confirmText?: string;
   cancelText?: string;
   type?: 'danger' | 'warning' | 'info';
+  isSubmitting?: boolean;
 }
 
 export default function ConfirmCancelDialog({
@@ -22,6 +23,7 @@ export default function ConfirmCancelDialog({
   confirmText,
   cancelText,
   type = 'danger',
+  isSubmitting = false,
 }: ConfirmCancelDialogProps) {
   const { t } = useTranslation();
 
@@ -31,11 +33,11 @@ export default function ConfirmCancelDialog({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && !isSubmitting) onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
+  }, [open, onClose, isSubmitting]);
 
   if (!open) return null;
 
@@ -68,7 +70,7 @@ export default function ConfirmCancelDialog({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black/50" onClick={onClose} />
+      <div className="fixed inset-0 bg-black/50" onClick={isSubmitting ? undefined : onClose} />
 
       {/* Dialog */}
       <div className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/10">
@@ -87,22 +89,25 @@ export default function ConfirmCancelDialog({
           {/* Actions */}
           <div className="flex items-center gap-3">
             {finalCancelText && (
+                <button
+                  onClick={onClose}
+                  disabled={isSubmitting}
+                  className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors cursor-pointer"
+                >
+                  {finalCancelText}
+                </button>
+              )}
               <button
-                onClick={onClose}
-                className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors cursor-pointer"
+                onClick={onConfirm}
+                disabled={isSubmitting}
+                className={`${finalCancelText ? 'flex-1' : 'w-full'} px-4 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors cursor-pointer ${getConfirmButtonColor()}`}
               >
-                {finalCancelText}
+                {isSubmitting ? (
+                  <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                ) : (
+                  finalConfirmText
+                )}
               </button>
-            )}
-            <button
-              onClick={() => {
-                onConfirm();
-                onClose();
-              }}
-              className={`${finalCancelText ? 'flex-1' : 'w-full'} px-4 py-2 text-sm font-medium text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors cursor-pointer ${getConfirmButtonColor()}`}
-            >
-              {finalConfirmText}
-            </button>
           </div>
         </div>
       </div>

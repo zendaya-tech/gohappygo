@@ -54,6 +54,7 @@ export type DemandAndTravelFilters = {
   type?: 'demand' | 'travel';
   description?: string;
   airlineId?: number;
+  orderBy?: string;
 };
 
 export interface Airport {
@@ -184,6 +185,7 @@ export async function getDemandAndTravel(
   if (filters.description) params.description = filters.description;
   if (filters.status) params.status = filters.status;
   if (typeof filters.isVerified === 'boolean') params.isVerified = filters.isVerified;
+  if (filters.orderBy) params.orderBy = filters.orderBy;
 
   // Pagination
   if (typeof filters.page === 'number') params.page = filters.page;

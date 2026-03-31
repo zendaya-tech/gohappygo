@@ -599,7 +599,12 @@ export default function CreatePackageDialog({
                   }`}
                 >
                   {submitting
-                    ? t('common.loadingStates.creating')
+                    ? (
+                        <>
+                          <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                          {t('common.loadingStates.creating')}
+                        </>
+                      )
                     : t('dialogs.createAnnounce.create')}
                 </button>
               )}

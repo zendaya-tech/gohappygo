@@ -160,12 +160,17 @@ function CheckoutForm({
         <button
           type="submit"
           disabled={!stripe || isSubmitting}
-          className={`w-full rounded-md py-3 text-base font-semibold text-white shadow cursor-pointer ${
+          className={`flex w-full items-center justify-center gap-2 rounded-md py-3 text-base font-semibold text-white shadow cursor-pointer ${
             !stripe || isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover'
           }`}
         >
           {isSubmitting
-            ? t('dialogs.booking.submitting')
+            ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                  {t('dialogs.booking.submitting')}
+                </>
+              )
             : t('dialogs.booking.payCta', {
                 amount: amount.toFixed(2),
                 currency: currencySymbol,

@@ -25,12 +25,14 @@ interface ActionCardProps {
     onClick: () => void;
     color?: 'blue' | 'green';
     disabled?: boolean;
+    loading?: boolean;
   };
   secondaryAction?: {
     label: string;
     onClick: () => void;
     color?: 'red' | 'outline';
     disabled?: boolean;
+    loading?: boolean;
   };
   statusBadge?: string;
   statusBadgeTone?: 'green' | 'red';
@@ -44,6 +46,7 @@ interface ActionCardProps {
     onClick: () => void;
     color?: 'blue' | 'green' | 'orange' | 'gray';
     disabled?: boolean;
+    loading?: boolean;
   };
   priceAboveActions?: boolean;
 }
@@ -72,6 +75,13 @@ const ActionCard: React.FC<ActionCardProps> = ({
   priceAboveActions,
 }) => {
   const { t } = useTranslation();
+  const renderLoadingSpinner = (tone: 'light' | 'dark' = 'light') => (
+    <span
+      className={`inline-block h-4 w-4 animate-spin rounded-full border-2 ${
+        tone === 'light' ? 'border-white/40 border-t-white' : 'border-gray-400/50 border-t-current'
+      }`}
+    />
+  );
   const isLongPrimaryLabel = (primaryAction?.label?.length || 0) > 18;
   const isLongSecondaryLabel = (secondaryAction?.label?.length || 0) > 18;
   const hasTwoActions = Boolean(primaryAction && secondaryAction);
@@ -175,9 +185,9 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {tertiaryAction && (
                   <button
                     onClick={tertiaryAction.onClick}
-                    disabled={tertiaryAction.disabled}
+                    disabled={tertiaryAction.disabled || tertiaryAction.loading}
                     className={`px-4 py-2 rounded-xl font-bold text-xs shadow-lg transition-all active:scale-95 cursor-pointer ${
-                      tertiaryAction.disabled
+                      tertiaryAction.disabled || tertiaryAction.loading
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-60'
                         : tertiaryAction.color === 'orange'
                           ? 'bg-orange-500 text-white hover:bg-orange-600 hover:shadow-md'
@@ -186,7 +196,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
                             : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
                     }`}
                   >
-                    {tertiaryAction.label}
+                    {tertiaryAction.loading ? renderLoadingSpinner() : tertiaryAction.label}
                   </button>
                 )}
                 <span
@@ -204,39 +214,39 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {primaryAction && (
                   <button
                     onClick={primaryAction.onClick}
-                    disabled={primaryAction.disabled}
+                    disabled={primaryAction.disabled || primaryAction.loading}
                     className={`px-3 py-2 md:px-4 md:py-2 text-white rounded-xl font-bold min-h-9 flex items-center justify-center ${
                       isLongPrimaryLabel
                         ? 'text-[9px] md:text-[10px] leading-tight'
                         : 'text-[10px] md'
                     } shadow-md transition-all active:scale-95 whitespace-nowrap ${hasTwoActions ? 'flex-1' : ''} ${
-                      primaryAction.disabled
+                      primaryAction.disabled || primaryAction.loading
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-70'
                         : primaryAction.color === 'green'
                           ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
                           : 'bg-blue-600 hover:bg-blue-700 cursor-pointer'
                     }`}
                   >
-                    {primaryAction.label}
+                    {primaryAction.loading ? renderLoadingSpinner() : primaryAction.label}
                   </button>
                 )}
                 {secondaryAction && (
                   <button
                     onClick={secondaryAction.onClick}
-                    disabled={secondaryAction.disabled}
+                    disabled={secondaryAction.disabled || secondaryAction.loading}
                     className={`px-3 py-2 md:px-4 md:py-2 font-bold rounded-xl transition-colors border-2 whitespace-nowrap min-h-9 flex items-center justify-center ${
                       isLongSecondaryLabel
                         ? 'text-[9px] md:text-[10px] leading-tight'
                         : 'text-[10px] md'
                     } ${hasTwoActions ? 'flex-1' : ''} ${
-                      secondaryAction.disabled
+                      secondaryAction.disabled || secondaryAction.loading
                         ? 'border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-80'
                         : secondaryAction.color === 'red'
                           ? 'border-red-500 text-red-500 hover:bg-red-50 cursor-pointer'
                           : 'border-gray-200 text-gray-500 hover:bg-gray-50 cursor-pointer'
                     }`}
                   >
-                    {secondaryAction.label}
+                    {secondaryAction.loading ? renderLoadingSpinner('dark') : secondaryAction.label}
                   </button>
                 )}
               </>

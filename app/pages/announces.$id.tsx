@@ -1300,11 +1300,6 @@ export default function AnnounceDetail() {
                   <button
                     onClick={() => {
                       if (!isLoggedIn) {
-                        showAlert(
-                          t('pages.announceDetail.alerts.loginRequired'),
-                          t('pages.announceDetail.alerts.loginToBook'),
-                          'warning'
-                        );
                         openRegister();
                         return;
                       }
@@ -1347,11 +1342,6 @@ export default function AnnounceDetail() {
                     <button
                       onClick={() => {
                         if (!isLoggedIn) {
-                          showAlert(
-                            t('pages.announceDetail.alerts.loginRequired'),
-                            t('pages.announceDetail.alerts.loginToBook'),
-                            'warning'
-                          );
                           openRegister();
                           return;
                         }

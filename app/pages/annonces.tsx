@@ -63,37 +63,6 @@ export default function Annonces() {
     { id: 'transport-request', label: t('pages.announces.filters.transportRequest') },
   ];
 
-  const getPriceValue = (item: any) => {
-    const rawValue = item?.pricePerKg ?? item?.price ?? null;
-    const numericValue =
-      typeof rawValue === 'string' ? parseFloat(rawValue) : Number(rawValue ?? Number.NaN);
-    return Number.isFinite(numericValue) ? numericValue : Number.POSITIVE_INFINITY;
-  };
-
-  const getDateValue = (item: any) => {
-    const rawDate =
-      item?.deliveryDate || item?.travelDate || item?.departureDatetime || item?.createdAt;
-    const timestamp = rawDate ? new Date(rawDate).getTime() : Number.NaN;
-    return Number.isFinite(timestamp) ? timestamp : Number.POSITIVE_INFINITY;
-  };
-
-  const applySelectedSorts = useCallback(
-    (items: any[]) => {
-      let sortedItems = [...items];
-
-      if (selectedFilters.includes('lowest-price')) {
-        sortedItems.sort((a, b) => getPriceValue(a) - getPriceValue(b));
-      }
-
-      if (selectedFilters.includes('travel-date')) {
-        sortedItems.sort((a, b) => getDateValue(a) - getDateValue(b));
-      }
-
-      return sortedItems;
-    },
-    [selectedFilters]
-  );
-
   // Build filters object
   const buildFilters = useCallback(() => {
     const filters: any = {
@@ -112,6 +81,11 @@ export default function Annonces() {
     const hasDemandFilter = selectedFilters.includes('transport-request');
     if (hasTravelFilter !== hasDemandFilter) {
       filters.type = hasTravelFilter ? 'travel' : 'demand';
+    }
+    if (selectedFilters.includes('lowest-price')) {
+      filters.orderBy = 'pricePerKg:asc';
+    } else if (selectedFilters.includes('travel-date')) {
+      filters.orderBy = 'createdAt:asc';
     }
 
     // Apply price range filters
@@ -150,10 +124,8 @@ export default function Annonces() {
         filters.page = 1;
 
         const apiRes = await getDemandAndTravel(filters);
-        let items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
+        const items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
         const responseMeta = apiRes?.meta;
-
-        items = applySelectedSorts(items);
 
         setResults(items);
         setMeta(responseMeta);
@@ -174,7 +146,6 @@ export default function Annonces() {
     weightRange,
     selectedAirline,
     buildFilters,
-    applySelectedSorts,
   ]);
 
   // Load more results for infinite scroll
@@ -187,10 +158,10 @@ export default function Annonces() {
       filters.page = currentPage + 1;
 
       const apiRes = await getDemandAndTravel(filters);
-      let items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
+      const items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
       const responseMeta = apiRes?.meta;
 
-      setResults((prev) => applySelectedSorts([...prev, ...items]));
+      setResults((prev) => [...prev, ...items]);
       setMeta(responseMeta);
       setCurrentPage((prev) => prev + 1);
       setHasMore(responseMeta?.hasNextPage ?? false);
@@ -199,7 +170,7 @@ export default function Annonces() {
     } finally {
       setLoadingMore(false);
     }
-  }, [loadingMore, hasMore, currentPage, buildFilters, applySelectedSorts]);
+  }, [loadingMore, hasMore, currentPage, buildFilters]);
 
   // Infinite scroll hook
   const sentinelRef = useInfiniteScroll({

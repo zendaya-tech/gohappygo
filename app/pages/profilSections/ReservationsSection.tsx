@@ -41,6 +41,7 @@ export const ReservationsSection = ({
   } | null>(null);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
+  const [actionLoadingKey, setActionLoadingKey] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
@@ -51,6 +52,11 @@ export const ReservationsSection = ({
 
   const [isOwnProfile] = useState(
     !userId || (currentUser && userId === currentUser.id?.toString())
+  );
+
+  const isActionLoading = useCallback(
+    (requestId: number, action: string) => actionLoadingKey === `${requestId}:${action}`,
+    [actionLoadingKey]
   );
 
   const fetchRequestsPage = useCallback(async (nextPage = 1, reset = false) => {
@@ -143,28 +149,35 @@ export const ReservationsSection = ({
   }, [hasMore, loading, loadingMore, page, fetchRequestsPage]);
 
   const handleAcceptRequest = async (requestId: number) => {
+    setActionLoadingKey(`${requestId}:accept`);
     try {
       await acceptRequest(requestId);
       await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error accepting request:', error);
       setErrorMessage(t('profile.messages.errorAccept'));
+    } finally {
+      setActionLoadingKey(null);
     }
   };
 
   const handleCompleteRequest = async (requestId: number) => {
+    setActionLoadingKey(`${requestId}:complete`);
     try {
       await completeRequest(requestId);
       await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error completing request:', error);
       setErrorMessage(t('profile.messages.errorComplete'));
+    } finally {
+      setActionLoadingKey(null);
     }
   };
 
   const handleCancelRequest = async () => {
     if (!requestToCancel) return;
 
+    setActionLoadingKey(`${requestToCancel.id}:cancel`);
     try {
       await cancelRequest(requestToCancel.id);
       await fetchRequestsPage(1, true);
@@ -173,26 +186,34 @@ export const ReservationsSection = ({
     } catch (error) {
       console.error('Error canceling request:', error);
       setErrorMessage(t('profile.messages.errorCancel'));
+    } finally {
+      setActionLoadingKey(null);
     }
   };
 
   const handleConfirmCancellation = async (requestId: number) => {
+    setActionLoadingKey(`${requestId}:confirm-cancellation`);
     try {
       await confirmCancellation(requestId);
       await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error confirming cancellation:', error);
       setErrorMessage(t('profile.messages.errorConfirmCancel'));
+    } finally {
+      setActionLoadingKey(null);
     }
   };
 
   const handleDisputeCancellation = async (requestId: number) => {
+    setActionLoadingKey(`${requestId}:dispute-cancellation`);
     try {
       await disputeCancellation(requestId);
       await fetchRequestsPage(1, true);
     } catch (error) {
       console.error('Error disputing cancellation:', error);
       setErrorMessage(t('profile.messages.errorDisputeCancel'));
+    } finally {
+      setActionLoadingKey(null);
     }
   };
 
@@ -394,6 +415,7 @@ export const ReservationsSection = ({
                     ? {
                         label: t('profile.actions.confirmReservation'),
                         onClick: () => handleAcceptRequest(request.id),
+                        loading: isActionLoading(request.id, 'accept'),
                       }
                     : request.currentStatus?.status === 'ACCEPTED' &&
                         requester?.id.toString() === currentUser?.id
@@ -423,6 +445,7 @@ export const ReservationsSection = ({
                               ? () => handleCompleteRequest(request.id)
                               : () => setErrorMessage(t('profile.messages.impossibleFinish')),
                             color: 'green' as const,
+                            loading: canComplete ? isActionLoading(request.id, 'complete') : false,
                           };
                         })()
                       : request.currentStatus?.status === 'PENDING_CANCELLATION_CONFIRMATION'
@@ -433,11 +456,12 @@ export const ReservationsSection = ({
                               color: 'green' as const,
                               disabled: true,
                             }
-                          : {
-                              label: t('profile.actions.approve'),
-                              onClick: () => handleConfirmCancellation(request.id),
-                              color: 'green' as const,
-                            }
+                            : {
+                                label: t('profile.actions.approve'),
+                                onClick: () => handleConfirmCancellation(request.id),
+                                color: 'green' as const,
+                                loading: isActionLoading(request.id, 'confirm-cancellation'),
+                              }
                         : undefined
                 }
                 secondaryAction={
@@ -483,6 +507,7 @@ export const ReservationsSection = ({
                                 label: t('profile.actions.dispute'),
                                 onClick: () => handleDisputeCancellation(request.id),
                                 color: 'red',
+                                loading: isActionLoading(request.id, 'dispute-cancellation'),
                               }
                           : undefined
                 }
@@ -567,6 +592,7 @@ export const ReservationsSection = ({
         confirmText={t('profile.messages.confirmCancel')}
         cancelText={t('profile.messages.keep')}
         type="danger"
+        isSubmitting={!!requestToCancel && isActionLoading(requestToCancel.id, 'cancel')}
       />
 
       {/* Review Dialog */}
