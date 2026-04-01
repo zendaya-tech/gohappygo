@@ -57,6 +57,12 @@
   }
 }
 
+body.april-fish-active {
+  transform: rotate(180deg);
+  transform-origin: center;
+  transition: transform 0.45s ease;
+}
+
 @theme {
   --font-sans:
     'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',

@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from 'react-router';
 import React from 'react';
 
@@ -123,10 +124,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { authenticate } = useAuth();
+  const location = useLocation();
+
+  const isAprilFishEnabled = import.meta.env.VITE_APRIL_FISH !== 'false';
 
   useEffect(() => {
     authenticate();
   }, [authenticate]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    document.body.classList.toggle('april-fish-active', isAprilFishEnabled);
+
+    return () => {
+      document.body.classList.remove('april-fish-active');
+    };
+  }, [isAprilFishEnabled, location.pathname, location.search, location.hash]);
 
   return (
     <>
