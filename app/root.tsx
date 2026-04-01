@@ -11,7 +11,7 @@ import React from 'react';
 
 import type { Route } from './+types/root';
 import './app.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from './hooks/useAuth';
 import ChatWidget from './components/chat/ChatWidget';
 import CookieConsent from './components/dialogs/CookieConsent';
@@ -125,6 +125,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { authenticate } = useAuth();
   const location = useLocation();
+  const [showAprilFishAlert, setShowAprilFishAlert] = useState(false);
 
   const isAprilFishEnabled = import.meta.env.VITE_APRIL_FISH !== 'false';
 
@@ -142,9 +143,50 @@ export default function App() {
     };
   }, [isAprilFishEnabled, location.pathname, location.search, location.hash]);
 
+  useEffect(() => {
+    if (!isAprilFishEnabled) {
+      setShowAprilFishAlert(false);
+      return;
+    }
+
+    setShowAprilFishAlert(true);
+  }, [isAprilFishEnabled, location.pathname, location.search, location.hash]);
+
   return (
     <>
       <Outlet />
+      {showAprilFishAlert && (
+        <div className="april-fish-modal fixed inset-0 z-[999] flex items-start justify-center overflow-y-auto bg-black/55 p-4 pt-6 md:pt-10">
+          <div className="relative w-full max-w-md rounded-3xl border border-red-300 bg-gradient-to-br from-red-700 via-red-600 to-red-900 p-6 text-white shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setShowAprilFishAlert(false)}
+              className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:bg-white/20 cursor-pointer"
+              aria-label="Fermer l'alerte"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 6l12 12M18 6L6 18"
+                />
+              </svg>
+            </button>
+            <div className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-red-100/80">
+              Alerte critique
+            </div>
+            <h2 className="mb-3 text-2xl font-black text-white">Incident visuel detecte</h2>
+            <p className="text-sm leading-6 text-red-50">
+              votre site a été piraté l&apos;orientation de l&apos;interface.
+             a été changé ,  envoyer 0.0002 bitcoin a l'adresse gtieoccbvddlgmdso  toute tentative de contacter les autoritées  judiciaires causera la divulgation de vos codes sources et de vos données .
+            </p>
+            <div className="mt-5 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-xs text-red-50/90">
+              Etat du systeme: lisez bien 
+            </div>
+          </div>
+        </div>
+      )}
       {/* <ChatWidget /> */}
       <CookieConsent />
     </>

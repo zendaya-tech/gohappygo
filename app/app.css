@@ -63,6 +63,10 @@ body.april-fish-active {
   transition: transform 0.45s ease;
 }
 
+body.april-fish-active .april-fish-modal {
+  transform: rotate(180deg);
+}
+
 @theme {
   --font-sans:
     'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
