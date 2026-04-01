@@ -3,6 +3,7 @@ import Footer from '../components/layout/Footer';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { io, type Socket } from 'socket.io-client';
 import FooterMinimal from '~/components/layout/FooterMinimal';
 import AnnounceCard from '~/components/cards/AnnounceCard';
 import SearchFiltersBar, { type SearchFiltersBarRef } from '~/components/forms/SearchFiltersBar';
@@ -41,6 +42,7 @@ export default function Annonces() {
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);
   const navigate = useNavigate();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const token = useAuthStore((state) => state.token);
   const searchFiltersRef = useRef<SearchFiltersBarRef>(null);
 
   // Zustand Store - Extraction des états et actions
@@ -147,6 +149,54 @@ export default function Annonces() {
     selectedAirline,
     buildFilters,
   ]);
+
+  useEffect(() => {
+    if (!isLoggedIn || !token) return;
+
+    const socket: Socket = io('https://api.gohappygo.fr/messages', {
+      auth: { token },
+      transports: ['websocket'],
+      timeout: 20000,
+      forceNew: true,
+    });
+
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+    socket.on(
+      'demand-travel-list-refresh',
+      (_payload: { type?: 'travel' | 'demand'; id?: number; timestamp?: string }) => {
+        if (refreshTimer) {
+          clearTimeout(refreshTimer);
+        }
+
+        refreshTimer = setTimeout(async () => {
+          try {
+            setError(null);
+            setCurrentPage(1);
+            const filters = buildFilters();
+            filters.page = 1;
+
+            const apiRes = await getDemandAndTravel(filters);
+            const items = Array.isArray(apiRes) ? apiRes : (apiRes?.items ?? []);
+            const responseMeta = apiRes?.meta;
+
+            setResults(items);
+            setMeta(responseMeta);
+            setHasMore(responseMeta?.hasNextPage ?? false);
+          } catch (e: any) {
+            console.error('Failed to refresh demand/travel list:', e);
+          }
+        }, 350);
+      }
+    );
+
+    return () => {
+      if (refreshTimer) {
+        clearTimeout(refreshTimer);
+      }
+      socket.disconnect();
+    };
+  }, [isLoggedIn, token, buildFilters]);
 
   // Load more results for infinite scroll
   const loadMore = useCallback(async () => {

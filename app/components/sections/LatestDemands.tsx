@@ -1,13 +1,17 @@
 import { Trans, useTranslation } from 'react-i18next';
 import i18n from '~/i18n';
 import { useEffect, useState } from 'react';
+import { io, type Socket } from 'socket.io-client';
 import AnnounceCard from '~/components/cards/AnnounceCard';
 import { getLatestDemands, type DemandTravelItem } from '~/services/announceService';
+import { useAuthStore } from '~/store/auth';
 
 export default function LatestDemands() {
   const { t } = useTranslation();
   const [demands, setDemands] = useState<DemandTravelItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const token = useAuthStore((state) => state.token);
 
   useEffect(() => {
     const fetchLatestDemands = async () => {
@@ -23,6 +27,43 @@ export default function LatestDemands() {
 
     fetchLatestDemands();
   }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn || !token) return;
+
+    const socket: Socket = io('https://api.gohappygo.fr/messages', {
+      auth: { token },
+      transports: ['websocket'],
+      timeout: 20000,
+      forceNew: true,
+    });
+
+    let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+    socket.on('demand-travel-list-refresh', (payload: { type?: 'demand'; id?: number }) => {
+      if (payload?.type && payload.type !== 'demand') return;
+
+      if (refreshTimer) {
+        clearTimeout(refreshTimer);
+      }
+
+      refreshTimer = setTimeout(async () => {
+        try {
+          const latestDemands = await getLatestDemands(6);
+          setDemands(latestDemands);
+        } catch (error) {
+          console.error('Error refreshing latest demands:', error);
+        }
+      }, 350);
+    });
+
+    return () => {
+      if (refreshTimer) {
+        clearTimeout(refreshTimer);
+      }
+      socket.disconnect();
+    };
+  }, [isLoggedIn, token]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
