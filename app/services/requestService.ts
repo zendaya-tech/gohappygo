@@ -34,6 +34,7 @@ export interface RequestResponse {
   travel?: any;
   demand?: any;
   unReadMessages?: number;
+  lastMessageDateTime?: string | null;
   canReview?: boolean;
   currency?: Currency;
 }

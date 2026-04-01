@@ -19,6 +19,7 @@ interface Conversation {
     createdAt: string;
     senderId: number;
   };
+  lastMessageDateTime?: string | null;
   unreadCount: number;
   travel: {
     departureAirport?: { name: string };
@@ -47,6 +48,56 @@ export default function ConversationList({
   const { user } = useAuth();
   const token = useAuthStore((state) => state.token);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
+  const sortConversationsByLatestMessage = (items: Conversation[]) => {
+    return [...items].sort((a, b) => {
+      const aTime = a.lastMessageDateTime ? new Date(a.lastMessageDateTime).getTime() : 0;
+      const bTime = b.lastMessageDateTime ? new Date(b.lastMessageDateTime).getTime() : 0;
+      return bTime - aTime;
+    });
+  };
+
+  const mapRequestsToConversations = (requests: RequestResponse[]): Conversation[] => {
+    return sortConversationsByLatestMessage(
+      requests
+        .filter((request) => {
+          return request.requester && request.travel;
+        })
+        .map((request) => {
+          let otherUser;
+
+          if (request.requester.id === Number(user?.id)) {
+            otherUser = {
+              id: request.travel!.owner!.id,
+              name: `${request.travel!.owner!.fullName}`,
+              avatar: (request.travel!.owner as any)?.profilePictureUrl || '/favicon.ico',
+            };
+          } else {
+            otherUser = {
+              id: request.requester!.id,
+              name: `${request.requester!.fullName}`,
+              avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico',
+            };
+          }
+
+          return {
+            id: request.id,
+            requestId: request.id,
+            otherUser,
+            lastMessageDateTime: request.lastMessageDateTime || null,
+            unreadCount: request.unReadMessages || 0,
+            travel: {
+              departureAirport: request.travel?.departureAirport,
+              arrivalAirport: request.travel?.arrivalAirport,
+              flightNumber: request.travel?.flightNumber,
+            },
+          };
+        })
+        .filter((conversation) => {
+          return conversation.otherUser.id !== Number(user?.id);
+        })
+    );
+  };
 
   const handleSelectConversation = (conversation: Conversation) => {
     // Mark conversation as read locally
@@ -80,48 +131,7 @@ export default function ConversationList({
         setTotalUnreadCount(unreadCount);
 
         // Transform requests into conversations
-        const conversationList: Conversation[] = requests
-          .filter((request) => {
-            // Always include conversations - we'll determine the other user in the mapping
-            return request.requester && request.travel;
-          })
-          .map((request) => {
-            // Determine who is the "other user" in the conversation
-            let otherUser;
-
-            if (request.requester.id === Number(user?.id)) {
-              // If current user is the requester, show the travel owner as the other user
-              otherUser = {
-                id: request.travel!.owner!.id,
-                name: `${request.travel!.owner!.fullName}`,
-                avatar: (request.travel!.owner as any)?.profilePictureUrl || '/favicon.ico',
-              };
-            } else {
-              // If current user is not the requester, show the requester as the other user
-              otherUser = {
-                id: request.requester!.id,
-                name: `${request.requester!.fullName}`,
-                avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico',
-              };
-            }
-
-            return {
-              id: request.id,
-              requestId: request.id,
-              otherUser,
-              unreadCount: request.unReadMessages || 0, // Use unReadMessages from request
-              travel: {
-                departureAirport: request.travel?.departureAirport,
-                arrivalAirport: request.travel?.arrivalAirport,
-                flightNumber: request.travel?.flightNumber,
-              },
-            };
-          })
-          .filter((conversation) => {
-            // Filter out any conversations where we couldn't determine the other user
-            // or where the other user is somehow the same as current user
-            return conversation.otherUser.id !== Number(user?.id);
-          });
+        const conversationList = mapRequestsToConversations(requests);
 
         setConversations(conversationList);
 
@@ -164,7 +174,7 @@ export default function ConversationList({
       if (!payload?.requestId) return;
 
       setConversations((prev) =>
-        prev.map((conversation) => {
+        sortConversationsByLatestMessage(prev.map((conversation) => {
           if (conversation.requestId !== payload.requestId) return conversation;
 
           if (selectedConversationId && conversation.id === selectedConversationId) {
@@ -172,7 +182,7 @@ export default function ConversationList({
           }
 
           return { ...conversation, unreadCount: conversation.unreadCount + 1 };
-        })
+        }))
       );
     });
 
@@ -190,38 +200,7 @@ export default function ConversationList({
             const requestsResponse = await getRequests();
             const requests = requestsResponse.items || [];
 
-            const conversationList: Conversation[] = requests
-              .filter((request) => request.requester && request.travel)
-              .map((request) => {
-                let otherUser;
-
-                if (request.requester.id === Number(user?.id)) {
-                  otherUser = {
-                    id: request.travel!.owner!.id,
-                    name: `${request.travel!.owner!.fullName}`,
-                    avatar: (request.travel!.owner as any)?.profilePictureUrl || '/favicon.ico',
-                  };
-                } else {
-                  otherUser = {
-                    id: request.requester!.id,
-                    name: `${request.requester!.fullName}`,
-                    avatar: (request.requester as any)?.profilePictureUrl || '/favicon.ico',
-                  };
-                }
-
-                return {
-                  id: request.id,
-                  requestId: request.id,
-                  otherUser,
-                  unreadCount: request.unReadMessages || 0,
-                  travel: {
-                    departureAirport: request.travel?.departureAirport,
-                    arrivalAirport: request.travel?.arrivalAirport,
-                    flightNumber: request.travel?.flightNumber,
-                  },
-                };
-              })
-              .filter((conversation) => conversation.otherUser.id !== Number(user?.id));
+            const conversationList = mapRequestsToConversations(requests);
 
             setConversations(conversationList);
           } catch (error) {
@@ -337,9 +316,9 @@ export default function ConversationList({
                   <p className="text-sm font-medium text-gray-900 truncate">
                     {conversation.otherUser.name}
                   </p>
-                  {conversation.lastMessage && (
+                  {conversation.lastMessageDateTime && (
                     <span className="text-xs text-gray-500">
-                      {formatTime(conversation.lastMessage.createdAt)}
+                      {formatTime(conversation.lastMessageDateTime)}
                     </span>
                   )}
                 </div>

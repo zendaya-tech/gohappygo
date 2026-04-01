@@ -18,6 +18,7 @@ export interface Conversation {
     createdAt: string;
     senderId: number;
   };
+  lastMessageDateTime?: string | null;
   unreadCount: number;
   travel: {
     departureAirport?: { name: string };
