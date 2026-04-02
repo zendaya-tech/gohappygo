@@ -233,7 +233,7 @@ export default function Header() {
             <div className="lg:hidden flex items-center space-x-1 relative">
               {/* Notifications for mobile - Only show if logged in */}
               {isLoggedIn && (
-                <div className="relative">
+                <div>
                   <button
                     className="text-gray-700 hover p-2 rounded-full hover transition-colors duration-200 relative"
                     onClick={() => setShowNotif((v) => !v)}

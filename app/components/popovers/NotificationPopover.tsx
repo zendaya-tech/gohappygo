@@ -489,7 +489,7 @@ export default function NotificationPopover({
   return (
     <div
       ref={containerRef}
-      className="absolute right-0 top-full mt-3 w-96 overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-gray-900/5 backdrop-blur-xl"
+      className="absolute right-0 top-full mt-3 w-75 md:w-96 overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-gray-900/5 backdrop-blur-xl"
       role="dialog"
       aria-label={t('header.popovers.notifications.title')}
       onMouseDown={(e) => e.stopPropagation()}
