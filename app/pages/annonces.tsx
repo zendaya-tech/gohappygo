@@ -87,7 +87,7 @@ export default function Annonces() {
     if (selectedFilters.includes('lowest-price')) {
       filters.orderBy = 'pricePerKg:asc';
     } else if (selectedFilters.includes('travel-date')) {
-      filters.orderBy = 'createdAt:asc';
+      filters.orderBy = 'travelDate:asc';
     }
 
     // Apply price range filters

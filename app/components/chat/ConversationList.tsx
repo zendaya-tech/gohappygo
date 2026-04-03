@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { io, type Socket } from 'socket.io-client';
 import { getRequests, type RequestResponse } from '~/services/requestService';
@@ -28,10 +28,17 @@ interface Conversation {
   };
 }
 
+type ConversationMessageUpdateDetail = {
+  requestId: number;
+  content?: string;
+  createdAt: string;
+  senderId: number;
+};
+
 interface ConversationListProps {
   onSelectConversation: (conversation: Conversation) => void;
   selectedConversationId?: number;
-  onConversationRead?: (conversationId: number) => void;
+  onConversationRead?: (conversationId: number, unreadCount: number) => void;
   initialRequestId?: number | null;
 }
 
@@ -99,7 +106,35 @@ export default function ConversationList({
     );
   };
 
-  const handleSelectConversation = (conversation: Conversation) => {
+  const applyConversationMessageUpdate = (
+    items: Conversation[],
+    detail: ConversationMessageUpdateDetail,
+    markAsUnread: boolean
+  ) => {
+    return sortConversationsByLatestMessage(
+      items.map((conversation) => {
+        if (conversation.requestId !== detail.requestId) return conversation;
+
+        const shouldKeepRead = selectedConversationId && conversation.id === selectedConversationId;
+
+        return {
+          ...conversation,
+          lastMessage: detail.content
+            ? {
+                content: detail.content,
+                createdAt: detail.createdAt,
+                senderId: detail.senderId,
+              }
+            : conversation.lastMessage,
+          lastMessageDateTime: detail.createdAt,
+          unreadCount:
+            markAsUnread && !shouldKeepRead ? conversation.unreadCount + 1 : conversation.unreadCount,
+        };
+      })
+    );
+  };
+
+  const handleSelectConversation = useCallback((conversation: Conversation) => {
     // Mark conversation as read locally
     if (conversation.unreadCount > 0) {
       setConversations((prev) =>
@@ -110,49 +145,58 @@ export default function ConversationList({
       setTotalUnreadCount((prev) => Math.max(0, prev - conversation.unreadCount));
 
       // Notify parent
-      onConversationRead?.(conversation.id);
+      onConversationRead?.(conversation.id, conversation.unreadCount);
     }
 
     // Call the original callback
     onSelectConversation(conversation);
-  };
+  }, [onConversationRead, onSelectConversation]);
+
+  const loadConversations = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      const requestsResponse = await getRequests(1, 1000);
+      const requests = requestsResponse.items || [];
+
+      const unreadCount = await getUnreadCount();
+      setTotalUnreadCount(unreadCount);
+
+      const conversationList = mapRequestsToConversations(requests);
+      setConversations(conversationList);
+
+      if (initialRequestId) {
+        const conversationToSelect = conversationList.find((conv) => conv.requestId === initialRequestId);
+        if (conversationToSelect) {
+          handleSelectConversation(conversationToSelect);
+        }
+      }
+    } catch (error) {
+      console.error('Error loading conversations:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [handleSelectConversation, initialRequestId, user?.id, t]);
 
   useEffect(() => {
-    const loadConversations = async () => {
-      try {
-        setLoading(true);
+    loadConversations();
+  }, [loadConversations]);
 
-        // Get all requests (which represent conversations)
-        const requestsResponse = await getRequests();
-        const requests = requestsResponse.items || [];
+  useEffect(() => {
+    const handleConversationMessageUpdate = (event: Event) => {
+      const customEvent = event as CustomEvent<ConversationMessageUpdateDetail>;
+      if (!customEvent.detail?.requestId) return;
 
-        // Get total unread count
-        const unreadCount = await getUnreadCount();
-        setTotalUnreadCount(unreadCount);
-
-        // Transform requests into conversations
-        const conversationList = mapRequestsToConversations(requests);
-
-        setConversations(conversationList);
-
-        // Auto-select conversation if initialRequestId is provided
-        if (initialRequestId) {
-          const conversationToSelect = conversationList.find(
-            (conv) => conv.requestId === initialRequestId
-          );
-          if (conversationToSelect) {
-            handleSelectConversation(conversationToSelect);
-          }
-        }
-      } catch (error) {
-        console.error('Error loading conversations:', error);
-      } finally {
-        setLoading(false);
-      }
+      setConversations((prev) =>
+        applyConversationMessageUpdate(prev, customEvent.detail, false)
+      );
     };
 
-    loadConversations();
-  }, [user?.id, initialRequestId]);
+    window.addEventListener('conversation-message-updated', handleConversationMessageUpdate);
+    return () => {
+      window.removeEventListener('conversation-message-updated', handleConversationMessageUpdate);
+    };
+  }, [selectedConversationId]);
 
   useEffect(() => {
     if (!isLoggedIn || !token) return;
@@ -173,16 +217,18 @@ export default function ConversationList({
 
       if (!payload?.requestId) return;
 
+      const requestId = payload.requestId;
+
       setConversations((prev) =>
-        sortConversationsByLatestMessage(prev.map((conversation) => {
-          if (conversation.requestId !== payload.requestId) return conversation;
-
-          if (selectedConversationId && conversation.id === selectedConversationId) {
-            return { ...conversation, unreadCount: 0 };
-          }
-
-          return { ...conversation, unreadCount: conversation.unreadCount + 1 };
-        }))
+        applyConversationMessageUpdate(
+          prev,
+          {
+            requestId,
+            createdAt: new Date().toISOString(),
+            senderId: 0,
+          },
+          true
+        )
       );
     });
 
@@ -197,12 +243,7 @@ export default function ConversationList({
 
         refreshTimer = setTimeout(async () => {
           try {
-            const requestsResponse = await getRequests();
-            const requests = requestsResponse.items || [];
-
-            const conversationList = mapRequestsToConversations(requests);
-
-            setConversations(conversationList);
+            await loadConversations();
           } catch (error) {
             console.error('Error refreshing conversations after request update:', error);
           }
@@ -216,7 +257,7 @@ export default function ConversationList({
       }
       socket.disconnect();
     };
-  }, [isLoggedIn, token, selectedConversationId, user?.id]);
+  }, [isLoggedIn, token, selectedConversationId, user?.id, t]);
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);

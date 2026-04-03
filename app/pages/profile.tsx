@@ -206,10 +206,13 @@ export default function Profile() {
     switch (activeSection) {
       case 'messages':
         return (
-          <MessagesSection
-            initialRequestId={autoSelectRequestId}
-            onAutoSelectCleared={() => setAutoSelectRequestId(null)}
-          />
+            <MessagesSection
+              initialRequestId={autoSelectRequestId}
+              onAutoSelectCleared={() => setAutoSelectRequestId(null)}
+              onConversationRead={(_, unreadCount) => {
+                setTotalUnreadCount((prev) => Math.max(0, prev - unreadCount));
+              }}
+            />
         );
       case 'reservations':
         return (
@@ -280,7 +283,7 @@ export default function Profile() {
                 {profileUser.profilePictureUrl ? (
                   <img
                     src={profileUser.profilePictureUrl}
-                    alt={profileUser.firstName}
+                    alt={profileUser.fullName}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -301,7 +304,7 @@ export default function Profile() {
               {/* User Name */}
               <div>
                 <h2 className="text-xl font-bold text-gray-900 truncate">
-                  {profileUser.firstName} {profileUser.lastName?.charAt(0)}.
+                  {profileUser.fullName}
                   {/* {isOwnProfile && ` (${t('common.user')})`} */}
                 </h2>
                 {/* <p className="text-sm text-gray-500 mt-1">

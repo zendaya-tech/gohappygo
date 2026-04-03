@@ -7,9 +7,11 @@ import type { Conversation } from './types';
 export const MessagesSection = ({
   initialRequestId,
   onAutoSelectCleared,
+  onConversationRead,
 }: {
   initialRequestId?: number | null;
   onAutoSelectCleared: () => void;
+  onConversationRead?: (conversationId: number, unreadCount: number) => void;
 }) => {
   const { t } = useTranslation();
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
@@ -34,6 +36,7 @@ export const MessagesSection = ({
             onSelectConversation={setSelectedConversation}
             selectedConversationId={selectedConversation?.id}
             initialRequestId={initialRequestId}
+            onConversationRead={onConversationRead}
           />
         </div>
 

@@ -38,6 +38,17 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
   const handleNewMessage = useCallback(
     (message: ChatMessage) => {
+      window.dispatchEvent(
+        new CustomEvent('conversation-message-updated', {
+          detail: {
+            requestId,
+            content: message.content,
+            createdAt: message.createdAt,
+            senderId: message.sender.id,
+          },
+        })
+      );
+
       if (message.sender.id === otherUser.id) {
         setIsOtherUserOnline(true);
       }
@@ -168,6 +179,16 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     try {
       const success = sendMessage(newMessage.trim());
       if (success) {
+        window.dispatchEvent(
+          new CustomEvent('conversation-message-updated', {
+            detail: {
+              requestId,
+              content: newMessage.trim(),
+              createdAt: new Date().toISOString(),
+              senderId: Number(currentUser?.id) || 0,
+            },
+          })
+        );
         setNewMessage('');
         // Stop typing indicator
         sendTyping(false);
