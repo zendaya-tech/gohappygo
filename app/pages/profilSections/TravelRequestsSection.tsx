@@ -116,7 +116,7 @@ export const TravelRequestsSection = () => {
                 user={
                   !isOwnProfile
                     ? {
-                        name: `${demand.user?.firstName} ${demand.user?.lastName.charAt(0)}.`,
+                        name: demand.user?.fullName || t('common.userDefault'),
                         avatar:
                           demand.user?.profilePictureUrl ||
                           demand.user?.selfieImage ||

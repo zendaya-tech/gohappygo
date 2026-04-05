@@ -212,9 +212,7 @@ export const ReviewsSection = () => {
           <div className="space-y-6">
             {reviews.map((review) => {
               const reviewer = tab === 'received' ? review.reviewer : review.reviewee;
-              const displayName = reviewer
-                ? `${reviewer.firstName} ${reviewer.lastName.charAt(0).toUpperCase()}.`.trim()
-                : t('common.userDefault');
+              const displayName = reviewer?.fullName?.trim() || t('common.userDefault');
 
               return (
                 <div

@@ -3,6 +3,7 @@ import api from "./Api";
 export interface ReviewUser {
   id: number;
   createdAt: string;
+  fullName?: string;
   firstName: string;
   lastName: string;
   email: string;

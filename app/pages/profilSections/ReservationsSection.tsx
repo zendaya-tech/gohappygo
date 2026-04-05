@@ -248,9 +248,7 @@ export const ReservationsSection = ({
     const isCurrentUserRequester = requester?.id.toString() === currentUser?.id;
     const reviewee = isCurrentUserRequester ? travelOwner : requester;
 
-    return reviewee
-      ? `${reviewee.firstName} ${reviewee.lastName.charAt(0)}.`
-      : t('common.userDefault');
+    return reviewee?.fullName?.trim() || t('common.userDefault');
   };
 
   const handleReviewSuccess = () => {
