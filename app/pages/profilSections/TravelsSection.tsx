@@ -122,7 +122,7 @@ export const TravelsSection = () => {
               <img
                 src="/images/noTravelDemandes.png"
                 alt={t('profile.messages.noTravelsFound')}
-                className="w-[20%] h-[20%]"
+                className="w-40 h-40 object-contain"
               />
               <span className="font-bold text-lg my-6">
                 {t('profile.messages.noTravelsFoundSubImageText')}

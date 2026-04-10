@@ -327,7 +327,7 @@ export const ReservationsSection = ({
           <img
             src="/images/noReservations.png"
             alt={t('profile.messages.noReservations')}
-            className="w-[15%] h-[15%]"
+            className="w-40 h-40 object-contain"
           />
           <span className="font-bold text-lg my-6">
             {t('profile.messages.noReservationsSubImageText')}
