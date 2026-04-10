@@ -436,7 +436,7 @@ export default function Annonces() {
                     height="200"
                     viewBox="0 0 120 120"
                     fill="none"
-                    className="text-blue-500"
+                    className="text-blue-600"
                   >
                     {/* Suitcase body */}
                     <rect
