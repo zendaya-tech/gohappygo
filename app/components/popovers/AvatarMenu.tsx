@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { LogIn, UserPlus } from 'lucide-react';
@@ -10,6 +10,7 @@ export default function AvatarMenu({
   isLoggedIn = false,
   onOpenLogin,
   onOpenRegister,
+  triggerRef,
 }: {
   open: boolean;
   onClose: () => void;
@@ -17,6 +18,7 @@ export default function AvatarMenu({
   isLoggedIn?: boolean;
   onOpenLogin?: () => void;
   onOpenRegister?: () => void;
+  triggerRef?: React.RefObject<HTMLButtonElement | null>;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { t } = useTranslation();
@@ -27,7 +29,14 @@ export default function AvatarMenu({
       if (e.key === 'Escape') onClose();
     };
     const onClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+      const target = e.target as Node;
+      if (ref.current && !ref.current.contains(target)) {
+        // Si on clique sur le bouton de déclenchement, on laisse le bouton gérer le toggle
+        if (triggerRef?.current && triggerRef.current.contains(target)) {
+          return;
+        }
+        onClose();
+      }
     };
     window.addEventListener('keydown', onKey);
     window.addEventListener('mousedown', onClickOutside);
@@ -35,7 +44,7 @@ export default function AvatarMenu({
       window.removeEventListener('keydown', onKey);
       window.removeEventListener('mousedown', onClickOutside);
     };
-  }, [open, onClose]);
+  }, [open, onClose, triggerRef]);
 
   if (!open) return null;
 

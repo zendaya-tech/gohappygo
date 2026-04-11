@@ -432,11 +432,11 @@ export default function Annonces() {
                 {/* Empty state illustration */}
                 <div className="mb-8">
                   <svg
-                    width="120"
-                    height="120"
+                    width="200"
+                    height="200"
                     viewBox="0 0 120 120"
                     fill="none"
-                    className="text-blue-500"
+                    className="text-blue-600"
                   >
                     {/* Suitcase body */}
                     <rect

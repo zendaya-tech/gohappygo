@@ -37,6 +37,8 @@ export default function Header() {
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   const [showMobilePublishOptions, setShowMobilePublishOptions] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const avatarBtnRefDesktop = useRef<HTMLButtonElement>(null);
+  const avatarBtnRefMobile = useRef<HTMLButtonElement>(null);
   const handleAnnounceTypeSelect = (type: 'travel' | 'package') => {
     if (type === 'travel') {
       setShowCreateAnnounce(true);
@@ -168,6 +170,7 @@ export default function Header() {
               <div className="w-px h-6 bg-gray-300"></div>
               <div className="relative">
                 <button
+                  ref={avatarBtnRefDesktop}
                   className="flex items-center gap-2 rounded-lg p-1.5 hover transition-colors duration-200 cursor-pointer"
                   onClick={() => setShowAvatarMenuDesktop((v) => !v)}
                   aria-label={t('header.ariaLabels.openAvatarMenu')}
@@ -196,7 +199,7 @@ export default function Header() {
                     </div>
                   )}
                   <svg
-                    className="h-4 w-4 text-gray-500"
+                    className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${showAvatarMenuDesktop ? 'rotate-180' : ''}`}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -212,6 +215,7 @@ export default function Header() {
                 <AvatarMenu
                   open={showAvatarMenuDesktop}
                   onClose={() => setShowAvatarMenuDesktop(false)}
+                  triggerRef={avatarBtnRefDesktop}
                   onOpenSettings={() => {
                     setShowAvatarMenuDesktop(false);
                   }}
@@ -269,6 +273,7 @@ export default function Header() {
               {/* Avatar with dropdown for mobile */}
               <div>
                 <button
+                  ref={avatarBtnRefMobile}
                   className="flex items-center hover rounded-lg p-2 transition-colors duration-200"
                   onClick={() => setShowAvatarMenuMobile((v) => !v)}
                   aria-label={t('header.ariaLabels.openAvatarMenu')}
@@ -297,7 +302,7 @@ export default function Header() {
                     </div>
                   )}
                   <svg
-                    className="h-4 w-4 text-gray-500"
+                    className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${showAvatarMenuMobile ? 'rotate-180' : ''}`}
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -313,6 +318,7 @@ export default function Header() {
                 <AvatarMenu
                   open={showAvatarMenuMobile}
                   onClose={() => setShowAvatarMenuMobile(false)}
+                  triggerRef={avatarBtnRefMobile}
                   onOpenSettings={() => {
                     setShowAvatarMenuMobile(false);
                   }}

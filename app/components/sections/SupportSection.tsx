@@ -92,15 +92,15 @@ export default function SupportSection() {
           </Link>
         </div>
 
-        <Link
-          to="/assurance-colis"
-          className="bg-[url('/images/axa-logo.jpeg')] bg-cover bg-center flex flex-col justify-start text-white p-6 rounded-2xl min-h-[420px]"
-        >
-          <h3 className="text-xl font-bold">{t('home.supportSection.insurance.title')}</h3>
-          <div className="w-[70%]">
-            <span className="text-gray-300 text-lg">
-              {t('home.supportSection.insurance.description')}
-            </span>
+        <Link to="/assurance-colis" className="relative min-h-[200px]">
+          <img src="/images/axa-logo.jpeg" alt="axa logo" className="w-full h-full rounded-2xl" />
+          <div className="absolute right-0 top-0 flex flex-col justify-start text-white p-6 ">
+            <h3 className="text-xl font-bold">{t('home.supportSection.insurance.title')}</h3>
+            <div className="w-[70%]">
+              <span className="text-gray-300 text-xl md:text-sm lg:text-lg">
+                {t('home.supportSection.insurance.description')}
+              </span>
+            </div>
           </div>
         </Link>
 
