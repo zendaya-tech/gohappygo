@@ -1,4 +1,6 @@
 import type { Route } from './+types/home';
+import { Capacitor } from '@capacitor/core';
+import { Navigate } from 'react-router';
 import Header from '../components/layout/Header';
 import HeroSection from '../components/features/home/HeroSection';
 import FeaturesSection from '../components/features/home/FeaturesSection';
@@ -27,6 +29,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+  if (Capacitor.isNativePlatform()) {
+    return <Navigate to="/annonces" replace />;
+  }
+
   return (
     <>
       <Header />

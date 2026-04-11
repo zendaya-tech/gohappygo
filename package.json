@@ -4,6 +4,10 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
+    "build:mobile": "react-router build",
+    "cap:sync": "pnpm run build:mobile && cap sync",
+    "cap:open:android": "cap open android",
+    "cap:open:ios": "cap open ios",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
@@ -14,6 +18,10 @@
     "check": "npm run format:check && npm run lint && npm run typecheck"
   },
   "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/core": "^8.3.0",
+    "@capacitor/ios": "^8.3.0",
+    "@capacitor/splash-screen": "^8.0.1",
     "@heroicons/react": "^2.2.0",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
@@ -37,6 +45,7 @@
     "zustand": "^5.0.7"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.3.0",
     "@eslint/js": "^9.39.2",
     "@react-router/dev": "^7.5.3",
     "@tailwindcss/vite": "^4.1.4",

@@ -372,16 +372,6 @@ export default function ConversationList({
                     ` • ${t('profile.messages.flight')} ${conversation.travel.flightNumber}`}
                 </p>
 
-                {/* Last message */}
-                {conversation.lastMessage && (
-                  <p
-                    className={`text-sm truncate ${
-                      conversation.unreadCount > 0 ? 'font-medium text-gray-900' : 'text-gray-500'
-                    }`}
-                  >
-                    {conversation.lastMessage.content}
-                  </p>
-                )}
               </div>
             </div>
           </div>
