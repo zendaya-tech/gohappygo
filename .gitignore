@@ -7,3 +7,25 @@
 
 .VScodeCounter/
 .env
+*.apk
+*.aab
+
+# Capacitor / mobile builds
+android/.gradle/
+android/.idea/
+android/app/build/
+android/build/
+android/capacitor-cordova-android-plugins/
+android/local.properties
+android/app/debug/
+android/app/release/
+
+ios/App/Pods/
+ios/App/build/
+ios/DerivedData/
+ios/.symlinks/
+
+# Generated native artifacts
+*.apks
+*.ipa
+*.xcarchive
