@@ -12,6 +12,8 @@ import React from 'react';
 import type { Route } from './+types/root';
 import './app.css';
 import { useEffect, useState } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { useAuth } from './hooks/useAuth';
 import ChatWidget from './components/chat/ChatWidget';
 import CookieConsent from './components/dialogs/CookieConsent';
@@ -132,6 +134,20 @@ export default function App() {
   useEffect(() => {
     authenticate();
   }, [authenticate]);
+
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    const timer = window.setTimeout(() => {
+      SplashScreen.hide().catch((error) => {
+        console.warn('Unable to hide splash screen:', error);
+      });
+    }, 1400);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof document === 'undefined') return;

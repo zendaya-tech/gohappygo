@@ -377,7 +377,11 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
                           : 'bg-white text-gray-800 border border-gray-200 rounded-bl-sm'
                       }`}
                     >
-                      <p className="text-sm whitespace-pre-wrap break-words overflow-wrap-anywhere">
+                      <p
+                        className={`text-sm whitespace-pre-wrap break-words overflow-wrap-anywhere ${
+                          isOwn ? 'text-white' : 'text-gray-800'
+                        }`}
+                      >
                         {message.content}
                       </p>
                     </div>
