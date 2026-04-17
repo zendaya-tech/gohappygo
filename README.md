@@ -69,6 +69,15 @@ Defined in `.env.example`:
 - `app/store/` - State management
 - `public/` - Static assets
 
+## Realtime Data
+
+- Profile messages are tied to reservation `requestId`s, not standalone chat threads.
+- The conversation list uses `lastMessageDateTime` to sort the most recent conversations first.
+- Socket refreshes are used to keep lists in sync without a manual reload:
+  - `request-list-refresh` updates profile reservations and message conversations.
+  - `demand-travel-list-refresh` refreshes the home `travel` and `demand` sections.
+- The frontend expects authenticated Socket.IO access for these live updates.
+
 ## Notes
 
 - Styling uses Tailwind CSS.

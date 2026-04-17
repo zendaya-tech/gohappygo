@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 import { io, type Socket } from 'socket.io-client';
@@ -24,12 +24,15 @@ export const ReservationsSection = ({
   onNavigateToMessages?: (requestId: number) => void;
 }) => {
   const { t } = useTranslation();
-  const [tab, setTab] = useState<'pending' | 'accepted' | 'completed' | 'cancelled'>('pending');
-  const [requests, setRequests] = useState<RequestResponse[]>([]);
+  const [tab, setTab] = useState<'pending' | 'accepted' | 'completed'>('pending');
+  const [requestsByTab, setRequestsByTab] = useState<
+    Record<'pending' | 'accepted' | 'completed', RequestResponse[]>
+  >({
+    pending: [],
+    accepted: [],
+    completed: [],
+  });
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [messageDialogOpen, setMessageDialogOpen] = useState(false);
   const [cancelConfirmOpen, setCancelConfirmOpen] = useState(false);
@@ -43,7 +46,6 @@ export const ReservationsSection = ({
   const [requestToReview, setRequestToReview] = useState<RequestResponse | null>(null);
   const [actionLoadingKey, setActionLoadingKey] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const userId = searchParams.get('user');
   const { user: currentUser } = useAuth();
@@ -54,39 +56,46 @@ export const ReservationsSection = ({
     !userId || (currentUser && userId === currentUser.id?.toString())
   );
 
+  const tabStatusFilterMap = useMemo(
+    () => ({
+      pending: 'TO_CONFIRM',
+      accepted: 'AWAITING_DELIVER',
+      completed: 'FINISHED',
+    }),
+    []
+  );
+
   const isActionLoading = useCallback(
     (requestId: number, action: string) => actionLoadingKey === `${requestId}:${action}`,
     [actionLoadingKey]
   );
 
-  const fetchRequestsPage = useCallback(async (nextPage = 1, reset = false) => {
+  const fetchRequestsForTab = useCallback(async (targetTab: keyof typeof tabStatusFilterMap) => {
     try {
-      if (reset) {
-        setLoading(true);
-      } else {
-        setLoadingMore(true);
-      }
-
-      const response = await getRequests(nextPage, 12);
+      const response = await getRequests(1, 1000, tabStatusFilterMap[targetTab]);
       const incoming = response.items || [];
-
-      setRequests((prev) => (reset ? incoming : [...prev, ...incoming]));
-      setPage(nextPage);
-      setHasMore(response.meta?.hasNextPage || false);
+      setRequestsByTab((prev) => ({ ...prev, [targetTab]: incoming }));
     } catch (error) {
       console.error('Error fetching requests:', error);
-    } finally {
-      if (reset) {
-        setLoading(false);
-      } else {
-        setLoadingMore(false);
-      }
     }
-  }, []);
+  }, [tabStatusFilterMap]);
+
+  const fetchAllTabRequests = useCallback(async () => {
+    setLoading(true);
+    try {
+      await Promise.all([
+        fetchRequestsForTab('pending'),
+        fetchRequestsForTab('accepted'),
+        fetchRequestsForTab('completed'),
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchRequestsForTab]);
 
   useEffect(() => {
-    fetchRequestsPage(1, true);
-  }, [fetchRequestsPage]);
+    fetchAllTabRequests();
+  }, [fetchAllTabRequests]);
 
   useEffect(() => {
     if (!isOwnProfile || !isLoggedIn || !token) return;
@@ -108,7 +117,7 @@ export const ReservationsSection = ({
         }
 
         refreshTimer = setTimeout(() => {
-          fetchRequestsPage(1, true);
+          fetchAllTabRequests();
         }, 350);
       }
     );
@@ -116,11 +125,16 @@ export const ReservationsSection = ({
     socket.on('message-notification', (payload: { requestId?: number }) => {
       if (!payload?.requestId) return;
 
-      setRequests((prev) =>
-        prev.map((request) => {
-          if (request.id !== payload.requestId) return request;
-          return { ...request, unReadMessages: (request.unReadMessages || 0) + 1 };
-        })
+      setRequestsByTab((prev) =>
+        Object.fromEntries(
+          Object.entries(prev).map(([tabKey, list]) => [
+            tabKey,
+            list.map((request) => {
+              if (request.id !== payload.requestId) return request;
+              return { ...request, unReadMessages: (request.unReadMessages || 0) + 1 };
+            }),
+          ])
+        ) as typeof prev
       );
     });
 
@@ -130,29 +144,13 @@ export const ReservationsSection = ({
       }
       socket.disconnect();
     };
-  }, [isOwnProfile, isLoggedIn, token, fetchRequestsPage]);
-
-  useEffect(() => {
-    if (!loadMoreRef.current || !hasMore || loading || loadingMore) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          fetchRequestsPage(page + 1);
-        }
-      },
-      { rootMargin: '200px' }
-    );
-
-    observer.observe(loadMoreRef.current);
-    return () => observer.disconnect();
-  }, [hasMore, loading, loadingMore, page, fetchRequestsPage]);
+  }, [isOwnProfile, isLoggedIn, token, fetchAllTabRequests]);
 
   const handleAcceptRequest = async (requestId: number) => {
     setActionLoadingKey(`${requestId}:accept`);
     try {
       await acceptRequest(requestId);
-      await fetchRequestsPage(1, true);
+      await fetchAllTabRequests();
     } catch (error) {
       console.error('Error accepting request:', error);
       setErrorMessage(t('profile.messages.errorAccept'));
@@ -165,7 +163,7 @@ export const ReservationsSection = ({
     setActionLoadingKey(`${requestId}:complete`);
     try {
       await completeRequest(requestId);
-      await fetchRequestsPage(1, true);
+      await fetchAllTabRequests();
     } catch (error) {
       console.error('Error completing request:', error);
       setErrorMessage(t('profile.messages.errorComplete'));
@@ -180,7 +178,7 @@ export const ReservationsSection = ({
     setActionLoadingKey(`${requestToCancel.id}:cancel`);
     try {
       await cancelRequest(requestToCancel.id);
-      await fetchRequestsPage(1, true);
+      await fetchAllTabRequests();
       setRequestToCancel(null);
       setCancelConfirmOpen(false);
     } catch (error) {
@@ -195,7 +193,7 @@ export const ReservationsSection = ({
     setActionLoadingKey(`${requestId}:confirm-cancellation`);
     try {
       await confirmCancellation(requestId);
-      await fetchRequestsPage(1, true);
+      await fetchAllTabRequests();
     } catch (error) {
       console.error('Error confirming cancellation:', error);
       setErrorMessage(t('profile.messages.errorConfirmCancel'));
@@ -208,7 +206,7 @@ export const ReservationsSection = ({
     setActionLoadingKey(`${requestId}:dispute-cancellation`);
     try {
       await disputeCancellation(requestId);
-      await fetchRequestsPage(1, true);
+      await fetchAllTabRequests();
     } catch (error) {
       console.error('Error disputing cancellation:', error);
       setErrorMessage(t('profile.messages.errorDisputeCancel'));
@@ -253,7 +251,7 @@ export const ReservationsSection = ({
 
   const handleReviewSuccess = () => {
     // Refresh requests
-    fetchRequestsPage(1, true);
+    fetchAllTabRequests();
   };
 
   const formatDate = (dateString: string) => {
@@ -275,15 +273,7 @@ export const ReservationsSection = ({
       .join(' ');
   };
 
-  const filtered = requests.filter((r) => {
-    const status = r.currentStatus?.status?.toUpperCase();
-    if (tab === 'pending') return status === 'NEGOTIATING';
-    if (tab === 'accepted')
-      return status === 'ACCEPTED' || status === 'PENDING_CANCELLATION_CONFIRMATION';
-    if (tab === 'completed') return status === 'COMPLETED' || status === 'CANCELLATION_DISPUTED';
-    if (tab === 'cancelled') return status === 'CANCELLED';
-    return false;
-  });
+  const filtered = requestsByTab[tab] || [];
 
   if (loading) {
     return (
@@ -540,10 +530,6 @@ export const ReservationsSection = ({
             })}
           </div>
 
-          {loadingMore && (
-            <div className="text-center text-sm text-gray-500 mt-4">{t('common.loading')}</div>
-          )}
-          <div ref={loadMoreRef} className="h-2" />
         </>
       )}
 

@@ -15,9 +15,11 @@ import { useInfiniteScroll } from '~/hooks/useInfiniteScroll';
 import CreateAlertDialog from '~/components/dialogs/CreateAlertDialog';
 import i18n from '~/i18n';
 import { useAuthStore } from '~/store/auth';
+import { useIsNativeApp } from '~/hooks/useIsNativeApp';
 
 export default function Annonces() {
   const { t } = useTranslation();
+  const isNativeApp = useIsNativeApp();
   const location = useLocation();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const urlParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
@@ -258,9 +260,17 @@ export default function Annonces() {
     <div className="min-h-screen relative">
       <Header />
 
-      <main className="mx-auto relative max-w-7xl py-4 md:py-8 px-4">
+      <main
+        className={`mx-auto relative max-w-7xl px-4 ${
+          isNativeApp ? 'py-2 md:py-8' : 'py-4 md:py-8'
+        }`}
+      >
         {/* Search Bar */}
-        <div className="sticky bg-white z-10 top-16 md:top-20 pt-4 md:pt-10 left-0 w-full">
+        <div
+          className={`sticky left-0 z-10 w-full bg-white ${
+            isNativeApp ? 'top-0 pt-1 md:top-20 md:pt-10' : 'top-16 pt-4 md:top-20 md:pt-10'
+          }`}
+        >
           <SearchFiltersBar
             ref={searchFiltersRef}
             initialFrom={searchParams.from}

@@ -14,9 +14,11 @@ import { Link } from 'react-router';
 import { useAuthStore, type AuthState } from '~/store/auth';
 import LanguageDropdown from '~/components/popovers/LanguageDropdown';
 import { notificationService } from '~/services/notificationService';
+import { useIsNativeApp } from '~/hooks/useIsNativeApp';
 
 export default function Header() {
   const { t } = useTranslation();
+  const isNativeApp = useIsNativeApp();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isLoggedIn = useAuthStore((s: AuthState) => {
     return s.isLoggedIn;
@@ -83,7 +85,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+      {!isNativeApp && <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -479,9 +481,9 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </header>
+      </header>}
 
-      {isLoggedIn && uqer && uqer.isEmailVerified === false && (
+      {!isNativeApp && isLoggedIn && uqer && uqer.isEmailVerified === false && (
         <div className="bg-amber-50 border-b border-amber-200">
           <div className="mx-auto px-4 sm:px-6 lg:px-8 py-2.5 text-sm text-amber-900 flex items-center justify-between gap-3">
             <span>{t('header.emailNotVerified')}</span>

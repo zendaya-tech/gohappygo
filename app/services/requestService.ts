@@ -69,12 +69,17 @@ export const createRequestToTravel = async (
   }
 };
 
-export const getRequests = async (page = 1, limit = 12): Promise<PaginatedRequests> => {
+export const getRequests = async (
+  page = 1,
+  limit = 12,
+  status?: string
+): Promise<PaginatedRequests> => {
   try {
     const response = await api.get('/request', {
       params: {
         page,
         limit,
+        ...(status ? { status } : {}),
       },
     });
     return response.data;

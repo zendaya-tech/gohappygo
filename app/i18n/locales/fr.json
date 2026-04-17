@@ -863,6 +863,13 @@
     "vi": "Vietnamien",
     "zh": "Chinois"
   },
+  "mobileTabBar": {
+    "messages": "Messages",
+    "profile": "Profil",
+    "publish": "Publier",
+    "search": "Rechercher",
+    "travels": "Vos voyages"
+  },
   "pages": {
     "announceDetail": {
       "addToFavorites": "Ajouter aux favoris",

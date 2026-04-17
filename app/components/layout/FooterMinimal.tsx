@@ -1,9 +1,14 @@
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { useIsNativeApp } from '~/hooks/useIsNativeApp';
 
 export default function FooterMinimal() {
   const { t } = useTranslation();
+  const isNativeApp = useIsNativeApp();
   const year = new Date().getFullYear();
+
+  if (isNativeApp) return null;
+
   return (
     <footer className="border-t border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">

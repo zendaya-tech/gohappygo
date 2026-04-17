@@ -5,6 +5,7 @@ export default [
   route('/annonces', 'pages/annonces.tsx'),
   route('/announces', 'pages/announces.$id.tsx'),
   route('/profile', 'pages/profile.tsx'),
+  route('/profile/:section', 'pages/profile.$section.tsx'),
   route('/terms-privacy', 'pages/terms.tsx'),
   route('/logout', 'pages/logout.tsx'),
   route('/logos', 'pages/logos.tsx'),

@@ -2,12 +2,16 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SupportDialog from '~/components/dialogs/SupportDialog';
 import { Link, useLocation } from 'react-router';
+import { useIsNativeApp } from '~/hooks/useIsNativeApp';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const isNativeApp = useIsNativeApp();
   const year = new Date().getFullYear();
   const [supportDialogOpen, setSupportDialogOpen] = useState(false);
   const currentPath = useLocation().pathname;
+
+  if (isNativeApp) return null;
 
   return (
     <>

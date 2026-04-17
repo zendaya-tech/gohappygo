@@ -18,6 +18,8 @@ import { useAuth } from './hooks/useAuth';
 import ChatWidget from './components/chat/ChatWidget';
 import CookieConsent from './components/dialogs/CookieConsent';
 import { useTranslation } from 'react-i18next';
+import MobileTabBar from './components/layout/MobileTabBar';
+import { useIsNativeApp } from './hooks/useIsNativeApp';
 import './i18n';
 
 export const links: Route.LinksFunction = () => [
@@ -128,6 +130,7 @@ export default function App() {
   const { authenticate } = useAuth();
   const location = useLocation();
   const [showAprilFishAlert, setShowAprilFishAlert] = useState(false);
+  const isNativeApp = useIsNativeApp();
 
   const isAprilFishEnabled = import.meta.env.VITE_APRIL_FISH !== 'false';
 
@@ -138,6 +141,9 @@ export default function App() {
   useEffect(() => {
     if (!Capacitor.isNativePlatform()) return;
 
+    document.documentElement.classList.add('native-app-shell');
+    document.body.classList.add('native-app-shell');
+
     const timer = window.setTimeout(() => {
       SplashScreen.hide().catch((error) => {
         console.warn('Unable to hide splash screen:', error);
@@ -146,6 +152,8 @@ export default function App() {
 
     return () => {
       window.clearTimeout(timer);
+      document.documentElement.classList.remove('native-app-shell');
+      document.body.classList.remove('native-app-shell');
     };
   }, []);
 
@@ -160,6 +168,18 @@ export default function App() {
   }, [isAprilFishEnabled, location.pathname, location.search, location.hash]);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    document.documentElement.classList.toggle('native-app-shell', isNativeApp);
+    document.body.classList.toggle('native-app-shell', isNativeApp);
+
+    return () => {
+      document.documentElement.classList.remove('native-app-shell');
+      document.body.classList.remove('native-app-shell');
+    };
+  }, [isNativeApp]);
+
+  useEffect(() => {
     if (!isAprilFishEnabled) {
       setShowAprilFishAlert(false);
       return;
@@ -170,7 +190,10 @@ export default function App() {
 
   return (
     <>
-      <Outlet />
+      <div className={isNativeApp ? 'pb-24' : ''}>
+        <Outlet />
+      </div>
+      {isNativeApp && <MobileTabBar />}
       {showAprilFishAlert && (
         <div className="april-fish-modal fixed inset-0 z-[999] flex items-start justify-center overflow-y-auto bg-black/55 p-4 pt-6 md:pt-10">
           <div className="relative w-full max-w-md rounded-3xl border border-red-300 bg-gradient-to-br from-red-700 via-red-600 to-red-900 p-6 text-white shadow-2xl">

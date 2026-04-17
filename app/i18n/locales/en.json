@@ -863,6 +863,13 @@
     "vi": "Vietnamese",
     "zh": "Chinese"
   },
+  "mobileTabBar": {
+    "messages": "Messages",
+    "profile": "Profile",
+    "publish": "Publish",
+    "search": "Search",
+    "travels": "Your travels"
+  },
   "pages": {
     "announceDetail": {
       "addToFavorites": "Add to favorites",

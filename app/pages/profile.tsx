@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { io, type Socket } from 'socket.io-client';
 import Header from '../components/layout/Header';
 import FooterMinimal from '~/components/layout/FooterMinimal';
@@ -31,6 +31,8 @@ import { useAuthStore } from '~/store/auth';
 export default function Profile() {
   const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
+  const { section: sectionParam } = useParams();
+  const navigate = useNavigate();
   const userId = searchParams.get('user'); // Get user ID from query params
   const { user: currentUser, isAuthenticated } = useAuth();
   const token = useAuthStore((state) => state.token);
@@ -39,22 +41,11 @@ export default function Profile() {
   // Determine if this is the current user's profile or another user's profile
   const isOwnProfile = !userId || (currentUser && userId === currentUser.id?.toString());
 
-  // Set default section based on profile type and URL parameters
-  const sectionParam = searchParams.get('section');
-  const [activeSection, setActiveSection] = useState<string>(
-    sectionParam || (isOwnProfile ? 'reservations' : 'reviews')
-  );
+  const activeSection = sectionParam || (isOwnProfile ? 'reservations' : 'reviews');
 
   // State to track which conversation should be auto-selected when navigating to messages
   const [autoSelectRequestId, setAutoSelectRequestId] = useState<number | null>(null);
 
-  // Update active section when URL parameters change
-  useEffect(() => {
-    const sectionParam = searchParams.get('section');
-    if (sectionParam) {
-      setActiveSection(sectionParam);
-    }
-  }, [searchParams]);
   const [profileDialogOpen, setProfileDialogOpen] = useState<boolean>(false);
   const [createAnnounceDialogOpen, setCreateAnnounceDialogOpen] = useState<boolean>(false);
   const [createPackageDialogOpen, setCreatePackageDialogOpen] = useState<boolean>(false);
@@ -65,6 +56,23 @@ export default function Profile() {
   const [processingOnboarding, setProcessingOnboarding] = useState(false);
   const [totalUnreadCount, setTotalUnreadCount] = useState(0);
   const contentSectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const legacySection = searchParams.get('section');
+    if (!legacySection) return;
+
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete('section');
+    const query = nextParams.toString();
+    navigate(`/profile/${legacySection}${query ? `?${query}` : ''}`, { replace: true });
+  }, [navigate, searchParams]);
+
+  useEffect(() => {
+    const requestIdParam = searchParams.get('requestId');
+    if (requestIdParam) {
+      setAutoSelectRequestId(Number(requestIdParam));
+    }
+  }, [searchParams]);
 
   // Fetch profile data
   useEffect(() => {
@@ -206,7 +214,7 @@ export default function Profile() {
     switch (activeSection) {
       case 'messages':
         return (
-            <MessagesSection
+                    <MessagesSection
               initialRequestId={autoSelectRequestId}
               onAutoSelectCleared={() => setAutoSelectRequestId(null)}
               onConversationRead={(_, unreadCount) => {
@@ -219,8 +227,8 @@ export default function Profile() {
           <div className="bg-white rounded-2xl">
             <ReservationsSection
               onNavigateToMessages={(requestId) => {
-                setActiveSection('messages');
                 setAutoSelectRequestId(requestId);
+                navigate(`/profile/messages${userId ? `?user=${userId}&requestId=${requestId}` : `?requestId=${requestId}`}`);
               }}
             />
           </div>
@@ -327,8 +335,8 @@ export default function Profile() {
 
               {/* Edit Profile Button - Only show for own profile */}
               {isOwnProfile && (
-                <button
-                  onClick={() => setProfileDialogOpen(true)}
+                  <button
+                    onClick={() => setProfileDialogOpen(true)}
                   className="w-full mt-6 bg-white border border-blue-500 text-blue-500 rounded-lg px-4 py-2 text-sm font-medium hover:bg-blue-50 transition-colors cursor-pointer"
                 >
                   {t('profile.editProfile')}
@@ -340,9 +348,9 @@ export default function Profile() {
             <div className="bg-white rounded-2xl border border-gray-200 p-2">
               <nav className="space-y-1 md:space-y-2">
                 {visibleSections.map((section) => (
-                  <button
+                  <Link
                     key={section.id}
-                    onClick={() => setActiveSection(section.id)}
+                    to={`/profile/${section.id}${userId ? `?user=${userId}` : ''}`}
                     className={`w-full flex items-center justify-between p-2 md:p-3 rounded-lg text-left transition-colors cursor-pointer ${
                       activeSection === section.id
                         ? 'bg-blue-50 text-blue-600'
@@ -364,7 +372,7 @@ export default function Profile() {
                     >
                       {section.count}
                     </span>
-                  </button>
+                  </Link>
                 ))}
               </nav>
             </div>
