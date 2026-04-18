@@ -28,7 +28,7 @@
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.5.3",
     "axios": "^1.12.2",
-    "country-flag-icons": "^1.5.19",
+    "country-flag-icons": "^1.6.16",
     "dotenv": "^17.2.2",
     "firebase": "^12.10.0",
     "i18next": "^25.4.2",
