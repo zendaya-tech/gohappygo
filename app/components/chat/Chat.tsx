@@ -73,6 +73,15 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         if (!markAsRead()) {
           markThreadAsRead(requestId).catch(console.error);
         }
+
+        window.dispatchEvent(
+          new CustomEvent('active-conversation-read', {
+            detail: {
+              requestId,
+              unreadCount: 1,
+            },
+          })
+        );
       }
     },
     [requestId, currentUser?.id, otherUser.id]

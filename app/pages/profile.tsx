@@ -124,6 +124,21 @@ export default function Profile() {
     };
   }, [isOwnProfile, isLoggedIn, token]);
 
+  useEffect(() => {
+    const handleActiveConversationRead = (event: Event) => {
+      const customEvent = event as CustomEvent<{ unreadCount?: number }>;
+      const unreadCount = customEvent.detail?.unreadCount ?? 0;
+      if (!unreadCount) return;
+
+      setTotalUnreadCount((prev) => Math.max(0, prev - unreadCount));
+    };
+
+    window.addEventListener('active-conversation-read', handleActiveConversationRead);
+    return () => {
+      window.removeEventListener('active-conversation-read', handleActiveConversationRead);
+    };
+  }, []);
+
   // Use profileUser data instead of currentUser for display
   const displayUser = profileUser || currentUser;
 

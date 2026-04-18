@@ -199,6 +199,30 @@ export default function ConversationList({
   }, [selectedConversationId]);
 
   useEffect(() => {
+    const handleActiveConversationRead = (event: Event) => {
+      const customEvent = event as CustomEvent<{ requestId?: number; unreadCount?: number }>;
+      if (!customEvent.detail?.requestId) return;
+
+      setConversations((prev) =>
+        prev.map((conversation) =>
+          conversation.requestId === customEvent.detail.requestId
+            ? { ...conversation, unreadCount: 0 }
+            : conversation
+        )
+      );
+
+      if (customEvent.detail.unreadCount) {
+        setTotalUnreadCount((prev) => Math.max(0, prev - customEvent.detail.unreadCount!));
+      }
+    };
+
+    window.addEventListener('active-conversation-read', handleActiveConversationRead);
+    return () => {
+      window.removeEventListener('active-conversation-read', handleActiveConversationRead);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isLoggedIn || !token) return;
 
     const socket: Socket = io('https://api.gohappygo.fr/messages', {
