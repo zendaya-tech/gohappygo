@@ -5,22 +5,22 @@ import { customsData, type RestrictionTag } from '../data/customsData';
 // Constrain exactly the 10 specifically calibrated targets via ID mapping
 const customsCoordinates: Record<string, { top: string; left: string }> = {
   // --- North & South America ---
-  CA: { top: '23.5%', left: '19.8%' }, // Ottawa / Montreal Region
-  US: { top: '35.0%', left: '21.0%' }, // Washington D.C. / East Coast Hub
-  BR: { top: '63.5%', left: '33.8%' }, // Brasília / Central Atlantic Coast
-  AR: { top: '78.5%', left: '30.2%' }, // Buenos Aires / La Plata Region
+  CA: { top: '37%', left: '29%' }, // Ottawa / Montreal Region
+  US: { top: '52%', left: '32%' }, // Washington D.C. / East Coast Hub
+  BR: { top: '73%', left: '40%' }, // Brasília / Central Atlantic Coast
+  AR: { top: '84%', left: '37%' }, // Buenos Aires / La Plata Region
 
   // --- Europe ---
-  GB: { top: '24.0%', left: '46.8%' }, // London Hub
-  FR: { top: '28.5%', left: '48.5%' }, // Paris / Central France
+  GB: { top: '43%', left: '47.8%' }, // London Hub
+  FR: { top: '47.5%', left: '48.5%' }, // Paris / Central France
 
   // --- Africa ---
-  CI: { top: '56.0%', left: '46.1%' }, // Abidjan Airport Hub
-  ZA: { top: '77.5%', left: '53.8%' }, // Johannesburg / Pretoria Region
+  CI: { top: '65.7%', left: '47.2%' }, // Abidjan Airport Hub
+  ZA: { top: '80.5%', left: '52.5%' }, // Johannesburg / Pretoria Region
 
   // --- Middle East & Asia ---
-  SA: { top: '44.5%', left: '59.8%' }, // Riyadh Terminal
-  AE: { top: '43.0%', left: '61.8%' }, // Dubai / Abu Dhabi Interface
+  SA: { top: '59.5%', left: '56%' }, // Riyadh Terminal
+  AE: { top: '58.7%', left: '57.6%' }, // Dubai / Abu Dhabi Interface
 };
 
 export default function CustomsRestrictionsMap() {
@@ -77,12 +77,12 @@ export default function CustomsRestrictionsMap() {
   return (
     <section className="flex flex-col w-full max-w-5xl mx-auto px-4 py-6">
       {/* THE MAP BOUNDING BOX */}
-      <div className="relative w-full aspect-21/9 max-h-[340px] sm:max-h-[380px] md:max-h-[420px] bg-gray-50/60 border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center p-3 mb-8">
+      <div className="relative w-full aspect-21/9 max-h-85 sm:max-h-95 md:max-h-105 bg-gray-50/60 border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center p-3 mb-8">
         <img
           src="/images/map.svg"
           alt={t('customs.map.alt', 'World map showing customs restrictions by country')}
           className="w-full h-full object-contain pointer-events-none select-none opacity-80"
-          style={{ filter: 'brightness(0.7)' }}
+          style={{ filter: 'brightness(0.2)' }}
         />
 
         {activeCountries.map((country) => {
@@ -139,25 +139,25 @@ export default function CustomsRestrictionsMap() {
       </div>
 
       {/* THE DATA CONTAINER (Directly Below) */}
-      <div className="w-full bg-white rounded-xl border border-gray-100 p-6 shadow-sm transition-all duration-300 dark:bg-gray-900 dark:border-gray-800">
+      <div className="w-full bg-white rounded-xl border border-gray-100 p-2 shadow-sm transition-all duration-300 dark:bg-gray-900 dark:border-gray-800">
         {/* Responsive Table Implementation avoiding severe squishing */}
         <div className="w-full overflow-x-auto">
-          <table className="w-full text-sm text-left align-top min-w-[900px]">
+          <table className="w-full text-sm text-left align-top min-w-225">
             <thead className="bg-gray-50/50 dark:bg-gray-800/40 text-xs uppercase font-semibold text-gray-500 dark:text-gray-400 tracking-wider">
               <tr>
-                <th className="px-5 py-4 w-[180px] rounded-tl-lg border-b border-gray-100 dark:border-gray-800">
+                <th className="px-5 py-4 w-45 rounded-tl-lg border-b border-gray-100 dark:border-gray-800">
                   {t('customs.table.country', 'Pays')}
                 </th>
-                <th className="px-5 py-4 w-[240px] border-b border-gray-100 dark:border-gray-800">
+                <th className="px-5 py-4 w-60 border-b border-gray-100 dark:border-gray-800">
                   {t('customs.table.prohibited', 'Produits interdits / réglementés')}
                 </th>
-                <th className="px-5 py-4 w-[240px] border-b border-gray-100 dark:border-gray-800">
+                <th className="px-5 py-4 w-60 border-b border-gray-100 dark:border-gray-800">
                   {t('customs.table.rules', 'Règles devises & alimentaires')}
                 </th>
                 <th className="px-5 py-4 border-b border-gray-100 dark:border-gray-800">
                   {t('customs.table.specificities', 'Spécificités douanières notables')}
                 </th>
-                <th className="px-5 py-4 w-[140px] rounded-tr-lg border-b border-gray-100 dark:border-gray-800">
+                <th className="px-5 py-4 w-35 rounded-tr-lg border-b border-gray-100 dark:border-gray-800">
                   {t('customs.table.liquids', 'Liquides cabine')}
                 </th>
               </tr>
