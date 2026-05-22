@@ -214,7 +214,7 @@ export default function AvatarMenu({
 
         {/* Section commune pour tous les utilisateurs */}
         <Link
-          to="/how-it-works"
+          to="/how-it-work"
           onClick={onClose}
           className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover transition-colors duration-150"
           role="menuitem"

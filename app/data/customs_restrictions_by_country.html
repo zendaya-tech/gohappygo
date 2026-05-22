@@ -1,0 +1,217 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.wrap { padding: 1rem 0; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; min-width: 900px; }
+th { background: var(--color-background-secondary); color: var(--color-text-secondary); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 8px 10px; text-align: left; border-bottom: 0.5px solid var(--color-border-tertiary); position: sticky; top: 0; z-index: 2; }
+td { padding: 9px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: top; color: var(--color-text-primary); line-height: 1.45; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--color-background-secondary); }
+.flag { font-size: 18px; margin-right: 6px; }
+.country { font-weight: 500; font-size: 13px; white-space: nowrap; }
+.pax { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 4px; margin: 2px 2px 2px 0; line-height: 1.4; }
+.red { background: #FCEBEB; color: #A32D2D; }
+.amber { background: #FAEEDA; color: #854F0B; }
+.blue { background: #E6F1FB; color: #185FA5; }
+@media (prefers-color-scheme: dark) {
+  .red { background: #501313; color: #F7C1C1; }
+  .amber { background: #412402; color: #FAC775; }
+  .blue { background: #042C53; color: #B5D4F4; }
+}
+.col-country { width: 140px; }
+.col-interdit { width: 230px; }
+.col-regle { width: 220px; }
+.col-specifique { width: 220px; }
+.col-liquide { width: 130px; }
+</style>
+<div class="wrap">
+<h2 class="sr-only">Tableau des restrictions douanières dans les 8 plus grands marchés aériens mondiaux (2024)</h2>
+<table>
+  <thead>
+    <tr>
+      <th class="col-country">Pays<br><span style="font-weight:400;opacity:.7">Passagers 2024</span></th>
+      <th class="col-interdit">Produits interdits / strictement réglementés</th>
+      <th class="col-regle">Règles sur les devises & denrées alimentaires</th>
+      <th class="col-specifique">Spécificités douanières notables</th>
+      <th class="col-liquide">Liquides en cabine</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div><span class="flag">🇺🇸</span><span class="country">États-Unis</span></div>
+        <div class="pax">876 M passagers</div>
+      </td>
+      <td>
+        <span class="tag red">Armes à feu non déclarées</span>
+        <span class="tag red">Cubes de terre / sol étranger</span>
+        <span class="tag red">Certains végétaux vivants</span>
+        <span class="tag red">Produits à base de viande crue</span>
+        <span class="tag amber">Médicaments &gt; 90 jours</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 10 000 $ à déclarer</span>
+        <span class="tag amber">Fruits / légumes soumis inspection USDA</span>
+        <span class="tag red">Fromages à base de lait cru interdits (si &lt; 60 jours)</span>
+      </td>
+      <td>
+        Formulaire CBP 6059B obligatoire. Douane américaine très stricte sur les produits agricoles (risque de saisie immédiate + amende). Programme ESTA requis pour ressortissants UE.</td>
+      <td>
+        Règle des 100 ml / sac transparent 1L. Médicaments liquides exemptés avec ordonnance.</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇨🇳</span><span class="country">Chine</span></div>
+        <div class="pax">741 M passagers</div>
+      </td>
+      <td>
+        <span class="tag red">Matériel politique / religieux</span>
+        <span class="tag red">Drones sans licence</span>
+        <span class="tag red">Produits du tabac &gt; 400 cigarettes</span>
+        <span class="tag red">VPN non autorisés</span>
+        <span class="tag amber">Médicaments en grande quantité</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 5 000 USD (ou ¥20 000) à déclarer</span>
+        <span class="tag amber">Produits laitiers très réglementés</span>
+        <span class="tag red">Viande fraîche et fruits souvent interdits</span>
+      </td>
+      <td>
+        Contrôle douanier très strict à l'entrée. Contenu des appareils électroniques susceptible d'être inspecté. Visa obligatoire pour la plupart des nationalités (assouplissement partiel en 2024 pour 38 pays dont la France).</td>
+      <td>
+        Règle des 100 ml strictement appliquée. Poudres &gt; 350 ml soumises à contrôle renforcé.</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇬🇧</span><span class="country">Royaume-Uni</span></div>
+        <div class="pax">261 M passagers</div>
+      </td>
+      <td>
+        <span class="tag red">Armes à feu (sauf licence)</span>
+        <span class="tag red">Espèces CITES (ivoire, corail…)</span>
+        <span class="tag red">Drogues de classe A/B/C</span>
+        <span class="tag amber">Viande et produits laitiers hors UE limités</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 10 000 £ à déclarer</span>
+        <span class="tag amber">Post-Brexit : règles sur produits animaux UE renforcées</span>
+        <span class="tag blue">Alcool : 1L spiritueux / 2L vin</span>
+      </td>
+      <td>
+        Post-Brexit, contrôles séparés de l'UE. Nouveaux postes d'inspection aux frontières pour produits animaux UE depuis 2024. Duty-free UK différent du Duty-free UE.</td>
+      <td>
+        100 ml / sac transparent. Depuis 2024, tentative de passage à 2L mais retardée — règle des 100 ml toujours en vigueur dans la plupart des aéroports.</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇪🇸</span><span class="country">Espagne</span></div>
+        <div class="pax">241 M passagers</div>
+      </td>
+      <td>
+        <span class="tag red">Drogues illicites</span>
+        <span class="tag red">Espèces CITES</span>
+        <span class="tag amber">Médicaments contrôlés (prescription requise)</span>
+        <span class="tag amber">Articles contrefaits</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 10 000 € à déclarer</span>
+        <span class="tag amber">Hors UE : viande limitée à 1 kg / fromage 1 kg</span>
+        <span class="tag blue">Alcool : 1L spiritueux (hors UE)</span>
+      </td>
+      <td>
+        Membre de l'espace Schengen et de l'UE. Pas de contrôle douanier intra-UE. Règles communes UE pour voyageurs hors-UE. Les Canaries, Ceuta, Melilla ont un statut fiscal particulier (droits différents).</td>
+      <td>
+        100 ml / sac transparent (règle EU standard). Aéroports de Madrid et Barcelone appliquent contrôles renforcés.</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇮🇳</span><span class="country">Inde</span></div>
+        <div class="pax">211 M passagers</div>
+      </td>
+      <td>
+        <span class="tag red">Or non déclaré &gt; 50 000 ₹ (homme) / 100 000 ₹ (femme)</span>
+        <span class="tag red">Produits du tabac &gt; 200 cigarettes</span>
+        <span class="tag red">Billets ₹ hors limites autorisées</span>
+        <span class="tag amber">Médicaments en grandes quantités</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 5 000 USD en devises étrangères à déclarer</span>
+        <span class="tag amber">Produits alimentaires soumis inspection</span>
+        <span class="tag red">Satellites / équipements de comm. interdits</span>
+      </td>
+      <td>
+        Franchise bagages : 50 000 ₹ de biens personnels. Règles d'import d'or très strictes selon le statut du voyageur (résident NRI vs. visiteur). e-Visa disponible pour 165+ nationalités.</td>
+      <td>
+        100 ml / sac transparent. Contrôles renforcés dans les aéroports majeurs (Mumbai, Delhi, Bengaluru).</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇯🇵</span><span class="country">Japon</span></div>
+        <div class="pax">205 M passagers</div>
+      </td>
+      <td>
+        <span class="tag red">Pseudoéphédrine (dans certains médicaments OTC)</span>
+        <span class="tag red">Armes / certains couteaux</span>
+        <span class="tag red">Certains produits cosmétiques</span>
+        <span class="tag red">Pornographie</span>
+        <span class="tag amber">Certains végétaux et fruits (quarantaine)</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 1 M ¥ à déclarer</span>
+        <span class="tag amber">Viande et produits carnés soumis inspection stricte</span>
+        <span class="tag blue">Tabac : 200 cigarettes (personnes &gt;20 ans)</span>
+      </td>
+      <td>
+        Le Japon interdit certains médicaments courants en Europe (ex. Sudafed, certains somnifères). Déclaration obligatoire de tous les biens supérieurs à la franchise. Contrôles très rigoureux sur produits agricoles.</td>
+      <td>
+        100 ml / sac transparent. Strictement appliqué. Poudres soumises à contrôle renforcé depuis 2019.</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇦🇪</span><span class="country">Émirats Arabes Unis</span></div>
+        <div class="pax">Hub mondial (DXB)</div>
+      </td>
+      <td>
+        <span class="tag red">Drogues / CBD (même légaux ailleurs)</span>
+        <span class="tag red">Viande de porc</span>
+        <span class="tag red">Contenu "offensant" (photos, œuvres)</span>
+        <span class="tag red">Médicaments opioïdes sans autorisation</span>
+        <span class="tag red">VoIP non autorisés (ex. certains apps)</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 100 000 AED à déclarer</span>
+        <span class="tag blue">Alcool : interdit à l'importation (sauf duty-free)</span>
+        <span class="tag amber">1 flacon de parfum / 5 produits cosmétiques max</span>
+      </td>
+      <td>
+        Tolérance zéro pour les drogues (même traces détectables). Médicaments psychotropes nécessitent une attestation du ministère de la santé émirati. Certains livres et médias peuvent être saisis.</td>
+      <td>
+        100 ml / sac transparent. Aéroport de Dubaï parmi les plus stricts au monde pour la sécurité.</td>
+    </tr>
+    <tr>
+      <td>
+        <div><span class="flag">🇸🇦</span><span class="country">Arabie Saoudite</span></div>
+        <div class="pax">Route JED-RUH n°1 mondial</div>
+      </td>
+      <td>
+        <span class="tag red">Alcool (strictement interdit)</span>
+        <span class="tag red">Porc et dérivés</span>
+        <span class="tag red">Contenu religieux non islamique</span>
+        <span class="tag red">Jeux de hasard</span>
+        <span class="tag red">Drogues (peine de mort possible)</span>
+      </td>
+      <td>
+        <span class="tag blue">&gt; 60 000 SAR à déclarer</span>
+        <span class="tag red">Produits israéliens interdits</span>
+        <span class="tag amber">Médicaments : prescription obligatoire + quantité limitée</span>
+      </td>
+      <td>
+        Pays aux règles douanières parmi les plus restrictives au monde. Tout matériel jugé contraire aux valeurs islamiques peut être confisqué. Visa obligatoire (e-Visa disponible pour tourisme depuis 2019). Règles assouplies pour les femmes depuis 2018.</td>
+      <td>
+        100 ml / sac transparent standard.</td>
+    </tr>
+  </tbody>
+</table>
+</div>

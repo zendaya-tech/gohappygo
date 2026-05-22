@@ -1,0 +1,196 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{padding:1rem 0;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed;min-width:950px;}
+th{background:var(--color-background-secondary);color:var(--color-text-secondary);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;text-align:left;border-bottom:.5px solid var(--color-border-tertiary);position:sticky;top:0;z-index:2;}
+td{padding:9px 10px;border-bottom:.5px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-primary);line-height:1.45;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--color-background-secondary);}
+.country{font-weight:500;font-size:13px;}
+.flag{font-size:18px;margin-right:6px;}
+.pax{font-size:11px;color:var(--color-text-secondary);margin-top:2px;}
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;margin:2px 2px 2px 0;line-height:1.4;}
+.red{background:#FCEBEB;color:#A32D2D;}
+.amber{background:#FAEEDA;color:#854F0B;}
+.blue{background:#E6F1FB;color:#185FA5;}
+@media(prefers-color-scheme:dark){
+.red{background:#501313;color:#F7C1C1;}
+.amber{background:#412402;color:#FAC775;}
+.blue{background:#042C53;color:#B5D4F4;}
+}
+.col-c{width:140px;}
+.col-i{width:220px;}
+.col-r{width:210px;}
+.col-s{width:230px;}
+.col-l{width:130px;}
+</style>
+<div class="wrap">
+<table>
+<thead>
+<tr>
+<th class="col-c">Pays</th>
+<th class="col-i">Produits interdits / strictement réglementés</th>
+<th class="col-r">Règles devises & denrées alimentaires</th>
+<th class="col-s">Spécificités douanières notables</th>
+<th class="col-l">Liquides en cabine</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>
+<div><span class="flag">🇧🇪</span><span class="country">Belgique</span></div>
+<div class="pax">Membre UE / Schengen</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Espèces CITES (ivoire, corail…)</span>
+<span class="tag red">Armes à feu (licence obligatoire)</span>
+<span class="tag red">Contrefaçons</span>
+<span class="tag amber">Médicaments contrôlés (ordonnance requise)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 € à déclarer (hors UE)</span>
+<span class="tag amber">Hors UE : viande 1 kg, produits laitiers 1 kg</span>
+<span class="tag blue">Alcool (hors UE) : 1 L spiritueux, 2 L vin</span>
+<span class="tag blue">Tabac : 200 cigarettes (hors UE)</span>
+</td>
+<td>Mêmes règles UE que la France et l'Espagne. Pas de contrôle douanier intra-Schengen. Franchise hors UE : 430 € (avion). La Belgique est particulièrement vigilante sur les diamants bruts (Bruxelles est le premier marché mondial du diamant) : tout lot commercial doit être accompagné d'un certificat du Processus de Kimberley.</td>
+<td>100 ml / sac transparent. Règle UE standard appliquée à Brussels Airport (BRU) et Liège (LGG).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇵🇹</span><span class="country">Portugal</span></div>
+<div class="pax">Membre UE / Schengen</div>
+</td>
+<td>
+<span class="tag red">Drogues (importation illégale malgré la dépénalisation de la possession)</span>
+<span class="tag red">Espèces CITES</span>
+<span class="tag amber">Contrefaçons</span>
+<span class="tag amber">Médicaments contrôlés (prescription requise)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 € à déclarer (hors UE)</span>
+<span class="tag amber">Hors UE : viande 1 kg, produits laitiers 1 kg</span>
+<span class="tag blue">Alcool : 1 L spiritueux / 2 L vin (hors UE)</span>
+</td>
+<td>Règles UE identiques. Particularité : la dépénalisation des drogues pour usage personnel (depuis 2001) ne s'applique pas à l'importation. Les Açores et Madère sont dans l'UE mais ont des franchises duty-free distinctes pour leurs résidents. Aéroports de Lisbonne (LIS) et Porto (OPO).</td>
+<td>100 ml / sac transparent. Règle UE standard.</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇨🇭</span><span class="country">Suisse</span></div>
+<div class="pax">Schengen, hors UE</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Armes à feu sans licence</span>
+<span class="tag red">Espèces CITES</span>
+<span class="tag amber">Cannabis (même légal dans le pays d'origine)</span>
+<span class="tag amber">Médicaments contrôlés (ordonnance + quantité limitée)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 CHF à déclarer</span>
+<span class="tag blue">Franchise : 300 CHF de marchandises (avion)</span>
+<span class="tag amber">Viande : 1 kg max en provenance de l'UE, 0 kg hors UE</span>
+<span class="tag blue">Alcool : 1 L &gt; 18° / 2 L &lt; 18° par personne</span>
+<span class="tag blue">Tabac : 250 cigarettes par personne (&gt;17 ans)</span>
+</td>
+<td>La Suisse est dans l'espace Schengen mais PAS dans l'union douanière UE : les contrôles douaniers existent même pour les voyageurs venant de France, d'Allemagne ou d'Italie. La franchise de 300 CHF est strictement contrôlée, y compris les achats en ligne. La TVA suisse (8,1 %) s'applique sur les importations hors franchise. Les produits pharmaceutiques sont très réglementés par Swissmedic.</td>
+<td>100 ml / sac transparent. Appliqué à Zurich (ZRH), Genève (GVA) et Bâle-Mulhouse (BSL).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇸🇳</span><span class="country">Sénégal</span></div>
+<div class="pax">Hub Afrique de l'Ouest</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Armes et munitions</span>
+<span class="tag red">Matériel pornographique</span>
+<span class="tag amber">Médicaments : importation commerciale très réglementée</span>
+<span class="tag amber">Drones (autorisation ANACIM requise)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 1 000 000 FCFA (~1 524 €) à déclarer</span>
+<span class="tag amber">Produits alimentaires soumis inspection phytosanitaire</span>
+<span class="tag blue">Alcool : usage personnel toléré dans des limites raisonnables</span>
+<span class="tag blue">Tabac : 200 cigarettes</span>
+</td>
+<td>Membre de l'UEMOA (zone FCFA) : libre circulation facilitée avec 7 pays voisins (Mali, Burkina Faso, Côte d'Ivoire, Niger, Bénin, Togo, Guinée-Bissau). Les contrôles à l'aéroport de Dakar-Blaise Diagne (DSS) sont renforcés sur les devises et les marchandises à but commercial. Forte vigilance sur les médicaments contrefaits, enjeu sanitaire majeur dans la région.</td>
+<td>100 ml / sac transparent. Règle OACI standard appliquée à Dakar-Blaise Diagne (DSS).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇨🇲</span><span class="country">Cameroun</span></div>
+<div class="pax">Hub Afrique Centrale</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Armes et munitions (licence obligatoire)</span>
+<span class="tag red">Matériel pornographique</span>
+<span class="tag red">Faux billets / fausse monnaie</span>
+<span class="tag amber">Médicaments : importation commerciale soumise à l'ACAME</span>
+</td>
+<td>
+<span class="tag blue">&gt; 1 000 000 FCFA (~1 524 €) à déclarer</span>
+<span class="tag amber">Produits alimentaires et végétaux soumis à inspection phytosanitaire (MINADER)</span>
+<span class="tag blue">Tabac : 200 cigarettes</span>
+<span class="tag blue">Alcool : usage personnel raisonnable toléré</span>
+</td>
+<td>Membre de la CEMAC (Communauté Économique et Monétaire de l'Afrique Centrale) : zone de libre circulation avec Gabon, Congo, Tchad, RCA, Guinée Équatoriale. Le FCFA CFA (BEAC) est la monnaie commune. Les contrôles à Douala (DLA) et Yaoundé (NSI) sont fréquents sur les devises et les marchandises de valeur. La fraude sur les médicaments est activement surveillée par les autorités sanitaires.</td>
+<td>100 ml / sac transparent. Règle OACI standard appliquée à Douala (DLA) et Yaoundé-Nsimalen (NSI).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇲🇽</span><span class="country">Mexique</span></div>
+<div class="pax">1er marché Amérique latine</div>
+</td>
+<td>
+<span class="tag red">Armes à feu (strictement interdites sans autorisation militaire)</span>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Produits végétaux vivants sans certificat</span>
+<span class="tag red">Devises &gt; 10 000 USD non déclarées</span>
+<span class="tag amber">Médicaments contrôlés (COFEPRIS) : ordonnance requise</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 USD à déclarer</span>
+<span class="tag blue">Franchise : 500 USD (avion) / 75 USD (terrestre)</span>
+<span class="tag red">Au-delà : taxe de 16 % + IGI (impôt général d'importation)</span>
+<span class="tag amber">Viande et produits laitiers soumis à inspection SENASICA</span>
+</td>
+<td>Le système douanier mexicain utilise un feu tricolore aléatoire (semáforo) à l'arrivée : rouge = inspection complète des bagages, vert = passage direct. Les armes à feu sont l'un des contrôles les plus stricts au monde — même une munition oubliée dans un bagage peut entraîner une arrestation immédiate. Les visiteurs américains sont particulièrement ciblés.</td>
+<td>100 ml / sac transparent. Appliqué à Mexico (MEX), Cancún (CUN), Guadalajara (GDL).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇨🇦</span><span class="country">Canada</span></div>
+<div class="pax">2e marché Amérique du Nord</div>
+</td>
+<td>
+<span class="tag red">Armes à feu (déclaration obligatoire, règles strictes)</span>
+<span class="tag red">Drogues illicites (le cannabis légal au Canada reste interdit à l'importation)</span>
+<span class="tag red">Espèces CITES</span>
+<span class="tag red">Certains végétaux et aliments sans inspection ACIA</span>
+<span class="tag amber">Médicaments contrôlés : ordonnance + 90 jours max</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 CAD à déclarer</span>
+<span class="tag blue">Franchise : 800 CAD (séjour &gt; 48h) / 200 CAD (&lt; 48h)</span>
+<span class="tag amber">Produits carnés et laitiers hors Canada soumis inspection ACIA</span>
+<span class="tag blue">Alcool : 1,5 L vin / 1,14 L spiritueux par personne</span>
+</td>
+<td>L'Agence des services frontaliers du Canada (ASFC) est parmi les plus rigoureuses au monde. Particularité majeure : le cannabis est légal au Canada mais son importation depuis l'étranger reste formellement interdite, même depuis des États américains où il est légal. Déclaration électronique obligatoire via l'application ArriveCAN pour certains voyageurs. Les agents frontaliers ont des pouvoirs d'inspection étendus (téléphones, ordinateurs).</td>
+<td>100 ml / sac transparent. Appliqué à Toronto (YYZ), Montréal (YUL), Vancouver (YVR). Les liquides duty-free achetés à l'étranger doivent être dans un sac scellé avec reçu.</td>
+</tr>
+
+</tbody>
+</table>
+</div>

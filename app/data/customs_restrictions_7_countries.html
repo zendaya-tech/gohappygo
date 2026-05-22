@@ -1,0 +1,194 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.wrap{padding:1rem 0;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed;min-width:950px;}
+th{background:var(--color-background-secondary);color:var(--color-text-secondary);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;text-align:left;border-bottom:.5px solid var(--color-border-tertiary);position:sticky;top:0;z-index:2;}
+td{padding:9px 10px;border-bottom:.5px solid var(--color-border-tertiary);vertical-align:top;color:var(--color-text-primary);line-height:1.45;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--color-background-secondary);}
+.country{font-weight:500;font-size:13px;}
+.flag{font-size:18px;margin-right:6px;}
+.pax{font-size:11px;color:var(--color-text-secondary);margin-top:2px;}
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;margin:2px 2px 2px 0;line-height:1.4;}
+.red{background:#FCEBEB;color:#A32D2D;}
+.amber{background:#FAEEDA;color:#854F0B;}
+.blue{background:#E6F1FB;color:#185FA5;}
+@media(prefers-color-scheme:dark){
+.red{background:#501313;color:#F7C1C1;}
+.amber{background:#412402;color:#FAC775;}
+.blue{background:#042C53;color:#B5D4F4;}
+}
+.col-c{width:140px;}
+.col-i{width:220px;}
+.col-r{width:210px;}
+.col-s{width:230px;}
+.col-l{width:130px;}
+</style>
+<div class="wrap">
+<h2 class="sr-only">Tableau des restrictions douanières — France, Espagne, Maroc, Brésil, Portugal, Argentine, Côte d'Ivoire</h2>
+<table>
+<thead>
+<tr>
+<th class="col-c">Pays</th>
+<th class="col-i">Produits interdits / strictement réglementés</th>
+<th class="col-r">Règles devises & denrées alimentaires</th>
+<th class="col-s">Spécificités douanières notables</th>
+<th class="col-l">Liquides en cabine</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>
+<div><span class="flag">🇫🇷</span><span class="country">France</span></div>
+<div class="pax">Membre UE / Schengen</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Espèces CITES (ivoire, corail…)</span>
+<span class="tag red">Contrefaçons</span>
+<span class="tag amber">Médicaments contrôlés (ordonnance requise)</span>
+<span class="tag amber">Armes à feu (licence obligatoire)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 € à déclarer (hors UE)</span>
+<span class="tag amber">Hors UE : viande 1 kg max, lait 1 kg max</span>
+<span class="tag blue">Alcool (hors UE) : 1 L spiritueux, 2 L vin</span>
+<span class="tag blue">Tabac : 200 cigarettes (hors UE)</span>
+</td>
+<td>Pas de contrôle douanier intra-UE/Schengen. Règles UE standard pour voyageurs extra-communautaires. La douane française est particulièrement vigilante sur les contrefaçons et les produits du tabac hors quota. Franchise bagages hors UE : 430 € (avion).</td>
+<td>100 ml / sac transparent. Règle UE standard appliquée dans tous les aéroports français (CDG, ORY, NCE…).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇪🇸</span><span class="country">Espagne</span></div>
+<div class="pax">Membre UE / Schengen</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Espèces CITES</span>
+<span class="tag amber">Médicaments contrôlés (prescription requise)</span>
+<span class="tag amber">Contrefaçons</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 € à déclarer (hors UE)</span>
+<span class="tag amber">Hors UE : viande 1 kg, produits laitiers 1 kg</span>
+<span class="tag blue">Alcool : 1 L spiritueux / 2 L vin (hors UE)</span>
+</td>
+<td>Mêmes règles UE que la France. Attention : les Canaries, Ceuta et Melilla ont un statut fiscal particulier — les achats duty-free y sont soumis à des quotas différents même pour les résidents UE. Contrôles renforcés aux îles pour le cannabis.</td>
+<td>100 ml / sac transparent. Aéroports de Madrid (MAD) et Barcelone (BCN) parmi les plus stricts de l'UE.</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇲🇦</span><span class="country">Maroc</span></div>
+<div class="pax">Hub Afrique du Nord</div>
+</td>
+<td>
+<span class="tag red">Drogues (tolérance zéro, malgré production locale)</span>
+<span class="tag red">Matériel pornographique</span>
+<span class="tag red">Drones sans autorisation ANAC</span>
+<span class="tag red">Armes et munitions</span>
+<span class="tag amber">Médicaments psychotropes (ordonnance + quantité limitée)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 100 000 MAD (~9 000 €) à déclarer</span>
+<span class="tag amber">Produits alimentaires d'origine animale soumis inspection</span>
+<span class="tag blue">Alcool : usage personnel toléré, importation commerciale réglementée</span>
+<span class="tag blue">Tabac : 200 cigarettes</span>
+</td>
+<td>La devise marocaine (dirham) est non convertible : il est illégal de sortir du Maroc avec plus de 1 000 MAD en espèces. Les devises étrangères importées au-delà du seuil doivent être déclarées à l'entrée pour pouvoir être ressorties. Contrôles fréquents sur les bagages lors des vols en provenance d'Europe.</td>
+<td>100 ml / sac transparent. Appliqué dans les aéroports de Casablanca (CMN), Marrakech (RAK), Agadir (AGA).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇧🇷</span><span class="country">Brésil</span></div>
+<div class="pax">1er marché Amérique du Sud</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites (peines très sévères)</span>
+<span class="tag red">Armes à feu non déclarées</span>
+<span class="tag red">Produits végétaux vivants sans certificat phytosanitaire</span>
+<span class="tag amber">Médicaments contrôlés (ANVISA)</span>
+<span class="tag amber">Drones (réglementation ANAC requise)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 BRL (~1 800 €) à déclarer</span>
+<span class="tag amber">Produits alimentaires soumis à inspection MAPA</span>
+<span class="tag blue">Franchise bagages : 500 USD (avion)</span>
+<span class="tag red">Au-delà : taxes douanières élevées (jusqu'à 60 %)</span>
+</td>
+<td>La douane brésilienne (Receita Federal) est réputée pour ses taxes élevées sur les produits importés au-delà de la franchise. Les achats en duty-free sont strictement comptabilisés. Les médicaments doivent être accompagnés de leur ordonnance originale et en quantité raisonnable. Forte vigilance sur les équipements électroniques de valeur.</td>
+<td>100 ml / sac transparent. Appliqué dans les grands aéroports (GRU São Paulo, GIG Rio, BSB Brasília).</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇵🇹</span><span class="country">Portugal</span></div>
+<div class="pax">Membre UE / Schengen</div>
+</td>
+<td>
+<span class="tag red">Drogues (toutes les drogues sont dépénalisées à usage personnel, mais l'importation reste illégale)</span>
+<span class="tag red">Espèces CITES</span>
+<span class="tag amber">Contrefaçons</span>
+<span class="tag amber">Médicaments contrôlés</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 € à déclarer (hors UE)</span>
+<span class="tag amber">Hors UE : viande 1 kg, produits laitiers 1 kg</span>
+<span class="tag blue">Alcool : 1 L spiritueux / 2 L vin (hors UE)</span>
+</td>
+<td>Règles UE identiques à la France et l'Espagne. Particularité notable : la dépénalisation de la possession de drogues pour usage personnel (depuis 2001) ne s'applique pas à l'importation — la douane peut saisir et poursuivre. Les Açores et Madère sont dans l'UE mais ont des franchises duty-free spécifiques pour les résidents.</td>
+<td>100 ml / sac transparent. Aéroports de Lisbonne (LIS) et Porto (OPO) appliquent la règle UE standard.</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇦🇷</span><span class="country">Argentine</span></div>
+<div class="pax">2e marché Amérique du Sud</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Armes à feu non déclarées</span>
+<span class="tag red">Matériel pédopornographique</span>
+<span class="tag amber">Médicaments contrôlés (ANMAT)</span>
+<span class="tag amber">Drones (ANAC, autorisation requise)</span>
+</td>
+<td>
+<span class="tag blue">&gt; 10 000 USD à déclarer</span>
+<span class="tag blue">Franchise : 500 USD (avion) / 300 USD (terrestre)</span>
+<span class="tag red">Au-delà : taxes douanières de 50 % + 21 % TVA</span>
+<span class="tag amber">Produits alimentaires soumis au SENASA</span>
+</td>
+<td>L'Argentine applique des contrôles douaniers stricts sur les devises étrangères dans le contexte de ses crises économiques récurrentes. Le "dolar blue" (marché parallèle) est illégal — toute transaction hors circuit officiel expose à des sanctions. Les équipements électroniques de valeur sont régulièrement taxés à l'entrée. Vigilance accrue sur les marchandises importées à des fins commerciales.</td>
+<td>100 ml / sac transparent. Aéroports d'Ezeiza (EZE) et Aeroparque (AEP) à Buenos Aires.</td>
+</tr>
+
+<tr>
+<td>
+<div><span class="flag">🇨🇮</span><span class="country">Côte d'Ivoire</span></div>
+<div class="pax">Hub Afrique de l'Ouest</div>
+</td>
+<td>
+<span class="tag red">Drogues illicites</span>
+<span class="tag red">Armes et munitions</span>
+<span class="tag red">Matériel pornographique</span>
+<span class="tag red">Faux billets / fausse monnaie</span>
+<span class="tag amber">Médicaments : importation commerciale très réglementée</span>
+</td>
+<td>
+<span class="tag blue">&gt; 1 000 000 FCFA (~1 524 €) à déclarer</span>
+<span class="tag amber">Produits alimentaires soumis inspection phytosanitaire</span>
+<span class="tag blue">Alcool : usage personnel toléré dans des limites raisonnables</span>
+<span class="tag blue">Tabac : 200 cigarettes</span>
+</td>
+<td>La Côte d'Ivoire est membre de l'UEMOA (Union Économique et Monétaire Ouest-Africaine) : libre circulation des personnes et des biens entre les 8 États membres (Sénégal, Mali, Burkina Faso…). Le FCFA est la monnaie commune. Les contrôles douaniers à l'aéroport d'Abidjan (ABJ) sont renforcés sur les devises et les marchandises commerciales. La fraude sur les médicaments contrefaits est un enjeu majeur surveillé activement.</td>
+<td>100 ml / sac transparent. Règle OACI standard appliquée à l'aéroport Félix-Houphouët-Boigny d'Abidjan.</td>
+</tr>
+
+</tbody>
+</table>
+</div>
