@@ -186,7 +186,7 @@ export default function SupportSection() {
                 </button>
               </div>
 
-              <div className="mt-2 flex flex-col sm:flex-row gap-2 sm:gap-4">
+              <div className="mt-2 flex flex-col justify-between sm:flex-row gap-2 sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setSupportDialogOpen(true)}
@@ -195,10 +195,10 @@ export default function SupportSection() {
                   {t('home.supportSection.detailedHelp')}
                 </button>
                 <Link
-                  to="/support"
+                  to="/centre-aide"
                   className="text-blue-600 hover text-sm font-medium transition-colors"
                 >
-                  {t('home.supportSection.learnMore')}
+                  {t('home.supportSection.helpCenter')}
                 </Link>
               </div>
             </form>

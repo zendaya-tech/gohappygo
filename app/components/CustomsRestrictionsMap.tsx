@@ -21,6 +21,10 @@ const customsCoordinates: Record<string, { top: string; left: string }> = {
   // --- Middle East & Asia ---
   SA: { top: '59.5%', left: '56%' }, // Riyadh Terminal
   AE: { top: '58.7%', left: '57.6%' }, // Dubai / Abu Dhabi Interface
+  MX: { top: '59%', left: '31%' }, // Mexico City Hub
+  IN: { top: '59%', left: '62%' }, // New Delhi / Mumbai Interface
+  CN: { top: '55%', left: '66%' }, // Beijing / Shanghai Region
+  JP: { top: '53%', left: '72%' }, // Tokyo / Osaka Hub
 };
 
 export default function CustomsRestrictionsMap() {

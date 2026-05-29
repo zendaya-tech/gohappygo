@@ -126,10 +126,10 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    to="/security-rules"
-                    className={`hover:text-blue-600 ${currentPath === '/security-rules' ? 'text-blue-600' : ''}`}
+                    to="/bonnes-pratiques"
+                    className={`hover:text-blue-600 ${currentPath === '/bonnes-pratiques' ? 'text-blue-600' : ''}`}
                   >
-                    {t('footer.giveHappiness.securityRules')}
+                    {t('footer.giveHappiness.goodPractices')}
                   </Link>
                 </li>
                 <li>
@@ -156,12 +156,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href="mailto:support@gohappygo.fr"
-                    className={`hover:text-blue-600 ${currentPath === '/support' ? 'text-blue-600' : ''}`}
+                  <Link
+                    to="/centre-aide"
+                    className={`hover:text-blue-600 ${currentPath === '/centre-aide' ? 'text-blue-600' : ''}`}
                   >
-                    support@gohappygo.fr
-                  </a>
+                    {t('home.supportSection.helpCenter')}
+                  </Link>
                 </li>
                 <li>
                   <Link

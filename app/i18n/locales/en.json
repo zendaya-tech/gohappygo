@@ -568,6 +568,7 @@
       "becomeTransporter": "Become HappyTraveler",
       "insuranceProtection": "Insurance and Protection",
       "securityRules": "Security rules",
+      "goodPractices": "Good practices",
       "title": "Give Happiness"
     },
     "knowUs": {
@@ -807,6 +808,7 @@
     },
     "supportSection": {
       "detailedHelp": "Need detailed help ?",
+      "helpCenter": "Help Center",
       "errors": {
         "fillAll": "Please fill in all fields.",
         "invalidEmail": "Please enter a valid email address.",
@@ -1720,6 +1722,277 @@
     "reviewFrom": "Review from {{name}}",
     "reviewsWithCount": "reviews",
     "shareExperience": "share your experience"
+  },
+  "helpCenter": {
+    "title": "HELP CENTER",
+    "subtitle": "Find answers to your questions",
+    "search": "Search",
+    "cards": {
+      "account": "Account & Registration",
+      "ads": "Post & Search for an ad",
+      "messaging": "Messaging & Communication",
+      "privacy": "Data Privacy",
+      "payment": "Payment & Protection",
+      "cancellation": "Cancellation & Unexpected events"
+    },
+    "alts": {
+      "account": "Account and Registration illustration",
+      "ads": "Post and Search for an ad illustration",
+      "messaging": "Messaging and Communication illustration",
+      "privacy": "Data Privacy illustration",
+      "payment": "Payment and Protection illustration",
+      "cancellation": "Cancellation and Unexpected events illustration"
+    }
+  },
+  "travelerTools": {
+    "common": {
+      "title": "TOOLS FOR THE HAPPYTRAVELERS"
+    },
+    "main": {
+      "subtitle": "Gain confidence and happiness",
+      "description": "You will find here all the essential resources to travel serenely, save time and avoid the unexpected, while giving happiness...",
+      "sections": {
+        "goodPractices": {
+          "title": "Good Practices",
+          "description": "Discover the essential advice from the GoHappyGo community to guarantee smooth, respectful and secure exchanges. Adopt the right reflexes before, during and after each baggage transport."
+        },
+        "forbiddenArticles": {
+          "title": "Forbidden/Regulated Articles",
+          "description": "Consult the customs rules and applicable restrictions according to the countries in order to avoid any blocking, delay or incident during the transport of your baggage."
+        },
+        "security": {
+          "title": "Security and Accompanying",
+          "description": "Access all the guarantees for a smooth, secure and reassuring experience at each stage of your trip."
+        }
+      }
+    },
+    "forbiddenArticles": {
+      "subtitle": "Forbidden/Regulated Articles",
+      "description": "Click on your country of destination to discover internal customs restrictions applicable"
+    },
+    "security": {
+      "subtitle": "Security and Accompanying",
+      "intro": "You met at the airport, took your selfie together, it's not over yet..",
+      "checkIn": {
+        "title": "Check-in together one after another",
+        "description": "It is recommended that both travelers report together to the check-in counter and check in their baggage one after another. This step confirms the trip, and secures, strengthens the traceability of the transaction until boarding."
+      },
+      "payment": {
+        "title": "Secure payment",
+        "bold": "All payments must be made exclusively via the GoHappyGo platform.",
+        "p1": "Integrated payment helps protect travelers while ensuring traceability of transactions.",
+        "p2": "Payment is secure and kept on the platform until validation of baggage delivery. This procedure limits the risks of fraud, secures agreements between users and strengthens trust within the community."
+      },
+      "report": {
+        "title": "Report behavior",
+        "description": "If you observe suspicious, disrespectful behavior or behavior contrary to the platform's rules, we encourage you to report it immediately via the ",
+        "link": "reporting form",
+        "listTitle": "A report may concern:",
+        "items": {
+          "selfie": "a refusal of verification selfie,",
+          "payment": "a request for payment outside the platform,",
+          "pressure": "unusual pressure,",
+          "content": "baggage content different from that announced,",
+          "behavior": "aggressive or inappropriate behavior."
+        },
+        "footer": "Each report contributes to protecting the entire community and ensuring safer and more transparent exchanges."
+      }
+    },
+    "goodPractices": {
+      "subtitle": "Good Practices",
+      "sections": {
+        "register": {
+          "title": "Register",
+          "description": "The first step to joining GoHappyGo is to create your user account. To guarantee the security and compliance of exchanges, travelers must be at least 18 years old and have a valid ID, regardless of their country of residence."
+        },
+        "announce": {
+          "title": "Create your announcement",
+          "description": "Write a clear and precise advertisement indicating your expectations and any constraints. Mention in particular your arrival times, types of items refused (food products, closed packages, sensitive objects, etc.) or any other useful information. A detailed advertisement avoids misunderstandings."
+        },
+        "customs": {
+          "title": "Check the customs rules",
+          "description": "Before your trip, take the time to consult the customs regulations applicable in your country of destination. Restrictions vary by country: some products may be prohibited or subject to declaration, such as alcohol, medicines or certain foods. Find the main information in our section ",
+          "link": "\"Forbidden / regulated articles\""
+        },
+        "messaging": {
+          "title": "Communicate via messaging",
+          "description": "Exclusively use the GoHappyGo internal messaging to organize your meeting and exchange with other travelers. These exchanges constitute evidence if needed. For your security, avoid sharing your personal contact details or your private address."
+        },
+        "punctuality": {
+          "title": "Be punctual",
+          "description": "Punctuality facilitates peaceful and smooth exchanges. Meetings are strongly recommended within the airport, considered a secure and easily identifiable place. Agree together on a precise time to avoid any delay or misunderstanding."
+        },
+        "selfie": {
+          "title": "Take the mandatory selfie together",
+          "description": "When you meet at the airport, take a selfie together via the GoHappyGo mobile application. This step secures and tracks the transaction. In case of refusal to take the selfie, it is recommended to interrupt the exchange. The selfie is kept securely on the platform and automatically deleted after 90 days. It is not viewable or shared."
+        }
+      }
+    }
+  },
+  "announces": {
+    "descriptions": {
+      "1": "Business trip, space available in my suitcase for your packages",
+      "2": "Vacation in Japan, I can transport your packages with pleasure",
+      "3": "Exchange student, plenty of space available",
+      "4": "Weekend in Barcelona, free space in my luggage",
+      "5": "Professional conference, secure transport guaranteed",
+      "6": "Personal trip, flexible on types of packages",
+      "7": "Need to transport a leather bag",
+      "8": "Looking for transport for flat shoes",
+      "9": "Transport needed for travel bag"
+    }
+  },
+  "customs": {
+    "tags": {
+      "illicitDrugs": "Illicit drugs",
+      "cites": "CITES species (ivory, coral…)",
+      "counterfeits": "Counterfeits",
+      "controlledMeds": "Controlled medicines (prescription required)",
+      "firearms": "Firearms (license mandatory)",
+      "currency": "> 10,000 € to be declared",
+      "meatDairy": "Meat and dairy products",
+      "alcohol": "Alcohol",
+      "tobacco": "Tobacco",
+      "drones": "Drones (authorization required)"
+    },
+    "countries": {
+      "FR": {
+        "name": "France",
+        "subtitle": "EU / Schengen Member",
+        "specificities": "No intra-EU/Schengen customs control. Standard EU rules for non-EU travelers. French customs are particularly vigilant about counterfeits and tobacco products beyond quotas. Duty-free allowance from non-EU countries: €430 (air).",
+        "liquids": "100 ml / transparent bag. Standard EU rule applied in all French airports."
+      },
+      "ES": {
+        "name": "Spain",
+        "subtitle": "EU / Schengen Member",
+        "specificities": "Same EU rules as France. Note: the Canary Islands, Ceuta and Melilla have a special tax status.",
+        "liquids": "100 ml / transparent bag. Madrid (MAD) and Barcelona (BCN) airports are among the strictest."
+      },
+      "PT": {
+        "name": "Portugal",
+        "subtitle": "EU / Schengen Member",
+        "specificities": "Particularity: the decriminalization of drugs for personal use does not apply to importation.",
+        "liquids": "100 ml / transparent bag. Standard EU rule applied in Lisbon (LIS) and Porto (OPO)."
+      },
+      "BE": {
+        "name": "Belgium",
+        "subtitle": "EU / Schengen Member",
+        "specificities": "No intra-Schengen customs control. Belgium is particularly vigilant about rough diamonds.",
+        "liquids": "100 ml / transparent bag. Standard EU rule applied at Brussels Airport (BRU) and Liège (LGG)."
+      },
+      "CH": {
+        "name": "Switzerland",
+        "subtitle": "Schengen, non-EU",
+        "specificities": "Switzerland is in the Schengen area but NOT in the EU customs union: customs controls exist.",
+        "liquids": "100 ml / transparent bag. Applied in Zurich (ZRH), Geneva (GVA) and Basel-Mulhouse (BSL)."
+      },
+      "GB": {
+        "name": "United Kingdom",
+        "subtitle": "261 M passengers",
+        "specificities": "Post-Brexit, separate controls from the EU. New border inspection posts for EU animal products.",
+        "liquids": "100 ml / transparent bag. Since 2024, attempted move to 2L but delayed."
+      },
+      "US": {
+        "name": "United States",
+        "subtitle": "876 M passengers",
+        "specificities": "CBP 6059B form mandatory. US customs very strict on agricultural products.",
+        "liquids": "100 ml / 1L transparent bag rule. Liquid medicines exempted with prescription."
+      },
+      "CA": {
+        "name": "Canada",
+        "subtitle": "2nd North American market",
+        "specificities": "The Canada Border Services Agency (CBSA) is among the most rigorous in the world. Cannabis is legal in Canada but its importation from abroad is strictly prohibited.",
+        "liquids": "100 ml / transparent bag. Applied in Toronto (YYZ), Montreal (YUL), Vancouver (YVR)."
+      },
+      "MX": {
+        "name": "Mexico",
+        "subtitle": "1st Latin American market",
+        "specificities": "The Mexican customs system uses a random traffic light system on arrival.",
+        "liquids": "100 ml / transparent bag. Applied in Mexico City, Cancún, Guadalajara."
+      },
+      "BR": {
+        "name": "Brazil",
+        "subtitle": "1st South American market",
+        "specificities": "Brazilian customs are known for high taxes on products imported beyond the allowance.",
+        "liquids": "100 ml / transparent bag. Applied in major airports."
+      },
+      "AR": {
+        "name": "Argentina",
+        "subtitle": "2nd South American market",
+        "specificities": "Argentina applies strict customs controls on foreign currencies.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "CI": {
+        "name": "Ivory Coast",
+        "subtitle": "West African Hub",
+        "specificities": "Ivory Coast is a member of UEMOA (West African Economic and Monetary Union). Customs controls at Abidjan airport (ABJ) are reinforced.",
+        "liquids": "100 ml / transparent bag. Standard ICAO rule."
+      },
+      "ZA": {
+        "name": "South Africa",
+        "subtitle": "Southern African Hub",
+        "specificities": "Strict declaration of valuables.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "SN": {
+        "name": "Senegal",
+        "subtitle": "West African Hub",
+        "specificities": "Member of UEMOA (CFA zone): facilitated free movement with 7 neighboring countries.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "CM": {
+        "name": "Cameroon",
+        "subtitle": "Central African Hub",
+        "specificities": "CEMAC member. Controls at Douala (DLA) and Yaoundé (NSI) are frequent.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "MA": {
+        "name": "Morocco",
+        "subtitle": "North African Hub",
+        "specificities": "The Moroccan currency (dirham) is non-convertible: it is illegal to leave Morocco with more than 1,000 MAD in cash.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "SA": {
+        "name": "Saudi Arabia",
+        "subtitle": "Route JED-RUH #1 worldwide",
+        "specificities": "Country with some of the most restrictive customs rules in the world. Any material deemed contrary to Islamic values may be confiscated.",
+        "liquids": "100 ml / standard transparent bag."
+      },
+      "AE": {
+        "name": "United Arab Emirates",
+        "subtitle": "Global Hub (DXB)",
+        "specificities": "Zero tolerance for drugs (even detectable traces). Psychotropic medicines require certificate from the Ministry of Health.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "IN": {
+        "name": "India",
+        "subtitle": "211 M passengers",
+        "specificities": "Baggage allowance: ₹50,000 for personal goods. Very strict gold import rules.",
+        "liquids": "100 ml / transparent bag."
+      },
+      "CN": {
+        "name": "China",
+        "subtitle": "741 M passengers",
+        "specificities": "Very strict customs control at entry. Content of electronic devices subject to inspection.",
+        "liquids": "100 ml rule strictly applied."
+      },
+      "JP": {
+        "name": "Japan",
+        "subtitle": "205 M passengers",
+        "specificities": "Japan prohibits certain common medications in Europe (e.g., Sudafed).",
+        "liquids": "100 ml / transparent bag. Strictly applied."
+      }
+    },
+    "table": {
+      "country": "Country",
+      "prohibited": "Prohibited / regulated products",
+      "rules": "Currency & food rules",
+      "specificities": "Notable customs specificities",
+      "liquids": "Cabin liquids"
+    },
+    "map": {
+      "alt": "World map showing customs restrictions by country"
+    }
   },
   "seo": {
     "description": "Make more than a trip, make happy luggage! GoHappyGo is the reference platform for making more than a trip. Find reliable travelers or offer your services during your travels. Economical, secure and ecological.",
