@@ -18,7 +18,7 @@ export type AirportSearchResponse = {
 
 export async function searchAirports(params: { name?: string; municipalityOrName?: string; cursor?: string; limit?: number }): Promise<AirportSearchResponse> {
     const { name, municipalityOrName, cursor, limit = 20 } = params;
-    const response = await api.get("/airports", { params: { name, municipalityOrName, cursor, limit } });
+    const response = await api.get("/airports", { params: { name, municipalityOrName, cursor, limit }, skipAuth: true });
     // Backend may return different shapes; normalize to { items, nextCursor }
     const data = response.data;
     if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ export async function searchAirports(params: { name?: string; municipalityOrName
 
 export async function getAirportById(id: number): Promise<Airport | null> {
     try {
-        const response = await api.get(`/airports/${id}`);
+        const response = await api.get(`/airports/${id}`, { skipAuth: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching airport by ID:", error);

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSocketIO, type ChatMessage } from '~/hooks/useSocketIO';
-import { getMessageThread, markThreadAsRead, type ThreadMessage } from '~/services/messageService';
+import { getMessageThread, getUnreadCount, markThreadAsRead, type ThreadMessage } from '~/services/messageService';
 import { useAuthStore } from '~/store/auth';
 
 interface ChatProps {
@@ -36,6 +36,25 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
+  const markCurrentThreadAsRead = useCallback(async (fallbackUnreadCount?: number) => {
+    try {
+      await markThreadAsRead(requestId);
+
+      const totalUnreadCount = await getUnreadCount();
+      window.dispatchEvent(
+        new CustomEvent('active-conversation-read', {
+          detail: {
+            requestId,
+            totalUnreadCount,
+            unreadCount: fallbackUnreadCount,
+          },
+        })
+      );
+    } catch (error) {
+      console.error('Error marking thread as read:', error);
+    }
+  }, [requestId]);
+
   const handleNewMessage = useCallback(
     (message: ChatMessage) => {
       window.dispatchEvent(
@@ -69,22 +88,10 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
 
       // Mark as read if not from current user
       if (message.sender.id !== Number(currentUser?.id)) {
-        // Use socket markAsRead first, fallback to HTTP
-        if (!markAsRead()) {
-          markThreadAsRead(requestId).catch(console.error);
-        }
-
-        window.dispatchEvent(
-          new CustomEvent('active-conversation-read', {
-            detail: {
-              requestId,
-              unreadCount: 1,
-            },
-          })
-        );
+        markCurrentThreadAsRead(1);
       }
     },
-    [requestId, currentUser?.id, otherUser.id]
+    [requestId, currentUser?.id, otherUser.id, markCurrentThreadAsRead]
   );
 
   const handleTyping = useCallback((userId: number, isTyping: boolean) => {
@@ -121,7 +128,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     [otherUser.id]
   );
 
-  const { isConnected, sendMessage, sendTyping, markAsRead } = useSocketIO({
+  const { isConnected, sendMessage, sendTyping } = useSocketIO({
     requestId,
 
     onMessage: handleNewMessage,
@@ -145,10 +152,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
         setHasMore(response.meta.hasNextPage);
         setPage(1);
 
-        // Mark as read
-        if (!markAsRead()) {
-          await markThreadAsRead(requestId);
-        }
+        await markCurrentThreadAsRead();
 
         setTimeout(scrollToBottom, 100);
       } catch (error) {
@@ -159,7 +163,7 @@ export default function Chat({ requestId, otherUser, onClose }: ChatProps) {
     };
 
     loadMessages();
-  }, [requestId]);
+  }, [requestId, markCurrentThreadAsRead, scrollToBottom]);
 
   // Load more messages
   const loadMoreMessages = async () => {

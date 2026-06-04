@@ -200,7 +200,7 @@ export default function ConversationList({
 
   useEffect(() => {
     const handleActiveConversationRead = (event: Event) => {
-      const customEvent = event as CustomEvent<{ requestId?: number; unreadCount?: number }>;
+      const customEvent = event as CustomEvent<{ requestId?: number; unreadCount?: number; totalUnreadCount?: number }>;
       if (!customEvent.detail?.requestId) return;
 
       setConversations((prev) =>
@@ -211,7 +211,9 @@ export default function ConversationList({
         )
       );
 
-      if (customEvent.detail.unreadCount) {
+      if (typeof customEvent.detail.totalUnreadCount === 'number') {
+        setTotalUnreadCount(customEvent.detail.totalUnreadCount);
+      } else if (customEvent.detail.unreadCount) {
         setTotalUnreadCount((prev) => Math.max(0, prev - customEvent.detail.unreadCount!));
       }
     };
@@ -354,7 +356,7 @@ export default function ConversationList({
           <div
             key={conversation.id}
             onClick={() => handleSelectConversation(conversation)}
-            className={`p-4 hover cursor-pointer transition-colors ${
+            className={`p-4 cursor-pointer transition-colors hover:bg-gray-50 active:bg-blue-50 ${
               selectedConversationId === conversation.id
                 ? 'bg-blue-50 border-r-2 border-blue-500'
                 : ''

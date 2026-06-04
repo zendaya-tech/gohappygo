@@ -1,6 +1,17 @@
 import axios from "axios";
+import type { InternalAxiosRequestConfig } from "axios";
 import { getCookie, setCookie, deleteCookie } from "~/utils/cookies";
 import { useAuthStore } from "~/store/auth";
+
+declare module "axios" {
+    export interface AxiosRequestConfig {
+        skipAuth?: boolean;
+    }
+
+    export interface InternalAxiosRequestConfig {
+        skipAuth?: boolean;
+    }
+}
 
 const baseURL = import.meta.env.VITE_API_URL || "https://api.gohappygo.fr/api";
 
@@ -39,7 +50,11 @@ const handleSessionExpired = () => {
 };
 
 // Request interceptor - Attach auth token
-api.interceptors.request.use((config) => {
+api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    if (config.skipAuth) {
+        return config;
+    }
+
     const token = getCookie('auth_token');
     if (token) {
         config.headers = config.headers ?? {};
@@ -55,7 +70,7 @@ api.interceptors.response.use(
         const originalRequest = error.config;
 
         // If error is not 401 or request already retried, reject
-        if (error.response?.status !== 401 || originalRequest._retry) {
+        if (error.response?.status !== 401 || originalRequest._retry || originalRequest.skipAuth) {
             return Promise.reject(error);
         }
 

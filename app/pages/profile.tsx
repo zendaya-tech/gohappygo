@@ -126,7 +126,13 @@ export default function Profile() {
 
   useEffect(() => {
     const handleActiveConversationRead = (event: Event) => {
-      const customEvent = event as CustomEvent<{ unreadCount?: number }>;
+      const customEvent = event as CustomEvent<{ unreadCount?: number; totalUnreadCount?: number }>;
+      const totalUnreadCount = customEvent.detail?.totalUnreadCount;
+      if (typeof totalUnreadCount === 'number') {
+        setTotalUnreadCount(totalUnreadCount);
+        return;
+      }
+
       const unreadCount = customEvent.detail?.unreadCount ?? 0;
       if (!unreadCount) return;
 
