@@ -1,8 +1,11 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const OutilVoyageur = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-white flex flex-col relative overflow-hidden md:bg-[url('/images/footerLinksbackground.jpeg')] bg-no-repeat bg-cover bg-center">
       <Header />
@@ -11,18 +14,24 @@ const OutilVoyageur = () => {
         {/* Header Section */}
         <header className="mb-20 max-w-4xl text-left">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-blue-600 leading-tight uppercase tracking-tight mb-6">
-            OUTILS POUR
-            <br />
-            LES HAPPYVOYAGEURS
+            {t('travelerTools.common.title')
+              .split(' POUR ')
+              .join(' POUR\n')
+              .split('\n')
+              .map((part, i, arr) => (
+                <span key={i}>
+                  {part}
+                  {i < arr.length - 1 && <br />}
+                </span>
+              ))}
           </h1>
 
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
-            Gagnez en confiance et en bonheur
+            {t('travelerTools.main.subtitle')}
           </h2>
 
           <p className="text-lg md:text-xl font-medium text-gray-600 leading-relaxed max-w-3xl">
-            Vous trouverez ici toutes les ressources essentielles pour voyager sereinement, gagner
-            du temps et éviter les imprévus, tout en donnant du bonheur...
+            {t('travelerTools.main.description')}
           </p>
         </header>
 
@@ -37,18 +46,22 @@ const OutilVoyageur = () => {
               <img
                 className="w-55 h-55"
                 src="/images/bonnesPratiques-removebg-preview.webp"
-                alt="blue thumbs up with 3 stars at the top"
+                alt={t('travelerTools.main.sections.goodPractices.title')}
               />
             </Link>
             <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4">
-              Les Bonnes
-              <br />
-              Pratiques
+              {t('travelerTools.main.sections.goodPractices.title')
+                .split(' ')
+                .map((part, i, arr) => (
+                  <span key={i}>
+                    {part}
+                    {i === 1 && <br />}
+                    {i !== 1 && i < arr.length - 1 && ' '}
+                  </span>
+                ))}
             </h3>
             <p className="text-sm font-medium text-gray-600 leading-relaxed px-2">
-              Découvrez les conseils essentiels de la communauté GoHappyGo pour garantir des
-              échanges fluides, respectueux et sécurisés. Adoptez les bons réflexes avant, pendant
-              et après chaque transport de bagage.
+              {t('travelerTools.main.sections.goodPractices.description')}
             </p>
           </div>
 
@@ -61,17 +74,24 @@ const OutilVoyageur = () => {
               <img
                 className="w-55 h-55"
                 src="/images/articlesInterdits-removebg-preview.webp"
-                alt="forbidden blue cupcake"
+                alt={t('travelerTools.main.sections.forbiddenArticles.title')}
               />
             </Link>
             <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4">
-              Articles
-              <br />
-              Interdits/Reglémentés
+              {t('travelerTools.main.sections.forbiddenArticles.title')
+                .split('/')
+                .join('/\n')
+                .split('\n')
+                .map((part, i, arr) => (
+                  <span key={i}>
+                    {part}
+                    {i < arr.length - 1 && <br />}
+                    {i < arr.length - 1 && part.endsWith('/') ? '' : ''}
+                  </span>
+                ))}
             </h3>
             <p className="text-sm font-medium text-gray-600 leading-relaxed px-2">
-              Consultez les règles douanières et les restrictions applicables selon les pays afin
-              d&apos;éviter tout blocage, retard ou incident lors du transport de vos bagages.
+              {t('travelerTools.main.sections.forbiddenArticles.description')}
             </p>
           </div>
 
@@ -84,17 +104,23 @@ const OutilVoyageur = () => {
               <img
                 className="w-55 h-55"
                 src="/images/securiteAccompagnements-removebg-preview.webp"
-                alt="blue and red people holding"
+                alt={t('travelerTools.main.sections.security.title')}
               />
             </Link>
             <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4">
-              Sécurité et
-              <br />
-              Accompagnement
+              {t('travelerTools.main.sections.security.title')
+                .split(' et ')
+                .join(' et\n')
+                .split('\n')
+                .map((part, i, arr) => (
+                  <span key={i}>
+                    {part}
+                    {i < arr.length - 1 && <br />}
+                  </span>
+                ))}
             </h3>
             <p className="text-sm font-medium text-gray-600 leading-relaxed px-2">
-              Accédez à toutes les garanties pour une expérience fluide, sécurisée et rassurante à
-              chaque étape de votre voyage.
+              {t('travelerTools.main.sections.security.description')}
             </p>
           </div>
         </div>

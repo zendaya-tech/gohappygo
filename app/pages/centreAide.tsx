@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 interface HelpCard {
   to: string;
@@ -11,61 +12,117 @@ interface HelpCard {
 }
 
 const CentreAide = () => {
+  const { t } = useTranslation();
+
   // Matrice de données pour les 6 blocs du Centre d'Aide
   const helpCards: HelpCard[] = [
     {
       to: '/aide/compte-inscription',
       src: '/images/compt-et-inscription.webp',
-      alt: 'Illustration Compte et Inscription',
+      alt: t('helpCenter.alts.account'),
       heading: (
         <>
-          Compte &amp; <br /> Inscription
+          {t('helpCenter.cards.account')
+            .split(' & ')
+            .map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && (
+                  <>
+                    {' & '}
+                    <br />
+                  </>
+                )}
+              </span>
+            ))}
         </>
       ),
     },
     {
       to: '/aide/annonces',
       src: '/images/publier-et-rechercher-annonce.webp',
-      alt: 'Illustration Publier et Rechercher une annonce',
+      alt: t('helpCenter.alts.ads'),
       heading: (
         <>
-          Publier &amp; Rechercher une <br /> annonce
+          {t('helpCenter.cards.ads')
+            .split('une annonce')
+            .join('une \nannonce')
+            .split('\n')
+            .map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && <br />}
+              </span>
+            ))}
         </>
       ),
     },
     {
       to: '/aide/messagerie',
       src: '/images/messagerie-et-communication.webp',
-      alt: 'Illustration Messagerie et Communication',
+      alt: t('helpCenter.alts.messaging'),
       heading: (
         <>
-          Messagerie &amp; <br /> Communication
+          {t('helpCenter.cards.messaging')
+            .split(' & ')
+            .map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && (
+                  <>
+                    {' & '}
+                    <br />
+                  </>
+                )}
+              </span>
+            ))}
         </>
       ),
     },
     {
       to: '/aide/confidentialite',
       src: '/images/confidentialite-des-donnees.webp',
-      alt: 'Illustration Confidentialité des données',
+      alt: t('helpCenter.alts.privacy'),
       heading: (
         <>
-          Confidentialité <br /> des données
+          {t('helpCenter.cards.privacy')
+            .split(' des ')
+            .join(' \ndes ')
+            .split('\n')
+            .map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && <br />}
+              </span>
+            ))}
         </>
       ),
     },
     {
       to: '/aide/paiement-protection',
       src: '/images/paiements-et-protection.webp',
-      alt: 'Illustration Paiement et Protection',
-      heading: <>Paiement &amp; Protection</>,
+      alt: t('helpCenter.alts.payment'),
+      heading: <>{t('helpCenter.cards.payment')}</>,
     },
     {
       to: '/aide/annulation-imprevus',
       src: '/images/annulation&imprevus.webp',
-      alt: 'Illustration Annulation et Imprévus',
+      alt: t('helpCenter.alts.cancellation'),
       heading: (
         <>
-          Annulation &amp; <br /> Imprévus
+          {t('helpCenter.cards.cancellation')
+            .split(' & ')
+            .map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && (
+                  <>
+                    {' & '}
+                    <br />
+                  </>
+                )}
+              </span>
+            ))}
         </>
       ),
     },
@@ -79,16 +136,16 @@ const CentreAide = () => {
         {/* Hero Header Section & Search Bar */}
         <header className="mb-12 max-w-4xl text-left flex flex-col">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-blue-600 leading-tight uppercase tracking-tight mb-4">
-            CENTRE D&apos;AIDE
+            {t('helpCenter.title')}
           </h1>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-            Trouvez les reponses à vos questions
+            {t('helpCenter.subtitle')}
           </h2>
         </header>
         {/* Rechercher Button Capsule */}
         <div className="flex justify-center">
           <div className="bg-blue-600 text-white font-extrabold text-lg md:text-xl tracking-wide px-16 py-2.5 rounded-full shadow-md select-none ">
-            Rechercher
+            {t('helpCenter.search')}
           </div>
         </div>
 

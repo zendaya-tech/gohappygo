@@ -568,6 +568,7 @@
       "becomeTransporter": "Devenir HappyVoyageur",
       "insuranceProtection": "Assurance et Protection",
       "securityRules": "Règles de sécurité",
+      "goodPractices": "Bonnes pratiques",
       "title": "Donnez du Bonheur"
     },
     "knowUs": {
@@ -807,6 +808,7 @@
     },
     "supportSection": {
       "detailedHelp": "Besoin d'aide détaillée ?",
+      "helpCenter": "Centre d'aide",
       "errors": {
         "fillAll": "Veuillez remplir tous les champs.",
         "invalidEmail": "Veuillez entrer une adresse email valide.",
@@ -1725,6 +1727,277 @@
     "reviewFrom": "Avis de {{name}}",
     "reviewsWithCount": "avis",
     "shareExperience": "partager votre expérience"
+  },
+  "helpCenter": {
+    "title": "CENTRE D'AIDE",
+    "subtitle": "Trouvez les reponses à vos questions",
+    "search": "Rechercher",
+    "cards": {
+      "account": "Compte & Inscription",
+      "ads": "Publier & Rechercher une annonce",
+      "messaging": "Messagerie & Communication",
+      "privacy": "Confidentialité des données",
+      "payment": "Paiement & Protection",
+      "cancellation": "Annulation & Imprévus"
+    },
+    "alts": {
+      "account": "Illustration Compte et Inscription",
+      "ads": "Illustration Publier et Rechercher une annonce",
+      "messaging": "Illustration Messagerie et Communication",
+      "privacy": "Illustration Confidentialité des données",
+      "payment": "Illustration Paiement et Protection",
+      "cancellation": "Illustration Annulation et Imprévus"
+    }
+  },
+  "travelerTools": {
+    "common": {
+      "title": "OUTILS POUR LES HAPPYVOYAGEURS"
+    },
+    "main": {
+      "subtitle": "Gagnez en confiance et en bonheur",
+      "description": "Vous trouverez ici toutes les ressources essentielles pour voyager sereinement, gagner du temps et éviter les imprévus, tout en donnant du bonheur...",
+      "sections": {
+        "goodPractices": {
+          "title": "Les Bonnes Pratiques",
+          "description": "Découvrez les conseils essentiels de la communauté GoHappyGo pour garantir des échanges fluides, respectueux et sécurisés. Adoptez les bons réflexes avant, pendant et après chaque transport de bagage."
+        },
+        "forbiddenArticles": {
+          "title": "Articles Interdits/Reglémentés",
+          "description": "Consultez les règles douanières et les restrictions applicables selon les pays afin d'éviter tout blocage, retard ou incident lors du transport de vos bagages."
+        },
+        "security": {
+          "title": "Sécurité et Accompagnement",
+          "description": "Accédez à toutes les garanties pour une expérience fluide, sécurisée et rassurante à chaque étape de votre voyage."
+        }
+      }
+    },
+    "forbiddenArticles": {
+      "subtitle": "Articles interdits/reglementés",
+      "description": "Cliquez sur votre pays de destination pour découvrir un éventail de restriction douanieres applicables"
+    },
+    "security": {
+      "subtitle": "Sécurité et Accompagnement",
+      "intro": "Vous vous êtes rencontrés à l'aéroport, avez effectué votre selfie à 2, ce n'est pas fini..",
+      "checkIn": {
+        "title": "S'enregistrer à 2 à la suite",
+        "description": "Il est recommandé que les deux voyageurs se présentent ensemble au comptoir d'enregistrement et enregistrent leurs bagages l'un à la suite de l'autre. Cette étape permet de confirmer le voyage, et sécurise, renforce la traçabilité de la transaction jusqu'à l'embarquement."
+      },
+      "payment": {
+        "title": "Paiement sécurisé",
+        "bold": "Tous les paiements doivent être effectués exclusivement via la plateforme GoHappyGo.",
+        "p1": "Le paiement intégré permet de protéger les voyageurs tout en assurant la traçabilité des transactions.",
+        "p2": "Le paiement est sécurisé et conservé sur la plateforme jusqu'à la validation de la remise du bagage. Cette procédure permet de limiter les risques de fraude, de sécuriser les accords entre utilisateurs et de renforcer la confiance au sein de la communauté."
+      },
+      "report": {
+        "title": "Signalez un comportement",
+        "description": "Si vous observez un comportement suspect, irrespectueux ou contraire aux règles de la plateforme, nous vous encourageons à le signaler immédiatement via le ",
+        "link": "formulaire de signalement",
+        "listTitle": "Un signalement peut concerner :",
+        "items": {
+          "selfie": "un refus de selfie de vérification,",
+          "payment": "une demande de paiement en dehors de la plateforme,",
+          "pressure": "une pression inhabituelle,",
+          "content": "un contenu de bagage différent de celui annoncé,",
+          "behavior": "un comportement agressif ou inapproprié."
+        },
+        "footer": "Chaque signalement contribue à protéger l'ensemble de la communauté et à garantir des échanges plus sûrs et plus transparents."
+      }
+    },
+    "goodPractices": {
+      "subtitle": "Les Bonnes Pratiques",
+      "sections": {
+        "register": {
+          "title": "S'inscrire",
+          "description": "La première étape pour rejoindre GoHappyGo consiste à créer votre compte utilisateur. Pour garantir la sécurité et la conformité des échanges, les voyageurs doivent être âgés d'au moins 18 ans et disposer d'une pièce d'identité valide, quel que soit leur pays de résidence."
+        },
+        "announce": {
+          "title": "Créer votre annonce",
+          "description": "Rédigez une annonce claire et précise en indiquant vos attentes et éventuelles contraintes. Mentionnez notamment vos horaires d'arrivée, les types d'articles refusés (produits alimentaires, colis fermés, objets sensibles, etc.) ou toute autre information utile. Une annonce détaillée permet d'éviter les malentendus."
+        },
+        "customs": {
+          "title": "Vérifiez les règles douanières",
+          "description": "Avant votre voyage, prenez le temps de consulter les réglementations douanières applicables dans votre pays de destination. Les restrictions varient selon les pays : certains produits peuvent être interdits ou soumis à déclaration, comme l'alcool, les médicaments ou certains aliments. Retrouvez les principales informations dans notre section ",
+          "link": "« Articles interdits / réglementés »"
+        },
+        "messaging": {
+          "title": "Communiquez via la messagerie",
+          "description": "Utilisez exclusivement la messagerie interne GoHappyGo pour organiser votre rencontre et échanger avec les autres voyageurs. Ces échanges constituent une preuve en cas de besoin. Pour votre sécurité, évitez de partager vos coordonnées personnelles ou votre adresse privée."
+        },
+        "punctuality": {
+          "title": "Soyez ponctuel",
+          "description": "La ponctualité facilite des échanges sereins et fluides. Les rencontres sont fortement recommandées dans l'enceinte de l'aéroport, considéré comme un lieu sécurisé et facilement identifiable. Convenez ensemble d'un horaire précis afin d'éviter tout retard ou incompréhension."
+        },
+        "selfie": {
+          "title": "Prenez obligatoirement le selfie à 2",
+          "description": "Lors de votre rencontre à l'aéroport, prenez un selfie à 2 via l'application mobile GoHappyGo. Cette étape permet de sécuriser et tracer la transaction. En cas de refus de prendre le selfie, il est recommandé d'interrompre l'échange. Le selfie est conservé de manière sécurisée sur la plateforme et supprimé automatiquement après 90 jours. Il n'est pas consultable ou partagé."
+        }
+      }
+    }
+  },
+  "announces": {
+    "descriptions": {
+      "1": "Voyage d'affaires, espace disponible dans ma valise pour vos colis",
+      "2": "Vacances au Japon, je peux transporter vos colis avec plaisir",
+      "3": "Étudiant en échange, beaucoup d'espace disponible",
+      "4": "Week-end à Barcelone, espace libre dans mes bagages",
+      "5": "Conférence professionnelle, transport sécurisé garanti",
+      "6": "Voyage personnel, flexible sur les types de colis",
+      "7": "Besoin de transporter un sac en cuir",
+      "8": "Recherche transport pour chaussures plates",
+      "9": "Transport nécessaire pour sac de voyage"
+    }
+  },
+  "customs": {
+    "tags": {
+      "illicitDrugs": "Drogues illicites",
+      "cites": "Espèces CITES (ivoire, corail…)",
+      "counterfeits": "Contrefaçons",
+      "controlledMeds": "Médicaments contrôlés (ordonnance requise)",
+      "firearms": "Armes à feu (licence obligatoire)",
+      "currency": "> 10 000 € à déclarer",
+      "meatDairy": "Viande et produits laitiers",
+      "alcohol": "Alcool",
+      "tobacco": "Tabac",
+      "drones": "Drones (autorisation requise)"
+    },
+    "countries": {
+      "FR": {
+        "name": "France",
+        "subtitle": "Membre UE / Schengen",
+        "specificities": "Pas de contrôle douanier intra-UE/Schengen. Règles UE standard pour voyageurs extra-communautaires. La douane française est particulièrement vigilante sur les contrefaçons et les produits du tabac hors quota. Franchise bagages hors UE : 430 € (avion).",
+        "liquids": "100 ml / sac transparent. Règle UE standard appliquée dans tous les aéroports français."
+      },
+      "ES": {
+        "name": "Espagne",
+        "subtitle": "Membre UE / Schengen",
+        "specificities": "Mêmes règles UE que la France. Attention : les Canaries, Ceuta et Melilla ont un statut fiscal particulier.",
+        "liquids": "100 ml / sac transparent. Aéroports de Madrid (MAD) et Barcelone (BCN) parmi les plus stricts."
+      },
+      "PT": {
+        "name": "Portugal",
+        "subtitle": "Membre UE / Schengen",
+        "specificities": "Particularité : la dépénalisation des drogues pour usage personnel ne s'applique pas à l'importation.",
+        "liquids": "100 ml / sac transparent. Règle UE standard appliquée à Lisbonne (LIS) et Porto (OPO)."
+      },
+      "BE": {
+        "name": "Belgique",
+        "subtitle": "Membre UE / Schengen",
+        "specificities": "Pas de contrôle douanier intra-Schengen. La Belgique est particulièrement vigilante sur les diamants bruts.",
+        "liquids": "100 ml / sac transparent. Règle UE standard appliquée à Brussels Airport (BRU) et Liège (LGG)."
+      },
+      "CH": {
+        "name": "Suisse",
+        "subtitle": "Schengen, hors UE",
+        "specificities": "La Suisse est dans l'espace Schengen mais PAS dans l'union douanière UE : les contrôles douaniers existent.",
+        "liquids": "100 ml / sac transparent. Appliqué à Zurich (ZRH), Genève (GVA) et Bâle-Mulhouse (BSL)."
+      },
+      "GB": {
+        "name": "Royaume-Uni",
+        "subtitle": "261 M passagers",
+        "specificities": "Post-Brexit, contrôles séparés de l'UE. Nouveaux postes d'inspection aux frontières pour produits animaux UE.",
+        "liquids": "100 ml / sac transparent. Depuis 2024, tentative de passage à 2L mais retardée."
+      },
+      "US": {
+        "name": "États-Unis",
+        "subtitle": "876 M passagers",
+        "specificities": "Formulaire CBP 6059B obligatoire. Douane américaine très stricte sur les produits agricoles.",
+        "liquids": "Règle des 100 ml / sac transparent 1L. Médicaments liquides exemptés avec ordonnance."
+      },
+      "CA": {
+        "name": "Canada",
+        "subtitle": "2e marché Amérique du Nord",
+        "specificities": "L'Agence des services frontaliers du Canada (ASFC) est parmi les plus rigoureuses au monde. Le cannabis est légal au Canada mais son importation depuis l'étranger est formellement interdite.",
+        "liquids": "100 ml / sac transparent. Appliqué à Toronto (YYZ), Montréal (YUL), Vancouver (YVR)."
+      },
+      "MX": {
+        "name": "Mexique",
+        "subtitle": "1er marché Amérique latine",
+        "specificities": "Le système douanier mexicain utilise un feu tricolore aléatoire à l'arrivée.",
+        "liquids": "100 ml / sac transparent. Appliqué à Mexico, Cancún, Guadalajara."
+      },
+      "BR": {
+        "name": "Brésil",
+        "subtitle": "1er marché Amérique du Sud",
+        "specificities": "La douane brésilienne est réputée pour ses taxes élevées sur les produits importés au-delà de la franchise.",
+        "liquids": "100 ml / sac transparent. Appliqué dans les grands aéroports."
+      },
+      "AR": {
+        "name": "Argentine",
+        "subtitle": "2e marché Amérique du Sud",
+        "specificities": "L'Argentine applique des contrôles douaniers stricts sur les devises étrangères.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "CI": {
+        "name": "Côte d'Ivoire",
+        "subtitle": "Hub Afrique de l'Ouest",
+        "specificities": "La Côte d'Ivoire est membre de l'UEMOA (Union Économique et Monétaire Ouest-Africaine). Les contrôles douaniers à l'aéroport d'Abidjan (ABJ) sont renforcés.",
+        "liquids": "100 ml / sac transparent. Règle OACI standard."
+      },
+      "ZA": {
+        "name": "Afrique du Sud",
+        "subtitle": "Hub Afrique Australe",
+        "specificities": "Déclaration stricte des biens de valeur.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "SN": {
+        "name": "Sénégal",
+        "subtitle": "Hub Afrique de l'Ouest",
+        "specificities": "Membre de l'UEMOA (zone FCFA) : libre circulation facilitée avec 7 pays voisins.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "CM": {
+        "name": "Cameroun",
+        "subtitle": "Hub Afrique Centrale",
+        "specificities": "Membre de la CEMAC. Les contrôles à Douala (DLA) et Yaoundé (NSI) sont fréquents.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "MA": {
+        "name": "Maroc",
+        "subtitle": "Hub Afrique du Nord",
+        "specificities": "La devise marocaine (dirham) est non convertible : il est illégal de sortir du Maroc avec plus de 1 000 MAD en espèces.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "SA": {
+        "name": "Arabie Saoudite",
+        "subtitle": "Route JED-RUH n°1 mondial",
+        "specificities": "Pays aux règles douanières parmi les plus restrictives au monde. Tout matériel jugé contraire aux valeurs islamiques peut être confisqué.",
+        "liquids": "100 ml / sac transparent standard."
+      },
+      "AE": {
+        "name": "Émirats Arabes Unis",
+        "subtitle": "Hub mondial (DXB)",
+        "specificities": "Tolérance zéro pour les drogues (même traces détectables). Médicaments psychotropes nécessitent une attestation du ministère de la santé.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "IN": {
+        "name": "Inde",
+        "subtitle": "211 M passagers",
+        "specificities": "Franchise bagages : 50 000 ₹ de biens personnels. Règles d'import d'or très strictes.",
+        "liquids": "100 ml / sac transparent."
+      },
+      "CN": {
+        "name": "Chine",
+        "subtitle": "741 M passagers",
+        "specificities": "Contrôle douanier très strict à l'entrée. Contenu des appareils électroniques susceptible d'être inspecté.",
+        "liquids": "Règle des 100 ml strictement appliquée."
+      },
+      "JP": {
+        "name": "Japon",
+        "subtitle": "205 M passagers",
+        "specificities": "Le Japon interdit certains médicaments courants en Europe (ex. Sudafed).",
+        "liquids": "100 ml / sac transparent. Strictement appliqué."
+      }
+    },
+    "table": {
+      "country": "Pays",
+      "prohibited": "Produits interdits / réglementés",
+      "rules": "Règles devises & alimentaires",
+      "specificities": "Spécificités douanières notables",
+      "liquids": "Liquides cabine"
+    },
+    "map": {
+      "alt": "Carte du monde montrant les restrictions douanières par pays"
+    }
   },
   "seo": {
     "description": "Faites plus qu'un voyage, faites des bagages heureux ! GoHappyGo est la plateforme de référence pour le faites plus q'un voyage. Trouvez des transporteurs fiables ou proposez vos services lors de vos voyages. Économique, sécurisé et écologique.",
