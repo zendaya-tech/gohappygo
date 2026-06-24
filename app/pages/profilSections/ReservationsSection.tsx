@@ -530,7 +530,7 @@ export const ReservationsSection = ({
                   }
                   messageAction={
                     // Show message button for all statuses except CANCELLED
-                    request.currentStatus?.status !== 'CANCELLED'
+                    isLoggedIn && request.currentStatus?.status !== 'CANCELLED'
                       ? {
                           label: t('profile.actions.message'),
                           onClick: () =>

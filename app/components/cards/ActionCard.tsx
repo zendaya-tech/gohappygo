@@ -135,19 +135,21 @@ const ActionCard: React.FC<ActionCardProps> = ({
                 {user.name}
               </span>
             </div>
-            <button
-              type="button"
-              className="relative px-3 py-1.5 md:px-5 md:py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-[10px] md:text-xs font-bold hover:bg-blue-50 transition-colors shrink-0 cursor-pointer"
-              onClick={messageAction?.onClick}
-            >
-              {t('cards.action.message')}
-              {/* Badge de messages non lus sur le bouton */}
-              {!!unreadCount && unreadCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5 shadow-lg">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
-              )}
-            </button>
+            {messageAction && (
+              <button
+                type="button"
+                className="relative px-3 py-1.5 md:px-5 md:py-2 border-2 border-blue-600 text-blue-600 rounded-xl text-[10px] md:text-xs font-bold hover:bg-blue-50 transition-colors shrink-0 cursor-pointer"
+                onClick={messageAction.onClick}
+              >
+                {t('cards.action.message')}
+                {/* Badge de messages non lus sur le bouton */}
+                {!!unreadCount && unreadCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1.5 shadow-lg">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </button>
+            )}
           </div>
         )}
 

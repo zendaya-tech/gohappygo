@@ -5,6 +5,17 @@ export interface SendMessageDto {
   content: string;
 }
 
+export interface SendPublicMessageDto {
+  announcementId: number;
+  announcementType: 'travel' | 'demand';
+  message: string;
+}
+
+export interface SendPublicMessageResponse {
+  success: boolean;
+  message: string;
+}
+
 export interface MessageResponse {
   id: number;
   content: string;
@@ -107,5 +118,17 @@ export const getUnreadCount = async (): Promise<number> => {
   } catch (error: any) {
     console.error("Error fetching unread count:", error);
     return 0; // Return 0 on error
+  }
+};
+
+export const sendPublicMessage = async (
+  dto: SendPublicMessageDto
+): Promise<SendPublicMessageResponse> => {
+  try {
+    const response = await api.post('/message/send-public', dto);
+    return response.data;
+  } catch (error: any) {
+    console.error('Error sending public message:', error);
+    throw error?.response?.data || error;
   }
 };

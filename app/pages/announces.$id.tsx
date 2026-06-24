@@ -733,17 +733,19 @@ export default function AnnounceDetail() {
                   >
                     {t('common.profile')}
                   </button>
-                  <button
-                    onClick={() => setMessageOpen(true)}
-                    disabled={isOwnAnnounce}
-                    className={`rounded-lg border px-4 sm:px-5 py-2 text-sm font-medium transition-colors duration-200 flex-1 sm:flex-none cursor-pointer ${
-                      isOwnAnnounce
-                        ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'border-gray-300 bg-white text-gray-700 hover'
-                    }`}
-                  >
-                    {t('pages.announceDetail.message')}
-                  </button>
+                  {isLoggedIn && (
+                    <button
+                      onClick={() => setMessageOpen(true)}
+                      disabled={isOwnAnnounce}
+                      className={`rounded-lg border px-4 sm:px-5 py-2 text-sm font-medium transition-colors duration-200 flex-1 sm:flex-none cursor-pointer ${
+                        isOwnAnnounce
+                          ? 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'border-gray-300 bg-white text-gray-700 hover'
+                      }`}
+                    >
+                      {t('pages.announceDetail.message')}
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -1394,6 +1396,8 @@ export default function AnnounceDetail() {
         title={`${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`}
         hostName={userName}
         hostAvatar={listing.user?.profilePictureUrl || '/favicon.ico'}
+        announcementId={Number(listing.id)}
+        announcementType={type === 'demand' ? 'demand' : 'travel'}
         onSend={(msg) => {
           console.log('Message sent:', msg);
         }}

@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { sendMessage, type SendMessageDto } from '~/services/messageService';
+import {
+  sendMessage,
+  sendPublicMessage,
+  type SendMessageDto,
+} from '~/services/messageService';
 import { useTranslation } from 'react-i18next';
 import { XMarkIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
@@ -10,6 +14,8 @@ export default function MessageDialog({
   hostName,
   hostAvatar,
   requestId,
+  announcementId,
+  announcementType,
   onSend,
 }: {
   open: boolean;
@@ -18,6 +24,8 @@ export default function MessageDialog({
   hostName: string;
   hostAvatar: string;
   requestId?: number;
+  announcementId?: number;
+  announcementType?: 'travel' | 'demand';
   onSend?: (message: string) => void;
 }) {
   const { t } = useTranslation();
@@ -50,12 +58,17 @@ export default function MessageDialog({
 
     try {
       if (requestId) {
-        // Use API to send message
         const dto: SendMessageDto = {
           requestId,
           content: message.trim(),
         };
         await sendMessage(dto);
+      } else if (announcementId && announcementType) {
+        await sendPublicMessage({
+          announcementId,
+          announcementType,
+          message: message.trim(),
+        });
       }
 
       // Call the callback if provided
