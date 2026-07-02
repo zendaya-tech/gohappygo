@@ -257,6 +257,7 @@ export interface BookmarkItem {
     departureAirport: Airport;
     arrivalAirport: Airport;
     user: User;
+    currency?: Currency;
     airline?: Airline;
     images?: Image[];
   };
@@ -273,6 +274,7 @@ export interface BookmarkItem {
     departureAirport: Airport;
     arrivalAirport: Airport;
     user: User;
+    currency?: Currency;
     images?: Image[];
   };
 }

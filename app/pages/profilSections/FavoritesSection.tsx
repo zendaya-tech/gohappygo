@@ -100,6 +100,7 @@ export const FavoritesSection = () => {
                 typeof item.pricePerKg === 'string'
                   ? parseFloat(item.pricePerKg)
                   : (item.pricePerKg ?? 0);
+              const currencySymbol = item.currency?.symbol || '€';
               const rating = '4.7';
 
               // Pour les voyages (travel), utiliser le logo de la compagnie
@@ -126,6 +127,7 @@ export const FavoritesSection = () => {
                   avatar={avatar}
                   location={location}
                   price={`${pricePerKg}`}
+                  currencySymbol={currencySymbol}
                   rating={rating}
                   image={image}
                   featured={featured}

@@ -6,6 +6,7 @@ interface FavoriteCardProps {
   fullName: string;
   location: string;
   price: string;
+  currencySymbol?: string;
   rating: string;
   image: string;
   featured?: boolean;
@@ -22,6 +23,7 @@ export default function TravelCard({
   fullName,
   location,
   price,
+  currencySymbol = '€',
   type,
   rating,
   image,
@@ -109,7 +111,7 @@ export default function TravelCard({
         {departure && (
           <div className="flex items-center justify-between">
             <span className="font-semibold text-gray-900">
-              {t('cards.common.currencyPerKg', { symbol: `${price} €` })}
+              {t('cards.common.currencyPerKg', { symbol: `${price} ${currencySymbol}` })}
             </span>
             <div className="flex items-center space-x-1">
               <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
