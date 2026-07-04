@@ -92,6 +92,45 @@ const ActionCard: React.FC<ActionCardProps> = ({
   const hasTwoActions = Boolean(primaryAction && secondaryAction);
   const shouldHidePriceSubtext = priceSubtext?.trim().toLowerCase() === 'total';
   const visiblePriceSubtext = shouldHidePriceSubtext ? '' : priceSubtext || t('cards.action.perKg');
+  const isSelfieCta = photoProofBadge?.tone === 'warning';
+  const renderPhotoProof = () => {
+    if (!photoProofBadge) return null;
+
+    if (isSelfieCta) {
+      return (
+        <div className="w-full">
+          <div className="relative flex min-h-11 w-full items-center justify-center rounded-full bg-[#2f75ad] px-4 py-2 pl-14 text-center text-xs font-extrabold text-black shadow-sm">
+            <span className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#2f75ad] shadow-sm">
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 9a2 2 0 012-2h2.2l1.2-1.8A2 2 0 0110.1 4h3.8a2 2 0 011.7.9L16.8 7H19a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </span>
+            {photoProofBadge.label}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="w-full flex justify-end">
+        <span className="px-3 py-1.5 rounded-xl text-xs font-bold border shadow-sm bg-green-50 text-green-600 border-green-200">
+          {photoProofBadge.label}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div
       className={`bg-white rounded-2xl overflow-hidden p-2 shadow-lg hover:shadow-xl transition-shadow border flex flex-col h-full ${
@@ -184,24 +223,8 @@ const ActionCard: React.FC<ActionCardProps> = ({
         >
           <div className="text-sm font-medium text-gray-900 mb-1">
             {price}
-            {!!visiblePriceSubtext && (
-              <span className="text-sm text-gray-900"> {visiblePriceSubtext}</span>
-            )}
+            {!!visiblePriceSubtext && <span className="text-sm text-gray-900"> {visiblePriceSubtext}</span>}
           </div>
-
-          {photoProofBadge && (
-            <div className="w-full flex justify-end mb-1">
-              <span
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold border shadow-sm ${
-                  photoProofBadge.tone === 'success'
-                    ? 'bg-green-50 text-green-600 border-green-200'
-                    : 'bg-orange-50 text-orange-600 border-orange-200'
-                }`}
-              >
-                {photoProofBadge.label}
-              </span>
-            </div>
-          )}
 
           <div className={`flex gap-2 ${hasTwoActions ? 'w-full' : ''}`}>
             {statusBadge ? (
@@ -279,6 +302,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
               </>
             )}
           </div>
+          {renderPhotoProof()}
         </div>
       </div>
     </div>

@@ -405,7 +405,7 @@ export const ReservationsSection = ({
                     request.currentStatus?.status === 'ACCEPTED'
                       ? request.hasMeetingProof || request.isPhotoTaken
                         ? { label: 'Photo prise', tone: 'success' }
-                        : { label: 'Prendre la photo', tone: 'warning' }
+                        : { label: "Prenez un selfie à 2 sur l'appli", tone: 'warning' }
                       : undefined
                   }
                   primaryAction={
