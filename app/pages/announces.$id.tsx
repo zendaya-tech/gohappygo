@@ -177,10 +177,8 @@ export default function AnnounceDetail() {
     return firstName + ' ' + lastName;
   }, [listing?.user, t]);
 
-  const averageRating =
-    reviews.length > 0
-      ? reviews.reduce((sum: number, review: any) => sum + review.rating, 0) / reviews.length
-      : 0;
+  const userRating = Number(listing?.user?.rating || 0);
+  const displayUserRating = Number.isFinite(userRating) && userRating > 0 ? userRating : 0;
   const totalReviews = reviews.length;
 
   useEffect(() => {
@@ -711,8 +709,8 @@ export default function AnnounceDetail() {
                   <div>
                     <div className="font-semibold text-gray-900">{userName}</div>
                     <div className="text-xs text-gray-500">
-                      {averageRating > 0
-                        ? `${t('profile.stats.rating')} ${averageRating.toFixed(1)}`
+                      {displayUserRating > 0
+                        ? `${t('profile.stats.rating')} ${displayUserRating.toFixed(1)}`
                         : t('pages.announceDetail.notRatedYet')}{' '}
                       •{' '}
                       {listing.user?.isVerified
@@ -922,7 +920,7 @@ export default function AnnounceDetail() {
                           <svg
                             key={i}
                             className={`h-4 w-4 ${
-                              i <= Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-300'
+                              i <= Math.round(displayUserRating) ? 'text-yellow-400' : 'text-gray-300'
                             }`}
                             viewBox="0 0 20 20"
                             fill="currentColor"
@@ -931,7 +929,7 @@ export default function AnnounceDetail() {
                           </svg>
                         ))}
                       </div>
-                      <span className="text-gray-700 font-medium">{averageRating.toFixed(1)}</span>
+                      <span className="text-gray-700 font-medium">{displayUserRating.toFixed(1)}</span>
                       <span className="text-gray-500">
                         ({t('reviews.countTotal', { count: totalReviews })})
                       </span>
@@ -1365,7 +1363,7 @@ export default function AnnounceDetail() {
         listing={{
           title: `${type === 'travel' ? t('common.travel') : t('common.demand')} ${listing.departureAirport?.name} → ${listing.arrivalAirport?.name}`,
           location: `${listing.departureAirport?.name}, ${listing.arrivalAirport?.name}`,
-          rating: averageRating,
+          rating: displayUserRating,
           bedrooms: 1,
           beds: 1,
           bathrooms: 1,
