@@ -48,6 +48,7 @@ export const ReservationsSection = ({
   const [searchParams] = useSearchParams();
 
   const userId = searchParams.get('user');
+  const reservationTabParam = searchParams.get('reservationTab');
   const { user: currentUser } = useAuth();
   const token = useAuthStore((state) => state.token);
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -99,6 +100,16 @@ export const ReservationsSection = ({
   useEffect(() => {
     fetchAllTabRequests();
   }, [fetchAllTabRequests]);
+
+  useEffect(() => {
+    if (
+      reservationTabParam === 'pending' ||
+      reservationTabParam === 'accepted' ||
+      reservationTabParam === 'completed'
+    ) {
+      setTab(reservationTabParam);
+    }
+  }, [reservationTabParam]);
 
   useEffect(() => {
     if (!isOwnProfile || !isLoggedIn || !token) return;

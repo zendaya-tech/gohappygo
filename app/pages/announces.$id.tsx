@@ -1379,8 +1379,8 @@ export default function AnnounceDetail() {
         email={currentUser?.email || ''}
         onConfirm={handleBookingConfirm}
         onSuccess={() => {
-          // Redirect to profile reservations tab after successful booking
-          navigate('/profile?section=reservations');
+          const reservationTab = listing.isInstant ? 'accepted' : 'pending';
+          navigate(`/profile?section=reservations&reservationTab=${reservationTab}`);
         }}
       />
 

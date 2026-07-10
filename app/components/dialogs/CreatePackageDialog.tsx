@@ -503,7 +503,7 @@ export default function CreatePackageDialog({
                     </Field>
                     <div className="w-32">
                       <label className="mb-2 block text-sm font-semibold text-gray-900">
-                        {t('common.currency')}{' '}
+                        {t('dialogs.createPackage.currencyLabel')}{' '}
                         {!currency && <span className="text-red-500">*</span>}
                       </label>
                       <CurrencyComboBox
