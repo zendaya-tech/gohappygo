@@ -260,13 +260,13 @@ export default function RegisterDialog({
                     ? t('dialogs.register.verificationTitle')
                     : 'Finaliser votre inscription'}
               </h1>
-              <p className="text-sm sm text-gray-600">
-                {step === 1
-                  ? t('dialogs.register.subtitle')
-                  : step === 2
-                    ? t('dialogs.register.verificationSubtitle')
-                    : 'Ajoutez votre pays et votre numero pour finaliser votre compte.'}
-              </p>
+              {step !== 3 && (
+                <p className="text-sm sm text-gray-600">
+                  {step === 1
+                    ? t('dialogs.register.subtitle')
+                    : t('dialogs.register.verificationSubtitle')}
+                </p>
+              )}
             </div>
 
             <form className="space-y-4 sm:space-y-6 text-gray-500" onSubmit={onSubmit}>
