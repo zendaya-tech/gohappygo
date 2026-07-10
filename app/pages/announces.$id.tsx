@@ -177,8 +177,10 @@ export default function AnnounceDetail() {
     return firstName + ' ' + lastName;
   }, [listing?.user, t]);
 
-  const userRating = Number(listing?.user?.rating || 0);
+  const rawUserRating = listing?.user?.rating;
+  const userRating = Number(rawUserRating || 0);
   const displayUserRating = Number.isFinite(userRating) && userRating > 0 ? userRating : 0;
+  const displayUserRatingLabel = displayUserRating > 0 ? String(rawUserRating) : '0';
   const totalReviews = reviews.length;
 
   useEffect(() => {
@@ -710,7 +712,7 @@ export default function AnnounceDetail() {
                     <div className="font-semibold text-gray-900">{userName}</div>
                     <div className="text-xs text-gray-500">
                       {displayUserRating > 0
-                        ? `${t('profile.stats.rating')} ${displayUserRating.toFixed(1)}`
+                        ? `${t('profile.stats.rating')} ${displayUserRatingLabel}`
                         : t('pages.announceDetail.notRatedYet')}{' '}
                       •{' '}
                       {listing.user?.isVerified
@@ -920,7 +922,7 @@ export default function AnnounceDetail() {
                           <svg
                             key={i}
                             className={`h-4 w-4 ${
-                              i <= Math.round(displayUserRating) ? 'text-yellow-400' : 'text-gray-300'
+                              i <= Math.floor(displayUserRating) ? 'text-yellow-400' : 'text-gray-300'
                             }`}
                             viewBox="0 0 20 20"
                             fill="currentColor"
@@ -929,7 +931,7 @@ export default function AnnounceDetail() {
                           </svg>
                         ))}
                       </div>
-                      <span className="text-gray-700 font-medium">{displayUserRating.toFixed(1)}</span>
+                      <span className="text-gray-700 font-medium">{displayUserRatingLabel}</span>
                       <span className="text-gray-500">
                         ({t('reviews.countTotal', { count: totalReviews })})
                       </span>
