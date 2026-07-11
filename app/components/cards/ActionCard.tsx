@@ -99,7 +99,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
     if (isSelfieCta) {
       return (
         <div className="w-full">
-          <div className="relative flex min-h-11 w-full items-center justify-center rounded-full bg-[#2f75ad] px-4 py-2 pl-14 text-center text-xs font-extrabold text-black shadow-sm">
+          <div className="relative flex min-h-11 w-full items-center justify-center rounded-xl bg-[#2f75ad] px-4 py-2 pl-14 text-center text-xs font-extrabold text-white shadow-sm">
             <span className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#2f75ad] shadow-sm">
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
