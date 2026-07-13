@@ -714,7 +714,7 @@
       "searchTo": "Arrivée",
       "subtitle": "Faites enregistrer vos excédents de bagages par d'autres voyageurs sur le même vol que vous, pour la même destination",
       "title": "Emportez autant de bagages que vous le désirez avec GoHappyGo lors de votre voyage",
-      "titlePart1": "Emportez autant de bagages que vous le desirez avec",
+      "titlePart1": "Emportez autant de bagages que vous le désirez avec",
       "titlePart2": "lors de votre voyage",
       "toPlaceholder": "Aéroport d'arrivée"
     },
@@ -1120,7 +1120,11 @@
         {
           "title": "Gohappygo, porter plus que des bagages",
           "intro": "En choisissant Gohappygo, vous ne transportez pas seulement un bagage. Vous portez :",
-          "items": ["Une démarche responsable", "Une vision solidaire", "Un futur plus durable"],
+          "items": [
+            "Une démarche responsable",
+            "Une vision solidaire",
+            "Un futur plus durable"
+          ],
           "footerText": "Parce que voyager mieux, ce n'est pas voyager moins — c'est voyager plus intelligemment. 💙🌍"
         }
       ],
@@ -1494,7 +1498,11 @@
       "section3": {
         "content": "Porter un bagage, ce n'est pas grand-chose. Mais pour quelqu'un d'autre, c'est parfois :",
         "footer": "Le bonheur, ce sont ces <b>petits gestes ordinaires</b> qui créent des effets extraordinaires.",
-        "items": ["Une solution à un problème", "Un voyage plus serein", "Une confiance retrouvée"],
+        "items": [
+          "Une solution à un problème",
+          "Un voyage plus serein",
+          "Une confiance retrouvée"
+        ],
         "title": "De petits gestes, De grands effets."
       },
       "title": "LE BONHEUR,<br><span>ÇA SE PARTAGE AUSSI !</span>"
